@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Form, Radio } from 'antd';
-import { FormItemProps } from 'antd/es/form';
-import { RadioProps, RadioGroupProps, RadioGroupOptionType } from 'antd/es/radio';
-import { CheckboxOptionType } from 'antd/es/checkbox/Group';
+import { FormItemProps } from 'antd/lib/form';
+import { RadioProps, RadioGroupProps, RadioGroupOptionType } from 'antd/lib/radio';
+import { CheckboxOptionType } from 'antd/lib/checkbox/Group';
 import getLabel from '../_util/getLabel';
 import useFilterOptions from '../_util/useFilterOptions';
 

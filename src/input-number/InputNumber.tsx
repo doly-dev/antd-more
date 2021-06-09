@@ -1,6 +1,6 @@
 import React from 'react';
 import { InputNumber } from 'antd';
-import { InputNumberProps } from 'antd/es/input-number';
+import { InputNumberProps } from 'antd/lib/input-number';
 
 const prefixCls = 'antd-more-input-number';
 

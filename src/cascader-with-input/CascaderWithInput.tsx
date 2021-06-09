@@ -1,8 +1,8 @@
 import React, { useRef, useCallback } from 'react';
 import { Row, Col, Input, Cascader } from 'antd';
-import { CascaderProps, CascaderOptionType } from 'antd/es/cascader';
-import { InputProps } from 'antd/es/input';
-import { FormInstance } from 'antd/es/form';
+import { CascaderProps, CascaderOptionType } from 'antd/lib/cascader';
+import { InputProps } from 'antd/lib/input';
+import { FormInstance } from 'antd/lib/form';
 
 type ValueType = [string[] | number[], string | undefined];
 

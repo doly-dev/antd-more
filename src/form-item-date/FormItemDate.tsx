@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Form, DatePicker } from 'antd';
 import classNames from 'classnames';
-import { FormItemProps } from 'antd/es/form';
-import { DatePickerProps, MonthPickerProps, WeekPickerProps } from 'antd/es/date-picker';
+import { FormItemProps } from 'antd/lib/form';
+import { DatePickerProps, MonthPickerProps, WeekPickerProps } from 'antd/lib/date-picker';
 import FormItemDateRange from './FormItemDateRange';
 import { createDisabledDate } from './util';
 import getLabel from '../_util/getLabel';

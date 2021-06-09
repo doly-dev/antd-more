@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Form, Select } from 'antd';
-import { FormItemProps } from 'antd/es/form';
-import { SelectProps } from 'antd/es/select';
+import { FormItemProps } from 'antd/lib/form';
+import { SelectProps } from 'antd/lib/select';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { OptionCoreData, OptionGroupData } from 'rc-select/es/interface';
 import getLabel from '../_util/getLabel';

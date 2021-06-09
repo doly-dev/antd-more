@@ -1,16 +1,12 @@
 const pkg = require('./package.json');
-const version = `v${pkg.version.split('.')[0]}`;
+const version = process.env.BUIDL_DOC_VERSION ? `refs/heads/v${pkg.version.split('.')[0]}` : 'latest';
 
 const serverRootDirect = process.env.NODE_ENV === 'production' ? 'https://doly-dev.github.io/antd-more/' : '/';
 const logo = 'https://www.caijinfeng.com/assets/images/logo-doly@3x.png';
 const favicon = 'https://www.caijinfeng.com/assets/images/doly-touch-icon_48x48.png';
 
-const outputPath = 'site/' + version;
-// const outputPath = 'site';
-const publicPath = serverRootDirect + outputPath + '/';
-const manifestLink = `${publicPath}asset-manifest.json`;
-
-const links = process.env.NODE_ENV === 'production' ? [{ rel: 'manifest', href: manifestLink }] : [];
+const outputPath = 'site';
+const publicPath = serverRootDirect + version + '/';
 
 const umiConfig = {
   extraBabelPlugins: [
@@ -44,7 +40,6 @@ const umiConfig = {
   manifest: {
     publicPath
   },
-  links,
   hash: true,
   locales: [['zh-CN', '中文'], ['en-US', 'English']]
 };

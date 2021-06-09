@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Form, Cascader, Input, Row, Col } from 'antd';
-import { FormItemProps } from 'antd/es/form';
-import { InputProps } from 'antd/es/input';
-import { CascaderProps, CascaderOptionType } from 'antd/es/cascader';
+import { FormItemProps } from 'antd/lib/form';
+import { InputProps } from 'antd/lib/input';
+import { CascaderProps, CascaderOptionType } from 'antd/lib/cascader';
 import getLabel from '../_util/getLabel';
 import normalizeWhiteSpace from '../_util/normalizeWhiteSpace';
 

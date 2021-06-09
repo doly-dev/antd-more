@@ -1,6 +1,6 @@
 import React, { useCallback, useState, cloneElement } from 'react';
 import { Popover } from 'antd';
-import { PopoverProps } from 'antd/es/popover';
+import { PopoverProps } from 'antd/lib/popover';
 import classNames from 'classnames';
 import { transformColor, ColorObj } from './utils';
 

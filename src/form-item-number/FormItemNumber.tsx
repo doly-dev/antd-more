@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Form } from 'antd';
-import { FormItemProps } from 'antd/es/form';
-import { InputNumberProps } from 'antd/es/input-number';
+import { FormItemProps } from 'antd/lib/form';
+import { InputNumberProps } from 'antd/lib/input-number';
 import InputNumber from '../input-number';
 import getLabel from '../_util/getLabel';
 

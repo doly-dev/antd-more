@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Form, Input } from 'antd';
 import { isPassword } from 'util-helpers';
-import { FormItemProps } from 'antd/es/form';
-import { PasswordProps } from 'antd/es/input';
+import { FormItemProps } from 'antd/lib/form';
+import { PasswordProps } from 'antd/lib/input';
 import getLabel from '../_util/getLabel';
 
 export interface FormItemPasswrodProps extends FormItemProps {
