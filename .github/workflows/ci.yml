@@ -1,0 +1,41 @@
+name: Build and Deploy Docs
+on:
+  push:
+    branches:
+      - master
+      - v*
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2 # If you're using actions/checkout@v2 you must set persist-credentials to false in most cases for the deployment to work correctly.
+        with:
+          persist-credentials: false
+      - name: Install
+        run: yarn install
+      - name: Build package
+        run: yarn build
+      - name: Build latest docs
+        if: ${{github.ref == 'refs/heads/master'}}
+        run: yarn doc
+      - name: Deploy latest docs
+        if: ${{github.ref == 'refs/heads/master'}}
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN_WORKFLOW }}
+          BRANCH: gh-pages
+          FOLDER: site
+          TARGET_FOLDER: latest
+      - name: Build version docs
+        if: ${{github.ref != 'refs/heads/master'}}
+        run: yarn doc-version
+      - name: Deploy version docs
+        if: ${{github.ref != 'refs/heads/master'}}
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN_WORKFLOW }}
+          BRANCH: gh-pages
+          FOLDER: site
+          TARGET_FOLDER: ${{github.ref}}
