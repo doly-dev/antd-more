@@ -14,12 +14,12 @@ jobs:
         with:
           persist-credentials: false
       - name: Install
-        run: npm install
+        run: yarn install
       - name: Build package
-        run: npm run build
+        run: yarn build
       - name: Build latest docs
         if: ${{github.ref == 'refs/heads/master'}}
-        run: npm run doc
+        run: yarn doc
       - name: Deploy latest docs
         if: ${{github.ref == 'refs/heads/master'}}
         uses: JamesIves/github-pages-deploy-action@releases/v3
@@ -30,7 +30,7 @@ jobs:
           TARGET_FOLDER: latest
       - name: Build version docs
         if: ${{github.ref != 'refs/heads/master'}}
-        run: npm run doc-version
+        run: yarn doc-version
       - name: Deploy version docs
         if: ${{github.ref != 'refs/heads/master'}}
         uses: JamesIves/github-pages-deploy-action@releases/v3
