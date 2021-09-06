@@ -6,7 +6,7 @@
   "module": "es/index.js",
   "types": "lib/index.d.ts",
   "sideEffects": [
-    "*.less"
+    "./src/**/style/**"
   ],
   "scripts": {
     "start": "dumi dev",
@@ -50,12 +50,15 @@
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
     "@types/classnames": "^2.2.11",
+    "@types/mockjs": "^1.0.4",
+    "@types/node": "^16.7.10",
     "@types/react": "^17.0.3",
     "@types/react-color": "^3.0.4",
     "@types/react-dom": "^17.0.2",
     "@typescript-eslint/eslint-plugin": "^4.6.0",
     "@typescript-eslint/parser": "^4.6.0",
     "antd": "^4.10.2",
+    "babel-plugin-import": "^1.13.3",
     "commitlint": "^11.0.0",
     "cross-env": "^7.0.3",
     "cz-conventional-changelog": "^3.3.0",
@@ -79,7 +82,7 @@
     "classnames": "^2.2.6",
     "countdown-pro": "^1.0.2",
     "moment": "^2.29.1",
-    "rc-hooks": "^0.8.2",
+    "rc-hooks": "1",
     "react-color": "^2.19.3",
     "util-helpers": "^3.9.1"
   },
@@ -96,5 +99,8 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "resolutions": {
+    "@types/react": "17"
   }
 }
