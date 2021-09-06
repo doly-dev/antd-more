@@ -4,11 +4,12 @@ import { FormProps, FormInstance } from 'antd/es/form';
 import namePathSet from 'rc-util/es/utils/set';
 import classnames from 'classnames';
 import { isPromiseLike } from 'util-helpers';
-import { useUpdateEffect, useIsMounted } from 'rc-hooks';
+import { useUpdateEffect } from 'rc-hooks';
 import { transformFormValues } from '../_util/transform';
 import FieldContext, { TransformFn } from '../FieldContext';
 import ChildFormContext from '../ChildFormContext';
 import Submitter, { SubmitterProps } from './Submitter';
+import useIsMounted from '../hooks/useIsMounted';
 
 const prefixCls = 'antd-more-form';
 

@@ -2,13 +2,13 @@ import * as React from 'react';
 import { Steps, Form } from 'antd';
 import classNames from 'classnames';
 import { isPromiseLike } from 'util-helpers';
-import { useIsMounted } from 'rc-hooks';
 import { StepsProps, StepProps } from 'antd/es/steps';
 import StepsFormContext from './StepsFormContext';
 import { BaseFormProps } from '../BaseForm';
 import StepForm, { StepFormProps } from './StepForm';
 import StepsSubmitter, { StepsSubmitterProps } from './StepsSubmitter';
 import SyncMemoryStore from '../../_util/SyncMemoryStore';
+import useIsMounted from '../../hooks/useIsMounted';
 
 const prefixCls = 'antd-more-steps-form';
 const formItemHideLabelClass = 'antd-more-form-item-hide-label';
@@ -215,8 +215,8 @@ const StepsForm: React.FC<StepsFormProps> & {
 
     const dom = (
       <Steps {...stepsProps} current={step}>
-        {stepsConfigRef.current.map((item) => (
-          <Steps.Step {...item} />
+        {stepsConfigRef.current.map((item, index) => (
+          <Steps.Step key={`${item.title}`} {...item} />
         ))}
       </Steps>
     );

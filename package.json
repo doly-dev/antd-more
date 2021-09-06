@@ -53,9 +53,9 @@
     "@types/classnames": "^2.2.11",
     "@types/mockjs": "^1.0.4",
     "@types/node": "^16.7.10",
-    "@types/react": "^17.0.3",
-    "@types/react-color": "^3.0.4",
-    "@types/react-dom": "^17.0.2",
+    "@types/react": "^17",
+    "@types/react-color": "^3.0.5",
+    "@types/react-dom": "^17",
     "@typescript-eslint/eslint-plugin": "^4.6.0",
     "@typescript-eslint/parser": "^4.6.0",
     "antd": "^4.10.2",
@@ -83,7 +83,7 @@
     "classnames": "^2.2.6",
     "countdown-pro": "^1.0.2",
     "moment": "^2.29.1",
-    "rc-hooks": "1",
+    "rc-hooks": "^0.8.3",
     "react-color": "^2.19.3",
     "util-helpers": "^3.9.1"
   },
@@ -100,8 +100,5 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  },
-  "resolutions": {
-    "@types/react": "17"
   }
 }
