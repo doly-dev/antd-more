@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Form } from 'antd';
 import { FormProps, FormInstance } from 'antd/es/form';
-import namePathSet from 'rc-util/es/utils/set'; // eslint-disable-line import/no-extraneous-dependencies
+import namePathSet from 'rc-util/es/utils/set';
 import classnames from 'classnames';
 import { isPromiseLike } from 'util-helpers';
-import { useUpdateEffect } from 'rc-hooks';
+import { useUpdateEffect, useIsMounted } from 'rc-hooks';
 import { transformFormValues } from '../_util/transform';
 import FieldContext, { TransformFn } from '../FieldContext';
 import ChildFormContext from '../ChildFormContext';
@@ -61,10 +61,15 @@ const BaseForm: React.FC<BaseFormProps> = ({
   const [form] = Form.useForm();
   const formRef = React.useRef<FormInstance>(formProp || form);
   const [loading, setLoading] = React.useState(outLoading);
+  const isMountedRef = useIsMounted();
 
   const [isUpdate, updateState] = React.useState(false);
   const forgetUpdate = () => {
-    setTimeout(() => updateState(true));
+    setTimeout(() => {
+      if (isMountedRef.current) {
+        updateState(true);
+      }
+    });
   };
 
   const transformRecordRef = React.useRef<Record<string, TransformFn | undefined>>({});

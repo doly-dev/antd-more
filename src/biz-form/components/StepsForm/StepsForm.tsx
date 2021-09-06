@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Steps, Form } from 'antd';
 import classNames from 'classnames';
 import { isPromiseLike } from 'util-helpers';
+import { useIsMounted } from 'rc-hooks';
 import { StepsProps, StepProps } from 'antd/es/steps';
 import StepsFormContext from './StepsFormContext';
 import { BaseFormProps } from '../BaseForm';
@@ -65,10 +66,16 @@ const StepsForm: React.FC<StepsFormProps> & {
   const stepsConfigRef = React.useRef([]); // 步骤条配置
   const formDataRef = React.useRef({}); // 全部表单数据
 
+  const isMountedRef = useIsMounted();
+
   // 手动触发更新
   const [updateCount, updateState] = React.useState(0);
   const forgetUpdate = () => {
-    setTimeout(() => updateState((c) => c + 1));
+    setTimeout(() => {
+      if (isMountedRef.current) {
+        updateState((c) => c + 1);
+      }
+    });
   };
 
   // 记录当前操作
