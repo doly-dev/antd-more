@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { UploadProps } from 'antd/es/upload';
+import Preview from './Preview';
 import BizFormItem, { BizFormItemProps } from '../Item';
 import { UploadWrapperProps } from './UploadWrapper';
 import UploadButton from './UploadButton';
@@ -40,7 +41,9 @@ export interface FormItemUploadProps
   title?: React.ReactNode;
 }
 
-const FormItemUpload: React.FC<FormItemUploadProps> = ({
+const FormItemUpload: React.FC<FormItemUploadProps> & {
+  Preview: typeof Preview;
+} = ({
   uploadProps,
   accept,
   onUpload,
@@ -117,5 +120,7 @@ const FormItemUpload: React.FC<FormItemUploadProps> = ({
     </BizFormItem>
   );
 };
+
+FormItemUpload.Preview = Preview;
 
 export default FormItemUpload;
