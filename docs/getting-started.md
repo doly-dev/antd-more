@@ -37,11 +37,9 @@ ReactDon.render(<BizField value="red" valueType="color" />, mountNode);
 
 ## 对应版本
 
-| antd-more | antd |
-| --------- | ---- |
-| v0.x      | v4.x |
-| v1.x      | v4.x |
-| v2.x      | v4.x |
+| antd-more            | antd   |
+| -------------------- | ------ |
+| `v0.x` `v1.x` `v2.x` | `v4.x` |
 
 ## API
 
