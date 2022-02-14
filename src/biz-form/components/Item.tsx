@@ -60,18 +60,17 @@ const BizFormItem: React.FC<BizFormItemProps> = ({
         ? { flex: `0 0 ${labelWidth}px` }
         : formLabelColFlex;
     const labelStyle = {
-      style: {
-        ...formLabelStyle,
-        ...(formHideLabel && hideLabel === false ? { display: 'block' } : {}),
-        ...(hideLabel ? { display: 'none' } : {}),
-        ...labelCol?.style
-      }
+      ...formLabelStyle,
+      ...(formHideLabel && hideLabel === false ? { display: 'block' } : {}),
+      ...(hideLabel ? { display: 'none' } : {}),
+      ...labelCol?.style
     };
+    const realLabelStyle = Object.keys(labelStyle).length > 0 ? { style: labelStyle } : undefined;
     return {
       ...restFormLabelCol,
       ...labelFlex,
       ...labelCol,
-      ...labelStyle
+      ...realLabelStyle
     };
   }, [layout, labelWidth, hideLabel, labelCol, formHideLabel, formLabelCol]);
 
@@ -86,7 +85,7 @@ const BizFormItem: React.FC<BizFormItemProps> = ({
       name={name}
       validateFirst
       rules={[...rules, ...extendRules]}
-      labelCol={labelColProps}
+      labelCol={Object.keys(labelColProps).length > 0 ? labelColProps : undefined}
       shouldUpdate={shouldUpdate}
       trigger={trigger}
       {...restProps}
