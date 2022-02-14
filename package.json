@@ -1,6 +1,6 @@
 {
   "name": "antd-more",
-  "version": "2.7.2",
+  "version": "2.7.3",
   "description": "基于 antd 扩展的业务场景组件。",
   "main": "lib/index.js",
   "module": "es/index.js",
