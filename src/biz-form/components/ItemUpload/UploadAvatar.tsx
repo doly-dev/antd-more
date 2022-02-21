@@ -25,7 +25,7 @@ const UploadAvatar: React.FC<{
   const transformBase64 = React.useCallback(async () => {
     if (currentFile) {
       if (!currentFile.url && !currentFile.preview) {
-        currentFile.preview = await getBase64(currentFile as any);
+        currentFile.preview = await getBase64((currentFile?.originFileObj || currentFile) as File);
       }
       setImgUrl(currentFile.url || currentFile.preview);
     }
