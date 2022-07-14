@@ -34,5 +34,3 @@ export type { SliderRangeProps } from 'antd/lib/slider';
 export type { FormListProps } from 'antd/lib/form';
 
 export type { UploadFile, UploadChangeParam, RcFile } from 'antd/lib/upload/interface';
-
-export type { OptionCoreData, OptionGroupData } from 'rc-select/es/interface';

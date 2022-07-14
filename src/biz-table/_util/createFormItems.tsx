@@ -55,7 +55,7 @@ export function createFormItem({ search, ...restProps }: SearchProps, form: Form
 
   const dom = (
     <Comp
-      label={label || title}
+      label={label || (title as React.ReactNode)}
       name={name || (dataIndex as NamePath)}
       options={valueEnum}
       {...showTimeProps}

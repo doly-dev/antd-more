@@ -40,7 +40,7 @@ const ColumnSetting = () => {
     return columns.map((item, index) => {
       return {
         key: columnsKey[index],
-        title: item.title || ''
+        title: (item.title || '') as React.ReactNode
       };
     });
   }, [columns, columnsKey]);

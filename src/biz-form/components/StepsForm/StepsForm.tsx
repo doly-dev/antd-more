@@ -43,6 +43,7 @@ export interface StepsFormProps {
     formDom: React.ReactNode,
     submitterDom: React.ReactNode
   ) => React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const StepsForm: React.FC<StepsFormProps> & {

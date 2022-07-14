@@ -100,7 +100,7 @@ const BizFormItem: React.FC<BizFormItemProps> = ({
               trigger={trigger}
               {...contentConfig}
             >
-              {renderField ? renderField(innerChildren) : innerChildren}
+              {renderField ? renderField(innerChildren as React.ReactElement) : innerChildren}
             </WrapperFormElement>
           );
         }
