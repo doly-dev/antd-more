@@ -13,9 +13,9 @@ export interface BizDescriptionsItemProps<DataType extends object = any>
   valueEnum?: EnumData;
   tooltip?: WithTooltipProps['tooltip'];
   field?:
-    | Partial<BizFieldProps>
-    | ((text: any, record?: DataType, index?: number) => Partial<BizFieldProps>);
-  key?: React.ReactText;
+  | Partial<BizFieldProps>
+  | ((text: any, record?: DataType, index?: number) => Partial<BizFieldProps>);
+  key?: string | number;
   dataSource?: DataType;
   index?: number;
 }
@@ -51,8 +51,8 @@ type DataIndex = string | number;
 export interface BizDescriptionsColumnItemProps<DataType extends object = any>
   extends Omit<BizDescriptionsItemProps<DataType>, 'children' | 'field'> {
   field?:
-    | Partial<BizFieldProps>
-    | ((text: any, record: DataType, index: number) => Partial<BizFieldProps>);
+  | Partial<BizFieldProps>
+  | ((text: any, record: DataType, index: number) => Partial<BizFieldProps>);
   dataIndex?: DataIndex | DataIndex[];
   title?: React.ReactNode;
   render?: (value: any, dataSource: DataType, index: number) => React.ReactNode;
@@ -81,9 +81,19 @@ function BizDescriptions<DataType extends object = any>({
     [title, tooltip, column]
   );
 
-  const currentDom = React.Children.map(children, (item: any) =>
-    createDescriptionsItem(item.props)
-  );
+  const getChilds = (childs) => {
+    return React.Children.map(childs, (item: any) => {
+      if (item && item?.props) {
+        if (item.type === Symbol.for('react.fragment') && item.props.children) {
+          return getChilds(item.props.children);
+        }
+        return createDescriptionsItem(item.props);
+      }
+      return item;
+    });
+  };
+
+  const currentDom = getChilds(children);
 
   if (
     typeof dataSource === 'object' &&
