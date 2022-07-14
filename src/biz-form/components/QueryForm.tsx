@@ -1,8 +1,11 @@
 import * as React from 'react';
+import classnames from 'classnames';
 import { Form, Row, Col, Space } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import type { BaseFormProps } from './BaseForm';
 import BaseForm from './BaseForm';
+
+const prefixCls = 'antd-more-form';
 
 export interface CollapseProps {
   collapsed: boolean;
@@ -14,7 +17,7 @@ const Collapse: React.FC<CollapseProps> = React.memo(({ collapsed, onToggle }) =
     onToggle?.(!collapsed);
   };
   return (
-    <a onClick={handleToggle}>
+    <a onClick={handleToggle} className={`${prefixCls}-query-collapse`}>
       {collapsed ? '展开' : '收起'}
       <DownOutlined
         style={{
@@ -51,6 +54,7 @@ const QueryForm: React.FC<QueryFormProps> = (props) => {
     resetText = '重置',
     defaultCollapsed = true,
     defaultColsNumber,
+    className,
     ...restProps
   } = props;
   const [collapsed, setCollapsed] = React.useState(defaultCollapsed);
@@ -63,6 +67,7 @@ const QueryForm: React.FC<QueryFormProps> = (props) => {
         // render: (_, dom) => dom.reverse(),
         ...submitter
       }}
+      className={classnames(`${prefixCls}-query`, className)}
       layout={layout}
       contentRender={(items, internalSubmitter) => {
         const enabledCollapse =
