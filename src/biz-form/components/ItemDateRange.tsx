@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { DatePicker } from 'antd';
+// import { DatePicker } from 'antd';
+import DatePicker from './form/DatePicker';
 import classNames from 'classnames';
-import type { Dayjs } from 'dayjs';
 import type { RangePickerProps, RangePickerDateProps } from './antd.interface';
 import type { Picker } from '../_util/dateUtil';
 import {
@@ -27,13 +27,13 @@ const DateRangePickerWrapper: React.FC<RangePickerProps> = ({ value, format, ...
 
 export interface BizFormItemDateRangeProps
   extends BizFormItemProps,
-  Pick<RangePickerDateProps<Dayjs>, 'showTime' | 'placeholder' | 'allowClear'> {
+  Pick<RangePickerDateProps, 'showTime' | 'placeholder' | 'allowClear'> {
   disabledDateBefore?: number;
   disabledDateAfter?: number;
   maxRange?: number; // 最大可选范围值，根据当前 picker 为单位。
   format?: string;
   picker?: Picker;
-  pickerProps?: RangePickerProps & Pick<RangePickerDateProps<Dayjs>, 'showTime'>;
+  pickerProps?: RangePickerProps & Pick<RangePickerDateProps, 'showTime'>;
   names?: [string, string];
 }
 

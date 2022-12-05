@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { TimePicker } from 'antd';
+// import { TimePicker } from 'antd';
+import TimePicker from './form/TimePicker';
 import classNames from 'classnames';
 import type { TimePickerProps } from './antd.interface';
 import type { BizFormItemProps } from './Item';

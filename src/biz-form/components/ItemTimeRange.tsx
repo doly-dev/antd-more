@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { TimePicker } from 'antd';
+// import { TimePicker } from 'antd';
+import TimeRangePicker from './form/TimeRangePicker';
 import classNames from 'classnames';
 import type { TimeRangePickerProps } from './antd.interface';
 import type { BizFormItemProps } from './Item';
@@ -14,15 +15,13 @@ import 'antd/es/date-picker/style';
 
 const prefixCls = 'antd-more-form-item-date';
 
-const { RangePicker } = TimePicker;
-
 const TimePickerRangeWrapper: React.FC<TimeRangePickerProps> = ({
   value,
   format,
   ...restProps
 }) => {
   return (
-    <RangePicker
+    <TimeRangePicker
       value={transformDayjsTime(value, format as string)}
       format={format}
       {...restProps}

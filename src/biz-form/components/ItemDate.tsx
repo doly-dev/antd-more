@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { DatePicker } from 'antd';
+// import { DatePicker } from 'antd';
+import DatePicker from './form/DatePicker';
 import classNames from 'classnames';
 import type {
   DatePickerProps,
-  TimePickerProps,
   MonthPickerProps,
   WeekPickerProps
 } from './antd.interface';
@@ -17,23 +17,23 @@ import getLabel from '../_util/getLabel';
 // 兼容 antd v4
 import 'antd/es/date-picker/style';
 
-const DatePickerWrapper: React.FC<DatePickerProps | MonthPickerProps | WeekPickerProps | any> = ({
+const DatePickerWrapper: React.FC<DatePickerProps | MonthPickerProps | WeekPickerProps> = ({
   value,
   format,
   ...restProps
 }) => {
-  return <DatePicker value={transformDayjsValue(value, format)} format={format === DateFormat['quarter'] ? undefined : format} {...restProps} />;
+  return <DatePicker value={transformDayjsValue(value, format as string)} format={format === DateFormat['quarter'] ? undefined : format} {...restProps} />;
 };
 
 export interface BizFormItemDateProps extends BizFormItemProps {
   disabledDateBefore?: number;
   disabledDateAfter?: number;
-  showTime?: TimePickerProps | boolean;
+  showTime?: boolean;
   format?: string;
   picker?: Picker;
   placeholder?: string;
   allowClear?: boolean;
-  pickerProps?: DatePickerProps | MonthPickerProps | WeekPickerProps | any;
+  pickerProps?: DatePickerProps;
 }
 
 const prefixCls = 'antd-more-form-item-date';
@@ -60,7 +60,7 @@ const BizFormItemDate: React.FC<BizFormItemDateProps> = ({
     return getDateFormat(
       pickerProps.format || format,
       currentPicker,
-      pickerProps.showTime || showTime
+      (pickerProps.showTime as boolean) || showTime
     );
   }, [format, pickerProps.format, currentPicker, pickerProps.showTime, showTime]);
   const disabledDate = React.useMemo(
