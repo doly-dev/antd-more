@@ -80,20 +80,18 @@ const LoginDemo = () => {
           inputProps={{
             prefix: <MailOutlined />
           }}
-          validateTrigger="onChange"
           label="邮箱"
           required
         />
         <BizFormItemInput
           name="mobile"
           type="mobile"
+          format={false}
           placeholder="请输入手机号码"
           inputProps={{
             prefix: <MobileOutlined />
           }}
-          validateTrigger="onChange"
           label="手机号码"
-          format={false}
           required
         />
         <BizFormItemCaptcha

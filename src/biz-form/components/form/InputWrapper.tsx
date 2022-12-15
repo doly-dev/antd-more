@@ -23,9 +23,13 @@ const InputWrapper: React.FC<InputWrapperProps> = ({
   type,
   disabledWhiteSpace,
   format = true,
+  maxLength,
   ...restProps
 }) => {
   const maxLen = React.useMemo(() => {
+    if (typeof maxLength !== 'undefined') {
+      return maxLength;
+    }
     if (!format) {
       if (type === 'mobile') {
         return 11;
@@ -34,7 +38,7 @@ const InputWrapper: React.FC<InputWrapperProps> = ({
       }
     }
     return undefined;
-  }, [format, type]);
+  }, [format, maxLength, type]);
   const realType = React.useMemo(() => {
     if (
       type === 'bankCard' ||
