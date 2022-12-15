@@ -26,6 +26,7 @@ public
 .rpt2_cache
 example
 _bak
+dumi/tmp
 
 es
 lib
