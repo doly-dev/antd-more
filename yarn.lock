@@ -10232,10 +10232,10 @@ rc-field-form@~1.27.0:
     async-validator "^4.1.0"
     rc-util "^5.8.0"
 
-rc-hooks@^2.2.3:
-  version "2.2.3"
-  resolved "https://registry.npmjs.org/rc-hooks/-/rc-hooks-2.2.3.tgz#2630ca4de1b9be74eeda6adf256d5bcd0eeffdad"
-  integrity sha512-TBYvXG75k+0s/ySD0jxi5JfpFrioYfC9/vkOZ94C92jAk2XB1HIQIg6iodoWxgb49xjShRZTHPZmTDsKrjOggA==
+rc-hooks@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.npmjs.org/rc-hooks/-/rc-hooks-2.3.0.tgz#9a296b2dca55bd255843c8c1e3d5ee2718e72f3e"
+  integrity sha512-AMkPo3oiDR93UedhVvTF6O2RznbHRvNlHrrjA8u20Ksli/mrps03kziHIMQP/c6NlKr1d381XFXdC8mmOFWBcg==
   dependencies:
     "@types/lodash" "^4.14.184"
     lodash "^4.17.21"

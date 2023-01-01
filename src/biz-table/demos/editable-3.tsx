@@ -18,6 +18,7 @@ const defaultData = Mock.mock({
 const { EditableBizTable } = BizTable;
 
 const Demo = () => {
+  const [dataSource, setDataSource] = React.useState(defaultData);
   const [editableKeys, setEditableKeys] = React.useState(() => defaultData.map((item) => item.id));
   const editableActionRef = React.useRef<EditableBizTableActionType>();
 
@@ -56,14 +57,15 @@ const Demo = () => {
   return (
     <>
       <EditableBizTable
-        value={defaultData}
+        value={dataSource}
+        onValuesChange={(values) => {
+          console.log('onValuesChange ', values);
+          setDataSource(values);
+        }}
         columns={columns}
         rowKey="id"
         size="middle"
         bordered
-        onValuesChange={(values) => {
-          console.log('onValuesChange ', values);
-        }}
         editable={{
           editableKeys,
           editableActionRef,

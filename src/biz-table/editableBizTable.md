@@ -16,52 +16,48 @@ nav:
 
 **注意说明**
 
-- 内部保存了两套数据，分别为 `已存在的数据`和`新增数据`。外部只能在同时设置 `value` 和 `onChange` 时控制已存在的数据。
-- `onValuesChange` 在新增和已存在数据编辑状态下有变动时触发。当存在 `onValuesChange` 时，已存在的数据将变为`不可控`。
+- 如果使用 `onChange` 内部将保存了两套数据，分别为 `已存在的数据`和`新增数据`。
 - 新增数据在 `editableActionRef.current.save` 之后才会变成已存在的数据。
-- 如果单行保存/删除需要同步服务端，请保证不要有同时触发多个异步保存或删除数据的情况（通过 loading 或 判断操作数据数量），不然编辑状态可能会产生偏差。
 
 ## 代码演示
 
 ### 可编辑表格
 
-<code src="./demos/editable-1.tsx" />
+<code src="../../src/biz-table/demos/editable-1.tsx"></code>
 
 ### 更多操作
 
-<code src="./demos/editable-2.tsx" />
+<code src="../../src/biz-table/demos/editable-2.tsx"></code>
 
 ### 实时数据
 
-<code src="./demos/editable-3.tsx" />
+<code src="../../src/biz-table/demos/editable-3.tsx"></code>
 
 ### 结合 Form 使用 1
 
-<code src="./demos/editable-withForm-1.tsx" />
+<code src="../../src/biz-table/demos/editable-withForm-1.tsx"></code>
 
 ### 结合 Form 使用 2
 
 **注意**该示例含编辑状态切换，所以不需要设置 `trigger=onValuesChange` 。并且修改和新增只有保存成功后才会加入 form 的数据中。
 
-<code src="./demos/editable-withForm-2.tsx" />
+<code src="../../src/biz-table/demos/editable-withForm-2.tsx"></code>
 
 ### 结合 Form 使用 3
 
-<code src="./demos/editable-withForm-3.tsx" />
+<code src="../../src/biz-table/demos/editable-withForm-3.tsx"></code>
 
 ### 含查询表单和分页
 
-<code src="./demos/editable-request-1.tsx" background="#f5f5f5" />
+<code src="../../src/biz-table/demos/editable-request-1.tsx" background="#f5f5f5"></code>
 
 ## API
-
-```typescript
-import { BizTable } from 'antd-more';
-```
 
 ### EditableBizTable
 
 ```typescript
+import { BizTable } from 'antd-more';
+
 const { EditableBizTable } = BizTable;
 ```
 
@@ -69,9 +65,9 @@ const { EditableBizTable } = BizTable;
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| value | 当前已存在的数据，同表格的 `dataSource` | `T[]` | - |
-| onChange | dataSource 修改时，已存在的数据保存和删除时触发。<br/>如果设置了`value`，并且没有`onValuesChange`，将变为一个受控组件。 | `(values: T[]) => void` | - |
-| onValuesChange | 新增和已存在数据编辑状态下有变动时触发，可用于实时数据 或 表单中。<br/>设置该方法后，已存在的数据将变成不可控。 | `(values: T[]) => void` | - |
+| value | 当前已存在的数据，同表格的 `dataSource` 。设置 `value` 表示为受控组件。 | `T[]` | - |
+| onChange | 数据保存和删除时触发。<br/>如果同时设置了 `onValuesChange` ， `onChange` 将失效。 | `(values: T[]) => void` | - |
+| onValuesChange | 数据变动时触发，可用于实时数据 或 表单中。<br/>如果同时设置了 `onChange` ， `onChange` 将失效。 | `(values: T[]) => void` | - |
 | editable | 编辑表格的配置 | `EditableOptions` | - |
 
 ### editable 配置
@@ -122,7 +118,7 @@ const columns = [
 
 `columns` 部分配置跟表单项配置的映射：
 
-```
+```text
 dataIndex = name
 title = label
 valueType = itemType

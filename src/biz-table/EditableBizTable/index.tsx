@@ -1,9 +1,7 @@
 import * as React from 'react';
-import { useUpdateEffect } from 'rc-hooks';
-import type { BizFormProps } from '../../biz-form';
-import type { TransformRecordActionType } from '../../biz-form/components/BaseForm';
+import { useUpdateEffect, useControllableValue } from 'rc-hooks';
+import type { BizFormProps, BizFormExtraInstance } from '../../biz-form';
 import { BizForm } from '../../biz-form';
-import { transformFormValues } from '../../biz-form/_util/transform';
 import ChildFormContext from '../../biz-form/ChildFormContext';
 import type { BizTableProps } from '../BizTable';
 import BizTable from '../BizTable';
@@ -50,7 +48,7 @@ export interface EditableBizTableEditable<RecordType = any> {
   editableActionRef?: React.MutableRefObject<EditableBizTableActionType<RecordType> | undefined>;
   formProps?: Omit<
     BizFormProps,
-    'form' | 'name' | 'onValuesChange' | 'transformRecordActionRef' | 'component'
+    'form' | 'name' | 'onValuesChange' | 'transformRecordActionRef' | 'component' | 'formExtraRef'
   >;
 }
 
@@ -65,27 +63,35 @@ export interface EditableBizTableProps<RecordType extends object = any>
   onTableChange?: BizTableProps<RecordType>['onChange'];
 }
 
-const EditableBizTable = <RecordType extends object = any>({
-  value: outValue,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  dataSource,
-  onValuesChange,
-  editable,
-  onChange,
-  onTableChange,
+const EditableBizTable = <RecordType extends object = any>(props: EditableBizTableProps<RecordType>) => {
+  const {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    value: outValue,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    dataSource,
+    onValuesChange,
+    editable,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    onChange,
+    onTableChange,
 
-  rowKey: outRowKey,
-  size,
-  ...restProps
-}: EditableBizTableProps<RecordType>) => {
+    rowKey: outRowKey,
+    size,
+    ...restProps
+  } = props;
   const [form] = BizForm.useForm();
   const formName = React.useMemo(() => createUniqueId(), []);
-  const [value, setValue] = React.useState(outValue || []);
+  const [value, setValue] = useControllableValue(props, {
+    defaultValue: [],
+    trigger: typeof onValuesChange === 'function' ? 'onValuesChange' : 'onChange'
+  });
   const [newRecords, setNewRecords] = React.useState<
     { index: number; rowKey: Key; recordConfig: Partial<RecordType> }[]
   >([]); // 新增记录
 
   const editableKeyMapRef = React.useRef<Record<string, any>>({});
+  const triggerTimer = React.useRef(null);
+  const innerTriggerFlag = React.useRef(false); // 标识内部触发 onValusChange 
 
   const { regChildForm, unregChildForm } = React.useContext(ChildFormContext) || {};
 
@@ -94,31 +100,42 @@ const EditableBizTable = <RecordType extends object = any>({
     return () => unregChildForm?.(formName);
   }, [form, formName, regChildForm, unregChildForm]);
 
-  const changeValue = (val) => {
-    if (typeof outValue !== 'undefined' && typeof onChange === 'function') {
-      onChange?.(val);
-    } else {
-      setValue(val);
-    }
-  };
+  // const changeValue = (val) => {
+  //   if (typeof outValue !== 'undefined' && typeof onChange === 'function') {
+  //     onChange?.(val);
+  //   } else {
+  //     setValue(val);
+  //   }
+  // };
+
+  // useUpdateEffect(() => {
+  //   if (typeof outValue !== 'undefined' && (typeof onChange === 'function' || typeof onValuesChange === 'function')) {
+  //     // if (typeof outValue === 'undefined') {
+  //     setValue(outValue);
+  //   }
+  // }, [outValue]);
+
+  // useUpdateEffect(() => {
+  //   if (typeof outValue === 'undefined') {
+  //     onChange?.(value);
+  //   }
+  // }, [value]);
 
   useUpdateEffect(() => {
-    if (typeof outValue !== 'undefined' && typeof onChange === 'function') {
-      setValue(outValue);
+    clearTimeout(triggerTimer.current);
+    if (innerTriggerFlag.current) {
+      innerTriggerFlag.current = false;
+      triggerTimer.current = setTimeout(() => {
+        triggerValuesChange(editableKeyMapRef.current);
+      });
     }
-  }, [outValue]);
-
-  useUpdateEffect(() => {
-    if (typeof outValue === 'undefined') {
-      onChange?.(value);
-    }
-  }, [value]);
+  }, [value, newRecords]);
 
   // 转换值
-  const transformRecordActionRef = React.useRef<TransformRecordActionType>();
+  const formExtraRef = React.useRef<BizFormExtraInstance>();
   const handleValuesChange = (val, allValue) => {
     if (typeof onValuesChange === 'function') {
-      const ret = transformFormValues(allValue, transformRecordActionRef.current?.get());
+      const ret = formExtraRef.current?.transformFieldsValue(allValue) || {};
       onValuesChange(
         Object.keys(ret).map((item) => ({
           ...editableKeyMapRef.current[item]?.record,
@@ -129,13 +146,13 @@ const EditableBizTable = <RecordType extends object = any>({
   };
 
   // 手动触发value change
-  const triggerValuesChange = () => {
+  const triggerValuesChange = (editableKeyMap?: any) => {
     if (typeof onValuesChange === 'function') {
-      const values = form.getFieldsValue();
-      const ret = transformFormValues(values, transformRecordActionRef.current?.get());
+      const ret = formExtraRef.current?.getTransformFieldsValue() || {};
+      const recordMap = editableKeyMap || editableKeyMapRef.current;
       onValuesChange(
         Object.keys(ret).map((item) => ({
-          ...editableKeyMapRef.current[item]?.record,
+          ...recordMap[item]?.record,
           ...ret[item]
         }))
       );
@@ -164,10 +181,7 @@ const EditableBizTable = <RecordType extends object = any>({
         editableKeyMapRef.current[rowKey]
       ) {
         const values = form.getFieldsValue(editableKeyMapRef.current[rowKey]?.nameList);
-        const transformValues = transformFormValues(
-          values,
-          transformRecordActionRef.current?.get()
-        );
+        const transformValues = formExtraRef.current?.transformFieldsValue(values) || {};
         const retValue = (Object.values(transformValues) as object[])[0];
         return { ...editableKeyMapRef.current[rowKey]?.record, ...retValue };
       } else {
@@ -261,7 +275,7 @@ const EditableBizTable = <RecordType extends object = any>({
     } else {
       newValue = value.map((item) => (getCurentRowKey(item) === rowKey ? fieldsValue : item));
     }
-    changeValue(newValue);
+    setValue(newValue);
     editable?.onChange?.(
       editable?.editableKeys.filter((item) => item !== rowKey),
       fieldsValue
@@ -291,7 +305,7 @@ const EditableBizTable = <RecordType extends object = any>({
       );
     } else {
       const newValue = value.filter((item) => getCurentRowKey(item) !== rowKey);
-      changeValue(newValue);
+      setValue(newValue);
     }
     editable?.onChange?.(
       editable?.editableKeys.filter((item) => item !== rowKey),
@@ -325,7 +339,6 @@ const EditableBizTable = <RecordType extends object = any>({
     }
 
     const fieldsValue = getFieldsByRowKey(rowKey);
-    // TODO 去重，防止重复触发
     editable?.onChange?.([...(editable?.editableKeys || []), rowKey], fieldsValue);
   };
 
@@ -334,33 +347,37 @@ const EditableBizTable = <RecordType extends object = any>({
   // 第二个参数为插入的位置，默认为最后位置
   // 记录新增的key，将数据加入内部数据中。更新编辑状态
   const handleAdd = (record: Partial<RecordType>, index?: number) => {
-    const currentIndex = getAddRecordIndex(index, value.length + newRecords.length);
+    const currentIndex = getAddRecordIndex(index, (value?.length || 0) + newRecords.length);
     const currentRowKey = getCurentRowKey(record);
 
-    // 如果通过外部值实时变化，无需使用新增记录
-    if (outValue && typeof onValuesChange === 'function') {
-      const newValue = value.slice();
-      newValue.splice(currentIndex, 0, record as any);
-      setValue(newValue);
-    } else {
-      const tmpNewRecords = newRecords.map((item) => {
-        const newItem = { ...item };
-        if (item.index >= currentIndex) {
-          newItem.index += 1;
-        }
-        return newItem;
-      });
-      setNewRecords([
-        ...tmpNewRecords,
-        {
-          index: currentIndex,
-          rowKey: currentRowKey,
-          recordConfig: record
-        }
-      ]);
-    }
     editable?.onChange?.([...(editable?.editableKeys || []), currentRowKey], record);
-    setTimeout(() => triggerValuesChange(), 0); // dom渲染后再触发更新
+    innerTriggerFlag.current = true;
+
+    setTimeout(() => {
+      // 如果通过外部值实时变化，无需使用新增记录
+      // if (outValue && typeof onValuesChange === 'function') {
+      if (typeof onValuesChange === 'function') {
+        const newValue = value?.slice() || [];
+        newValue.splice(currentIndex, 0, record as any);
+        setValue(newValue);
+      } else {
+        const tmpNewRecords = newRecords.map((item) => {
+          const newItem = { ...item };
+          if (item.index >= currentIndex) {
+            newItem.index += 1;
+          }
+          return newItem;
+        });
+        setNewRecords([
+          ...tmpNewRecords,
+          {
+            index: currentIndex,
+            rowKey: currentRowKey,
+            recordConfig: record
+          }
+        ]);
+      }
+    });
   };
 
   // 获取所有新增记录
@@ -370,12 +387,11 @@ const EditableBizTable = <RecordType extends object = any>({
   };
 
   const handleDataSourceChange = (records) => {
+    innerTriggerFlag.current = true;
     form.setFieldsValue({});
-    changeValue(records);
+    setValue(records);
     restProps?.onDataSourceChange?.(records);
     setNewRecords([]);
-    // 手动触发
-    setTimeout(() => triggerValuesChange(), 0);
   };
 
   React.useImperativeHandle(editable?.editableActionRef, () => ({
@@ -404,7 +420,7 @@ const EditableBizTable = <RecordType extends object = any>({
       name={formName}
       component={false}
       onValuesChange={handleValuesChange}
-      transformRecordActionRef={transformRecordActionRef}
+      formExtraRef={formExtraRef}
       form={form}
     >
       <BizTable

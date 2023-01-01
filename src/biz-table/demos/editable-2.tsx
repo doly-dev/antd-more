@@ -48,6 +48,7 @@ const Demo = () => {
               name={[record.id, 'name']}
               initialValue={record.name}
               label="名字"
+              style={{ margin: '-5px 0' }}
             />
           )
         };
@@ -122,7 +123,10 @@ const Demo = () => {
   return (
     <EditableBizTable
       value={dataSource}
-      dataSource={dataSource}
+      onChange={(values) => {
+        console.log('onChange ', values);
+        setDataSource(values);
+      }}
       columns={columns}
       rowKey="id"
       size="middle"
@@ -141,10 +145,6 @@ const Demo = () => {
           <Button onClick={() => editableActionRef.current.reset()}>重置表单</Button>
         </Space>
       }
-      onChange={(values) => {
-        console.log('onChange ', values);
-        setDataSource(values);
-      }}
       editable={{
         editableKeys,
         editableActionRef,

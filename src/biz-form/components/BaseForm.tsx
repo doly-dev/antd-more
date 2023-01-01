@@ -21,6 +21,11 @@ export type TransformRecordActionType = {
   get: () => Record<string, TransformFn | undefined>;
 };
 
+export type FormExtraInstance<Values = any> = {
+  getTransformFieldsValue: () => Values;
+  transformFieldsValue: (values: any) => any;
+}
+
 export interface BaseFormProps<Values = any> extends Omit<FormProps<Values>, 'onFinish'> {
   contentRender?: (
     items: React.ReactNode[],
@@ -44,6 +49,7 @@ export interface BaseFormProps<Values = any> extends Omit<FormProps<Values>, 'on
   onFinish?: (values: Values) => any;
   transformRecordActionRef?: React.MutableRefObject<TransformRecordActionType | undefined>;
   formComponentType?: FiledContextProps['formComponentType'];
+  formExtraRef?: React.MutableRefObject<FormExtraInstance | undefined> | ((ref: FormExtraInstance) => void);
 }
 
 function BaseForm<Values = any>(props: BaseFormProps<Values>) {
@@ -67,6 +73,7 @@ function BaseForm<Values = any>(props: BaseFormProps<Values>) {
     className,
     formComponentType,
     form: formProp,
+    formExtraRef,
     ...restProps
   } = props;
   const [form] = Form.useForm();
@@ -190,6 +197,17 @@ function BaseForm<Values = any>(props: BaseFormProps<Values>) {
   // 这里不能直接将transformRecordRef.current传给外部ref，因为无法获取到最新的值，所以通过方法获取 或也可以使用getter获取。
   React.useImperativeHandle(transformRecordActionRef, () => ({
     get: () => transformRecordRef.current
+  }));
+
+  // formExtraRef 表单额外方法
+  React.useImperativeHandle(formExtraRef, () => ({
+    getTransformFieldsValue() {
+      const formValues = formRef.current.getFieldsValue();
+      return transformFormValues(formValues, transformRecordRef.current);
+    },
+    transformFieldsValue(values) {
+      return transformFormValues(values, transformRecordRef.current);
+    }
   }));
 
   useUpdateEffect(() => {

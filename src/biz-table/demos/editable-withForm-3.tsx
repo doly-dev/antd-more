@@ -113,7 +113,7 @@ const Demo = () => {
     },
     {
       dataIndex: 'remark',
-      title: '备注（选填）',
+      title: '备注',
       valueType: 'text',
       editable: {
         itemType: 'textarea',
@@ -139,6 +139,9 @@ const Demo = () => {
       onFinish={(values) => {
         console.log('onFinish ', values);
       }}
+      initialValues={{
+        list: defaultData
+      }}
       submitter={{
         noReset: true,
         render: (_, dom) => dom
@@ -158,7 +161,6 @@ const Demo = () => {
       <BizFormItem
         label="付款列表"
         name="list"
-        initialValue={defaultData}
         trigger="onValuesChange"
         hideLabel
       >

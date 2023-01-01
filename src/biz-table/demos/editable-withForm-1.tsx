@@ -127,6 +127,9 @@ const Demo = () => {
         editableActionRef.current.reset(); // 重置表单
       }}
       form={form}
+      initialValues={{
+        list: defaultData
+      }}
       submitter={{
         render: (_, dom) => dom
       }}
@@ -145,7 +148,6 @@ const Demo = () => {
       <BizFormItem
         label="数据列表"
         name="list"
-        initialValue={defaultData}
         trigger="onValuesChange"
         hideLabel
         style={{ marginBottom: 10 }}
