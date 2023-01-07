@@ -55,7 +55,7 @@ export declare interface BizTableProps<RecordType = any>
   // 以下供 EditableBizTable 使用
   editableKeys?: (string | number)[];
   editableForm?: FormInstance;
-  editableKeyMapRef?: React.MutableRefObject<object>;
+  editableKeyMapRef?: React.MutableRefObject<{ value: object; }>;
   onDataSourceChange?: (newData: RecordType[]) => void;
 }
 
@@ -157,8 +157,6 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
       searchItems: [],
       columns: []
     };
-
-    editableKeyMap.current = {}; // 重置
 
     if (!Array.isArray(columns) || columns.length <= 0) {
       return ret;
@@ -299,7 +297,21 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [columns, nowrap, rowKey, editableKeys.join('.'), editableForm]);
 
-  React.useImperativeHandle(editableKeyMapRef, () => editableKeyMap.current);
+  React.useEffect(() => {
+    if (Array.isArray(editableKeys)) {
+      const delKeys = Object.keys(editableKeyMap.current).filter(item => !editableKeys.find(k => k === item));
+      delKeys.forEach(k => {
+        delete editableKeyMap.current[k];
+      })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [editableKeys.join('.')]);
+
+  React.useImperativeHandle(editableKeyMapRef, () => ({
+    get value() {
+      return editableKeyMap.current;
+    }
+  }));
 
   const hasSearch = React.useMemo(() => {
     return (

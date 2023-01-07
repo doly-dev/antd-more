@@ -89,7 +89,7 @@ const EditableBizTable = <RecordType extends object = any>(props: EditableBizTab
     { index: number; rowKey: Key; recordConfig: Partial<RecordType> }[]
   >([]); // 新增记录
 
-  const editableKeyMapRef = React.useRef<Record<string, any>>({});
+  const editableKeyMapRef = React.useRef<{ value: Record<string, any> }>();
   const triggerTimer = React.useRef(null);
   const innerTriggerFlag = React.useRef(false); // 标识内部触发 onValusChange 
 
@@ -100,33 +100,12 @@ const EditableBizTable = <RecordType extends object = any>(props: EditableBizTab
     return () => unregChildForm?.(formName);
   }, [form, formName, regChildForm, unregChildForm]);
 
-  // const changeValue = (val) => {
-  //   if (typeof outValue !== 'undefined' && typeof onChange === 'function') {
-  //     onChange?.(val);
-  //   } else {
-  //     setValue(val);
-  //   }
-  // };
-
-  // useUpdateEffect(() => {
-  //   if (typeof outValue !== 'undefined' && (typeof onChange === 'function' || typeof onValuesChange === 'function')) {
-  //     // if (typeof outValue === 'undefined') {
-  //     setValue(outValue);
-  //   }
-  // }, [outValue]);
-
-  // useUpdateEffect(() => {
-  //   if (typeof outValue === 'undefined') {
-  //     onChange?.(value);
-  //   }
-  // }, [value]);
-
   useUpdateEffect(() => {
     clearTimeout(triggerTimer.current);
     if (innerTriggerFlag.current) {
       innerTriggerFlag.current = false;
       triggerTimer.current = setTimeout(() => {
-        triggerValuesChange(editableKeyMapRef.current);
+        triggerValuesChange();
       });
     }
   }, [value, newRecords]);
@@ -136,9 +115,10 @@ const EditableBizTable = <RecordType extends object = any>(props: EditableBizTab
   const handleValuesChange = (val, allValue) => {
     if (typeof onValuesChange === 'function') {
       const ret = formExtraRef.current?.transformFieldsValue(allValue) || {};
+      const editableValues = editableKeyMapRef.current.value;
       onValuesChange(
         Object.keys(ret).map((item) => ({
-          ...editableKeyMapRef.current[item]?.record,
+          ...editableValues[item]?.record,
           ...ret[item]
         }))
       );
@@ -146,13 +126,13 @@ const EditableBizTable = <RecordType extends object = any>(props: EditableBizTab
   };
 
   // 手动触发value change
-  const triggerValuesChange = (editableKeyMap?: any) => {
+  const triggerValuesChange = () => {
     if (typeof onValuesChange === 'function') {
       const ret = formExtraRef.current?.getTransformFieldsValue() || {};
-      const recordMap = editableKeyMap || editableKeyMapRef.current;
+      const editableValues = editableKeyMapRef.current.value;
       onValuesChange(
         Object.keys(ret).map((item) => ({
-          ...recordMap[item]?.record,
+          ...editableValues[item]?.record,
           ...ret[item]
         }))
       );
@@ -166,24 +146,26 @@ const EditableBizTable = <RecordType extends object = any>(props: EditableBizTab
 
   // 验证行的表单项
   const validateFieldsByRowKey = async (rowKey: Key) => {
-    if (editableKeyMapRef.current[rowKey]) {
-      // console.log(editableKeyMapRef.current[rowKey]);
-      await form.validateFields(editableKeyMapRef.current[rowKey]?.nameList);
+    const editableValues = editableKeyMapRef.current.value;
+    if (editableValues[rowKey]) {
+      // console.log(editableValues[rowKey]);
+      return await form.validateFields(editableValues[rowKey]?.nameList);
     }
   };
 
   // 获取行的数据
   const getFieldsByRowKey = React.useCallback(
     (rowKey: Key) => {
+      const editableValues = editableKeyMapRef.current.value;
       if (
         editable?.editableKeys &&
         editable?.editableKeys.indexOf(rowKey) > -1 &&
-        editableKeyMapRef.current[rowKey]
+        editableValues[rowKey]
       ) {
-        const values = form.getFieldsValue(editableKeyMapRef.current[rowKey]?.nameList);
+        const values = form.getFieldsValue(editableValues[rowKey]?.nameList);
         const transformValues = formExtraRef.current?.transformFieldsValue(values) || {};
         const retValue = (Object.values(transformValues) as object[])[0];
-        return { ...editableKeyMapRef.current[rowKey]?.record, ...retValue };
+        return { ...editableValues[rowKey]?.record, ...retValue };
       } else {
         return value.find((item) => getCurentRowKey(item) === rowKey);
       }
@@ -230,15 +212,15 @@ const EditableBizTable = <RecordType extends object = any>(props: EditableBizTab
       delete formValues[item];
     });
     form.setFieldsValue(formValues);
-    triggerValuesChange();
   };
 
   // 重置时：
   // 1.重置当前行或全部表单的值
   const handleReset = (rowKey: Key) => {
+    const editableValues = editableKeyMapRef.current.value;
     if (rowKey) {
-      editableKeyMapRef.current[rowKey]?.nameList &&
-        form.resetFields(editableKeyMapRef.current[rowKey]?.nameList);
+      editableValues[rowKey]?.nameList &&
+        form.resetFields(editableValues[rowKey]?.nameList);
     } else {
       form.resetFields();
     }
@@ -248,6 +230,7 @@ const EditableBizTable = <RecordType extends object = any>(props: EditableBizTab
   // 清除全部未保存的新增记录
   const clearNewRecords = () => {
     clearFieldsByRowKey(newRecords.map((item) => item.rowKey));
+    innerTriggerFlag.current = true;
     setNewRecords([]);
   };
 
@@ -311,7 +294,6 @@ const EditableBizTable = <RecordType extends object = any>(props: EditableBizTab
       editable?.editableKeys.filter((item) => item !== rowKey),
       fieldsValue
     );
-    clearFieldsByRowKey(rowKey);
   };
 
   // 取消
@@ -351,7 +333,6 @@ const EditableBizTable = <RecordType extends object = any>(props: EditableBizTab
     const currentRowKey = getCurentRowKey(record);
 
     editable?.onChange?.([...(editable?.editableKeys || []), currentRowKey], record);
-    innerTriggerFlag.current = true;
 
     setTimeout(() => {
       // 如果通过外部值实时变化，无需使用新增记录
@@ -361,6 +342,7 @@ const EditableBizTable = <RecordType extends object = any>(props: EditableBizTab
         newValue.splice(currentIndex, 0, record as any);
         setValue(newValue);
       } else {
+        innerTriggerFlag.current = true;
         const tmpNewRecords = newRecords.map((item) => {
           const newItem = { ...item };
           if (item.index >= currentIndex) {
