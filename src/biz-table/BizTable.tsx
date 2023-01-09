@@ -34,7 +34,6 @@ export declare interface BizTableProps<RecordType = any>
   formRef?: React.MutableRefObject<FormInstance | undefined> | ((ref: FormInstance) => void);
   actionRef?: React.MutableRefObject<BizTableActionType | undefined>;
   columns?: BizTableColumnType<RecordType>;
-  /** @deprecated */
   ready?: boolean;
   autoRequest?: boolean;
   nowrap?: boolean;

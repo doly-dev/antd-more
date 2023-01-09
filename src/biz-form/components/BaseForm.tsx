@@ -36,9 +36,7 @@ export interface BaseFormProps<Values = any> extends Omit<FormProps<Values>, 'on
     formDom: React.ReactElement,
     submitter: React.ReactElement<BizFormSubmitterProps> | undefined
   ) => React.ReactElement | undefined;
-  /** @deprecated */
   ready?: boolean; // false 时，禁止触发 submit 。 true 时，会对表单初始值重新赋值。
-  /** @deprecated */
   loading?: boolean;
   submitter?: false | Omit<BizFormSubmitterProps, 'form'>;
   onReset?: (event: React.FormEvent<HTMLFormElement>) => void;
