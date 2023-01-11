@@ -32,7 +32,7 @@ function Demo() {
             <ItemUploadCertificate
               label='身份证人像面'
               hideLabel
-              name='idcardFront'
+              name='idCardFront'
               idType='idCardFront'
               onUpload={uploadFile}
               block
@@ -42,7 +42,7 @@ function Demo() {
             <ItemUploadCertificate
               label='身份证国徽面'
               hideLabel
-              name='idcardBack'
+              name='idCardBack'
               idType='idCardBack'
               onUpload={uploadFile}
               block
