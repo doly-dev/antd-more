@@ -15,12 +15,14 @@ type ImageValue = {
 export interface FiledImageProps extends Omit<ImageProps, 'src'> {
   value: string | string[] | ImageValue | ImageValue[];
   bordered?: boolean;
+  renderName?: (name: string) => React.ReactNode;
 }
 
 const FiledImage: React.FC<FiledImageProps> = ({
   value,
   bordered = false,
   width = 100,
+  renderName,
   ...restProps
 }) => {
   const values = React.useMemo(() => (Array.isArray(value) ? value : [value]), [value]);
@@ -39,8 +41,10 @@ const FiledImage: React.FC<FiledImageProps> = ({
                 <Image src={src} width={width} {...defaultProps} {...restProps} />
               </div>
               {name && (
-                <div className={`${prefixCls}-item-name`} style={{ width }} title={name}>
-                  {name}
+                <div className={`${prefixCls}-item-name`}>
+                  <div className={`${prefixCls}-item-name-inner`} title={name}>
+                    {typeof renderName === 'function' ? renderName(name) : name}
+                  </div>
                 </div>
               )}
             </div>

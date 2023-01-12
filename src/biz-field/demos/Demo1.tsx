@@ -77,6 +77,7 @@ export default () => {
               name: '测试名称测试名称测试名称'
             }}
             valueType="image"
+          // renderName={name => <a target='_blank' href='https://baidu.com/' rel="noreferrer">{name}</a>}
           />
         </Descriptions.Item>
         <Descriptions.Item label="图片(边框/名称)">
@@ -89,13 +90,13 @@ export default () => {
             bordered
           />
         </Descriptions.Item>
-        <Descriptions.Item label="多张图片">
+        <Descriptions.Item label="多张图片" span={3}>
           <BizField
             value={['https://dummyimage.com/200x300', 'https://dummyimage.com/300x100']}
             valueType="image"
           />
         </Descriptions.Item>
-        <Descriptions.Item label="多张图片(边框/名称)">
+        <Descriptions.Item label="多张图片(边框/名称)" span={3}>
           <BizField
             value={[
               { src: 'https://dummyimage.com/300x600', name: '测试名称' },
