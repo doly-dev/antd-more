@@ -50,7 +50,7 @@ export const renderStatusWithRemark = (text: string, valueEnum: EnumData = [], r
       {remark && (
         <div>
           <Typography.Text
-            style={{ width: 140, color: 'gray' }}
+            style={{ maxWidth: 140, color: 'gray' }}
             ellipsis={{ tooltip: remark }}
           >
             {remark}
