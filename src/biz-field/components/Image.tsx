@@ -10,12 +10,13 @@ const prefixCls = 'antd-more-field-image';
 type ImageValue = {
   src: string;
   name?: string;
+  [k: string]: any;
 };
 
 export interface FiledImageProps extends Omit<ImageProps, 'src'> {
   value: string | string[] | ImageValue | ImageValue[];
   bordered?: boolean;
-  renderName?: (name: string) => React.ReactNode;
+  renderName?: (name: string, index: number, item: string | ImageValue) => React.ReactNode;
 }
 
 const FiledImage: React.FC<FiledImageProps> = ({
@@ -43,7 +44,7 @@ const FiledImage: React.FC<FiledImageProps> = ({
               {name && (
                 <div className={`${prefixCls}-item-name`}>
                   <div className={`${prefixCls}-item-name-inner`} title={name}>
-                    {typeof renderName === 'function' ? renderName(name) : name}
+                    {typeof renderName === 'function' ? renderName(name, index, item) : name}
                   </div>
                 </div>
               )}

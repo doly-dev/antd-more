@@ -124,7 +124,7 @@ export type EnumData<ValueType = any> = EnumItem<ValueType>[];
 | value | 图片地址。<br/>如果为 `string`，表示为 `src`。<br/>如果为 `object` 需传入 `src`，也支持传入 `name`。 | `string \| { src: string; name?: string; }` | - |
 | width | 图片宽度 | `string \| number` | `100` |
 | bordered | 显示边框。以正方形方式呈现，图片根据最长的宽或高自适应。 | `boolean` | `false` |
-| renderName | 自定义文件名称渲染 | `(name: string)=>ReactNode` | - |
+| renderName | 自定义文件名称渲染 | `(name: string, index: number, item: string\|ImageValue)=>ReactNode` | - |
 
 其余同 antd [Image](https://ant-design.gitee.io/components/image-cn/#API) 。
 
