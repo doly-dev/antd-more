@@ -46,7 +46,7 @@ const ItemUploadCertificate: React.FC<ItemUploadCertificateProps> = ({
         // {
         //   validator(_, value) {
         //     if (value) {
-        //       const realValue = value.filter((item: any) => item?.response?.fssId);
+        //       const realValue = value.filter((item: any) => item?.response?.fssid);
         //       if (realValue.length <= 0) {
         //         return Promise.reject(`请上传${restProps?.messageVariables?.label || restProps?.label}`);
         //       }

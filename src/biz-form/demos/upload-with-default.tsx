@@ -10,19 +10,19 @@ import { downloadFile, uploadFile } from './services';
 import type { UploadFile } from 'antd';
 import { Spin } from 'antd';
 
-// 默认初始值 fssId
-const internalFssIds = [
+// 默认初始值 fssid
+const internalFssids = [
   'aaa',
   'bbb',
   'ccc'
 ];
 
 // 将值转换为 UploadFile 对象
-const transformUploadFiles = async (fssIds: string[]) => {
+const transformUploadFiles = async (fssids: string[]) => {
   const tasks: Promise<{ data: string }>[] = [];
   const ret: UploadFile[] = [];
-  for (let i = 0; i < fssIds.length; i += 1) {
-    tasks.push(downloadFile(fssIds[i]));
+  for (let i = 0; i < fssids.length; i += 1) {
+    tasks.push(downloadFile(fssids[i]));
   }
 
   await Promise.allSettled(tasks).then(results => {
@@ -36,7 +36,7 @@ const transformUploadFiles = async (fssIds: string[]) => {
         url: fulfilled ? item.value.data : undefined,
         // 用于在提交时获取真实的value
         response: {
-          fssId: fssIds[index]
+          fssid: fssids[index]
         },
         error: fulfilled ? undefined : {
           message: '图片加载失败'
@@ -54,7 +54,7 @@ const Demo = () => {
 
   // 初次转换值
   const init = React.useCallback(async () => {
-    const images = await transformUploadFiles(internalFssIds);
+    const images = await transformUploadFiles(internalFssids);
     form.setFieldsValue({ images });
     setLoading(false);
   }, [form]);
@@ -66,7 +66,7 @@ const Demo = () => {
   // 提交和校验时自动转换上传文件的值
   const transformUploadValue = React.useCallback((files: UploadFile[]) => {
     // 实际项目中服务端可能没有返回其他值
-    return files?.map((item) => item?.response?.fssId).filter((item) => !!item);
+    return files?.map((item) => item?.response?.fssid).filter((item) => !!item);
   }, []);
 
   return (

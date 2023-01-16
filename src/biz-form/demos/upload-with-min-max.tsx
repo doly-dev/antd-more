@@ -9,12 +9,12 @@ import { waitTime } from 'util-helpers';
 import type { UploadFile } from 'antd';
 import { Spin } from 'antd';
 
-// 通过fssId获取图片地址
-async function getStaticServerPath(fssId: string) {
+// 通过fssid获取图片地址
+async function getStaticServerPath(fssid: string) {
   await waitTime(2000);
   if (Math.random() > 0.3) {
     return {
-      bigImg: `https://zos.alipayobjects.com/rmsportal/${fssId}.png`,
+      bigImg: `https://zos.alipayobjects.com/rmsportal/${fssid}.png`,
       thumbImg: `https://doly-dev.github.io/logo.png`
     };
   }
@@ -34,8 +34,8 @@ async function uploadImage(file: File) {
   throw new Error('error');
 }
 
-// 默认初始值 fssId
-const defaultFssId = [
+// 默认初始值 fssid
+const defaultFssid = [
   {
     thumbImgId: 'jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ',
     bigImgId: 'jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ'
@@ -51,12 +51,12 @@ const defaultFssId = [
 ];
 
 // 将值转换为 UploadFile 对象
-const beforeTransformUploadValues = async (fssIds: typeof defaultFssId) => {
+const beforeTransformUploadValues = async (fssids: typeof defaultFssid) => {
   const tasks: Promise<{ thumbImg: string; bigImg: string; }>[] = [];
   const ret: UploadFile[] = [];
 
-  for (let i = 0; i < fssIds.length; i += 1) {
-    tasks.push(getStaticServerPath(fssIds[i].thumbImgId));
+  for (let i = 0; i < fssids.length; i += 1) {
+    tasks.push(getStaticServerPath(fssids[i].thumbImgId));
   }
 
   await Promise.allSettled(tasks).then(results => {
@@ -71,7 +71,7 @@ const beforeTransformUploadValues = async (fssIds: typeof defaultFssId) => {
         thumbUrl: fulfilled ? item.value.thumbImg : undefined,
         // 用于在提交时获取真实的value
         response: {
-          ...fssIds[index]
+          ...fssids[index]
         },
         error: fulfilled ? undefined : {
           message: '图片加载失败'
@@ -89,7 +89,7 @@ const Demo = () => {
 
   // 初次转换值
   const init = React.useCallback(async () => {
-    const images = await beforeTransformUploadValues(defaultFssId);
+    const images = await beforeTransformUploadValues(defaultFssid);
     form.setFieldsValue({ images });
     setLoading(false);
   }, [form]);

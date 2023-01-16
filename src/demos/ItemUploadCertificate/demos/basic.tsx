@@ -17,7 +17,7 @@ const initialValues = {
     status: 'success',
     url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
     response: {
-      fssId: '132435-1lakjfa'
+      fssid: '132435-1lakjfa'
     }
   }],
   upload5: [{

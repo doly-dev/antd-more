@@ -32,7 +32,7 @@ nav:
 
 ### 实时上传文件图片
 
-添加文件后，立即上传到文件服务器，异步返回值将挂载到 `file.response` 上，提交和校验时取出 `file.response.fssId` 。
+添加文件后，立即上传到文件服务器，异步返回值将挂载到 `file.response` 上，提交和校验时取出 `file.response.fssid` 。
 
 <code src='./demos/upload-real-time.tsx' />
 

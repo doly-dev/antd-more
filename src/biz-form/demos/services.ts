@@ -1,13 +1,13 @@
 import { waitTime } from "util-helpers";
 
 // 上传文件
-export async function uploadFile(file: File): Promise<{ fssId: string }> {
+export async function uploadFile(file: File): Promise<{ fssid: string }> {
   console.log('uploadFile: ', file);
 
   await waitTime(2000);
   if (Math.random() > 0.3) {
     return {
-      fssId: `${Math.random()}`
+      fssid: `${Math.random()}`
     };
   }
   throw new Error('error');
@@ -15,8 +15,8 @@ export async function uploadFile(file: File): Promise<{ fssId: string }> {
 
 
 // 下载文件
-export async function downloadFile(fssId: string) {
-  console.log('downloadFile: ', fssId);
+export async function downloadFile(fssid: string) {
+  console.log('downloadFile: ', fssid);
 
   await waitTime(2000);
   if (Math.random() > 0.3) {
