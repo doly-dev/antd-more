@@ -2,6 +2,7 @@ import * as React from 'react';
 import MediaViewer from './MediaViewer';
 
 const isIE = window.ActiveXObject || 'ActiveXObject' in window;
+const isPC = () => window.innerWidth > 768;
 
 export interface FileViewProps {
   fileName?: string;
@@ -23,7 +24,7 @@ const FileView: React.FunctionComponent<FileViewProps> = ({ fileName, url, fileT
   if (fileType === 'pdf') {
     // ref: https://caniuse.com/?search=createObjectURL
     // Created blob url can't be used as object or iframe src
-    if (!isIE || url.indexOf('blob:') !== 0) {
+    if ((!isIE || url.indexOf('blob:') !== 0) && isPC()) {
       return <iframe src={url} style={{ border: '0 none', width: '100%', height: '70vh' }} />;
     }
   }
