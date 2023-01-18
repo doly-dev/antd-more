@@ -13,7 +13,6 @@ export async function uploadFile(file: File): Promise<{ fssid: string }> {
   throw new Error('error');
 }
 
-
 // 下载文件
 export async function downloadFile(fssid: string) {
   console.log('downloadFile: ', fssid);

@@ -1,12 +1,11 @@
 import * as React from 'react';
-import styles from './index.less';
 
 interface MediaViewerProps {
-  filePath: string;
+  url: string;
   mediaType: 'audio' | 'video';
 }
 
-const MediaViewer: React.FunctionComponent<MediaViewerProps> = ({ filePath, mediaType }) => {
+const MediaViewer: React.FunctionComponent<MediaViewerProps> = ({ url, mediaType }) => {
   const mediaRef = React.useRef<HTMLVideoElement>();
 
   React.useEffect(() => {
@@ -19,10 +18,9 @@ const MediaViewer: React.FunctionComponent<MediaViewerProps> = ({ filePath, medi
   }, []);
 
   return React.createElement(mediaType, {
-    src: filePath,
+    src: url,
     controls: true,
     style: { width: '100%' },
-    className: styles.viewer,
     ref: mediaRef
   });
 };

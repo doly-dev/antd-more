@@ -1,4 +1,5 @@
-import { blobToDataURL } from 'util-helpers';
+import Cache2 from 'cache2';
+import type { RcFile, UploadFile } from 'antd/es/upload';
 import IconAudio from '../assets/icon-audio.png';
 import IconExcel from '../assets/icon-excel.png';
 import IconFile from '../assets/icon-file.png';
@@ -53,13 +54,47 @@ export function getFileType(file?: File) {
   if (isExcelType(file)) {
     return 'excel';
   }
+  return undefined;
 }
 
-export async function getThumbUrl(file?: File) {
+// 缓存 URL.createObjectURL
+const fileCache = new Cache2({ max: 20, maxStrategy: 'replaced' });
+fileCache.on('del', (key, value) => {
+  try {
+    URL.revokeObjectURL(value);
+  } catch (err) {
+    console.error(`fileCache revokeObjectURL error: ${err}`);
+  }
+});
+
+export function getFileUrl(file: UploadFile) {
+  if (file.url) {
+    return file.url;
+  }
+
+  const originFileObj = (file?.originFileObj || file) as File;
+
+  let url: string;
+  if (file.uid) {
+    url = fileCache.get(file.uid);
+    if (!url) {
+      url = URL.createObjectURL(originFileObj);
+      fileCache.set(file.uid, url);
+    }
+  } else {
+    url = URL.createObjectURL(originFileObj);
+  }
+  return url;
+}
+
+export function removeFile(file: RcFile) {
+  fileCache.del(file.uid);
+}
+
+export async function getFileThumbUrl(file: RcFile): Promise<string> {
   // 图片类型内部会自动处理 thumbUrl
   if (isImageType(file)) {
-    const url = await blobToDataURL(file);
-    return url;
+    return getFileUrl(file);
   }
   if (isAudioType(file)) {
     return IconAudio;
