@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Tooltip } from 'antd';
 import { PictureOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
-import { blobToDataURL } from 'util-helpers';
 import type { UploadFile } from '../antd.interface';
 import type { UploadWrapperProps } from './UploadWrapper';
 import UploadWrapper from './UploadWrapper';
@@ -21,20 +20,16 @@ const UploadAvatar: React.FC<{
   }, [fileList]);
   const uploading = currentFile?.status === 'uploading';
 
-  const transformBase64 = React.useCallback(async () => {
+  React.useEffect(() => {
     if (currentFile) {
       if (!currentFile.thumbUrl && !currentFile.url && !currentFile.preview) {
-        currentFile.preview = await blobToDataURL(
+        currentFile.preview = URL.createObjectURL(
           (currentFile?.originFileObj || currentFile) as File
         );
       }
       setImgUrl(currentFile.thumbUrl || currentFile.url || currentFile.preview);
     }
   }, [currentFile]);
-
-  React.useEffect(() => {
-    transformBase64();
-  }, [transformBase64]);
 
   let view = null;
 
