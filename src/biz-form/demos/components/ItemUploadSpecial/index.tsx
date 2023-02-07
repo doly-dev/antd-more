@@ -18,16 +18,16 @@ const ItemUploadSpecial: React.FC<BizFormItemUploadProps> = ({
           return React.cloneElement(dom, {
             ...dom.props,
             onChange: (e) => {
-              const uploadObj: HTMLDivElement = document
+              const uploadObj = document
                 .querySelector(`#${uniqueId}`)
-                .querySelector('.ant-upload');
+                .querySelector('.ant-upload') as HTMLDivElement;
               uploadObj.style.display = 'none';
 
               // 这里需要异步获取dom
               setTimeout(() => {
-                const removeBtn: HTMLButtonElement = document
+                const removeBtn = document
                   .querySelector(`#${uniqueId}`)
-                  .querySelector('.ant-upload-list-item-card-actions-btn');
+                  .querySelector('.ant-upload-list-item-card-actions-btn') as HTMLButtonElement;
                 removeBtn.setAttribute('title', '重新选择');
               }, 0);
               dom.props?.onChange?.(e);
