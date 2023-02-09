@@ -7,7 +7,7 @@ const ItemUploadSpecial: React.FC<BizFormItemUploadProps> = ({
   uploadProps = {},
   ...restProps
 }) => {
-  const uniqueId = React.useMemo(() => `uniqueId${Date.now()}`, []);
+  const uniqueId = React.useMemo(() => `${Math.random().toString(16).substring(2, 8)}_${Date.now()}`, []);
 
   return (
     <div id={uniqueId}>

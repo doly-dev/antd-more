@@ -44,6 +44,8 @@ export const renderBase64Buffer = (buffer?: string) => {
 
 // 状态和备注（错误原因）
 export const renderStatusWithRemark = (text: string, valueEnum: EnumData = [], remark = '') => {
+  const remarkView = typeof remark === 'string' && remark.indexOf('\n') > -1 ? <>{remark.split('\n').map(item => <div key={item} style={{ marginBottom: 5 }}>{item}</div>)}</> : remark;
+
   return (
     <div>
       <BizField value={text} valueType='enumBadge' valueEnum={valueEnum} />
@@ -51,7 +53,7 @@ export const renderStatusWithRemark = (text: string, valueEnum: EnumData = [], r
         <div>
           <Typography.Text
             style={{ maxWidth: 140, color: 'gray' }}
-            ellipsis={{ tooltip: remark }}
+            ellipsis={{ tooltip: remarkView }}
           >
             {remark}
           </Typography.Text>
