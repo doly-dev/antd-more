@@ -139,7 +139,11 @@ const UploadCertificate: React.FC<UploadCertificateProps> = ({
           // formData.append('file', obj.file);
           // formData.append('fileType', FileType.BusinessLicense);
           obj.onProgress?.({ percent: 99 });
-          onUpload?.(obj.file as File).then(obj.onSuccess).catch(obj.onError);
+          onUpload?.(obj.file as File).then((res) => {
+            setTimeout(() => obj.onSuccess?.(res));
+          }).catch(err => {
+            setTimeout(() => obj.onError?.(err));
+          });
         }}
         onPreview={(file) => {
           previewCurrentRef.current = fileList.findIndex(item => item.uid === file.uid);
