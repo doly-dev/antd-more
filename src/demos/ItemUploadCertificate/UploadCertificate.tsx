@@ -142,7 +142,7 @@ const UploadCertificate: React.FC<UploadCertificateProps> = ({
           onUpload?.(obj.file as File).then((res) => {
             setTimeout(() => obj.onSuccess?.(res));
           }).catch(err => {
-            setTimeout(() => obj.onError?.(err));
+            setTimeout(() => obj.onError?.(err), 100);
           });
         }}
         onPreview={(file) => {
