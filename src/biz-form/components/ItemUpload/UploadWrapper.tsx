@@ -247,10 +247,6 @@ const UploadWrapper: React.FC<UploadWrapperProps> = ({
       <Comp
         accept={accept}
         beforeUpload={handleBeforeUpload}
-        progress={{
-          status: 'active',
-          showInfo: false
-        }}
         onChange={handleChange}
         onPreview={handlePreview}
         disabled={disabled}
