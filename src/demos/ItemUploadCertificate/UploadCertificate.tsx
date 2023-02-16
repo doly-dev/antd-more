@@ -140,7 +140,7 @@ const UploadCertificate: React.FC<UploadCertificateProps> = ({
           // formData.append('fileType', FileType.BusinessLicense);
           obj.onProgress?.({ percent: 99 });
           onUpload?.(obj.file as File).then((res) => {
-            setTimeout(() => obj.onSuccess?.(res));
+            setTimeout(() => obj.onSuccess?.(res), 100);
           }).catch(err => {
             setTimeout(() => obj.onError?.(err), 100);
           });
