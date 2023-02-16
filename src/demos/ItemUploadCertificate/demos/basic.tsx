@@ -58,6 +58,9 @@ function Demo() {
         name='upload2'
         onUpload={uploadFile}
         maxCount={5}
+        uploadProps={{
+          multiple: true
+        }}
       />
       <h3>上传中</h3>
       <ItemUploadCertificate

@@ -91,6 +91,7 @@ const UploadCertificate: React.FC<UploadCertificateProps> = ({
   ...restProps
 }) => {
   const previewCurrentRef = useRef(0);
+  const uploadingFlagRef = useRef(false); // 标识正在上传
   const [visible, setVisible] = useState(false);
   const config: Record<string, any> = useMemo(() => idType ? InternalConfig[idType] : {}, [idType]);
   const icon = useMemo(() => outIcon || config?.icon || <img src={ImageCommonCert} alt='' />, [config?.icon, outIcon]);
@@ -138,12 +139,24 @@ const UploadCertificate: React.FC<UploadCertificateProps> = ({
           // const formData = new FormData();
           // formData.append('file', obj.file);
           // formData.append('fileType', FileType.BusinessLicense);
-          obj.onProgress?.({ percent: 99 });
-          onUpload?.(obj.file as File).then((res) => {
-            setTimeout(() => obj.onSuccess?.(res), 100);
-          }).catch(err => {
-            setTimeout(() => obj.onError?.(err), 100);
-          });
+          let timer: any = null;
+          function queueUpload() {
+            if (!uploadingFlagRef.current) {
+              uploadingFlagRef.current = true;
+              clearTimeout(timer);
+
+              setTimeout(() => {
+                obj.onProgress?.({ percent: 99 });
+                onUpload?.(obj.file as File).then(obj.onSuccess).catch(obj.onError).finally(() => {
+                  uploadingFlagRef.current = false;
+                });
+              });
+            } else {
+              timer = setTimeout(queueUpload, 100);
+            }
+          }
+
+          queueUpload();
         }}
         onPreview={(file) => {
           previewCurrentRef.current = fileList.findIndex(item => item.uid === file.uid);
