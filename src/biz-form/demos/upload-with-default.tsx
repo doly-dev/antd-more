@@ -9,6 +9,7 @@ import { waitTime } from 'util-helpers';
 import { downloadFile, uploadFile } from './services';
 import type { UploadFile } from 'antd';
 import { Spin } from 'antd';
+import { uploadFileToFssid } from './utils/fileUtils';
 
 // 默认初始值 fssid
 const internalFssids = [
@@ -63,12 +64,6 @@ const Demo = () => {
     init();
   }, [init]);
 
-  // 提交和校验时自动转换上传文件的值
-  const transformUploadValue = React.useCallback((files: UploadFile[]) => {
-    // 实际项目中服务端可能没有返回其他值
-    return files?.map((item) => item?.response?.fssid).filter((item) => !!item);
-  }, []);
-
   return (
     <Spin spinning={loading}>
       <BizForm
@@ -87,7 +82,7 @@ const Demo = () => {
           onUpload={uploadFile}
           maxCount={9}
           required
-          transform={transformUploadValue}
+          transform={uploadFileToFssid}
         />
       </BizForm>
     </Spin>

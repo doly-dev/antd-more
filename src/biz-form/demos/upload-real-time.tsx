@@ -7,17 +7,11 @@
  */
 import * as React from 'react';
 import { BizForm, BizFormItemUpload } from 'antd-more';
-import type { UploadFile } from 'antd';
 import { waitTime } from 'util-helpers';
 import { uploadFile } from './services';
+import { uploadFileToFssid } from './utils/fileUtils';
 
 const Demo = () => {
-  // 提交和校验时自动转换上传文件的值
-  const transformUploadValue = React.useCallback((files: UploadFile[]) => {
-    // 实际项目中服务端可能没有返回其他值
-    return files?.map((item) => item?.response?.fssid).filter((item) => !!item);
-  }, []);
-
   return (
     <BizForm
       name="upload-real-time"
@@ -34,7 +28,7 @@ const Demo = () => {
         accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
         fileTypeMessage="不支持文件类型"
         onUpload={uploadFile}
-        transform={transformUploadValue}
+        transform={uploadFileToFssid}
       />
       <BizFormItemUpload
         name="xls1"
@@ -44,7 +38,7 @@ const Demo = () => {
         fileTypeMessage="不支持文件类型"
         // 使用自定义上传
         onUpload={uploadFile}
-        transform={transformUploadValue}
+        transform={uploadFileToFssid}
       />
       <BizFormItemUpload
         name="xls2"
@@ -61,7 +55,7 @@ const Demo = () => {
             authorization: "authorization-text",
           }
         }}
-        transform={transformUploadValue}
+        transform={uploadFileToFssid}
       />
       <BizFormItemUpload
         name="images"
@@ -70,7 +64,7 @@ const Demo = () => {
         maxCount={9}
         required
         onUpload={uploadFile}
-        transform={transformUploadValue}
+        transform={uploadFileToFssid}
       />
       {/* <BizFormItemUpload
         name="headpic01"
@@ -79,7 +73,7 @@ const Demo = () => {
         tooltip="点击图片区域上传替换，常用于头像或封面，不支持预览"
         required
         onUpload={uploadFile}
-        transform={transformUploadValue}
+        transform={uploadFileToFssid}
       />
       <BizFormItemUpload
         name="headpic02"
@@ -89,7 +83,7 @@ const Demo = () => {
         tooltip="使用image的方式，修改时需要先删除才能再上传"
         required
         onUpload={uploadFile}
-        transform={transformUploadValue}
+        transform={uploadFileToFssid}
       /> */}
       {/* <BizFormList name='test' initialValue={[{ headpic03: [] }]}>
         {
@@ -104,7 +98,7 @@ const Demo = () => {
               tooltip="使用image的方式，修改时需要先删除才能再上传"
               required
               onUpload={uploadFile}
-              transform={transformUploadValue}
+              transform={uploadFileToFssid}
             />
           ))
         }
@@ -116,7 +110,7 @@ const Demo = () => {
         required
         multiple
         onUpload={uploadFile}
-        transform={transformUploadValue}
+        transform={uploadFileToFssid}
       /> */}
     </BizForm>
   );
