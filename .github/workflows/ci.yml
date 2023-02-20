@@ -34,20 +34,20 @@ jobs:
         run: yarn doc
       - name: Deploy latest docs
         if: ${{github.ref == 'refs/heads/master'}}
-        uses: JamesIves/github-pages-deploy-action@releases/v3
+        uses: JamesIves/github-pages-deploy-action@releases/v4
         with:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN_WORKFLOW }}
-          BRANCH: gh-pages
-          FOLDER: site
-          TARGET_FOLDER: latest
+          token: ${{ secrets.ACCESS_TOKEN_WORKFLOW }}
+          branch: gh-pages
+          folder: site
+          target-folder: latest
       - name: Build version docs
         if: ${{github.ref != 'refs/heads/master'}}
         run: yarn doc-version
       - name: Deploy version docs
         if: ${{github.ref != 'refs/heads/master'}}
-        uses: JamesIves/github-pages-deploy-action@releases/v3
+        uses: JamesIves/github-pages-deploy-action@releases/v4
         with:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN_WORKFLOW }}
-          BRANCH: gh-pages
-          FOLDER: site
-          TARGET_FOLDER: ${{github.ref}}
+          token: ${{ secrets.ACCESS_TOKEN_WORKFLOW }}
+          branch: gh-pages
+          folder: site
+          target-folder: ${{github.ref}}
