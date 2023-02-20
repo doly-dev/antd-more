@@ -3,7 +3,7 @@ import { Upload, message } from 'antd';
 import classNames from 'classnames';
 import { bytesToSize } from 'util-helpers';
 import { useUnmount } from 'rc-hooks';
-import type { UploadProps, UploadFile, UploadChangeParam, RcFile } from '../antd.interface';
+import type { UploadProps, UploadFile, RcFile } from '../antd.interface';
 import { checkFileSize, checkFileType, createFileUrl, getFileName, revokeFileUrl } from './uploadUtil';
 import type { PreviewProps } from './Preview';
 import Preview from './Preview';
@@ -23,7 +23,6 @@ export interface UploadWrapperProps extends UploadProps {
   maxSize?: number; // 单个文件最大尺寸，用于校验
   onGetPreviewUrl?: (file: File) => Promise<string>; // 点击预览获取大图URL
   dragger?: boolean; // 支持拖拽
-  internalTriggeValidate?: () => void; // 外部透传的校验表单，用于异步上传 或 删除后触发
 
   // icon和title配置图标和文本内容
   icon?: React.ReactNode;
@@ -50,17 +49,18 @@ const UploadWrapper: React.FC<UploadWrapperProps> = ({
 
   previewModalProps,
 
-  onChange,
   accept,
   className,
   disabled,
   action,
-  internalTriggeValidate,
   beforeUpload,
   ...restProps
 }) => {
   // 当前组件唯一标识，用于缓存和释放 URL.createObjectURL
   const uniqueKey = React.useMemo(() => uniqueId('item-upload'), []);
+
+  // 标识正在上传
+  const uploadingFlagRef = React.useRef(false);
 
   const [previewProps, setPreviewProps] = React.useState({
     visible: false,
@@ -90,102 +90,45 @@ const UploadWrapper: React.FC<UploadWrapperProps> = ({
         return Upload.LIST_IGNORE;
       }
 
-      return beforeUpload ? beforeUpload(file, fileList) : !!action;
+      return beforeUpload ? beforeUpload(file, fileList) : (!!action || !!onUpload || !!restProps?.customRequest);
     },
-    [accept, maxSize, beforeUpload, action, fileTypeMessage, fileSizeMessage]
+    [accept, maxSize, beforeUpload, action, onUpload, restProps?.customRequest, fileTypeMessage, fileSizeMessage]
   );
 
-  const handleValidate = React.useCallback(
-    (file: UploadFile, force = false) => {
-      if ((file?.status && file.status !== 'uploading') || force) {
-        internalTriggeValidate?.();
-      }
-    },
-    [internalTriggeValidate]
-  );
+  // 自定义上传
+  const internalCustomRequest = React.useCallback((obj: any) => {
+    let timer: any = null;
 
-  // 处理上传
-  const handleUpload = React.useCallback(
-    async (file: UploadFile, fileList: UploadFile[]) => {
-      const { uid } = file;
-      let newFileList = [...fileList];
+    function queueUpload() {
+      if (!uploadingFlagRef.current) {
+        uploadingFlagRef.current = true;
+        clearTimeout(timer);
 
-      try {
-        // 逐个上传文件
-        const res = await onUpload((file.originFileObj || file) as File);
-        newFileList = newFileList
-          .filter((item) => {
-            if (item.status === 'removed') {
-              return false;
-            }
-            if (item.uid === uid) {
-              item.status = 'done';
-              item.percent = 100;
-
-              // TODO 下个大版本废弃，目前保留是为了兼容
-              const resKeys = typeof res === 'object' ? Object.keys(res) : [];
+        setTimeout(() => {
+          obj.onProgress?.({ percent: 99 });
+          onUpload?.(obj.file).then(res => {
+            // TODO 下个大版本废弃，目前保留是为了兼容
+            if (typeof res === 'object') {
+              const resKeys = Object.keys(res);
               if (resKeys.length > 0) {
                 resKeys.forEach((resKey) => {
-                  item[resKey] = res[resKey];
+                  obj.file[resKey] = res[resKey];
                 });
               }
-
-              // 将响应数据挂载到 response 上
-              item.response = res;
             }
-            return true;
+
+            return obj.onSuccess?.(res);
+          }).catch(obj.onError).finally(() => {
+            uploadingFlagRef.current = false;
           });
-      } catch (err) {
-        newFileList = newFileList
-          .filter((item) => {
-            if (item.status === 'removed') {
-              return false;
-            }
-            if (item.uid === uid) {
-              const error = typeof err !== 'object' ? { message: err || '上传错误' } : err;
-              item.status = 'error';
-              item.percent = 100;
-              item.error = error;
-            }
-            return true;
-          });
-      }
-
-      onChange({
-        file,
-        fileList: newFileList
-      });
-      handleValidate(file, true);
-    },
-    [handleValidate, onChange, onUpload]
-  );
-
-  // 处理修改
-  const handleChange = React.useCallback(
-    ({ file, fileList }: UploadChangeParam) => {
-      const newFileList = [...fileList];
-
-      if (!action && typeof onUpload === 'function' && file.status !== 'removed') {
-        newFileList.some((fileItem) => {
-          if (fileItem.uid === file.uid) {
-            fileItem.status = 'uploading';
-            fileItem.percent = 99.9;
-            return true;
-          }
-          return false;
         });
-        handleUpload(file, newFileList);
+      } else {
+        timer = setTimeout(queueUpload, 100);
       }
+    }
 
-      onChange({
-        file,
-        fileList: newFileList
-      });
-
-      handleValidate(file);
-    },
-    [onChange, handleValidate, action, onUpload, handleUpload]
-  );
+    queueUpload();
+  }, [onUpload]);
 
   // 是否支持预览
   const enabledShowPreview = React.useMemo(() => {
@@ -247,7 +190,7 @@ const UploadWrapper: React.FC<UploadWrapperProps> = ({
       <Comp
         accept={accept}
         beforeUpload={handleBeforeUpload}
-        onChange={handleChange}
+        customRequest={!action ? internalCustomRequest : undefined}
         onPreview={handlePreview}
         disabled={disabled}
         className={classNames(prefixCls, className)}
