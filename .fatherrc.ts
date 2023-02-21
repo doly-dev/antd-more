@@ -6,8 +6,18 @@ export default defineConfig({
   },
   esm: {
     alias: {
-      'antd/es': 'antd/lib'
+      'antd/lib': 'antd/es'
     },
     output: 'es'
-  }
+  },
+  extraBabelPlugins: [
+    [
+      'import',
+      {
+        libraryName: 'antd',
+        libraryDirectory: 'lib',
+        style: true
+      }
+    ]
+  ]
 })
