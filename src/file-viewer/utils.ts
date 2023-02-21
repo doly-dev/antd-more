@@ -1,13 +1,7 @@
 import Cache2 from 'cache2';
-import type { RcFile, UploadFile } from 'antd/es/upload';
-import IconAudio from '../assets/icon-audio.png';
-import IconExcel from '../assets/icon-excel.png';
-import IconFile from '../assets/icon-file.png';
-import IconPdf from '../assets/icon-pdf.png';
-import IconWord from '../assets/icon-word.png';
-import IconVideo from '../assets/icon-video.png';
+import type { UploadFile } from 'antd/es/upload';
 
-function checkFileType(file?: File, types: string[] = [], suffix: string[] = []) {
+function checkFileType(file?: UploadFile, types: string[] = [], suffix: string[] = []) {
   let ret = false;
   if (file?.type) {
     ret = types.some(item => file.type.indexOf(item) !== -1);
@@ -15,29 +9,32 @@ function checkFileType(file?: File, types: string[] = [], suffix: string[] = [])
   if (!ret && file?.name) {
     ret = suffix.some(item => file.name.indexOf(item) !== -1);
   }
+  if (!ret && file?.url) {
+    ret = suffix.some(item => file.url.indexOf(item) !== -1);
+  }
   return ret;
 }
 
-export function isImageType(file?: File) {
+export function isImageType(file?: UploadFile) {
   return checkFileType(file, ['image/'], ['.jpg', '.png', '.jpeg', '.gif', '.bmp']);
 }
-export function isAudioType(file?: File) {
+export function isAudioType(file?: UploadFile) {
   return checkFileType(file, ['audio/'], ['.mp3', '.wav']);
 }
-export function isVideoType(file?: File) {
+export function isVideoType(file?: UploadFile) {
   return checkFileType(file, ['video/'], ['.mp4', '.webm', '.ogg', '.ogv', '.ogm']);
 }
-export function isPdfType(file?: File) {
+export function isPdfType(file?: UploadFile) {
   return checkFileType(file, ['application/pdf'], ['.pdf']);
 }
-export function isWordType(file?: File) {
+export function isWordType(file?: UploadFile) {
   return checkFileType(file, ['application/vnd.openxmlformats-officedocument.wordprocessingml.document'], ['.doc', '.docx']);
 }
-export function isExcelType(file?: File) {
+export function isExcelType(file?: UploadFile) {
   return checkFileType(file, ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel'], ['.xls', '.xlsx']);
 }
 
-export function getFileType(file?: File) {
+export function getFileType(file?: UploadFile) {
   if (isImageType(file)) {
     return 'image';
   }
@@ -60,7 +57,8 @@ export function getFileType(file?: File) {
 }
 
 // 缓存 URL.createObjectURL
-const fileCache = new Cache2({ max: 20, maxStrategy: 'replaced' });
+export const fileCache = new Cache2({ max: 20, maxStrategy: 'replaced' });
+
 fileCache.on('del', (key, value) => {
   try {
     URL.revokeObjectURL(value);
@@ -77,45 +75,21 @@ export function getFileUrl(file: UploadFile) {
   const originFileObj = (file?.originFileObj || file) as File;
 
   let url: string;
-  if (file.uid) {
-    url = fileCache.get(file.uid);
-    if (!url) {
+  try {
+    if (file.uid) {
+      url = fileCache.get(file.uid);
+      if (!url) {
+        url = URL.createObjectURL(originFileObj);
+        fileCache.set(file.uid, url);
+      }
+    } else {
       url = URL.createObjectURL(originFileObj);
-      fileCache.set(file.uid, url);
     }
-  } else {
-    url = URL.createObjectURL(originFileObj);
+  } catch (err) {
+    console.error(err);
   }
   return url;
 }
 
-export function removeFile(file: RcFile) {
-  fileCache.del(file.uid);
-}
-
-export function getFileThumbUrl(file: RcFile): string {
-  // 图片类型内部会自动处理 thumbUrl
-  if (isImageType(file)) {
-    return getFileUrl(file);
-  }
-  if (isAudioType(file)) {
-    return IconAudio;
-  }
-  if (isVideoType(file)) {
-    return IconVideo;
-  }
-  if (isPdfType(file)) {
-    return IconPdf;
-  }
-  if (isWordType(file)) {
-    return IconWord;
-  }
-  if (isExcelType(file)) {
-    return IconExcel;
-  }
-  return IconFile;
-}
-
-export async function previewFile(file: RcFile) {
-  return getFileThumbUrl(file);
-}
+let stamp = 1;
+export const uniqueId = (prefix = 'file-viewer') => `${prefix}${stamp++}`;

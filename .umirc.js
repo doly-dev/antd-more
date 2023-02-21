@@ -17,6 +17,14 @@ const favicon = 'https://doly-dev.github.io/favicon.png';
 const outputPath = 'site';
 const publicPath = serverRootDirect + version + '/';
 
+const addFileLoader = (config) => {
+  config.module
+    .rule('assets')
+    .test(/\.(mp3|mp4|pdf|doc|docx|xls|xlsx|zip)$/)
+    .use('file-loader')
+    .loader('file-loader');
+}
+
 const umiConfig = {
   extraBabelPlugins: [
     [
@@ -47,6 +55,9 @@ const umiConfig = {
   },
   theme: {
     '@s-site-menu-width': '258px'
+  },
+  chainWebpack(config) {
+    addFileLoader(config);
   },
 
   // esbuild: isDev,
@@ -109,7 +120,7 @@ const umiConfig = {
       },
       {
         title: '通用',
-        children: ['color', 'dictionary', 'captcha-button', 'input-icon', 'tree-table']
+        children: ['captcha-button', 'color', 'dictionary', 'file-viewer', 'input-icon', 'tree-table']
       }
     ]
   }
@@ -128,6 +139,8 @@ gtag('config', 'G-N328Y9JJTL');
   ];
   umiConfig.chunks = ['vendors', 'umi'];
   umiConfig.chainWebpack = function (config, { webpack }) {
+    addFileLoader(config);
+
     config.merge({
       optimization: {
         minimize: true,

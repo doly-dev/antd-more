@@ -2,7 +2,8 @@ import Cache2 from 'cache2';
 import type { UploadFile } from 'antd';
 import { downloadFile } from '../services';
 
-let count = 0;
+let stamp = 1;
+const uniqueId = (prefix = 'fssid') => `${prefix}_${stamp++}`;
 
 const asyncCache: Record<string, any> = {};
 const fileCache = new Cache2({ max: 20, maxStrategy: 'replaced', stdTTL: 5 * 60 * 1000 });
@@ -15,7 +16,6 @@ fileCache.on('del', (key, value) => {
 
 async function getFileByFssid(fssid: string): Promise<UploadFile> {
   let cache = fileCache.get(fssid);
-  const uid = `fssid_${fssid}_${count++}`;
 
   if (!cache) {
     if (!asyncCache[fssid]) {
@@ -27,11 +27,12 @@ async function getFileByFssid(fssid: string): Promise<UploadFile> {
       const res = await asyncCache[fssid]();
       fileCache.set(fssid, res);
       cache = res;
-    } catch {
+    } catch (error) {
       return {
-        uid,
+        uid: uniqueId(fssid),
         name: '',
         status: 'error',
+        error,
         url: '',
         response: {
           fssid
@@ -41,7 +42,7 @@ async function getFileByFssid(fssid: string): Promise<UploadFile> {
   }
 
   return {
-    uid,
+    uid: uniqueId(fssid),
     name: cache?.data,
     status: 'done',
     response: {

@@ -1,38 +1,13 @@
+import { defineConfig } from 'father';
 
-export default [{
-  esm: {
-    type: 'babel',
-    importLibToEs: true
-  },
+export default defineConfig({
   cjs: {
-    type: 'babel',
-    lazy: true
+    output: 'lib'
   },
-  runtimeHelpers: true,
-  extraBabelPlugins: [
-    [
-      'import',
-      {
-        libraryName: 'antd',
-        libraryDirectory: 'lib',
-        style: true
-      }
-    ]
-  ]
-  // },
-  // {
-  // extraExternals: ["react", "react-dom", "antd", "@ant-design/icons"],
-  // // extractCSS: true,
-  // umd: {
-  //   globals: {
-  //     react: "React",
-  //     "react-dom": "ReactDom",
-  //     antd: "antd",
-  //     "@ant-design/icons": "icons"
-  //   },
-  //   minFile: true,
-  //   file: "antd-more",
-  //   name: "antdMore",
-  //   sourcemap: true
-  // },
-}];
+  esm: {
+    alias: {
+      'antd/es': 'antd/lib'
+    },
+    output: 'es'
+  }
+})
