@@ -17,9 +17,17 @@ group:
 
 <code src='../../src/demos/ItemUploadCertificate/demos/built-in.tsx' />
 
-### 更多
+### 更多用法
 
 <code src='../../src/demos/ItemUploadCertificate/demos/more.tsx' />
+
+### 验证文件上传中
+
+表单校验通过，然后上传多个文件，在有文件上传中状态时，点击提交按钮，提示“有文件正在上传中，需等文件上传完成再操作！”。
+
+这样可以保障文件都上传完成才能进行提交操作。
+
+<code src='../../src/demos/ItemUploadCertificate/demos/check-loading.tsx' />
 
 ## API
 
