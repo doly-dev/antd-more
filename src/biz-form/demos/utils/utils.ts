@@ -7,32 +7,34 @@ import IconPdf from '../assets/icon-pdf.png';
 import IconWord from '../assets/icon-word.png';
 import IconVideo from '../assets/icon-video.png';
 
+function checkFileType(file?: File, types: string[] = [], suffix: string[] = []) {
+  let ret = false;
+  if (file?.type) {
+    ret = types.some(item => file.type.indexOf(item) !== -1);
+  }
+  if (!ret && file?.name) {
+    ret = suffix.some(item => file.name.indexOf(item) !== -1);
+  }
+  return ret;
+}
+
 export function isImageType(file?: File) {
-  return file?.type.indexOf('image/') > -1;
+  return checkFileType(file, ['image/'], ['.jpg', '.png', '.jpeg', '.gif', '.bmp']);
 }
 export function isAudioType(file?: File) {
-  return file?.type.indexOf('audio/') > -1;
+  return checkFileType(file, ['audio/'], ['.mp3', '.wav']);
 }
 export function isVideoType(file?: File) {
-  return file?.type.indexOf('video/') > -1;
+  return checkFileType(file, ['video/'], ['.mp4', '.webm', '.ogg', '.ogv', '.ogm']);
 }
 export function isPdfType(file?: File) {
-  return file?.type === 'application/pdf' || file?.name.lastIndexOf('.pdf') > -1;
+  return checkFileType(file, ['application/pdf'], ['.pdf']);
 }
 export function isWordType(file?: File) {
-  return (
-    file?.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
-    file?.name.lastIndexOf('.doc') > -1 ||
-    file?.name.lastIndexOf('.docx') > -1
-  );
+  return checkFileType(file, ['application/vnd.openxmlformats-officedocument.wordprocessingml.document'], ['.doc', '.docx']);
 }
 export function isExcelType(file?: File) {
-  return (
-    file?.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' ||
-    file?.type === 'application/vnd.ms-excel' ||
-    file?.name.lastIndexOf('.xls') > -1 ||
-    file?.name.lastIndexOf('.xlsx') > -1
-  );
+  return checkFileType(file, ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel'], ['.xls', '.xlsx']);
 }
 
 export function getFileType(file?: File) {
@@ -91,7 +93,7 @@ export function removeFile(file: RcFile) {
   fileCache.del(file.uid);
 }
 
-export async function getFileThumbUrl(file: RcFile): Promise<string> {
+export function getFileThumbUrl(file: RcFile): string {
   // 图片类型内部会自动处理 thumbUrl
   if (isImageType(file)) {
     return getFileUrl(file);
@@ -112,4 +114,8 @@ export async function getFileThumbUrl(file: RcFile): Promise<string> {
     return IconExcel;
   }
   return IconFile;
+}
+
+export async function previewFile(file: RcFile) {
+  return getFileThumbUrl(file);
 }
