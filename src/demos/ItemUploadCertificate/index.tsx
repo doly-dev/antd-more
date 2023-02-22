@@ -39,21 +39,21 @@ const ItemUploadCertificate: React.FC<ItemUploadCertificateProps> = ({
       getValueFromEvent={normFile}
       required={required}
       rules={[
-        {
-          required,
-          message: `请上传${restProps?.messageVariables?.label || restProps?.label}`
-        },
         // {
-        //   validator(_, value) {
-        //     if (value) {
-        //       const realValue = value.filter((item: any) => item?.response?.fssid);
-        //       if (realValue.length <= 0) {
-        //         return Promise.reject(`请上传${restProps?.messageVariables?.label || restProps?.label}`);
-        //       }
-        //     }
-        //     return Promise.resolve();
-        //   }
-        // }
+        //   required,
+        //   message: `请上传${restProps?.messageVariables?.label || restProps?.label}`
+        // },
+        {
+          validator(_, value) {
+            if (value) {
+              const realValue = value.filter((item: any) => item?.response?.fssid);
+              if (realValue.length <= 0) {
+                return Promise.reject(`请上传${restProps?.messageVariables?.label || restProps?.label}`);
+              }
+            }
+            return Promise.resolve();
+          }
+        }
       ]}
       {...restProps}
     >

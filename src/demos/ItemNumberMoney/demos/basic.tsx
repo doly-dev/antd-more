@@ -37,7 +37,7 @@ function Demo() {
           )
         }}
       />
-    </BizForm >
+    </BizForm>
   );
 }
 

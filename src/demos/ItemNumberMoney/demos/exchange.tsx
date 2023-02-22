@@ -36,7 +36,7 @@ function Demo() {
           addonAfter: <Button type='link' style={{ height: 30 }} onClick={() => { inputRef2.current?.focus() }} icon={<EditOutlined />} disabled />
         }}
       />
-    </BizForm >
+    </BizForm>
   );
 }
 
