@@ -8,7 +8,7 @@ const Demo = () => {
   const [lastColumnMerged, setLastColumnMerged] = React.useState(true);
   const [halfToChecked, setHalfToChecked] = React.useState(false);
 
-  const [checks, setChecks] = React.useState([
+  const [value, setValue] = React.useState([
     'HOME',
     'MERCHANT_LIST',
     'MERCHANT_QUERY',
@@ -17,9 +17,9 @@ const Demo = () => {
     'MERCHANT'
   ]);
 
-  const onChange = (value) => {
-    console.log(value);
-    setChecks(value);
+  const handleChange = (val) => {
+    console.log(val);
+    setValue(val);
   };
 
   return (
@@ -45,8 +45,8 @@ const Demo = () => {
       <TreeTable
         treeData={jsonData}
         columnTitles={['一级菜单', '二级菜单', '操作']}
-        value={checks}
-        onChange={onChange}
+        value={value}
+        onChange={handleChange}
         lastColumnMerged={lastColumnMerged}
         halfToChecked={halfToChecked}
       />

@@ -3,19 +3,19 @@ import { TreeTable } from 'antd-more';
 import jsonData from './data2';
 
 const Demo = () => {
-  const [checks, setChecks] = React.useState([]);
+  const [value, setValue] = React.useState([]);
 
-  const onChange = (value) => {
-    console.log(value);
-    setChecks(value);
+  const handleChange = (val) => {
+    console.log(val);
+    setValue(val);
   };
 
   return (
     <TreeTable
       treeData={jsonData}
       columnTitles={['一级菜单', '二级菜单']}
-      value={checks}
-      onChange={onChange}
+      value={value}
+      onChange={handleChange}
     />
   );
 };

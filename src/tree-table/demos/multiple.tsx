@@ -3,11 +3,11 @@ import { TreeTable } from 'antd-more';
 import jsonData from './data3';
 
 const Demo = () => {
-  const [checks, setChecks] = React.useState([]);
+  const [value, setValue] = React.useState([]);
 
-  const onChange = (value) => {
-    console.log(value);
-    setChecks(value);
+  const handleChange = (val) => {
+    console.log(val);
+    setValue(val);
   };
 
   return (
@@ -15,8 +15,8 @@ const Demo = () => {
       treeData={jsonData}
       columnTitles={['一级菜单', '二级菜单']}
       lastColumnMerged
-      value={checks}
-      onChange={onChange}
+      value={value}
+      onChange={handleChange}
     />
   );
 };

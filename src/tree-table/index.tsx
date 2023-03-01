@@ -1,14 +1,14 @@
 import * as React from 'react';
 import type { TableProps } from 'antd';
 import { Checkbox, Table } from 'antd';
-import { useControllableValue, useUpdate } from 'rc-hooks';
+import { useControllableValue, useLatest, useSafeState } from 'rc-hooks';
+import { findTreeNode } from 'util-helpers';
 import omit from '../utils/omit';
-import uniqueArray from '../utils/uniqueArray';
 import type { ValueType, TreeTableDataItem, TreeTableData, TreeTableFieldNames } from './type';
 
 export type { TreeTableDataItem, TreeTableData, TreeTableFieldNames };
 
-function hasLength(childs: any[]) {
+function hasChilds(childs: any[]) {
   return Array.isArray(childs) && childs.length > 0;
 }
 
@@ -19,7 +19,7 @@ const flatTree = (data: TreeTableData, childrenKey = 'children') => {
   function recursion(childs: TreeTableData, prevArray: TreeTableData = []) {
     childs.forEach((item) => {
       const newValue = [...prevArray, omit(item, [childrenKey]) as any];
-      if (hasLength(item[childrenKey])) {
+      if (hasChilds(item[childrenKey])) {
         recursion(item[childrenKey], newValue);
       } else {
         ret.push(newValue);
@@ -49,7 +49,7 @@ const compactTree = (data: TreeTableData, fieldNames: TreeTableFieldNames) => {
           ) || null
       });
 
-      if (hasLength(item[childrenKey])) {
+      if (hasChilds(item[childrenKey])) {
         recursion(item[childrenKey], omit(item, [childrenKey]));
       }
     });
@@ -130,7 +130,7 @@ function transformTreeToList(
         };
       }
 
-      if (!hasLength(item[childrenKey])) {
+      if (!hasChilds(item[childrenKey])) {
         list.push({
           ...newValue,
           key: `row_${parentValue}_${item[valueKey]}`
@@ -207,27 +207,10 @@ function findChildrenByValue(
   data: TreeTableData,
   value: ValueType,
   fieldNames: TreeTableFieldNames
-) {
+): TreeTableData {
   const { value: valueKey, children: childrenKey } = fieldNames;
-  let child: TreeTableData;
-
-  function recursion(list: TreeTableData) {
-    list.some((item) => {
-      if (child) {
-        return true;
-      }
-
-      if (item[valueKey] === value) {
-        child = item[childrenKey] || [];
-      } else if (hasLength(item[childrenKey])) {
-        recursion(item[childrenKey]);
-      }
-
-      return !!child;
-    });
-  }
-  recursion(data);
-  return child;
+  const currentItem = findTreeNode(data, item => item[valueKey] === value, childrenKey);
+  return currentItem?.[childrenKey] || [];
 }
 
 // 查找子项的value
@@ -244,7 +227,7 @@ function getChildrenValue(
   function recursion(list: TreeTableData) {
     list.forEach((item) => {
       ret.push(omit(item, [childrenKey]) as Omit<TreeTableDataItem, 'children'>);
-      if (hasLength(item[childrenKey])) {
+      if (hasChilds(item[childrenKey])) {
         recursion(item[childrenKey]);
       }
     });
@@ -294,6 +277,10 @@ const TreeTable: React.FC<TreeTableProps> = (props) => {
     defaultValue: [],
     ...props
   });
+  const [indeterminateList, setIndeterminateList] = useSafeState<ValueType[]>([]);
+  const indeterminateListRef = useLatest(indeterminateList);
+  const checkListRef = useLatest(checkList);
+
   const fieldNames = React.useMemo(
     () => ({
       label: 'label',
@@ -303,12 +290,8 @@ const TreeTable: React.FC<TreeTableProps> = (props) => {
     }),
     [outFieldNames]
   );
-
   const { value: valueKey, label: labelKey, children: childrenKey } = fieldNames;
 
-  const extraCheckListRef = React.useRef<ValueType[]>([]);
-  const indeterminateListRef = React.useRef<ValueType[]>([]);
-  const update = useUpdate();
   const { columns, list } = React.useMemo(
     () => transformTreeToList(treeData, lastColumnMerged, fieldNames),
     [lastColumnMerged, treeData, fieldNames]
@@ -319,6 +302,7 @@ const TreeTable: React.FC<TreeTableProps> = (props) => {
     [treeData, fieldNames]
   );
 
+  // 处理父级勾选/半勾选
   const processParentChecked = React.useCallback(
     (value?: ValueType, checks?: ValueType[], indeterminates?: ValueType[]) => {
       const newChecks = new Set(checks || []);
@@ -377,34 +361,35 @@ const TreeTable: React.FC<TreeTableProps> = (props) => {
     [childrenKey, compactData, halfToChecked, valueKey]
   );
 
-  // TODO: 是否可通过模型处理
   const handleChange = React.useCallback(
     (dataItem) => {
       const newIndetermaniteList = new Set(indeterminateListRef.current);
-      const newCheckList = new Set(checkList);
+      const newCheckList = new Set(checkListRef.current);
 
       const childValues = getChildrenValue(treeData, dataItem[valueKey], true, fieldNames);
 
-      // 已选中
-      if (checkList.includes(dataItem[valueKey])) {
-        checkList.forEach((item) => {
-          if (
-            item === dataItem[valueKey] ||
-            childValues.find((childItem) => childItem[valueKey] === item)
-          ) {
-            newCheckList.delete(item);
-          }
-        });
+      const currentValue = dataItem[valueKey];
+      const currentChecked = checkListRef.current.includes(currentValue);
+
+      // 处理当前层级勾选，已选中变为不勾选，不勾选改为勾选
+      if (currentChecked) {
+        newCheckList.delete(currentValue);
       } else {
-        newCheckList.add(dataItem[valueKey]);
-        newIndetermaniteList.delete(dataItem[valueKey]);
-        childValues.forEach((item) => {
-          if (!item.disabled) {
-            newCheckList.add(item[valueKey]);
-            newIndetermaniteList.delete(item[valueKey]);
-          }
-        });
+        newCheckList.add(currentValue);
+        newIndetermaniteList.delete(currentValue);
       }
+
+      // 处理所有子级勾选/不勾选
+      childValues.forEach((item) => {
+        if (currentChecked) {
+          if (checkListRef.current.find(checkItem => checkItem === item[valueKey])) {
+            newCheckList.delete(item[valueKey]);
+          }
+        } else if (!item.disabled) {
+          newCheckList.add(item[valueKey]);
+          newIndetermaniteList.delete(item[valueKey]);
+        }
+      });
 
       // 处理父级勾选/半勾选
       const { checks, indeterminates } = processParentChecked(
@@ -414,46 +399,32 @@ const TreeTable: React.FC<TreeTableProps> = (props) => {
       );
 
       // console.log(checks);
-      indeterminateListRef.current = indeterminates;
+      setIndeterminateList(indeterminates);
       setCheckList(checks);
     },
-    [checkList, fieldNames, processParentChecked, setCheckList, treeData, valueKey]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [fieldNames, processParentChecked, treeData, valueKey]
   );
 
-  // TODO: 优化计算，通过建模每一层级只关注自身变化
+  // 处理初始化数据 或 半勾选 prop 值切换
   React.useEffect(() => {
-    let cacheChecks = [];
-    let cacheIndeterminates = [];
+    let newCheckList = checkListRef.current;
+    let newIndetermaniteList = indeterminateListRef.current;
 
-    checkList.map((item) => {
+    checkListRef.current.forEach((item) => {
       const { checks, indeterminates } = processParentChecked(
         item,
-        [...checkList, ...extraCheckListRef.current],
-        indeterminateListRef.current
+        newCheckList,
+        newIndetermaniteList
       );
-      cacheChecks.push(...checks);
-      cacheIndeterminates.push(...indeterminates);
-    }, []);
+      newCheckList = checks;
+      newIndetermaniteList = indeterminates;
+    });
 
-    cacheChecks = uniqueArray(cacheChecks);
-    cacheIndeterminates = uniqueArray(cacheIndeterminates);
-
-    if (halfToChecked) {
-      extraCheckListRef.current = cacheChecks.filter((item) => !checkList.includes(item));
-      indeterminateListRef.current = cacheIndeterminates.filter(
-        (item) => !checkList.includes(item) && !extraCheckListRef.current.includes(item)
-      );
-    } else {
-      indeterminateListRef.current = cacheIndeterminates.filter(
-        (item) => !checkList.includes(item)
-      );
-      extraCheckListRef.current = cacheChecks.filter(
-        (item) => !checkList.includes(item) && !indeterminateListRef.current.includes(item)
-      );
-    }
-
-    update();
-  }, [checkList, processParentChecked, update, halfToChecked]);
+    setCheckList(newCheckList);
+    setIndeterminateList(newIndetermaniteList);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [processParentChecked]);
 
   const realColumns = React.useMemo(() => {
     return columns.map((item, i) => ({
@@ -471,25 +442,22 @@ const TreeTable: React.FC<TreeTableProps> = (props) => {
 
         return col[valueKey]
           ? col.data.map((subItem) => (
-              <Checkbox
-                checked={
-                  checkList.includes(subItem[valueKey]) ||
-                  extraCheckListRef.current.includes(subItem[valueKey])
-                }
-                indeterminate={indeterminateListRef.current.includes(subItem[valueKey])}
-                onChange={() => {
-                  handleChange(subItem);
-                }}
-                disabled={subItem.disabled}
-                key={subItem[valueKey]}
-              >
-                {labelRender ? labelRender(subItem) : subItem[labelKey] || subItem[valueKey]}
-              </Checkbox>
-            ))
+            <Checkbox
+              checked={checkList.includes(subItem[valueKey])}
+              indeterminate={indeterminateList.includes(subItem[valueKey])}
+              onChange={() => {
+                handleChange(subItem);
+              }}
+              disabled={subItem.disabled}
+              key={subItem[valueKey]}
+            >
+              {labelRender ? labelRender(subItem) : subItem[labelKey] || subItem[valueKey]}
+            </Checkbox>
+          ))
           : '-';
       }
     }));
-  }, [checkList, columnTitles, columns, handleChange, labelKey, labelRender, valueKey]);
+  }, [checkList, columnTitles, columns, handleChange, indeterminateList, labelKey, labelRender, valueKey]);
 
   return (
     <Table columns={realColumns} dataSource={list} pagination={false} bordered {...restProps} />

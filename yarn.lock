@@ -11411,10 +11411,10 @@ util-deprecate@^1.0.1, util-deprecate@^1.0.2, util-deprecate@~1.0.1:
   resolved "https://registry.npmjs.org/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
   integrity sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==
 
-util-helpers@^4.10.0:
-  version "4.10.0"
-  resolved "https://registry.npmjs.org/util-helpers/-/util-helpers-4.10.0.tgz#5940f81ea286ab149d398ace055b85c4c4c38b9a"
-  integrity sha512-UgetYBl7f8p1phQefdHgCx6ZTfhNpDP0xmwuAXQJEZHNjETUM8UrsJbyduF3+g5ee5BKx0YqCxU2Iz0ZVZ9Z8Q==
+util-helpers@^4.15.2:
+  version "4.15.2"
+  resolved "https://registry.npmjs.org/util-helpers/-/util-helpers-4.15.2.tgz#c6e7e1f56ba479a018cce448a3fe4f77f7cccb8f"
+  integrity sha512-YlcSIuAtuUY3BEFMcqSxru9kMGipS9UT8OSWXkKxs0CfxDcPATMlfT+8OeN8ekKVwvPv8kC3b4MlT0mAJRSWIA==
   dependencies:
     "@babel/runtime" "^7.14.0"
 
