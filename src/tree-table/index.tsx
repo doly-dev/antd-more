@@ -4,13 +4,10 @@ import { Checkbox, Table } from 'antd';
 import { useControllableValue, useLatest, useSafeState } from 'rc-hooks';
 import { findTreeNode } from 'util-helpers';
 import omit from '../utils/omit';
+import hasLength from '../utils/hasLength';
 import type { ValueType, TreeTableDataItem, TreeTableData, TreeTableFieldNames } from './type';
 
 export type { TreeTableDataItem, TreeTableData, TreeTableFieldNames };
-
-function hasChilds(childs: any[]) {
-  return Array.isArray(childs) && childs.length > 0;
-}
 
 // 计算树型数据层级
 const flatTree = (data: TreeTableData, childrenKey = 'children') => {
@@ -19,7 +16,7 @@ const flatTree = (data: TreeTableData, childrenKey = 'children') => {
   function recursion(childs: TreeTableData, prevArray: TreeTableData = []) {
     childs.forEach((item) => {
       const newValue = [...prevArray, omit(item, [childrenKey]) as any];
-      if (hasChilds(item[childrenKey])) {
+      if (hasLength(item[childrenKey])) {
         recursion(item[childrenKey], newValue);
       } else {
         ret.push(newValue);
@@ -49,7 +46,7 @@ const compactTree = (data: TreeTableData, fieldNames: TreeTableFieldNames) => {
           ) || null
       });
 
-      if (hasChilds(item[childrenKey])) {
+      if (hasLength(item[childrenKey])) {
         recursion(item[childrenKey], omit(item, [childrenKey]));
       }
     });
@@ -130,7 +127,7 @@ function transformTreeToList(
         };
       }
 
-      if (!hasChilds(item[childrenKey])) {
+      if (!hasLength(item[childrenKey])) {
         list.push({
           ...newValue,
           key: `row_${parentValue}_${item[valueKey]}`
@@ -227,7 +224,7 @@ function getChildrenValue(
   function recursion(list: TreeTableData) {
     list.forEach((item) => {
       ret.push(omit(item, [childrenKey]) as Omit<TreeTableDataItem, 'children'>);
-      if (hasChilds(item[childrenKey])) {
+      if (hasLength(item[childrenKey])) {
         recursion(item[childrenKey]);
       }
     });
