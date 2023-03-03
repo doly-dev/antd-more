@@ -3,6 +3,8 @@ import type { TableProps } from 'antd';
 
 type SizeType = TableProps<any>['size'];
 
+export type ColumnConfigKeys = (string | number)[];
+
 export type TableContextProps = {
   size?: SizeType;
   setSize?: (size: SizeType) => void;
@@ -11,7 +13,8 @@ export type TableContextProps = {
   isFullScreen?: boolean;
   setFullScreen?: (isFullScreen: boolean) => void;
   columns?: TableProps<any>['columns'];
-  setColumns?: (columns: TableProps<any>['columns']) => void;
+  columnConfigKeys?: ColumnConfigKeys;
+  setColumnConfigKeys?: (keys: ColumnConfigKeys) => void;
 };
 
 const TableContext = React.createContext<TableContextProps>({});

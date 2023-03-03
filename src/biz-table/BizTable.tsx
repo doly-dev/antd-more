@@ -17,9 +17,12 @@ import type {
 } from './interface';
 import { createFormItem } from './_util/createFormItems';
 import getRowKey from './_util/getRowKey';
+import getColumnKey from './_util/getColumnKey';
+import type { ColumnConfigKeys } from './TableContext';
 import TableContext from './TableContext';
 import ToolbarAction from './components/ToolbarAction';
 import omit from '../utils/omit';
+import hasLength from '../utils/hasLength';
 
 import './index.less';
 
@@ -102,7 +105,6 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
   const [size, setSize] = React.useState(defaultSize);
   const rootRef = React.useRef<HTMLDivElement>(null);
   const [isFullScreen, setFullScreen] = React.useState(false);
-  const [newColumns, setNewColumns] = React.useState([]);
   const toolbarActionConfig: ToolbarActionProps['config'] = React.useMemo(() => {
     const defaultConfig = {
       reload: true,
@@ -151,18 +153,34 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
     [formRef]
   );
 
+  const columnsWithKey = React.useMemo(() => {
+    function recursion(arr: any[] = [], parentKey: string | number = '') {
+      const tmpColumns: any[] = [];
+      arr.forEach((item, index) => {
+        const key = getColumnKey(item, index, parentKey);
+        const newItem = { ...item, key }
+        if (hasLength(newItem?.children)) {
+          newItem.children = recursion(newItem.children, key);
+        }
+        tmpColumns.push(newItem);
+      });
+      return tmpColumns;
+    }
+    return recursion(columns);
+  }, [columns]);
+
   const { searchItems, columns: currentColumns } = React.useMemo(() => {
     const ret = {
       searchItems: [],
       columns: []
     };
 
-    if (!Array.isArray(columns) || columns.length <= 0) {
+    if (!Array.isArray(columnsWithKey) || columnsWithKey.length <= 0) {
       return ret;
     }
 
-    function processColumns(columnConfig) {
-      return columnConfig
+    function processColumns(columnsData) {
+      return columnsData
         .filter((item) => !!item)
         .map((item) => {
           const {
@@ -291,10 +309,25 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
         })
         .filter((columnItem) => columnItem.table !== false);
     }
-    ret.columns = processColumns(columns);
+    ret.columns = processColumns(columnsWithKey);
     return ret;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [columns, nowrap, rowKey, editableKeys.join('.'), editableForm]);
+  }, [columnsWithKey, nowrap, rowKey, editableKeys.join('.'), editableForm]);
+  const [columnConfigKeys, setColumnConfigKeys] = React.useState<ColumnConfigKeys>(() => currentColumns.map(item => item.key));
+
+  const finalColumns = React.useMemo(() => {
+    if (!Array.isArray(columnConfigKeys)) {
+      return currentColumns;
+    }
+    const tmpColumns: any[] = [];
+    columnConfigKeys.forEach(key => {
+      const columnItem = currentColumns.find(item => item?.key === key);
+      if (columnItem) {
+        tmpColumns.push(columnItem);
+      }
+    });
+    return tmpColumns;
+  }, [currentColumns, columnConfigKeys]);
 
   React.useEffect(() => {
     if (Array.isArray(editableKeys)) {
@@ -443,12 +476,6 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
     };
   }, [actionCacheKey]);
 
-  React.useEffect(() => {
-    if (!toolbarActionConfig.columnSetting) {
-      setNewColumns(currentColumns);
-    }
-  }, [currentColumns, toolbarActionConfig]);
-
   useUpdateEffect(() => {
     onDataSourceChange?.(data.list);
   }, [data]);
@@ -487,7 +514,7 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
       <Table
         loading={loading}
         rowKey={rowKey}
-        columns={newColumns}
+        columns={finalColumns}
         dataSource={tableProps.dataSource}
         pagination={
           paginationProp !== false
@@ -530,7 +557,8 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
         isFullScreen,
         setFullScreen,
         columns: currentColumns,
-        setColumns: setNewColumns
+        columnConfigKeys: columnConfigKeys,
+        setColumnConfigKeys: setColumnConfigKeys
       }}
     >
       <div
