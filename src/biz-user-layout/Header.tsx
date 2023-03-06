@@ -7,7 +7,7 @@ const prefixCls = `${prefixClass}-header`;
 
 export interface HeaderProps {
   headerRightContent?: React.ReactNode;
-  logo?: string;
+  logo?: React.ReactNode;
   title?: React.ReactNode;
   onClickLogo?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
@@ -21,10 +21,16 @@ const Header: React.FC<HeaderProps> = ({ logo, title, headerRightContent, onClic
       })}
     >
       <div className={`${prefixCls}-main`} onClick={onClickLogo}>
-        <div className={`${prefixCls}-logo`}>
-          <img src={logo} alt="" />
-        </div>
-        <div className={`${prefixCls}-title`}>{title}</div>
+        {
+          logo && (
+            <div className={`${prefixCls}-logo`}>
+              {typeof logo === 'string' ? <img src={logo} alt="" /> : logo}
+            </div>
+          )
+        }
+        {
+          title && <div className={`${prefixCls}-title`}>{title}</div>
+        }
       </div>
       {headerRightContent && <div className={`${prefixCls}-right`}>{headerRightContent}</div>}
     </header>

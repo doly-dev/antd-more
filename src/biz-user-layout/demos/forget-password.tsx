@@ -8,7 +8,7 @@ import ForgetPasswordBox from './ForgetPasswordBox';
 function Demo() {
   return (
     <BizUserLayout
-      logo="https://doly-dev.github.io/logo.png"
+      logo={<img src="https://doly-dev.github.io/logo.png" alt="LOGO" />}
       title="antd-more"
       footer={{
         copyright: `©️ ${new Date().getFullYear()} doly-dev`

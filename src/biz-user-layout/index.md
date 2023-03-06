@@ -55,7 +55,7 @@ nav:
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| logo | 品牌图标 | `string` | - |
+| logo | 品牌图标 | `ReactNode` | - |
 | title | 项目名称 | `ReactNode` | - |
 | headerRightContent | 头部右侧内容 | `ReactNode` | - |
 | renderHeader | 自定义头部渲染 | `(props: BizUserLayoutProps) => ReactNode` | - |

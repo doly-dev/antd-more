@@ -9,7 +9,7 @@ import LoginBox from './LoginBox';
 function Demo() {
   return (
     <BizUserLayout
-      logo="https://doly-dev.github.io/logo.png"
+      logo={<img src="https://doly-dev.github.io/logo.png" alt="LOGO" />}
       title="antd-more"
       banner={[
         'https://dummyimage.com/1920x400',
