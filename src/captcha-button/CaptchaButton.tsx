@@ -1,7 +1,11 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import type { ButtonProps } from 'antd';
 import { Button } from 'antd';
+import classnames from 'classnames';
 import CountDown from 'countdown-pro';
+import './CaptchaButton.less';
+
+const prefixCls = 'antd-more-captcha-button';
 
 export interface CaptchaButtonProps extends ButtonProps {
   start?: boolean;
@@ -28,6 +32,7 @@ const CaptchaButton = React.forwardRef<HTMLElement, CaptchaButtonProps>(
       second = 60,
       // 倒计时结束的回调方法
       onEnd,
+      className,
       ...restProps
     },
     ref
@@ -69,7 +74,7 @@ const CaptchaButton = React.forwardRef<HTMLElement, CaptchaButtonProps>(
     }, [countdown, status]);
 
     return (
-      <Button ref={ref} {...restProps} disabled={status === 1}>
+      <Button ref={ref} className={classnames(prefixCls, className)} {...restProps} disabled={status === 1}>
         {status === 0 && initText}
         {status === 1 && runText.replace(/%s/g, runSecond.toString())}
         {status === 2 && resetText}
