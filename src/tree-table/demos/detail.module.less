@@ -1,0 +1,26 @@
+.wrapper {
+  :global {
+    .ant-checkbox-wrapper {
+      margin: 0;
+      cursor: default;
+
+      &::after {
+        display: inline-block;
+        width: auto;
+        content: '、';
+      }
+
+      &:last-child::after {
+        display: none;
+      }
+
+      .ant-checkbox {
+        display: none;
+
+        & + span {
+          padding: 0;
+        }
+      }
+    }
+  }
+}

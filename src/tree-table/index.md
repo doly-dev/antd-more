@@ -38,6 +38,10 @@ nav:
 
 <code src='./demos/multiple.tsx' />
 
+### 详情展示
+
+<code src='./demos/detail.tsx'></code>
+
 ## API
 
 ```typescript
