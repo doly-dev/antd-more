@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Col, Row } from 'antd';
 import { BizForm, BizFormItem } from 'antd-more';
-import { uploadFile } from '../../../biz-form/demos/services';
-import ItemUploadCertificate from '..';
-import styles from './style.less';
+import { uploadFile } from '../../biz-form/demos/services';
+import ItemUploadCertificate from '../components/ItemUploadCertificate';
+import styles from './style.module.less';
 
 function Demo() {
   return (

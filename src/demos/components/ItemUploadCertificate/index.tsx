@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import type { BizFormItemProps } from 'antd-more';
 import { BizFormItem } from 'antd-more';
-import styles from './index.less';
+import styles from './index.module.less';
 import type { UploadCertificateProps } from './UploadCertificate';
 import UploadCertificate from './UploadCertificate';
 

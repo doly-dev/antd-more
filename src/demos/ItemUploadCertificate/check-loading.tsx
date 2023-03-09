@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { BizForm } from 'antd-more';
 import { message } from 'antd';
-import ItemUploadCertificate from '..';
-import { uploadFile } from '../../../biz-form/demos/services';
-import { uploadFileToFssid } from '../../../biz-form/demos/utils/fileUtils';
+import ItemUploadCertificate from '../components/ItemUploadCertificate';
+import { uploadFile } from '../../biz-form/demos/services';
+import { uploadFileToFssid } from '../../biz-form/demos/utils/fileUtils';
 
 function Demo() {
   const loadingCountRef = React.useRef(0); // 图片上传中标记次数，仅在值为0的时候才允许下一步

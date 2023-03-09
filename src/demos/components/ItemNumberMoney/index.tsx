@@ -3,7 +3,7 @@ import type { BizFormItemNumberProps } from 'antd-more';
 import { BizFormItemNumber } from 'antd-more';
 import classnames from 'classnames';
 import { divide, times } from 'util-helpers';
-import styles from './index.less';
+import styles from './index.module.less';
 
 export interface ItemNumberMoneyProps extends BizFormItemNumberProps {
   inputPrefixReverse?: boolean; // 前缀反转到后缀位置，开启后默认关闭 controls

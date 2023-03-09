@@ -9,17 +9,17 @@ group:
 
 ### 基础用法
 
-<code src='../../src/demos/ItemUploadCertificate/demos/basic.tsx' />
+<code src='../../src/demos/ItemUploadCertificate/basic.tsx' />
 
 ### 内置类型
 
 默认设置了上传选择的图标和标题，浮层提示。
 
-<code src='../../src/demos/ItemUploadCertificate/demos/built-in.tsx' />
+<code src='../../src/demos/ItemUploadCertificate/built-in.tsx' />
 
 ### 更多用法
 
-<code src='../../src/demos/ItemUploadCertificate/demos/more.tsx' />
+<code src='../../src/demos/ItemUploadCertificate/more.tsx' />
 
 ### 验证文件上传中
 
@@ -27,7 +27,7 @@ group:
 
 这样可以保障文件都上传完成才能进行提交操作。
 
-<code src='../../src/demos/ItemUploadCertificate/demos/check-loading.tsx' />
+<code src='../../src/demos/ItemUploadCertificate/check-loading.tsx' />
 
 ## API
 

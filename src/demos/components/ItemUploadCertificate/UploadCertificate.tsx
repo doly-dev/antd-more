@@ -16,7 +16,7 @@ import ImageExamplePassport from './assets/example-passport.jpg';
 import ImageExampleBusinessLicense from './assets/example-business-license.jpg';
 import ImageExampleAuthorization from './assets/example-authorization.jpg';
 import ImageExampleBusinessRegistry from './assets/example-business-registry.jpg';
-import styles from './index.less';
+import styles from './index.module.less';
 import IconPDF from './assets/icon-pdf.png';
 import { isPDFFile } from "./utils";
 

@@ -4,7 +4,7 @@
 import * as React from 'react';
 import { BizUserLayout } from 'antd-more';
 import LoginBox from './LoginBox';
-import styles from './login-full.less';
+import styles from './login-full.module.less';
 
 function Demo() {
   return (

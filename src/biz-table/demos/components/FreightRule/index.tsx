@@ -2,7 +2,7 @@ import * as React from 'react';
 import type { RadioGroupProps } from 'antd';
 import { Radio, InputNumber } from 'antd';
 import classnames from 'classnames';
-import styles from './index.less';
+import styles from './index.module.less';
 
 // 配送规则
 // 0--不包邮 1--包邮 2-不配送

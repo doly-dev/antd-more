@@ -2,7 +2,7 @@ import React from "react";
 import { Card, Row, Col, Space } from "antd";
 import { BizUserLayout } from "antd-more";
 import RegisterBox from './RegisterBox';
-import styles from './register.less';
+import styles from './register.module.less';
 
 const Register = () => {
   return (

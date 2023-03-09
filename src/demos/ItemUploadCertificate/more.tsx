@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { BizForm } from 'antd-more';
-import ImageIdCardPersonal from '../assets/idcard-personal.jpg';
-import { uploadFile } from '../../../biz-form/demos/services';
-import ItemUploadCertificate from '..';
-import styles from './style.less';
+import ImageIdCardPersonal from '../components/ItemUploadCertificate/assets/idcard-personal.jpg';
+import { uploadFile } from '../../biz-form/demos/services';
+import ItemUploadCertificate from '../components/ItemUploadCertificate';
+import styles from './style.module.less';
 
 function Demo() {
   return (

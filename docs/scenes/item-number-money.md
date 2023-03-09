@@ -11,11 +11,11 @@ group:
 
 ### 基础用法
 
-<code src='../../src/demos/ItemNumberMoney/demos/basic.tsx' />
+<code src='../../src/demos/ItemNumberMoney/basic.tsx' />
 
 ### 更多
 
-<code src='../../src/demos/ItemNumberMoney/demos/exchange.tsx' />
+<code src='../../src/demos/ItemNumberMoney/exchange.tsx' />
 
 ## API
 

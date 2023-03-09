@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from 'antd';
 import { BizForm } from 'antd-more';
-import ItemNumberMoney from '..';
+import ItemNumberMoney from '../components/ItemNumberMoney';
 
 function Demo() {
   const [form] = BizForm.useForm();

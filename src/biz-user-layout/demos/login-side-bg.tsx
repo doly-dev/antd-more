@@ -5,7 +5,7 @@ import * as React from 'react';
 import { Card, Row, Col, Space } from 'antd';
 import { BizUserLayout } from 'antd-more';
 import LoginBox from './LoginBox';
-import styles from './login-side-bg.less';
+import styles from './login-side-bg.module.less';
 
 function Demo() {
   return (

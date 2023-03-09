@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { BizForm } from 'antd-more';
-import { uploadFile } from '../../../biz-form/demos/services';
-import ItemUploadCertificate from '..';
+import { uploadFile } from '../../biz-form/demos/services';
+import ItemUploadCertificate from '../components/ItemUploadCertificate';
 
 const initialValues = {
   upload3: [{

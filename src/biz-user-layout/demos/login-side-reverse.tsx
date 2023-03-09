@@ -5,7 +5,7 @@ import * as React from 'react';
 import { BizUserLayout } from 'antd-more';
 import LoginBox from './LoginBox';
 import ImageSideBanner from './images/login_banner.jpg';
-import styles from './login-side.less';
+import styles from './login-side.module.less';
 
 function Demo() {
   return (
