@@ -23,7 +23,7 @@ const Demo = () => {
     >
       <BizFormItemInput label="Input" name="input1" />
       <BizFormItemInput label="必填项" name="input2" required />
-      <BizFormItemInput label="禁止空格" name="input3" disabledWhiteSpace />
+      <BizFormItemInput label="去除头尾空格" name="input3" disabledWhiteSpace />
       <BizFormItemInput
         label="图片验证码"
         name="code"

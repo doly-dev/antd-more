@@ -287,7 +287,7 @@ Input 输入框
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | type | 输入框类型。 | `'mobile' \| 'bankCard' \| 'idCard' \| 'email' \| 'userName'` | - |
-| disabledWhiteSpace | 禁止输入空白符。 | `boolean` | - |
+| disabledWhiteSpace | 去除头尾空格 | `boolean` | - |
 | format | 是否格式化。仅在设置为 `type=mobile \| bankCard \| idCard` 时生效。<br/>手机号码和银行卡号不格式化空格，身份证号`x`不强制大写。 | `boolean` | `true` |
 | placeholder | 输入框提示 | `string` | `请输入` |
 | allowClear | 支持清除 | `boolean \| {clearIcon?: React.ReactNode;}` | - |
@@ -464,7 +464,7 @@ TextArea 输入框
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| disabledWhiteSpace | 禁止输入空白符 | `boolean` | `false` |
+| disabledWhiteSpace | 去除头尾空格 | `boolean` | `false` |
 | placeholder | 输入框提示 | `string` | `请输入` |
 | allowClear | 支持清除 | `boolean` | `false` |
 | maxLength | 最大长度 | `number` | - |

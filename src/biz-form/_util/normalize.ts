@@ -4,7 +4,9 @@ import { normalizeString, formatBankCard, formatMobile } from 'util-helpers';
 
 // 标准化输入非空白符
 export const normalizeWhiteSpace = (value: string) => {
-  return normalizeString(value).replace(/\s/g, '');
+  // 如果替换全部空字符，输入中文时有bug
+  // return normalizeString(value).replace(/\s/g, '');
+  return normalizeString(value).trim();
 };
 
 // 标准化输入银行卡号
