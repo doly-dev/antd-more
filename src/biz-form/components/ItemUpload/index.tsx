@@ -32,6 +32,7 @@ export interface BizFormItemUploadProps
     | 'maxSize'
     | 'maxCount'
     | 'onGetPreviewUrl'
+    | 'previewModalProps'
   > {
   type?: 'default' | 'image' | 'avatar' | 'dragger';
   uploadProps?: UploadProps;
@@ -59,6 +60,7 @@ const BizFormItemUpload: React.FC<BizFormItemUploadProps> & {
   multiple = false,
   icon,
   title,
+  previewModalProps,
 
   required,
   transform,
@@ -115,6 +117,7 @@ const BizFormItemUpload: React.FC<BizFormItemUploadProps> & {
           multiple={multiple}
           icon={icon}
           title={title}
+          previewModalProps={previewModalProps}
           {...uploadProps}
         />
       </BizFormItem>

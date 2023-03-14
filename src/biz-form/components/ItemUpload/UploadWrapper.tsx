@@ -29,7 +29,7 @@ export interface UploadWrapperProps extends UploadProps {
   title?: React.ReactNode;
 
   // 内置预览modal props
-  previewModalProps?: PreviewProps;
+  previewModalProps?: Partial<PreviewProps>;
 }
 
 const UploadWrapper: React.FC<UploadWrapperProps> = ({
