@@ -4,6 +4,7 @@ import type { BizFormItemProps } from './Item';
 import BizFormItem from './Item';
 import type { InputNumberProps } from './antd.interface';
 import getLabel from '../_util/getLabel';
+import isValidNumber from '../../utils/isValidNumber';
 
 export interface BizFormItemNumberProps
   extends BizFormItemProps,
@@ -38,15 +39,15 @@ const BizFormItemNumber: React.FC<BizFormItemNumberProps> = ({
         {
           validator(rule, value) {
             let errMsg = '';
-            if (typeof value !== 'number') {
+            if (!isValidNumber(value)) {
               errMsg = required ? `请输入${getLabel(restProps)}` : '';
-            } else if (typeof lt === 'number' && value >= lt) {
+            } else if (isValidNumber(lt) && value >= lt) {
               errMsg = `不能大于等于${lt}`;
-            } else if (typeof gt === 'number' && value <= gt) {
+            } else if (isValidNumber(gt) && value <= gt) {
               errMsg = `不能小于等于${gt}`;
-            } else if (typeof lte === 'number' && value > lte) {
+            } else if (isValidNumber(lte) && value > lte) {
               errMsg = `不能大于${lte}`;
-            } else if (typeof gte === 'number' && value < gte) {
+            } else if (isValidNumber(gte) && value < gte) {
               errMsg = `不能小于${gte}`;
             }
             if (errMsg) {
