@@ -11,7 +11,6 @@ const Demo = () => {
           'HOME',
           'MERCHANT_LIST',
           'MERCHANT_QUERY',
-          'MERCHANT_DETAIL',
           'MERCHANT_ADD',
           'MERCHANT'
         ]

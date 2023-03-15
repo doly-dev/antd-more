@@ -278,6 +278,11 @@ const TreeTable: React.FC<TreeTableProps> = (props) => {
   const indeterminateListRef = useLatest(indeterminateList);
   const checkListRef = useLatest(checkList);
 
+  // 修复外部数据为 undefined 导致报错
+  if (!checkListRef.current) {
+    checkListRef.current = [];
+  }
+
   const fieldNames = React.useMemo(
     () => ({
       label: 'label',
@@ -424,7 +429,9 @@ const TreeTable: React.FC<TreeTableProps> = (props) => {
   }, [processParentChecked]);
 
   const realColumns = React.useMemo(() => {
-    return columns.map((item, i) => ({
+    // 优化没有数据时的表格标题展示
+    const internalColumns = Array.isArray(columns) && columns.length > 0 ? columns : (Array.isArray(columnTitles) && columnTitles.length > 0 ? columnTitles.map(() => ({})) : []);
+    return internalColumns.map((item, i) => ({
       ...item,
       title: columnTitles[i] || '-',
       // ref: https://github.com/ant-design/ant-design/issues/33093
@@ -440,7 +447,7 @@ const TreeTable: React.FC<TreeTableProps> = (props) => {
         return col[valueKey]
           ? col.data.map((subItem) => (
             <Checkbox
-              checked={checkList.includes(subItem[valueKey])}
+              checked={(checkList || []).includes(subItem[valueKey])}
               indeterminate={indeterminateList.includes(subItem[valueKey])}
               onChange={() => {
                 handleChange(subItem);
