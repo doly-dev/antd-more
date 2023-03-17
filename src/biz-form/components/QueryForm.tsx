@@ -75,7 +75,7 @@ function QueryForm<Values = any>(props: QueryFormProps<Values>) {
           <Row gutter={16}>
             {items.map((item: any, index) => {
               const { colProps, ...restItemProps } = item.props;
-              const hidden = collapsed && enabledCollapse && index >= defaultColsNumber;
+              const hidden = (collapsed && enabledCollapse && index >= defaultColsNumber) || restItemProps?.hidden;
               return (
                 <Col
                   key={item?.key || item.name + index.toString()}
@@ -83,10 +83,7 @@ function QueryForm<Values = any>(props: QueryFormProps<Values>) {
                   {...colProps}
                   style={hidden ? { display: 'none' } : {}}
                 >
-                  {React.cloneElement(item, {
-                    hidden,
-                    ...restItemProps
-                  })}
+                  {React.cloneElement(item, restItemProps)}
                 </Col>
               );
             })}
