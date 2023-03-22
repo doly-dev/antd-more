@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { BizForm, BizFormItemDate } from 'antd-more';
 import moment from 'moment';
-import ItemDateRangeDefine from './components/ItemDateRangeDefine';
 
 const initialValues = {
   date7: '2020-10-10',
@@ -43,12 +42,6 @@ const Demo = () => {
       />
       <BizFormItemDate label="默认值1" name="date7" tooltip="支持string格式" />
       <BizFormItemDate label="默认值2" name="date8" tooltip="moment格式" />
-      <ItemDateRangeDefine
-        label="自定义日期范围"
-        name="date9"
-        labelWidth={126}
-        // required
-      />
     </BizForm>
   );
 };
