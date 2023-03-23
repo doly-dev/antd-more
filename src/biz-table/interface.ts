@@ -14,6 +14,7 @@ export type BizTableActionType = {
   reload: () => void;
   reset: () => void;
   submit: () => void;
+  submitAndCurrent: (current: number) => void;
 };
 
 export interface RequestParams extends Record<string | number, any> {
