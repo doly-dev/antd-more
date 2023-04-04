@@ -435,14 +435,14 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
 
   const handleSubmitAndCurrent = React.useCallback((current: number) => {
     const [oldParams, ...restParams] = params;
-    const formValues = innerFormExtraRef.current.getTransformFieldsValue();
+    const formValues = hasSearch ? innerFormExtraRef.current.getTransformFieldsValue() : {};
     return run({
       ...oldParams,
       current,
       pageSize: pagination.pageSize,
       search: formValues
     }, ...restParams);
-  }, [pagination.pageSize, params, run]);
+  }, [hasSearch, pagination.pageSize, params, run]);
 
   // 默认 onReset 中已经重置表单，这里只需触发请求
   const handleDefaultReset = React.useCallback(() => {
