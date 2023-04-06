@@ -9,6 +9,8 @@ import type { ValueType, TreeTableDataItem, TreeTableData, TreeTableFieldNames }
 
 export type { TreeTableDataItem, TreeTableData, TreeTableFieldNames };
 
+const EmptyArray = []; // 处理默认值不变，如果props中使用 `x=[]`，且该属性在依赖更新中，可能导致无限更新。
+
 // 计算树型数据层级
 const flatTree = (data: TreeTableData, childrenKey = 'children') => {
   const ret = [];
@@ -207,7 +209,7 @@ function findChildrenByValue(
 ): TreeTableData {
   const { value: valueKey, children: childrenKey } = fieldNames;
   const currentItem = findTreeNode(data, item => item[valueKey] === value, childrenKey);
-  return currentItem?.[childrenKey] || [];
+  return currentItem?.[childrenKey] || EmptyArray;
 }
 
 // 查找子项的value
@@ -249,7 +251,7 @@ export interface TreeTableProps<RecordType = any>
   columnTitles: React.ReactNode[];
   lastColumnMerged?: boolean;
   halfToChecked?: boolean;
-  treeData: TreeTableData;
+  treeData?: TreeTableData;
   value?: ValueType[];
   onChange?: (values: ValueType[]) => void;
   labelRender?: (nodeData: TreeTableDataItem) => React.ReactNode;
@@ -258,8 +260,8 @@ export interface TreeTableProps<RecordType = any>
 
 const TreeTable: React.FC<TreeTableProps> = (props) => {
   const {
-    columnTitles = [],
-    treeData = [],
+    columnTitles = EmptyArray,
+    treeData = EmptyArray,
     lastColumnMerged = false,
     halfToChecked = false,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -307,8 +309,8 @@ const TreeTable: React.FC<TreeTableProps> = (props) => {
   // 处理父级勾选/半勾选
   const processParentChecked = React.useCallback(
     (value?: ValueType, checks?: ValueType[], indeterminates?: ValueType[]) => {
-      const newChecks = new Set(checks || []);
-      const newIndetermanites = new Set(indeterminates || []);
+      const newChecks = new Set(checks || EmptyArray);
+      const newIndetermanites = new Set(indeterminates || EmptyArray);
 
       // 递归处理父级勾选/半勾选
       function recursion(val: ValueType) {
@@ -447,7 +449,7 @@ const TreeTable: React.FC<TreeTableProps> = (props) => {
         return col[valueKey]
           ? col.data.map((subItem) => (
             <Checkbox
-              checked={(checkList || []).includes(subItem[valueKey])}
+              checked={(checkList || EmptyArray).includes(subItem[valueKey])}
               indeterminate={indeterminateList.includes(subItem[valueKey])}
               onChange={() => {
                 handleChange(subItem);
