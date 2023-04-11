@@ -8,7 +8,7 @@ nav:
   path: /components
 ---
 
-# Color
+# Color - 颜色
 
 > 推荐使用 [BizField](/components/biz-field)、[BizFormItemColor](/components/item#color)。
 
@@ -47,7 +47,7 @@ nav:
 | value | 颜色值 | `string` | - |
 | showText | 显示颜色值文本 | `boolean` | `false` |
 | onChange | 当颜色值变动后触发。 | `(color: string) => void` | - |
-| trigger | 触发行为 | `'hover' \| 'click'` | `'click'` |
+| trigger | 触发行为 | `string \| string[]` | `'click'` |
 | colorMode | 颜色模式 | `'hex' \| 'rgb'` | `'hex'` |
 | placement | 颜色选择浮层位置，可选 `top` `left` `right` `bottom` `topLeft` `topRight` `bottomLeft` `bottomRight` `leftTop` `leftBottom` `rightTop` `rightBottom` | `string` | `'bottomLeft'` |
 | size | 颜色块大小 | `'small' \| 'middle'` | `'small'` |

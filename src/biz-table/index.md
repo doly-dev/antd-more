@@ -303,4 +303,4 @@ ref.current.submit();
 [bizformitemtime]: /components/item#time
 [bizformitemtimerange]: /components/item#timerange
 [bizformitemupload]: /components/item#upload
-[protable在全屏下的modal不会展示]: https://github.com/ant-design/pro-components/issues/922
+[protable 在全屏下的 modal 不会展示]: https://github.com/ant-design/pro-components/issues/922

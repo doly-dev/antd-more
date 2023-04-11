@@ -64,7 +64,7 @@ const VerificateCodeInput: React.FC<VerificateCodeInputProps> = ({
 
   // 点击按钮
   const onButtonClick = React.useCallback(
-    async (e: React.MouseEvent<HTMLElement>) => {
+    async (e: React.MouseEvent<any>) => {
       setLoading(true);
       onClick?.(e);
 
@@ -92,7 +92,7 @@ const VerificateCodeInput: React.FC<VerificateCodeInputProps> = ({
   }, [onEnd]);
 
   const handleButtonMouseUp = React.useCallback(
-    (e: React.MouseEvent) => {
+    (e: React.MouseEvent<any>) => {
       e.stopPropagation();
       buttonProps?.onMouseUp?.(e);
     },

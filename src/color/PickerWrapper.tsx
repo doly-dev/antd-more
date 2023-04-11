@@ -11,11 +11,10 @@ import './index.less';
 
 const prefixCls = 'antd-more-color';
 
-export interface PickerCommonProps {
+export interface PickerCommonProps extends Pick<PopoverProps, 'trigger'> {
   className?: string;
   value?: string;
   showText?: boolean;
-  trigger?: 'click' | 'hover' | string | string[];
   onChange?: (colorStr: string) => void;
   colorMode?: 'hex' | 'rgb';
   placement?: TooltipProps['placement'];
@@ -69,9 +68,9 @@ const PickerWrapper: React.FC<PickerWrapperProps> = ({
             defined
               ? children
               : cloneElement(children, {
-                  [changeMethod]: handleChange,
-                  color: value
-                })
+                [changeMethod]: handleChange,
+                color: value
+              })
           }
           trigger={trigger}
           visible={visible}

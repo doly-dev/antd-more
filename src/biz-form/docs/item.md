@@ -194,7 +194,7 @@ import { BizFormItem } from 'antd-more';
 | colorMode | 颜色模式 | `'hex' \| 'rgb'` | `hex` |
 | placement | 颜色选择浮层位置 | `'top' \| 'left' \| 'right' \| 'bottom' \| 'topLeft' \| 'topRight' \| 'bottomLeft' \| 'bottomRight' \| 'leftTop' \| 'leftBottom' \| 'rightTop' \| 'rightBottom'` | `bottomLeft` |
 | size | 颜色块大小 | `'small' \| 'middle'` | `'small'` |
-| colorProps | 其他颜色选择器配置，不同 picker 有不同的配置项 | [`ColorSketchPickerProps`](/components/color#picker-共同的-api) | - |
+| colorProps | 颜色选择器更多配置 | [`ColorSketchPickerProps`](/components/color#api) | - |
 
 ### Date
 
