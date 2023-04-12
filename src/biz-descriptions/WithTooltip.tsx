@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Tooltip } from 'antd';
+import { Space, Tooltip } from 'antd';
 import type { TooltipProps } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 
@@ -36,12 +36,12 @@ const WithTooltip: React.FC<WithTooltipProps> = ({ label, tooltip }) => {
     const { icon = <InfoCircleOutlined />, ...restTooltipProps } = tooltipProps;
 
     return (
-      <div style={{ display: 'flex', alignItems: 'center' }}>
+      <Space size={4}>
         {label}
         <Tooltip {...restTooltipProps}>
-          <div style={{ marginLeft: 4 }}>{icon}</div>
+          {icon}
         </Tooltip>
-      </div>
+      </Space>
     );
   }
 
