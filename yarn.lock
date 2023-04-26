@@ -2799,12 +2799,12 @@ cache-base@^1.0.1:
     union-value "^1.0.0"
     unset-value "^1.0.0"
 
-cache2@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/cache2/-/cache2-1.0.0.tgz#ec8bd86ed1e926044fcd68a1981e26b573f95ff6"
-  integrity sha512-wcUupoFkH5in5yfFNGwjcRFmy63otrScMWyUBB9dDNWSYg+EQgyhOZMJoCtnEPV4lMPhm/7XQ47xgEr/ttrvgg==
+cache2@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/cache2/-/cache2-1.0.1.tgz#062312bc8eb2560d6746a4b07de58f43b12df0d1"
+  integrity sha512-AFDSWdH4tZ4/lGb+R22n4eBBS6iUK/iM/Vex4ug0j7oOWrA6Mny6mAt2w/+AEPyqPGzEKIVcgJfrX1zVXdZlmA==
   dependencies:
-    emitter-pro "^1.0.1"
+    emitter-pro "^1.0.2"
     tslib "^2.4.1"
 
 cachedir@2.2.0:
@@ -4042,10 +4042,10 @@ elliptic@^6.5.3:
     minimalistic-assert "^1.0.1"
     minimalistic-crypto-utils "^1.0.1"
 
-emitter-pro@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.npmjs.org/emitter-pro/-/emitter-pro-1.0.1.tgz#59caa9edb4e8ce36cac07695e4ac61bf988f080b"
-  integrity sha512-qo8dq5jdGZuBXTQ5zBhbzstEtOh037yNHZHal/pvcuysxB3JAY3Mdbn3qKK1ajshsD2OEqFMfwvtjZFGj/aNEA==
+emitter-pro@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/emitter-pro/-/emitter-pro-1.0.2.tgz#bf35ce19b93d7dd25b65042061d9ad97f195996d"
+  integrity sha512-z3bgxwmd0+6Y0lhCISfudI4gEcNQlIJsnaWmk4zY88auzvIg3JCusSiQ/aZsw23DQdgxY3G3DL1e4YJOQOVOjw==
   dependencies:
     tslib "^2.4.1"
 
