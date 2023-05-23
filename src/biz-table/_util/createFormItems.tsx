@@ -46,7 +46,7 @@ export function createFormItem({ search, ...restProps }: SearchProps, form: Form
     ? ItemTypes[ValueTypeToItemType[type]]
     : ItemTypes[type] || ItemTypes.input;
   const pickerProps = DatePickerMap[type] ? { picker: DatePickerMap[type] } : {};
-  const formatProps = DateFormat[type] ? { format: DateFormat[type] } : {};
+  const formatProps = type === valueType && DateFormat[type] ? { format: DateFormat[type] } : {};
   const showTimeProps = type === 'dateTime' || type === 'dateTimeRange' ? { showTime: true } : {};
 
   const dom = (
