@@ -106,8 +106,8 @@ const BizFormItemDateRange: React.FC<BizFormItemDateRangeProps> = ({
               const [t1, t2] = value;
               const range = currentPicker === 'quarter' ? maxRange * 3 : maxRange;
 
-              if (t2.diff(t1, MomentScale[currentPicker]) > range) {
-                errMsg = `时间跨度不能超过${maxRange}${DateUnit[currentPicker]}`;
+              if (t2.diff(t1, MomentScale[currentPicker]) >= range) {
+                errMsg = `时间跨度不能超过${maxRange}${DateUnit[currentPicker] === '月' ? '个月' : DateUnit[currentPicker]}`;
               }
             }
             if (errMsg) {
