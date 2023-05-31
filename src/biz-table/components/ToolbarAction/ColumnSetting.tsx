@@ -23,7 +23,6 @@ const ColumnSetting = () => {
   useUpdateEffect(() => {
     const allColumnKey = columns.map(item => item.key);
     setSortedKeys(allColumnKey);
-    setColumnConfigKeys(allColumnKey);
     setSelectedKeys(allColumnKey);
   }, [columns]);
 

@@ -331,6 +331,10 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
   }, [columnsWithKey, nowrap, rowKey, editableKeys.join('.'), editableForm]);
   const [columnConfigKeys, setColumnConfigKeys] = React.useState<ColumnConfigKeys>(() => currentColumns.map(item => item.key));
 
+  useUpdateEffect(() => {
+    setColumnConfigKeys(currentColumns.map(item => item.key))
+  }, [currentColumns]);
+
   const finalColumns = React.useMemo(() => {
     if (!Array.isArray(columnConfigKeys)) {
       return currentColumns;
