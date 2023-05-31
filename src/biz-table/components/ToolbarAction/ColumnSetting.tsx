@@ -2,6 +2,7 @@ import * as React from 'react';
 import type { TreeProps, TreeDataNode } from 'antd';
 import { Tooltip, Popover, Tree, Checkbox } from 'antd';
 import { SettingOutlined } from '@ant-design/icons';
+import { useUpdateEffect } from 'rc-hooks';
 import TableContext from '../../TableContext';
 
 import './index.less';
@@ -18,7 +19,15 @@ const ColumnSetting = () => {
   // 是否部分选中
   const indeterminate = React.useMemo(() => selectedKeys.length > 0 && selectedKeys.length !== sortedKeys.length, [selectedKeys, sortedKeys]);
 
-  // 当 columns 变了以后重置
+  // 当列数据发生变化时
+  useUpdateEffect(() => {
+    const allColumnKey = columns.map(item => item.key);
+    setSortedKeys(allColumnKey);
+    setColumnConfigKeys(allColumnKey);
+    setSelectedKeys(allColumnKey);
+  }, [columns]);
+
+  // 当 columns 顺序或显示/隐藏变了以后重置
   React.useEffect(() => {
     const newColumnKeys = [];
     sortedKeys.forEach(key => {
