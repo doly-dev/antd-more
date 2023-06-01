@@ -9,6 +9,7 @@ module.exports = {
   plugins: ['stylelint-declaration-block-no-ignored-properties'],
   customSyntax: 'postcss-less',
   rules: {
+    'import-notation': null,
     'plugin/declaration-block-no-ignored-properties': true,
     'no-descending-specificity': null,
     'no-invalid-position-at-import-rule': null,
