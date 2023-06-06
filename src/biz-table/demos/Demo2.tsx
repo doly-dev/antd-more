@@ -54,7 +54,7 @@ const columns: BizTableColumnType<DataItem> = [
 const Demo = () => {
   const formRef = React.useRef<FormInstance>();
   const actionRef = React.useRef<BizTableActionType>();
-  const handleRequest: BizTableRequest<DataItem> = (params, filters, sorter, extra) => {
+  const request: BizTableRequest<DataItem> = (params, filters, sorter, extra) => {
     const { pageSize, current, ...restParams } = params;
     console.log(params, filters, sorter, extra);
 
@@ -109,6 +109,12 @@ const Demo = () => {
 
   return (
     <BizTable<DataItem>
+      request={request}
+      columns={currentColumns}
+      rowKey="applyCode"
+      pagination={{
+        pageSize: 5
+      }}
       formRef={formRef}
       actionRef={actionRef}
       form={{
@@ -143,12 +149,6 @@ const Demo = () => {
       toolbarAction
       fullScreenBackgroundColor="#f5f5f5"
       extra={<Card bordered={false}>Extra Block!</Card>}
-      columns={currentColumns}
-      rowKey="applyCode"
-      request={handleRequest}
-      pagination={{
-        pageSize: 5
-      }}
     />
   );
 };

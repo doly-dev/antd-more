@@ -68,7 +68,7 @@ const columns: BizTableColumnType<DataItem> = [
 ];
 
 const Demo = () => {
-  const handleRequest: BizTableRequest<DataItem> = (params, filters, sorter, extra) => {
+  const request: BizTableRequest<DataItem> = (params, filters, sorter, extra) => {
     const { pageSize, current, ...restParams } = params;
     console.log(params, filters, sorter, extra);
 
@@ -88,9 +88,9 @@ const Demo = () => {
 
   return (
     <BizTable<DataItem>
+      request={request}
       columns={columns}
       rowKey="applyCode"
-      request={handleRequest}
       toolbarAction
     />
   );

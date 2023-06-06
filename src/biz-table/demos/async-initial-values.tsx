@@ -47,7 +47,7 @@ const columns: BizTableColumnType = [
 const Demo = () => {
   const [ready, setReady] = React.useState(false);
   const [initialValues, setInitialValues] = React.useState<any>();
-  const handleRequest: BizTableRequest = (params, filters, sorter, extra) => {
+  const request: BizTableRequest = (params, filters, sorter, extra) => {
     const { pageSize, current, ...restParams } = params;
     console.log(params, filters, sorter, extra);
 
@@ -75,13 +75,13 @@ const Demo = () => {
 
   return (
     <BizTable
+      request={request}
+      columns={columns}
+      rowKey="applyCode"
       ready={ready}
       form={{
         initialValues
       }}
-      columns={columns}
-      rowKey="applyCode"
-      request={handleRequest}
     />
   );
 };

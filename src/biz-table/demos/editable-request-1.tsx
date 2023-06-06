@@ -18,7 +18,7 @@ const Demo = () => {
   const [editableKeys, setEditableKeys] = React.useState([]);
   const editableActionRef = React.useRef<EditableBizTableActionType>();
 
-  const handleRequest: BizTableRequest<DataItem> = (params, filters, sorter, extra) => {
+  const request: BizTableRequest<DataItem> = (params, filters, sorter, extra) => {
     const { pageSize, current, ...restParams } = params;
     console.log(params, filters, sorter, extra);
 
@@ -101,9 +101,9 @@ const Demo = () => {
 
   return (
     <EditableBizTable<DataItem>
+      request={request}
       columns={columns}
       rowKey="applyCode"
-      request={handleRequest}
       pagination={{ pageSize: 5 }}
       onChange={(values) => {
         console.log(values);

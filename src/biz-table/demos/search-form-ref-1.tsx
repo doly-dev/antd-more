@@ -66,7 +66,7 @@ const Demo = () => {
   // 操作引用
   const actionRef = React.useRef<BizTableActionType>();
 
-  const handleRequest: BizTableRequest<DataItem> = (params, filters, sorter, extra) => {
+  const request: BizTableRequest<DataItem> = (params, filters, sorter, extra) => {
     const { pageSize, current, ...restParams } = params;
     console.log(params, filters, sorter, extra);
     return getApplyList({
@@ -97,15 +97,15 @@ const Demo = () => {
 
   return (
     <BizTable<DataItem>
+      request={request}
       columns={columns}
       rowKey="applyCode"
-      request={handleRequest}
+      pagination={{ pageSize: 5 }}
       toolbarAction
       // 关闭自动请求
       autoRequest={false}
       formRef={formRef}
       actionRef={actionRef}
-      pagination={{ pageSize: 5 }}
     />
   );
 };
