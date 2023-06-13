@@ -8,7 +8,7 @@ import {
   BizFormItemUpload,
   BizFormItemTextArea
 } from 'antd-more';
-import { waitTime } from 'util-helpers';
+import { sleep } from 'ut2';
 import { BillAccountOptions } from './constants';
 
 const Demo = () => {
@@ -18,7 +18,7 @@ const Demo = () => {
       title="创建付款单"
       trigger={<Button type="primary">创建付款单</Button>}
       onFinish={async (values) => {
-        await waitTime(2000);
+        await sleep(2000);
         console.log(values);
         message.success('提交成功');
       }}

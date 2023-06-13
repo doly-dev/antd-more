@@ -11881,6 +11881,13 @@ ut2@^1.0.0, ut2@^1.0.1:
   dependencies:
     tslib "^2.5.3"
 
+ut2@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/ut2/-/ut2-1.0.2.tgz#1e93a878782802218ea7cd4a8a3ff55edc56742d"
+  integrity sha512-AXhD8LbjkN20BT9nXhKTa1ImBaOVhqyOHxaqpzNTfEcVhB8Abt+VXF30zyjNUxLvjBR/Fv3Wisal+TB0icKGqw==
+  dependencies:
+    tslib "^2.5.3"
+
 util-deprecate@^1.0.1, util-deprecate@^1.0.2, util-deprecate@~1.0.1:
   version "1.0.2"
   resolved "https://registry.npmjs.org/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"

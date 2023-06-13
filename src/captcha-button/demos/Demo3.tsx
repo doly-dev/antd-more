@@ -1,13 +1,14 @@
 import React, { useCallback, useState, useRef } from 'react';
 import type { FormInstance } from 'antd';
 import { Form, Input, Row, Col, Button } from 'antd';
-import { isMobile, waitTime } from 'util-helpers';
+import { isMobile } from 'util-helpers';
+import { sleep } from 'ut2';
 import { useAsync } from 'rc-hooks';
 import { CaptchaButton } from 'antd-more';
 
 // 接口：发送短信验证码
 async function asyncSendVerificationCode(mobile: string) {
-  await waitTime();
+  await sleep();
   return {
     data: {
       requestId: 'abcdefg',

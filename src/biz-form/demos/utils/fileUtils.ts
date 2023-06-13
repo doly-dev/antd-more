@@ -1,9 +1,7 @@
 import Cache2 from 'cache2';
 import type { UploadFile } from 'antd';
+import { uniqueId } from 'ut2';
 import { downloadFile } from '../services';
-
-let stamp = 1;
-const uniqueId = (prefix = 'fssid') => `${prefix}_${stamp++}`;
 
 const asyncCache: Record<string, any> = {};
 const fileCache = new Cache2({ max: 20, maxStrategy: 'replaced', stdTTL: 5 * 60 * 1000 });

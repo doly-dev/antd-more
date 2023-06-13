@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Row, Col } from 'antd';
 import { BizForm, BizFormItem, BizFormItemRadio, BizFormItemNumber } from 'antd-more';
-import { waitTime } from 'util-helpers';
+import { sleep } from 'ut2';
 import { RakebackeCycleOptions } from './constants';
 
 const oneColSpan = {
@@ -18,7 +18,7 @@ const RakebackeInfo = () => {
     <BizForm
       name="form-rakebacke-info"
       onFinish={async (values) => {
-        await waitTime(2000);
+        await sleep(2000);
         console.log(values);
       }}
       submitter={{

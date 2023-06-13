@@ -90,6 +90,3 @@ export function getFileUrl(file: UploadFile) {
   }
   return url;
 }
-
-let stamp = 1;
-export const uniqueId = (prefix = 'file-viewer') => `${prefix}${stamp++}`;

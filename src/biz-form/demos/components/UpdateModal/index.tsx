@@ -1,7 +1,7 @@
 import * as React from 'react';
 import type { ModalFormProps } from 'antd-more';
 import { BizForm, ModalForm, BizFormItemInput, BizFormItemTextArea } from 'antd-more';
-import { waitTime } from 'util-helpers';
+import { sleep } from 'ut2';
 
 export interface UpdateModalProps extends ModalFormProps {
   data?: any;
@@ -27,7 +27,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({ data, onChange, visible, ...r
       form={form}
       pressEnterSubmit={false} // 回车建不触发提交
       onFinish={async (values) => {
-        await waitTime(); // 发起请求
+        await sleep(); // 发起请求
         console.log(values);
 
         onChange(); // 响应成功后，通知外部数据更新

@@ -3,7 +3,7 @@ import { Row, Col } from 'antd';
 import { BizForm, BizFormItemInput, BizFormItemAddress } from 'antd-more';
 import { isSocialCreditCode, isBusinessLicense } from 'util-helpers';
 import { getPCA } from 'lcn';
-import { waitTime } from 'util-helpers';
+import { sleep } from 'ut2';
 
 const pc = getPCA({ inland: true, fieldNames: { code: 'value', name: 'label' } });
 
@@ -20,7 +20,7 @@ const CompanyInfo = () => {
     <BizForm
       name="form-company-info"
       onFinish={async (values) => {
-        await waitTime(2000);
+        await sleep(2000);
         console.log(values);
       }}
       initialValues={{

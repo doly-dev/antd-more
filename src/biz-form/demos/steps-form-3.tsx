@@ -9,7 +9,7 @@ import {
   BizFormItemUpload,
   BizFormItemTextArea
 } from 'antd-more';
-import { waitTime } from 'util-helpers';
+import { sleep } from 'ut2';
 import { BillAccountOptions } from './constants';
 
 const Demo = () => {
@@ -31,7 +31,7 @@ const Demo = () => {
       <StepsForm
         actionRef={actionRef}
         onFinish={async (values) => {
-          await waitTime(2000);
+          await sleep(2000);
           console.log(values);
           setVisible(false);
           message.success('提交成功');

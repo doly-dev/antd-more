@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Drawer, Form } from 'antd';
 import { useControllableValue } from 'rc-hooks';
-import { isPromiseLike } from 'util-helpers';
+import { isPromiseLike } from 'ut2';
 import type { DrawerProps } from './antd.interface';
 import type { BaseFormProps } from './BaseForm';
 import BaseForm from './BaseForm';

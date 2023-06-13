@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Card, Checkbox } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { waitTime } from 'util-helpers';
+import { sleep } from 'ut2';
 import { BizForm, BizFormItem, BizFormItemInput, BizFormItemPassword } from 'antd-more';
 
 const LoginBox: React.FC<{ showRegisterEnter?: boolean; }> = ({ showRegisterEnter = false }) => {
@@ -15,7 +15,7 @@ const LoginBox: React.FC<{ showRegisterEnter?: boolean; }> = ({ showRegisterEnte
     >
       <BizForm
         onFinish={async (values) => {
-          await waitTime(2000);
+          await sleep(2000);
           console.log(values);
         }}
         submitter={{

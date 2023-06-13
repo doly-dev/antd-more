@@ -9,7 +9,7 @@ import {
   BizFormItemTextArea
 } from 'antd-more';
 import { BillAccountOptions } from './constants';
-import { waitTime } from 'util-helpers';
+import { sleep } from 'ut2';
 
 const Demo = () => {
   return (
@@ -20,7 +20,7 @@ const Demo = () => {
         destroyOnClose: true
       }}
       onFinish={async (values) => {
-        await waitTime(2000);
+        await sleep(2000);
         console.log(values);
         message.success('提交成功');
       }}

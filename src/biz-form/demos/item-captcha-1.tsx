@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { BizForm, BizFormItemCaptcha } from 'antd-more';
-import { waitTime } from 'util-helpers';
+import { sleep } from 'ut2';
 
 async function sendCode() {
-  await waitTime();
+  await sleep();
   return true;
 }
 

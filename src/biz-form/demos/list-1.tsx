@@ -2,13 +2,13 @@ import * as React from 'react';
 import { BizForm, BizFormList, BizFormItem, BizFormItemInput } from 'antd-more';
 import { Button } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
-import { waitTime } from 'util-helpers';
+import { sleep } from 'ut2';
 
 const Demo = () => {
   return (
     <BizForm
       onFinish={async (values) => {
-        await waitTime();
+        await sleep();
         console.log(values);
       }}
     >

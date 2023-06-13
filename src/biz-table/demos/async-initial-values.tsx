@@ -5,12 +5,12 @@
 import * as React from 'react';
 import type { BizTableRequest, BizTableColumnType } from 'antd-more';
 import { BizTable } from 'antd-more';
-import { waitTime } from 'util-helpers';
+import { sleep } from 'ut2';
 import { getApplyList } from './service';
 import { ApproveStatus, ApproveStatusOptions } from './constants';
 
 async function getAsyncInitialValues() {
-  await waitTime(5000);
+  await sleep(5000);
   return {
     applyCode: '123456',
     createTime: '2020-10-10',

@@ -16,7 +16,7 @@ import {
   BizFormItemUpload,
   BizFormItemTextArea
 } from 'antd-more';
-import { waitTime } from 'util-helpers';
+import { sleep } from 'ut2';
 import { BillAccountOptions } from './constants';
 
 const Demo = () => {
@@ -53,7 +53,7 @@ const Demo = () => {
         <Card>
           <StepsForm
             onFinish={async (values) => {
-              await waitTime(2000);
+              await sleep(2000);
               console.log('所有表单值：', values);
 
               // 因为第二步已经提交，这里手动触发下一步
@@ -71,7 +71,7 @@ const Demo = () => {
             <StepsForm.StepForm
               title="选择收款方"
               onFinish={async (values) => {
-                await waitTime(2000);
+                await sleep(2000);
                 console.log(values); // 当前表单值
                 // return false; // 如果返回false 表示验证失败不进入下一步。
               }}
@@ -96,7 +96,7 @@ const Demo = () => {
             <StepsForm.StepForm
               title="填写付款信息"
               onFinish={async (values) => {
-                await waitTime(2000);
+                await sleep(2000);
                 console.log(values);
               }}
               labelWidth={112}

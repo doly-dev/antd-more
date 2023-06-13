@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Button, Space } from 'antd';
+import { omit } from 'ut2';
 import type { ButtonProps, FormInstance } from './antd.interface';
-import omit from '../../utils/omit';
 
 export interface BizFormSubmitterProps {
   resetText?: React.ReactNode;

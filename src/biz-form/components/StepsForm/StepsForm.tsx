@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Steps, Form } from 'antd';
 import classNames from 'classnames';
-import { isPromiseLike } from 'util-helpers';
+import { isPromiseLike } from 'ut2';
 import { useUpdate, useControllableValue, useSafeState } from 'rc-hooks';
 import type { StepsProps, StepProps, FormInstance } from '../antd.interface';
 import StepsFormContext from './StepsFormContext';

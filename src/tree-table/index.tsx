@@ -3,8 +3,7 @@ import type { TableProps } from 'antd';
 import { Checkbox, Table } from 'antd';
 import { useControllableValue, useLatest, useSafeState } from 'rc-hooks';
 import { findTreeNode } from 'util-helpers';
-import omit from '../utils/omit';
-import hasLength from '../utils/hasLength';
+import { omit, isEmpty } from 'ut2';
 import type { ValueType, TreeTableDataItem, TreeTableData, TreeTableFieldNames } from './type';
 
 export type { TreeTableDataItem, TreeTableData, TreeTableFieldNames };
@@ -18,7 +17,7 @@ const flatTree = (data: TreeTableData, childrenKey = 'children') => {
   function recursion(childs: TreeTableData, prevArray: TreeTableData = []) {
     childs.forEach((item) => {
       const newValue = [...prevArray, omit(item, [childrenKey]) as any];
-      if (hasLength(item[childrenKey])) {
+      if (!isEmpty(item[childrenKey])) {
         recursion(item[childrenKey], newValue);
       } else {
         ret.push(newValue);
@@ -48,7 +47,7 @@ const compactTree = (data: TreeTableData, fieldNames: TreeTableFieldNames) => {
           ) || null
       });
 
-      if (hasLength(item[childrenKey])) {
+      if (!isEmpty(item[childrenKey])) {
         recursion(item[childrenKey], omit(item, [childrenKey]));
       }
     });
@@ -129,7 +128,7 @@ function transformTreeToList(
         };
       }
 
-      if (!hasLength(item[childrenKey])) {
+      if (isEmpty(item[childrenKey])) {
         list.push({
           ...newValue,
           key: `row_${parentValue}_${item[valueKey]}`
@@ -226,7 +225,7 @@ function getChildrenValue(
   function recursion(list: TreeTableData) {
     list.forEach((item) => {
       ret.push(omit(item, [childrenKey]) as Omit<TreeTableDataItem, 'children'>);
-      if (hasLength(item[childrenKey])) {
+      if (!isEmpty(item[childrenKey])) {
         recursion(item[childrenKey]);
       }
     });

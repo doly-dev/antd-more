@@ -9,7 +9,7 @@ import {
   BizFormItemUpload,
   BizFormItemTextArea
 } from 'antd-more';
-import { waitTime } from 'util-helpers';
+import { sleep } from 'ut2';
 import { BillAccountOptions } from './constants';
 
 const Demo = () => {
@@ -23,7 +23,7 @@ const Demo = () => {
         title="test提交按钮"
         trigger={<Button type="primary">自定义test按钮</Button>}
         onFinish={async (values) => {
-          await waitTime(2000);
+          await sleep(2000);
           console.log(values);
         }}
         labelWidth={112}
@@ -67,7 +67,7 @@ const Demo = () => {
         title="创建付款单"
         trigger={<Button type="primary">自定义文字</Button>}
         onFinish={async (values) => {
-          await waitTime(2000);
+          await sleep(2000);
           console.log(values);
         }}
         labelWidth={112}

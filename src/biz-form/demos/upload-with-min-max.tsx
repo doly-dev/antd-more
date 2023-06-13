@@ -5,13 +5,13 @@
  */
 import * as React from 'react';
 import { BizForm, BizFormItemUpload } from 'antd-more';
-import { waitTime } from 'util-helpers';
+import { sleep } from 'ut2';
 import type { UploadFile } from 'antd';
 import { Spin } from 'antd';
 
 // 通过fssid获取图片地址
 async function getStaticServerPath(fssid: string) {
-  await waitTime(2000);
+  await sleep(2000);
   if (Math.random() > 0.3) {
     return {
       bigImg: `https://zos.alipayobjects.com/rmsportal/${fssid}.png`,
@@ -24,7 +24,7 @@ async function getStaticServerPath(fssid: string) {
 // 上传图片
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function uploadImage(file: File) {
-  await waitTime(2000);
+  await sleep(2000);
   if (Math.random() > 0.5) {
     return {
       thumbImgId: `${Math.random()}`,
@@ -110,7 +110,7 @@ const Demo = () => {
         name="upload-with-min-max"
         form={form}
         onFinish={async (values) => {
-          await waitTime();
+          await sleep();
           console.log(values);
         }}
         labelWidth={98}

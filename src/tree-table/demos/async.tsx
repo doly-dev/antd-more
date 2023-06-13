@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { TreeTable } from 'antd-more';
-import { waitTime } from 'util-helpers';
+import { sleep } from 'ut2';
 import jsonData from './data1';
 
 const Demo = () => {
@@ -15,7 +15,7 @@ const Demo = () => {
 
   React.useEffect(() => {
     const getData = async () => {
-      await waitTime();
+      await sleep();
       setData(jsonData);
       setLoading(false);
     };

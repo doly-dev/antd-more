@@ -1,10 +1,10 @@
-import { waitTime } from "util-helpers";
+import { sleep } from "ut2";
 
 // 上传文件
 export async function uploadFile(file: File): Promise<{ fssid: string }> {
   console.log('uploadFile: ', file);
 
-  await waitTime(2000);
+  await sleep(2000);
   if (Math.random() > 0.2) {
     return {
       fssid: `${Math.random()}`
@@ -17,7 +17,7 @@ export async function uploadFile(file: File): Promise<{ fssid: string }> {
 export async function downloadFile(fssid: string) {
   console.log('downloadFile: ', fssid);
 
-  await waitTime(2000);
+  await sleep(2000);
   if (Math.random() > 0.2) {
     return {
       data: `https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png`

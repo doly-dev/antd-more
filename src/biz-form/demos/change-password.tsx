@@ -3,7 +3,7 @@
  */
 import * as React from 'react';
 import { BizForm, BizFormItem, BizFormItemPassword } from 'antd-more';
-import { waitTime } from 'util-helpers';
+import { sleep } from 'ut2';
 
 const Demo = () => {
   const [form] = BizForm.useForm();
@@ -15,7 +15,7 @@ const Demo = () => {
         noReset: true
       }}
       onFinish={async (values) => {
-        await waitTime(2000);
+        await sleep(2000);
         console.log(values);
       }}
       form={form}

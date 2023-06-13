@@ -6,22 +6,22 @@ import type {
   BizTableColumnType
 } from 'antd-more';
 import { BizTable } from 'antd-more';
-import { waitTime } from 'util-helpers';
+import { sleep } from 'ut2';
 
 const mockData = [{ name: '' }, { name: '张三' }, { name: '李四' }];
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const request: BizTableRequest = async (params) => {
   // const { current, pageSize, ...restParams } = params;
-  await waitTime();
+  await sleep();
   return { data: mockData };
 };
 
 // 外部封装的BizTable 含 ref ，不推荐
 export interface DefineTableProps extends BizTableProps {
   ref?:
-    | React.MutableRefObject<BizTableActionType | undefined>
-    | ((actionRef: BizTableActionType) => void);
+  | React.MutableRefObject<BizTableActionType | undefined>
+  | ((actionRef: BizTableActionType) => void);
 }
 
 const DefineTable: React.FC<DefineTableProps> = React.forwardRef((props, ref) => {

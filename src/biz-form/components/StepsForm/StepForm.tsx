@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from 'react';
-import { isPromiseLike } from 'util-helpers';
+import { isPromiseLike } from 'ut2';
 import { Form } from 'antd';
 import type { StepProps } from '../antd.interface';
 import type { BaseFormProps } from '../BaseForm';
@@ -10,7 +10,7 @@ import type { StepsFormSubmitterProps } from './StepsSubmitter';
 
 export interface StepFormProps
   extends Omit<BaseFormProps, 'title' | 'onReset' | 'contentRender' | 'submitter' | 'ready'>,
-    Pick<StepProps, 'title' | 'icon' | 'subTitle' | 'description'> {
+  Pick<StepProps, 'title' | 'icon' | 'subTitle' | 'description'> {
   stepProps?: StepProps;
   submitter?: Omit<StepsFormSubmitterProps, 'total' | 'current' | 'form'> | false;
   readonly step?: number;

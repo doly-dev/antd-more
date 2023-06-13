@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Form } from 'antd';
 import namePathSet from 'rc-util/es/utils/set';
 import classnames from 'classnames';
-import { isPromiseLike } from 'util-helpers';
+import { isPromiseLike } from 'ut2';
 import { useUpdateEffect, useUnmountedRef } from 'rc-hooks';
 import type { FormProps, FormInstance } from './antd.interface';
 import { transformFormValues } from '../_util/transform';

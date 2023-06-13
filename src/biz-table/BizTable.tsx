@@ -3,6 +3,7 @@ import { Table, Card, Space, ConfigProvider } from 'antd';
 import type { TableProps, SpaceProps, CardProps, FormInstance } from 'antd';
 import classnames from 'classnames';
 import { useUpdateEffect, usePagination } from 'rc-hooks';
+import { omit, isEmpty } from 'ut2';
 import type { SearchFormProps } from './SearchForm';
 import SearchForm from './SearchForm';
 import type { BizFormExtraInstance, QueryFormProps } from '../biz-form';
@@ -21,8 +22,6 @@ import getColumnKey from './_util/getColumnKey';
 import type { ColumnConfigKeys } from './TableContext';
 import TableContext from './TableContext';
 import ToolbarAction from './components/ToolbarAction';
-import omit from '../utils/omit';
-import hasLength from '../utils/hasLength';
 
 import './index.less';
 
@@ -175,7 +174,7 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
       arr.forEach((item, index) => {
         const key = getColumnKey(item, index, parentKey);
         const newItem = { ...item, key }
-        if (hasLength(newItem?.children)) {
+        if (!isEmpty(newItem?.children)) {
           newItem.children = recursion(newItem.children, key);
         }
         tmpColumns.push(newItem);

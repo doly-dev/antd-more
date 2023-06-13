@@ -1,10 +1,10 @@
 import * as React from 'react';
 import type { CardProps, FormInstance } from 'antd';
 import { Card } from 'antd';
+import { uniqueId } from 'ut2';
 import type { QueryFormProps } from '../biz-form';
 import { BizForm, QueryForm } from '../biz-form';
 import createFormItems from './_util/createFormItems';
-import createUniqueId from './_util/createUniqueId';
 import type { SearchProps } from './interface';
 
 export declare interface SearchFormProps extends QueryFormProps {
@@ -26,7 +26,7 @@ const SearchForm: React.FC<SearchFormProps> = React.forwardRef(
     }
 
     const formName = React.useMemo(
-      () => name || `biz_table_search_form_${createUniqueId()}`,
+      () => name || uniqueId('biz_table_search_form_'),
       [name]
     );
     React.useImperativeHandle(ref, () => form, [form]);

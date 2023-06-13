@@ -4,11 +4,11 @@ import { Card, message } from "antd";
 import { BizForm, BizFormItemInput, BizFormItem, BizFormItemCaptcha, BizFormItemPassword } from "antd-more";
 import SliderCaptcha from 'rc-slider-captcha';
 import { getCaptcha, verifyCaptcha } from './service';
-import { waitTime } from "util-helpers";
+import { sleep } from "ut2";
 
 async function sendCode(mobile: string) {
   console.log(mobile);
-  await waitTime();
+  await sleep();
   return true;
 }
 
@@ -26,7 +26,7 @@ const RegisterBox = () => {
       <BizForm
         form={form}
         onFinish={async (values) => {
-          await waitTime(2000);
+          await sleep(2000);
           console.log(values);
         }}
         submitter={{

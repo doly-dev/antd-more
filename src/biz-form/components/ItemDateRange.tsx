@@ -2,6 +2,7 @@ import * as React from 'react';
 import { DatePicker } from 'antd';
 import classNames from 'classnames';
 import type { Moment } from 'moment';
+import { uniqueId } from 'ut2';
 import type { RangePickerProps, RangePickerDateProps } from './antd.interface';
 import type { Picker } from '../_util/dateUtil';
 import {
@@ -15,7 +16,6 @@ import type { BizFormItemProps } from './Item';
 import BizFormItem from './Item';
 import { transformDate, InvalidFieldValue } from '../_util/transform';
 import getLabel from '../_util/getLabel';
-import uniqueId from '../_util/uniqueId';
 
 const DateRangePickerWrapper: React.FC<RangePickerProps> = ({ value, ...restProps }) => {
   return <DatePicker.RangePicker value={transformMomentValue(value)} {...restProps} />;

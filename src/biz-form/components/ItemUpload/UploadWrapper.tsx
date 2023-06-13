@@ -3,13 +3,13 @@ import { Upload, message } from 'antd';
 import classNames from 'classnames';
 import { bytesToSize } from 'util-helpers';
 import { useUnmount } from 'rc-hooks';
+import { uniqueId } from 'ut2';
 import type { UploadProps, UploadFile, RcFile } from '../antd.interface';
 import { checkFileSize, checkFileType, createFileUrl, getFileName, revokeFileUrl } from './uploadUtil';
 import type { PreviewProps } from './Preview';
 import Preview from './Preview';
 
 import './index.less';
-import uniqueId from '../../_util/uniqueId';
 
 const prefixCls = 'antd-more-form-upload';
 

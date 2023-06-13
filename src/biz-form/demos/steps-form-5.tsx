@@ -7,7 +7,7 @@ import {
   BizFormItemCaptcha,
   BizFormItemPassword
 } from 'antd-more';
-import { waitTime } from 'util-helpers';
+import { sleep } from 'ut2';
 
 const Demo = () => {
   const [form1] = BizForm.useForm();
@@ -23,7 +23,7 @@ const Demo = () => {
         onFinish={async (values) => {
           console.log(values);
           // 整个表单提交时
-          await waitTime();
+          await sleep();
           message.success('设置新密码成功');
         }}
         stepsRender={(_, stepsDom) => (
@@ -44,7 +44,7 @@ const Demo = () => {
           onFinish={async (values) => {
             console.log(values);
             // 验证验证码
-            await waitTime();
+            await sleep();
           }}
         >
           <BizFormItemInput
@@ -87,7 +87,7 @@ const Demo = () => {
               //   message.success(`短信验证码已发送至${mobile}`);
               // });
 
-              await waitTime();
+              await sleep();
             }}
             required
           />

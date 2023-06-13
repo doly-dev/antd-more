@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Row, Col } from 'antd';
 import { BizForm, BizFormItemInput, BizFormItemAddress, BizFormItemRadio } from 'antd-more';
 import { getPC } from 'lcn';
-import { waitTime } from 'util-helpers';
+import { sleep } from 'ut2';
 
 const pc = getPC({ inland: true, fieldNames: { code: 'value', name: 'label' } });
 
@@ -43,7 +43,7 @@ const SettlementInfo = () => {
     <BizForm
       name="form-settlement-info"
       onFinish={async (values) => {
-        await waitTime(2000);
+        await sleep(2000);
         console.log(values);
       }}
       submitter={{

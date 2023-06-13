@@ -5,7 +5,7 @@
  */
 import * as React from 'react';
 import { BizForm, BizFormItemUpload } from 'antd-more';
-import { waitTime } from 'util-helpers';
+import { sleep } from 'ut2';
 import { downloadFile, uploadFile } from './services';
 import type { UploadFile } from 'antd';
 import { Spin } from 'antd';
@@ -70,7 +70,7 @@ const Demo = () => {
         name="upload-with-default"
         form={form}
         onFinish={async (values) => {
-          await waitTime();
+          await sleep();
           console.log(values);
         }}
         labelWidth={98}

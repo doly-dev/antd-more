@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Modal, Form } from 'antd';
 import { useControllableValue } from 'rc-hooks';
-import { isPromiseLike } from 'util-helpers';
+import { isPromiseLike } from 'ut2';
 import type { ModalProps } from './antd.interface';
 import type { BaseFormProps } from './BaseForm';
 import BaseForm from './BaseForm';

@@ -5,10 +5,10 @@
  */
 import * as React from 'react';
 import { BizForm, BizFormItemInput } from 'antd-more';
-import { waitTime } from 'util-helpers';
+import { sleep } from 'ut2';
 
 async function getNameApi() {
-  await waitTime(2000);
+  await sleep(2000);
   return '李四';
 }
 
@@ -27,7 +27,7 @@ const Demo = () => {
     <BizForm
       name="form-async-initial-values"
       onFinish={async (values) => {
-        await waitTime();
+        await sleep();
         console.log(values);
       }}
       ready={ready}

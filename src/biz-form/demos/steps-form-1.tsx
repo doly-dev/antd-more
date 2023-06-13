@@ -8,14 +8,14 @@ import {
   BizFormItemUpload,
   BizFormItemTextArea
 } from 'antd-more';
-import { waitTime } from 'util-helpers';
+import { sleep } from 'ut2';
 import { BillAccountOptions } from './constants';
 
 const Demo = () => {
   return (
     <StepsForm
       onFinish={async (values) => {
-        await waitTime(2000);
+        await sleep(2000);
         console.log(values);
         message.success('提交成功');
       }}
@@ -24,7 +24,7 @@ const Demo = () => {
         title="选择收款方"
         labelWidth={112}
         onFinish={async (values) => {
-          await waitTime(2000);
+          await sleep(2000);
           console.log(values);
         }}
       >
@@ -40,7 +40,7 @@ const Demo = () => {
         title="填写付款信息"
         labelWidth={112}
         onFinish={async (values) => {
-          await waitTime(2000);
+          await sleep(2000);
           console.log(values);
         }}
       >

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { BizForm, BizFormItemUpload } from 'antd-more';
-import { waitTime } from 'util-helpers';
+import { sleep } from 'ut2';
 // import ItemUploadSpecial from './components/ItemUploadSpecial';
 // import ItemUploadDefine from './components/ItemUploadDefine';
 import { uploadFile } from './services';
@@ -11,7 +11,7 @@ const Demo = () => {
     <BizForm
       name="item-upload-1"
       onFinish={async (values) => {
-        await waitTime();
+        await sleep();
         console.log(values);
       }}
       labelWidth={112}

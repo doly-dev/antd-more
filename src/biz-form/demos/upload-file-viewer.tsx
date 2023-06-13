@@ -6,7 +6,7 @@
 import * as React from 'react';
 import type { UploadFile } from 'antd';
 import { BizForm, BizFormItemUpload, FileViewer } from 'antd-more';
-import { waitTime } from 'util-helpers';
+import { sleep } from 'ut2';
 import { uploadFile } from './services';
 import { uploadFileToFssid } from './utils/fileUtils';
 
@@ -19,7 +19,7 @@ const Demo = () => {
       <BizForm
         name="upload-file-viewer"
         onFinish={async (values) => {
-          await waitTime();
+          await sleep();
           console.log(values);
         }}
         labelWidth={98}

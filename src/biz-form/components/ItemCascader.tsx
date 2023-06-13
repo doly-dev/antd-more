@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { Cascader } from 'antd';
+import { uniqueId } from 'ut2';
 import type { CascaderProps } from './antd.interface';
 import type { BizFormItemProps } from './Item';
 import BizFormItem from './Item';
 import FieldContext from '../FieldContext';
 import getLabel from '../_util/getLabel';
 import { InvalidFieldValue } from '../_util/transform';
-import uniqueId from '../_util/uniqueId';
 
 export interface BizFormItemCascaderProps<DataNodeType = any> extends BizFormItemProps, Pick<CascaderProps<DataNodeType>, 'options' | 'placeholder' | 'fieldNames' | 'allowClear'> {
   names?: string[];

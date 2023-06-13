@@ -2,7 +2,7 @@ import * as React from 'react';
 import { message } from 'antd';
 import type { ModalFormProps } from 'antd-more';
 import { BizForm, ModalForm, BizFormItemPassword } from 'antd-more';
-import { waitTime } from 'util-helpers';
+import { sleep } from 'ut2';
 
 export interface ChangePasswordModalProps
   extends Pick<ModalFormProps, 'visible' | 'onVisibleChange'> { }
@@ -22,7 +22,7 @@ const ChangePasswordModal: React.FC<ChangePasswordModalProps> = (props) => {
       onFinish={async (values) => {
         console.log(values);
 
-        await waitTime();
+        await sleep();
         message.success('修改成功，请重新登录！');
       }}
       {...props}

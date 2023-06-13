@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { message } from 'antd';
 import { BizForm, BizFormItemCaptcha, BizFormItemPassword, BizFormItemInput } from 'antd-more';
-import { waitTime } from 'util-helpers';
+import { sleep } from 'ut2';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function sendCaptcha(mobile: string) {
-  await waitTime(2000);
+  await sleep(2000);
   return;
 }
 
@@ -16,7 +16,7 @@ const ForgetPassword = () => {
     <BizForm
       name="form-forget-password"
       onFinish={async (values) => {
-        await waitTime();
+        await sleep();
         console.log(values);
       }}
       submitter={{

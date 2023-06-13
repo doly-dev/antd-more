@@ -1,8 +1,8 @@
-import createUniqueId from './createUniqueId';
+import { uniqueId } from 'ut2';
 
 // 创建一个操作缓存key
 function createActionCacheKey() {
-  return `bizTable${createUniqueId()}`;
+  return uniqueId('bizTable');
 }
 
 const actionCache = {};

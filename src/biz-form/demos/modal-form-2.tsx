@@ -9,7 +9,7 @@ import {
   BizFormItemUpload,
   BizFormItemTextArea
 } from 'antd-more';
-import { waitTime } from 'util-helpers';
+import { sleep } from 'ut2';
 import { BillAccountOptions } from './constants';
 
 const Demo = () => {
@@ -30,7 +30,7 @@ const Demo = () => {
         name='modal-form-2'
         title="创建付款单"
         onFinish={async (values) => {
-          await waitTime(2000);
+          await sleep(2000);
           console.log(values);
           message.success('提交成功');
         }}
@@ -65,7 +65,7 @@ const Demo = () => {
         name='drawer-form-2'
         title="创建付款单"
         onFinish={async (values) => {
-          await waitTime(2000);
+          await sleep(2000);
           console.log(values);
         }}
         labelWidth={112}

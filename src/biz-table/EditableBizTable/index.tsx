@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { useUpdateEffect, useControllableValue } from 'rc-hooks';
+import { uniqueId } from 'ut2';
 import type { BizFormProps, BizFormExtraInstance } from '../../biz-form';
 import { BizForm } from '../../biz-form';
 import ChildFormContext from '../../biz-form/ChildFormContext';
 import type { BizTableProps } from '../BizTable';
 import BizTable from '../BizTable';
-import createUniqueId from '../_util/createUniqueId';
 import getRowKey from '../_util/getRowKey';
 
 type Key = string | number;
@@ -80,7 +80,7 @@ const EditableBizTable = <RecordType extends object = any>(props: EditableBizTab
     ...restProps
   } = props;
   const [form] = BizForm.useForm();
-  const formName = React.useMemo(() => createUniqueId(), []);
+  const formName = React.useMemo(() => uniqueId('editable_form_name_'), []);
   const [value, setValue] = useControllableValue(props, {
     defaultValue: [],
     trigger: typeof onValuesChange === 'function' ? 'onValuesChange' : 'onChange'

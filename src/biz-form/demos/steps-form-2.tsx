@@ -8,7 +8,7 @@ import {
   BizFormItemCaptcha,
   BizFormItemPassword
 } from 'antd-more';
-import { waitTime } from 'util-helpers';
+import { sleep } from 'ut2';
 
 const TipText = ({ children }) => {
   return <div style={{ textAlign: 'center', marginBottom: 24, fontSize: 16 }}>{children}</div>;
@@ -51,7 +51,7 @@ const Demo = () => {
         hideLabel
         size="large"
         onFinish={async (values) => {
-          await waitTime(2000);
+          await sleep(2000);
           console.log(values);
         }}
       >
@@ -89,7 +89,7 @@ const Demo = () => {
         hideLabel
         size="large"
         onFinish={async (values) => {
-          await waitTime(2000);
+          await sleep(2000);
           console.log(values);
         }}
         submitter={{
@@ -110,7 +110,7 @@ const Demo = () => {
           type="inline"
           normalize={(val) => val.replace(/[^\d]/g, '')}
           onGetCaptcha={async () => {
-            await waitTime(2000);
+            await sleep(2000);
             setSent(true);
           }}
           placeholder="短信验证码"
@@ -127,7 +127,7 @@ const Demo = () => {
         size="large"
         form={form3}
         onFinish={async (values) => {
-          await waitTime(2000);
+          await sleep(2000);
           console.log(values);
         }}
         submitter={{

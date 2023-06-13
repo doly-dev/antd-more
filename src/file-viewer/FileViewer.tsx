@@ -2,9 +2,10 @@ import * as React from 'react';
 import type { ModalProps, UploadFile } from 'antd';
 import { Modal } from 'antd';
 import classNames from 'classnames';
+import { uniqueId } from 'ut2';
 import FileView from './FileView';
 import './index.less';
-import { getFileType, getFileUrl, uniqueId } from './utils';
+import { getFileType, getFileUrl } from './utils';
 
 const prefixCls = 'antd-more-file-viewer';
 
@@ -24,7 +25,7 @@ function FileViewer(props: FileViewerProps) {
     style,
     modalProps
   } = props;
-  const fileObj = React.useMemo(() => typeof file === 'string' ? { uid: uniqueId(), name: '', url: file } : file, [file]);
+  const fileObj = React.useMemo(() => typeof file === 'string' ? { uid: uniqueId('file-viewer'), name: '', url: file } : file, [file]);
 
   if (!file || !fileObj) {
     return null;

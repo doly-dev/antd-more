@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { BizForm, BizFormItemInput, BizFormItemAddress, BizFormItemPassword } from 'antd-more';
 import { getPCA } from 'lcn';
-import { waitTime } from 'util-helpers';
+import { sleep } from 'ut2';
 
 const pca = getPCA({ inland: true, fieldNames: { code: 'value', name: 'label' } });
 
@@ -10,7 +10,7 @@ const RegisterDemo = () => {
     <BizForm
       name="base-register"
       onFinish={async (values) => {
-        await waitTime(2000);
+        await sleep(2000);
         console.log(values);
       }}
     >

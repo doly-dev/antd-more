@@ -8,7 +8,7 @@ import type { BizTableColumnType } from 'antd-more';
 import { BizTable } from 'antd-more';
 import { useAsync } from 'rc-hooks';
 import Mockjs from 'mockjs';
-import { waitTime } from 'util-helpers';
+import { sleep } from 'ut2';
 import FreightRule, { FreightRuleType } from './components/FreightRule';
 
 type DataItem = {
@@ -20,7 +20,7 @@ type DataItem = {
 
 const services = {
   async getData() {
-    await waitTime();
+    await sleep();
     const { data } = Mockjs.mock({
       'data|3-5': [
         {
@@ -53,7 +53,7 @@ const services = {
   },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async update(data) {
-    await waitTime();
+    await sleep();
     return {
       success: true
     };

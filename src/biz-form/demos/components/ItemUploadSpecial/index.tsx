@@ -1,16 +1,17 @@
 import * as React from 'react';
 import type { BizFormItemUploadProps } from 'antd-more';
 import { BizFormItemUpload } from 'antd-more';
+import { uniqueId } from 'ut2';
 import styles from './style.module.less';
 
 const ItemUploadSpecial: React.FC<BizFormItemUploadProps> = ({
   uploadProps = {},
   ...restProps
 }) => {
-  const uniqueId = React.useMemo(() => `${Math.random().toString(16).substring(2, 8)}_${Date.now()}`, []);
+  const id = React.useMemo(() => uniqueId('item_upload_special_'), []);
 
   return (
-    <div id={uniqueId}>
+    <div id={id}>
       <BizFormItemUpload
         maxCount={1}
         className={styles.itemUploadSpecial}
@@ -19,14 +20,14 @@ const ItemUploadSpecial: React.FC<BizFormItemUploadProps> = ({
             ...dom.props,
             onChange: (e) => {
               const uploadObj = document
-                .querySelector(`#${uniqueId}`)
+                .querySelector(`#${id}`)
                 .querySelector('.ant-upload') as HTMLDivElement;
               uploadObj.style.display = 'none';
 
               // 这里需要异步获取dom
               setTimeout(() => {
                 const removeBtn = document
-                  .querySelector(`#${uniqueId}`)
+                  .querySelector(`#${id}`)
                   .querySelector('.ant-upload-list-item-card-actions-btn') as HTMLButtonElement;
                 removeBtn.setAttribute('title', '重新选择');
               }, 0);
@@ -39,7 +40,7 @@ const ItemUploadSpecial: React.FC<BizFormItemUploadProps> = ({
             removeIcon: '重新选择'
           },
           onRemove: () => {
-            const uploadBtn = document.querySelector(`#${uniqueId}`).querySelector('button');
+            const uploadBtn = document.querySelector(`#${id}`).querySelector('button');
             uploadBtn.click();
             return false;
           },

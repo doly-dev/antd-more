@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { QueryForm, BizFormItemInput, BizFormItemDate, BizFormItemDateRange } from 'antd-more';
-import { waitTime } from 'util-helpers';
+import { sleep } from 'ut2';
 
 const Demo = () => {
   return (
     <QueryForm
       name="query-form-3"
       onFinish={async (values) => {
-        await waitTime();
+        await sleep();
         console.log(values);
       }}
       defaultColsNumber={2}

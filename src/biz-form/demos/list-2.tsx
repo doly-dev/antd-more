@@ -11,7 +11,7 @@ import {
 import { Button, Card, Space, Row, Col, Popconfirm } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { getPCA } from 'lcn';
-import { waitTime } from 'util-helpers';
+import { sleep } from 'ut2';
 
 const pca = getPCA({ inland: true, fieldNames: { code: 'value', name: 'label' } });
 
@@ -26,7 +26,7 @@ const Demo = () => {
   return (
     <BizForm
       onFinish={async (values) => {
-        await waitTime();
+        await sleep();
         console.log(values);
       }}
       submitter={{

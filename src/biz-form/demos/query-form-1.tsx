@@ -6,7 +6,7 @@ import {
   BizFormItemDate,
   BizFormItemDateRange
 } from 'antd-more';
-import { waitTime } from 'util-helpers';
+import { sleep } from 'ut2';
 
 const Demo = () => {
   const [form] = BizForm.useForm();
@@ -16,7 +16,7 @@ const Demo = () => {
       name="query-form-1"
       form={form}
       onFinish={async (values) => {
-        await waitTime();
+        await sleep();
         console.log(values);
       }}
     >
