@@ -1,16 +1,15 @@
 import * as React from 'react';
 import { Steps, Form } from 'antd';
 import classNames from 'classnames';
-import { isPromiseLike } from 'ut2';
+import { isPromiseLike, uniqueId } from 'ut2';
 import { useUpdate, useControllableValue, useSafeState } from 'rc-hooks';
 import type { StepsProps, StepProps, FormInstance } from '../antd.interface';
-import StepsFormContext from './StepsFormContext';
+import StepsFormContext, { StepsFormAction } from './StepsFormContext';
 import type { BaseFormProps } from '../BaseForm';
 import type { StepFormProps } from './StepForm';
 import StepForm from './StepForm';
 import type { StepsFormSubmitterProps } from './StepsSubmitter';
 import StepsSubmitter from './StepsSubmitter';
-import SyncMemoryStore from '../../../utils/SyncMemoryStore';
 
 import './index.less';
 
@@ -78,6 +77,12 @@ const StepsForm: React.FC<StepsFormProps> & {
   const formSubmitterRef = React.useRef([]); // 操作配置
   const stepsConfigRef = React.useRef([]); // 步骤条配置
   const formDataRef = React.useRef({}); // 全部表单数据
+  // 记录当前操作
+  const action = React.useRef<StepsFormAction>();
+  const getAction = React.useCallback(() => {
+    return action.current;
+  }, []);
+  const uniqueKey = React.useMemo(() => uniqueId('_steps_form_'), []);
 
   // 手动触发更新
   const update = useUpdate();
@@ -86,9 +91,6 @@ const StepsForm: React.FC<StepsFormProps> & {
       update();
     });
   };
-
-  // 记录当前操作
-  const actionCache = React.useMemo(() => SyncMemoryStore.create<'prev' | 'next' | 'submit'>(), []);
 
   // 遍历子组件提取配置
   const childs = React.Children.toArray(children);
@@ -188,16 +190,16 @@ const StepsForm: React.FC<StepsFormProps> & {
         ...currentSubmitter?.submitButtonProps
       },
       onPrev: (e) => {
-        actionCache.set('prev');
+        action.current = StepsFormAction.Prev;
         prev();
         currentSubmitter?.onPrev?.(e);
       },
       onNext: (e) => {
-        actionCache.set('next');
+        action.current = StepsFormAction.Next;
         currentSubmitter?.onNext?.(e);
       },
       onSubmit: (e) => {
-        actionCache.set('submit');
+        action.current = StepsFormAction.Submit;
         currentSubmitter?.onSubmit?.(e);
       }
     };
@@ -235,7 +237,7 @@ const StepsForm: React.FC<StepsFormProps> & {
 
   const formDom = childs.map((item: any, index) => {
     const isCurrentIndex = step === index;
-    const name = item.props?.name || `${actionCache.key}${index}`;
+    const name = item.props?.name || uniqueKey + index;
 
     const config = {
       submitter: false,
@@ -267,20 +269,13 @@ const StepsForm: React.FC<StepsFormProps> & {
     );
   });
 
-  React.useEffect(
-    () => () => {
-      actionCache.clear();
-    },
-    [actionCache]
-  );
-
   React.useImperativeHandle(actionRef, () => ({
     prev: () => {
       if (!ready) {
         return;
       }
 
-      actionCache.set('prev');
+      action.current = StepsFormAction.Prev;
       prev();
       const currentSubmitter = formSubmitterRef.current[step];
       currentSubmitter && currentSubmitter?.onPrev();
@@ -292,7 +287,7 @@ const StepsForm: React.FC<StepsFormProps> & {
         return;
       }
 
-      actionCache.set('next');
+      action.current = StepsFormAction.Next;
       if (submitted) {
         formArrayRef.current[step].submit();
       } else {
@@ -306,7 +301,7 @@ const StepsForm: React.FC<StepsFormProps> & {
         return;
       }
 
-      actionCache.set('submit');
+      action.current = StepsFormAction.Submit;
       formArrayRef.current[step].submit();
       const currentSubmitter = formSubmitterRef.current[step];
       currentSubmitter && currentSubmitter?.onSubmit?.();
@@ -335,7 +330,7 @@ const StepsForm: React.FC<StepsFormProps> & {
           prev,
           submit,
           onFormFinish,
-          actionCache,
+          getAction,
           forgetUpdate
         }}
       >

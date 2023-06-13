@@ -5,7 +5,7 @@ import { Form } from 'antd';
 import type { StepProps } from '../antd.interface';
 import type { BaseFormProps } from '../BaseForm';
 import BaseForm from '../BaseForm';
-import StepsFormContext from './StepsFormContext';
+import StepsFormContext, { StepsFormAction } from './StepsFormContext';
 import type { StepsFormSubmitterProps } from './StepsSubmitter';
 
 export interface StepFormProps
@@ -63,10 +63,11 @@ const StepForm: React.FC<StepFormProps> = ({
         }
         if (ret !== false) {
           ctx?.onFormFinish(name, values);
-
-          const currentAction = ctx?.actionCache.get();
-          if (currentAction === 'next' || currentAction === 'submit') {
-            ctx?.[currentAction]();
+          const currentAction = ctx.getAction();
+          if (currentAction === StepsFormAction.Next) {
+            ctx?.next();
+          } else if (currentAction === StepsFormAction.Submit) {
+            ctx?.submit();
           }
         }
       }}

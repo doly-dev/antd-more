@@ -1,6 +1,11 @@
 import * as React from 'react';
 import type { FormInstance } from '../antd.interface';
-import type SyncMemoryStore from '../../../utils/SyncMemoryStore';
+
+export enum StepsFormAction {
+  Prev = 1,
+  Next,
+  Submit
+}
 
 export interface StepsFormContextProps {
   formArrayRef: React.MutableRefObject<FormInstance[]>; // 每个form的ref
@@ -13,7 +18,7 @@ export interface StepsFormContextProps {
   loading: boolean;
   setLoading: (loading: boolean) => void;
 
-  actionCache: InstanceType<typeof SyncMemoryStore>;
+  getAction: () => StepsFormAction,
   forgetUpdate: () => void;
 }
 
