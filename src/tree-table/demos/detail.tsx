@@ -12,10 +12,14 @@ function Demo() {
       halfToChecked
       className={styles.wrapper}
       size="small"
-    // loading={loading}
-    // locale={{
-    //   emptyText: '数据加载中...',
-    // }}
+    // 异步加载数据可以添加loading状态
+    // locale={
+    //   loading
+    //     ? {
+    //         emptyText: '数据加载中...',
+    //       }
+    //     : undefined
+    // }
     />
   );
 }
