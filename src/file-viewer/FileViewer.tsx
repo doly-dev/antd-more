@@ -25,7 +25,7 @@ function FileViewer(props: FileViewerProps) {
     style,
     modalProps
   } = props;
-  const fileObj = React.useMemo(() => typeof file === 'string' ? { uid: uniqueId('file-viewer'), name: '', url: file } : file, [file]);
+  const fileObj = React.useMemo(() => typeof file === 'string' ? { uid: uniqueId('__am_fileViewer_'), name: '', url: file } : file, [file]);
 
   if (!file || !fileObj) {
     return null;

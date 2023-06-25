@@ -48,7 +48,7 @@ const BizFormItemTimeRange: React.FC<BizFormItemTimeRangeProps> = ({
 }) => {
   const hasNames = React.useMemo(() => Array.isArray(names) && names.length > 0, [names]);
   const currentName = React.useMemo(
-    () => name || (hasNames ? uniqueId('cascader') : name),
+    () => name || (hasNames ? uniqueId('__am_timeRange_') : name),
     [hasNames, name]
   );
   const currentFormat = React.useMemo(() => {

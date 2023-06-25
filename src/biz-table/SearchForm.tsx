@@ -26,7 +26,7 @@ const SearchForm: React.FC<SearchFormProps> = React.forwardRef(
     }
 
     const formName = React.useMemo(
-      () => name || uniqueId('biz_table_search_form_'),
+      () => name || uniqueId('__am_bizTableSearchForm_'),
       [name]
     );
     React.useImperativeHandle(ref, () => form, [form]);

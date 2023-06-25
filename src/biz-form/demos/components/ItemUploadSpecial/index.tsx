@@ -8,7 +8,7 @@ const ItemUploadSpecial: React.FC<BizFormItemUploadProps> = ({
   uploadProps = {},
   ...restProps
 }) => {
-  const id = React.useMemo(() => uniqueId('item_upload_special_'), []);
+  const id = React.useMemo(() => uniqueId('itemUploadSpecial_'), []);
 
   return (
     <div id={id}>

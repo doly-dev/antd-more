@@ -80,7 +80,7 @@ const EditableBizTable = <RecordType extends object = any>(props: EditableBizTab
     ...restProps
   } = props;
   const [form] = BizForm.useForm();
-  const formName = React.useMemo(() => uniqueId('editable_form_name_'), []);
+  const formName = React.useMemo(() => uniqueId('__am_editableFormName_'), []);
   const [value, setValue] = useControllableValue(props, {
     defaultValue: [],
     trigger: typeof onValuesChange === 'function' ? 'onValuesChange' : 'onChange'

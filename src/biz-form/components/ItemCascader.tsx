@@ -27,7 +27,7 @@ function BizFormItemCascader<DataNodeType = any>({
 }: BizFormItemCascaderProps<DataNodeType>) {
   const hasNames = React.useMemo(() => Array.isArray(names) && names.length > 0, [names]);
   const currentName = React.useMemo(
-    () => name || (hasNames ? uniqueId('cascader') : name),
+    () => name || (hasNames ? uniqueId('__am_cascader_') : name),
     [hasNames, name]
   );
   const { getPopupContainer } = React.useContext(FieldContext);

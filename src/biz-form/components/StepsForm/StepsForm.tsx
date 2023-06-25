@@ -82,7 +82,7 @@ const StepsForm: React.FC<StepsFormProps> & {
   const getAction = React.useCallback(() => {
     return action.current;
   }, []);
-  const uniqueKey = React.useMemo(() => uniqueId('_steps_form_'), []);
+  const uniqueKey = React.useMemo(() => uniqueId('__am_stepsForm_'), []);
 
   // 手动触发更新
   const update = useUpdate();

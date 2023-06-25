@@ -57,7 +57,7 @@ const UploadWrapper: React.FC<UploadWrapperProps> = ({
   ...restProps
 }) => {
   // 当前组件唯一标识，用于缓存和释放 URL.createObjectURL
-  const uniqueKey = React.useMemo(() => uniqueId('item-upload'), []);
+  const uniqueKey = React.useMemo(() => uniqueId('__am_itemUpload_'), []);
 
   // 标识正在上传
   const uploadingFlagRef = React.useRef(false);

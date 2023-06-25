@@ -54,7 +54,7 @@ const BizFormItemDateRange: React.FC<BizFormItemDateRangeProps> = ({
 }) => {
   const hasNames = React.useMemo(() => Array.isArray(names) && names.length > 0, [names]);
   const currentName = React.useMemo(
-    () => name || (hasNames ? uniqueId('dateRange') : name),
+    () => name || (hasNames ? uniqueId('__am_dateRange_') : name),
     [hasNames, name]
   );
   const currentPicker = React.useMemo(
