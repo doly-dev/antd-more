@@ -11874,17 +11874,17 @@ use@^3.1.0:
   resolved "https://registry.npmjs.org/use/-/use-3.1.1.tgz#d50c8cac79a19fbc20f2911f56eb973f4e10070f"
   integrity sha512-cwESVXlO3url9YWlFW/TA9cshCEhtu7IKJ/p5soJ/gGpj7vbvFrAY/eIioQ6Dw23KjZhYgiIo8HOs1nQ2vr/oQ==
 
-ut2@^1.0.0, ut2@^1.0.1:
+ut2@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/ut2/-/ut2-1.0.1.tgz#c7b5561197a93130dee5e9531fae3337a695575c"
   integrity sha512-QgXswmATRt1xmygOo5gorTOIKFDwheEAGe1+0jwYv2BFsvJc6PzGh/RSVaph/YzkcQOuMW0TKWROML9NSKVZSw==
   dependencies:
     tslib "^2.5.3"
 
-ut2@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.npmjs.org/ut2/-/ut2-1.0.2.tgz#1e93a878782802218ea7cd4a8a3ff55edc56742d"
-  integrity sha512-AXhD8LbjkN20BT9nXhKTa1ImBaOVhqyOHxaqpzNTfEcVhB8Abt+VXF30zyjNUxLvjBR/Fv3Wisal+TB0icKGqw==
+ut2@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.npmjs.org/ut2/-/ut2-1.0.5.tgz#9b764e18fbcd863da754eba5d49b374442356b58"
+  integrity sha512-3YRXPebrU8qtvhm2ZUbNIbsT5N+DfeBYMf6D80jGPvjGYhz9Ne9yD+kp2PTQ1+SV96hAgNefJXivU6vFf7XiYQ==
   dependencies:
     tslib "^2.5.3"
 
@@ -11893,13 +11893,13 @@ util-deprecate@^1.0.1, util-deprecate@^1.0.2, util-deprecate@~1.0.1:
   resolved "https://registry.npmjs.org/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
   integrity sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==
 
-util-helpers@^4.18.0:
-  version "4.18.0"
-  resolved "https://registry.npmjs.org/util-helpers/-/util-helpers-4.18.0.tgz#cf58fa0e821cf5948aa2f543b5be92447b80af5a"
-  integrity sha512-6wUurK3I8+0eYHWxxk6Tfaxz9IgC2n8V3kJkUULxwzM+yl8Y6TymPGNDrIOyXdRfLwSIJxraOOMQP2MJXdJmDA==
+util-helpers@^4.19.1:
+  version "4.19.1"
+  resolved "https://registry.npmjs.org/util-helpers/-/util-helpers-4.19.1.tgz#6de312a04404c68f50e867db84d327baa17b4c45"
+  integrity sha512-M5WHepYfrfoUzkJDk5HlU7z9B/d2sEK/fXnNdmWYV+95bP0cPUIumVO5cVBsRGxGsZw+ia9ygVGKnuyoZYjERw==
   dependencies:
     tslib "^2.5.0"
-    ut2 "^1.0.0"
+    ut2 "^1.0.5"
 
 util@0.10.3:
   version "0.10.3"
