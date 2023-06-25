@@ -46,7 +46,7 @@ const BizFormItemInput: React.FC<BizFormItemInputProps> = ({
   inputProps = {},
   required = false,
   transform,
-  format = true,
+  format = false,
   ...restProps
 }) => {
   const hasSpecialType = React.useMemo(

@@ -268,8 +268,7 @@ Input 输入框
 - 可配置过滤空格
 - 当有 `type` 值时：
   - 失焦校验
-  - 手机号码、身份证号、银行卡号自动格式化
-  - 邮箱、用户名自动过滤空格
+  - 邮箱、用户名自动过滤前后空格
 
 **校验顺序**
 
@@ -287,8 +286,8 @@ Input 输入框
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | type | 输入框类型。 | `'mobile' \| 'bankCard' \| 'idCard' \| 'email' \| 'userName'` | - |
-| disabledWhiteSpace | 去除头尾空格 | `boolean` | - |
-| format | 是否格式化。仅在设置为 `type=mobile \| bankCard \| idCard` 时生效。<br/>手机号码和银行卡号不格式化空格，身份证号`x`不强制大写。 | `boolean` | `true` |
+| disabledWhiteSpace | 去除前后空格 | `boolean` | - |
+| format | 是否格式化。仅在设置为 `type=mobile \| bankCard \| idCard` 时生效。<br/>手机号码和银行卡号不格式化空格，身份证号`x`不强制大写。 | `boolean` | `false` |
 | placeholder | 输入框提示 | `string` | `请输入` |
 | allowClear | 支持清除 | `boolean \| {clearIcon?: React.ReactNode;}` | - |
 | maxLength | 最大长度 | `number` | - |

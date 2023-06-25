@@ -86,7 +86,6 @@ const LoginDemo = () => {
         <BizFormItemInput
           name="mobile"
           type="mobile"
-          format={false}
           placeholder="请输入手机号码"
           inputProps={{
             prefix: <MobileOutlined />
