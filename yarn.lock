@@ -10008,10 +10008,18 @@ rc-upload@~4.3.0:
     classnames "^2.2.5"
     rc-util "^5.2.0"
 
-rc-util@^5.0.1, rc-util@^5.0.6, rc-util@^5.12.0, rc-util@^5.15.0, rc-util@^5.16.0, rc-util@^5.16.1, rc-util@^5.17.0, rc-util@^5.18.1, rc-util@^5.19.2, rc-util@^5.2.0, rc-util@^5.2.1, rc-util@^5.20.1, rc-util@^5.21.0, rc-util@^5.21.2, rc-util@^5.22.5, rc-util@^5.23.0, rc-util@^5.24.4, rc-util@^5.25.2, rc-util@^5.26.0, rc-util@^5.27.0, rc-util@^5.33.0, rc-util@^5.34.0, rc-util@^5.4.0, rc-util@^5.5.0, rc-util@^5.6.1, rc-util@^5.8.0, rc-util@^5.9.4:
+rc-util@^5.0.1, rc-util@^5.0.6, rc-util@^5.12.0, rc-util@^5.15.0, rc-util@^5.16.0, rc-util@^5.16.1, rc-util@^5.17.0, rc-util@^5.18.1, rc-util@^5.19.2, rc-util@^5.2.0, rc-util@^5.2.1, rc-util@^5.20.1, rc-util@^5.21.0, rc-util@^5.21.2, rc-util@^5.22.5, rc-util@^5.23.0, rc-util@^5.24.4, rc-util@^5.25.2, rc-util@^5.26.0, rc-util@^5.27.0, rc-util@^5.33.0, rc-util@^5.4.0, rc-util@^5.5.0, rc-util@^5.6.1, rc-util@^5.8.0, rc-util@^5.9.4:
   version "5.34.0"
   resolved "https://registry.npmjs.org/rc-util/-/rc-util-5.34.0.tgz#3bec84f98c1dbf5305d89cda124aa8a0c9615f97"
   integrity sha512-+zCDJ1gq+KwqbaZPAk7PGlNAssoTcnZSnTsr5KMYDBhzdPNFxyuglnewWMP5PyP/kAC6uW4r9Ejc08M+Lei04A==
+  dependencies:
+    "@babel/runtime" "^7.18.3"
+    react-is "^16.12.0"
+
+rc-util@^5.34.1:
+  version "5.34.1"
+  resolved "https://registry.npmjs.org/rc-util/-/rc-util-5.34.1.tgz#0becf411d8f09bdb0f1b61322964f27efeeba642"
+  integrity sha512-SqiUT8Ssgh5C+hu4y887xwCrMNcxLm6ScOo8AFlWYYF3z9uNNiPpwwSjvicqOlWd79rNw1g44rnP7tz9MrO1ZQ==
   dependencies:
     "@babel/runtime" "^7.18.3"
     react-is "^16.12.0"
@@ -12133,10 +12141,15 @@ typescript-transform-paths@3.4.6:
   dependencies:
     minimatch "^3.0.4"
 
-"typescript@^4.6.4 || ^5.0.0", typescript@^5.1.3:
+"typescript@^4.6.4 || ^5.0.0":
   version "5.1.3"
   resolved "https://registry.npmjs.org/typescript/-/typescript-5.1.3.tgz#8d84219244a6b40b6fb2b33cc1c062f715b9e826"
   integrity sha512-XH627E9vkeqhlZFQuL+UsyAXEnibT0kWR2FWONlr4sTjvxyJYnyefgrkyECLzM5NenmKzRAy2rR/OlYLA1HkZw==
+
+typescript@^5.1.6:
+  version "5.1.6"
+  resolved "https://registry.npmjs.org/typescript/-/typescript-5.1.6.tgz#02f8ac202b6dad2c0dd5e0913745b47a37998274"
+  integrity sha512-zaWCozRZ6DLEWAWFrVDz1H6FVXzUSfTy5FUMWsQlU8Ym5JP9eO4xkTIROFCQvhQf61z6O/G6ugw3SgAnvvm+HA==
 
 typescript@~4.8.4:
   version "4.8.4"
@@ -12462,18 +12475,25 @@ ut2@^1.1.0:
   dependencies:
     tslib "^2.6.0"
 
+ut2@^1.1.3, ut2@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.npmjs.org/ut2/-/ut2-1.2.2.tgz#36a58b18d1d20ff125c17af9c0ab5fb5392d2c42"
+  integrity sha512-VJuiihtUhgdC1EM3xyGN8lHmgj4gWn+ZTuH+ztvRW+YvG0Zd/dBV7drYaqBb531DZDdbjsXkbLVqCsj0cSKP+g==
+  dependencies:
+    tslib "^2.6.0"
+
 util-deprecate@^1.0.1, util-deprecate@^1.0.2, util-deprecate@~1.0.1:
   version "1.0.2"
   resolved "https://registry.npmjs.org/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
   integrity sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==
 
-util-helpers@^4.19.2:
-  version "4.19.2"
-  resolved "https://registry.npmjs.org/util-helpers/-/util-helpers-4.19.2.tgz#e1c95d032be7d27d74f2c45c1bba46d637afd37c"
-  integrity sha512-+XUYuf+H3JBGga4uv1JReGoaEB7JdgxgyGFvUtCqaE8t5MTrqYAADWGiDxjQ6Gk4LVtrWBvmmcsWD+ZjeD2Flg==
+util-helpers@^4.19.3:
+  version "4.19.3"
+  resolved "https://registry.npmjs.org/util-helpers/-/util-helpers-4.19.3.tgz#a207b830701b41f93ebf9fe539558a5dec8f2916"
+  integrity sha512-e8lxcLBL+H0f59tqszyxH70ypUB8+QoIeApusHb+JBXALwWOPTVAG32ZWpsxQHr4h/fSZ8HJlNyso46TQbB1lw==
   dependencies:
     tslib "^2.6.0"
-    ut2 "^1.1.0"
+    ut2 "^1.1.3"
 
 util@0.10.3:
   version "0.10.3"
