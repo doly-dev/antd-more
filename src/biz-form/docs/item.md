@@ -309,6 +309,7 @@ Input 输入框
 - 小于等于 `gt` 时，提示：`不能小于等于${gt}`
 - 大于 `lte` 时，提示：`不能大于${lte}`
 - 小于 `gte` 时，提示：`不能小于${gt}`
+- 小数位数大于 `maxPrecision` 时，提示：`支持${maxPrecision}位小数`
 
 <code src="../demos/item-number-1.tsx" />
 
@@ -321,6 +322,8 @@ Input 输入框
 | gt | 最小值，用于校验 | `number` | - |
 | gte | 最小值（允许等于），用于校验 | `number` | - |
 | precision | 数值精度 | `number` | - |
+| useFloor | 数值精度向下舍入，需配合 `precision` 使用。 | `boolean` | - |
+| maxPrecision | 最大支持多少位小数精度校验，无需配合 `precision` 使用。 | `number` | - |
 | placeholder | 输入框提示 | `string` | `请输入` |
 | step | 每次改变步数，可以为小数 | `number \| string` | - |
 | max | 最大值 | `number` | Number.MAX_SAFE_INTEGER |

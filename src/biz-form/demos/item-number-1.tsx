@@ -8,7 +8,7 @@ const Demo = () => {
       onFinish={(values) => {
         console.log(values);
       }}
-      labelWidth={98}
+      labelWidth={126}
     >
       <BizFormItemNumber label="number1" name="number1" />
       <BizFormItemNumber label="number2" name="number2" required />
@@ -31,6 +31,27 @@ const Demo = () => {
         gt={0}
         lt={6}
         tooltip="大于0，小于6"
+        required
+      />
+      <BizFormItemNumber
+        label="费率向下舍入"
+        name="number5"
+        precision={2}
+        useFloor
+        contentAfter="%"
+        gt={0}
+        lt={6}
+        tooltip="数字精度向下舍入"
+        required
+      />
+      <BizFormItemNumber
+        label="费率n位小数"
+        name="number6"
+        maxPrecision={1}
+        contentAfter="%"
+        gt={0}
+        lt={6}
+        tooltip="支持n位小数"
         required
       />
     </BizForm>
