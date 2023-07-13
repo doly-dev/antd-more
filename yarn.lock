@@ -12475,10 +12475,17 @@ ut2@^1.1.0:
   dependencies:
     tslib "^2.6.0"
 
-ut2@^1.1.3, ut2@^1.2.2:
+ut2@^1.1.3:
   version "1.2.2"
   resolved "https://registry.npmjs.org/ut2/-/ut2-1.2.2.tgz#36a58b18d1d20ff125c17af9c0ab5fb5392d2c42"
   integrity sha512-VJuiihtUhgdC1EM3xyGN8lHmgj4gWn+ZTuH+ztvRW+YvG0Zd/dBV7drYaqBb531DZDdbjsXkbLVqCsj0cSKP+g==
+  dependencies:
+    tslib "^2.6.0"
+
+ut2@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.npmjs.org/ut2/-/ut2-1.3.0.tgz#0a4f9f3c4f83c0c0cd763b0c4f7ea22f55d23bef"
+  integrity sha512-1JP9qtE4Ii4CWtAHAtuDjZgZSbApVnO2FjR6E9AVrQ/xuuEpHna31QerS0qS0vttuk41KTsc7+yNzuUrzsBw/w==
   dependencies:
     tslib "^2.6.0"
 

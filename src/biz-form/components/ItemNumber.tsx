@@ -1,10 +1,11 @@
 import * as React from 'react';
+import { floor } from 'ut2';
 import { isValidNumber } from 'util-helpers';
+import { InputNumber } from 'antd';
 import type { BizFormItemProps } from './Item';
 import BizFormItem from './Item';
 import type { InputNumberProps } from './antd.interface';
 import getLabel from '../_util/getLabel';
-import InputNumberWrapper from './form/InputNumberWrapper';
 
 export interface BizFormItemNumberProps
   extends BizFormItemProps,
@@ -36,6 +37,13 @@ const BizFormItemNumber: React.FC<BizFormItemNumberProps> = ({
   required = false,
   ...restProps
 }) => {
+  const internalParse = React.useCallback((displayValue: any) => {
+    if (displayValue && useFloor && typeof precision === 'number') {
+      return floor(displayValue, precision);
+    }
+    return displayValue;
+  }, [precision, useFloor]);
+
   return (
     <BizFormItem
       required={required}
@@ -68,15 +76,15 @@ const BizFormItemNumber: React.FC<BizFormItemNumberProps> = ({
       ]}
       {...restProps}
     >
-      <InputNumberWrapper
+      <InputNumber
         placeholder={placeholder}
         precision={precision}
         // 需要显式指定最大最小值，并且不设置 parser ，否则输入过大数值会转换为科学记数法，最终导致错误的结果。
         max={max}
         min={min}
         step={step}
-        useFloor={useFloor}
         formatter={formatter}
+        parser={internalParse}
         {...inputProps}
       />
     </BizFormItem>
