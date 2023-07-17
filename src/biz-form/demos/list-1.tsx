@@ -4,6 +4,24 @@ import { Button } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { sleep } from 'ut2';
 
+const formItemLayout = {
+  labelCol: {
+    xs: { span: 24 },
+    sm: { span: 4 },
+  },
+  wrapperCol: {
+    xs: { span: 24 },
+    sm: { span: 20 },
+  },
+};
+
+const formItemLayoutWithOutLabel = {
+  wrapperCol: {
+    xs: { span: 24, offset: 0 },
+    sm: { span: 20, offset: 4 },
+  },
+};
+
 const Demo = () => {
   return (
     <BizForm
@@ -11,26 +29,28 @@ const Demo = () => {
         await sleep();
         console.log(values);
       }}
+      labelWidth='auto'
+      {...formItemLayoutWithOutLabel}
     >
       <BizFormList name="list">
         {(fields, { add, remove }) => {
           return (
             <>
               {fields.map((field, index) => (
-                <div style={{ display: 'flex' }} key={field.key}>
-                  <BizFormItemInput
-                    {...field}
-                    label={index === 0 ? 'Passengers' : ' '}
-                    colon={index === 0}
-                    style={{ flex: 1, marginRight: 8 }}
-                  />
-                  <MinusCircleOutlined
-                    style={{ marginTop: 9 }}
-                    onClick={() => remove(field.name)}
-                  />
-                </div>
+                <BizFormItemInput
+                  key={field.key}
+                  {...field}
+                  {...(index === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
+                  label={index === 0 ? 'Passengers' : ''}
+                  colon={index === 0}
+                  contentAfter={(
+                    <MinusCircleOutlined
+                      onClick={() => remove(field.name)}
+                    />
+                  )}
+                />
               ))}
-              <BizFormItem label=" " colon={false}>
+              <BizFormItem>
                 <Button type="dashed" block icon={<PlusOutlined />} onClick={() => add()}>
                   添加
                 </Button>

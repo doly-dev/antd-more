@@ -12,6 +12,7 @@ import { Button, Card, Space, Row, Col, Popconfirm } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { getPCA } from 'lcn';
 import { sleep } from 'ut2';
+import styles from './list-2.module.less';
 
 const pca = getPCA({ inland: true, fieldNames: { code: 'value', name: 'label' } });
 
@@ -86,29 +87,28 @@ const Demo = () => {
                         {(mobileFields, mobileFieldAction) => (
                           <>
                             {mobileFields.map((mobileField, mobileFieldIndex) => (
-                              <div style={{ display: 'flex' }} key={mobileField.key}>
-                                <BizFormItemInput
-                                  {...mobileField}
-                                  type="mobile"
-                                  label={mobileFieldIndex === 0 ? '手机号码' : ' '}
-                                  colon={mobileFieldIndex === 0}
-                                  messageVariables={{ label: '手机号码' }}
-                                  style={{ flex: 1, marginRight: 8 }}
-                                />
-                                <MinusCircleOutlined
-                                  style={{ marginTop: 9 }}
-                                  onClick={() => mobileFieldAction.remove(mobileField.name)}
-                                />
-                              </div>
+                              <BizFormItemInput
+                                key={mobileField.key}
+                                {...mobileField}
+                                type="mobile"
+                                label={mobileFieldIndex === 0 ? '手机号码' : ' '}
+                                colon={mobileFieldIndex === 0}
+                                className={mobileFieldIndex !== 0 ? styles.hideLabel : ''}
+                                messageVariables={{ label: '手机号码' }}
+                                contentAfter={(
+                                  <MinusCircleOutlined
+                                    onClick={() => mobileFieldAction.remove(mobileField.name)}
+                                  />
+                                )}
+                              />
                             ))}
                             {mobileFields.length < 3 && (
-                              <BizFormItem label=" " colon={false}>
+                              <BizFormItem label=" " colon={false} className={styles.hideLabel} style={{ marginBottom: 0 }}>
                                 <Button
                                   type="dashed"
                                   block
                                   icon={<PlusOutlined />}
                                   onClick={() => mobileFieldAction.add()}
-                                  style={{ marginBottom: 16 }}
                                 >
                                   添加手机号码
                                 </Button>
