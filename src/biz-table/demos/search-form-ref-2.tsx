@@ -138,7 +138,7 @@ const Demo = () => {
   // useActivate(init);
 
   return (
-    <BizTable<DataItem>
+    <BizTable
       request={request}
       columns={columns}
       rowKey="applyCode"

@@ -100,7 +100,7 @@ const Demo = () => {
   ];
 
   return (
-    <EditableBizTable<DataItem>
+    <EditableBizTable
       request={request}
       columns={columns}
       rowKey="applyCode"

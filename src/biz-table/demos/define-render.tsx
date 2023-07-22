@@ -73,7 +73,7 @@ const Demo = () => {
   };
 
   return (
-    <BizTable<DataItem>
+    <BizTable
       request={request}
       columns={columns}
       rowKey="applyCode"
