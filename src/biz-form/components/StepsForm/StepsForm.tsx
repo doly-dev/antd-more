@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Steps, Form } from 'antd';
 import classNames from 'classnames';
 import { isPromiseLike, uniqueId } from 'ut2';
-import { useUpdate, useControllableValue, useSafeState } from 'rc-hooks';
+import { useUpdate, useControllableValue, useSafeState, useLatest } from 'rc-hooks';
 import type { StepsProps, StepProps, FormInstance } from '../antd.interface';
 import StepsFormContext, { StepsFormAction } from './StepsFormContext';
 import type { BaseFormProps } from '../BaseForm';
@@ -71,11 +71,12 @@ const StepsForm: React.FC<StepsFormProps> & {
     trigger: 'onCurrentChange'
   });
   const [loading, setLoading] = useSafeState(false);
+  const latestStep = useLatest(step);
   // const [stepsConfig, setStepsConfig] = React.useState([]);
   // const [submitterConfig, setSubmitterConfig] = React.useState([]);
   const formArrayRef = React.useRef<FormInstance[]>([]);
   const formSubmitterRef = React.useRef([]); // 操作配置
-  const stepsConfigRef = React.useRef([]); // 步骤条配置
+  const stepsConfigRef = React.useRef<StepProps[]>([]); // 步骤条配置
   const formDataRef = React.useRef({}); // 全部表单数据
   // 记录当前操作
   const action = React.useRef<StepsFormAction>();
@@ -86,7 +87,7 @@ const StepsForm: React.FC<StepsFormProps> & {
 
   // 手动触发更新
   const update = useUpdate();
-  const forgetUpdate = () => {
+  const forceUpdate = () => {
     setTimeout(() => {
       update();
     });
@@ -108,7 +109,6 @@ const StepsForm: React.FC<StepsFormProps> & {
       subTitle,
       icon,
       description,
-      key: `${index}`,
       ...stepProps
     };
 
@@ -125,18 +125,20 @@ const StepsForm: React.FC<StepsFormProps> & {
 
   // 下一步
   const next = () => {
-    if (step < childs.length - 1) {
-      const currStep = step + 1;
+    if (latestStep.current < childs.length - 1) {
+      const currStep = latestStep.current + 1;
       setStep(currStep);
     }
-  };
+  }
+
   // 上一步
   const prev = () => {
-    if (step > 0) {
-      const currStep = step - 1;
+    if (latestStep.current > 0) {
+      const currStep = latestStep.current - 1;
       setStep(currStep);
     }
-  };
+  }
+
   // 提交
   const submit = async () => {
     if (typeof onFinish === 'function') {
@@ -223,11 +225,11 @@ const StepsForm: React.FC<StepsFormProps> & {
     }
 
     const dom = (
-      <Steps {...stepsProps} current={step}>
-        {stepsConfigRef.current.map((item, index) => (
-          <Steps.Step key={item?.name + index} {...item} />
-        ))}
-      </Steps>
+      <Steps
+        {...stepsProps}
+        current={step}
+        items={stepsConfigRef.current}
+      />
     );
 
     return stepsRender ? stepsRender(stepsConfigRef.current, dom) : dom;
@@ -277,7 +279,7 @@ const StepsForm: React.FC<StepsFormProps> & {
 
       action.current = StepsFormAction.Prev;
       prev();
-      const currentSubmitter = formSubmitterRef.current[step];
+      const currentSubmitter = formSubmitterRef.current[latestStep.current];
       currentSubmitter && currentSubmitter?.onPrev();
     },
     // 是否触发当前表单提交验证
@@ -289,11 +291,11 @@ const StepsForm: React.FC<StepsFormProps> & {
 
       action.current = StepsFormAction.Next;
       if (submitted) {
-        formArrayRef.current[step].submit();
+        formArrayRef.current[latestStep.current].submit();
       } else {
         next();
       }
-      const currentSubmitter = formSubmitterRef.current[step];
+      const currentSubmitter = formSubmitterRef.current[latestStep.current];
       currentSubmitter && currentSubmitter?.onNext?.();
     },
     submit: () => {
@@ -302,8 +304,8 @@ const StepsForm: React.FC<StepsFormProps> & {
       }
 
       action.current = StepsFormAction.Submit;
-      formArrayRef.current[step].submit();
-      const currentSubmitter = formSubmitterRef.current[step];
+      formArrayRef.current[latestStep.current].submit();
+      const currentSubmitter = formSubmitterRef.current[latestStep.current];
       currentSubmitter && currentSubmitter?.onSubmit?.();
     },
     reset: () => {
@@ -331,7 +333,7 @@ const StepsForm: React.FC<StepsFormProps> & {
           submit,
           onFormFinish,
           getAction,
-          forgetUpdate
+          forceUpdate
         }}
       >
         {stepsFormRender ? (

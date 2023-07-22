@@ -19,7 +19,7 @@ export interface StepsFormContextProps {
   setLoading: (loading: boolean) => void;
 
   getAction: () => StepsFormAction,
-  forgetUpdate: () => void;
+  forceUpdate: () => void;
 }
 
 export default React.createContext<StepsFormContextProps | undefined>(undefined);
