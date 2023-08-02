@@ -4,7 +4,11 @@ import { Checkbox, Table } from 'antd';
 import { useControllableValue, useLatest, useSafeState } from 'rc-hooks';
 import { findTreeNode } from 'util-helpers';
 import { omit, isEmpty } from 'ut2';
+import classNames from 'classnames';
 import type { ValueType, TreeTableDataItem, TreeTableData, TreeTableFieldNames } from './type';
+import './index.less';
+
+const prefixCls = 'antd-more-tree-table';
 
 export type { TreeTableDataItem, TreeTableData, TreeTableFieldNames };
 
@@ -255,6 +259,7 @@ export interface TreeTableProps<RecordType = any>
   onChange?: (values: ValueType[]) => void;
   labelRender?: (nodeData: TreeTableDataItem) => React.ReactNode;
   fieldNames?: TreeTableFieldNames;
+  hideCheckbox?: boolean;
 }
 
 const TreeTable: React.FC<TreeTableProps> = (props) => {
@@ -269,6 +274,8 @@ const TreeTable: React.FC<TreeTableProps> = (props) => {
     onChange,
     labelRender,
     fieldNames: outFieldNames,
+    className,
+    hideCheckbox = false,
     ...restProps
   } = props;
   const [checkList, setCheckList] = useControllableValue<ValueType[]>({
@@ -465,7 +472,14 @@ const TreeTable: React.FC<TreeTableProps> = (props) => {
   }, [checkList, columnTitles, columns, handleChange, indeterminateList, labelKey, labelRender, valueKey]);
 
   return (
-    <Table columns={realColumns} dataSource={list} pagination={false} bordered {...restProps} />
+    <Table
+      columns={realColumns}
+      dataSource={list}
+      pagination={false}
+      bordered
+      className={classNames(prefixCls, { [`${prefixCls}-hideCheckbox`]: hideCheckbox }, className)}
+      {...restProps}
+    />
   );
 };
 

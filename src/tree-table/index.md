@@ -40,6 +40,8 @@ nav:
 
 ### 详情展示
 
+设置 `hideCheckbox` 隐藏复选框。
+
 <code src='./demos/detail.tsx'></code>
 
 ## API
