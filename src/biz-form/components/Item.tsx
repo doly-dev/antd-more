@@ -4,6 +4,10 @@ import type { FormItemProps, ColProps } from './antd.interface';
 import FieldContext from '../FieldContext';
 import ListFieldContext from '../ListFieldContext';
 import WrapperFormElement from './form/WrapperFormElement';
+import classNames from 'classnames';
+import '../index.less';
+
+const formItemPlaceholderLabelClass = 'antd-more-form-item-placeholder-label';
 
 // 初始值（可能脱敏）->格式化->验证（转换再验证）
 // 输入->格式化->验证（转换再验证）
@@ -16,6 +20,7 @@ export interface BizFormItemProps extends FormItemProps {
   colProps?: ColProps;
   extendRules?: FormItemProps['rules'];
   labelWidth?: number | 'auto';
+  placeholderLabel?: boolean;
   hideLabel?: boolean;
   renderField?: (dom: React.ReactElement) => React.ReactElement;
   contentBefore?: React.ReactNode;
@@ -30,11 +35,15 @@ const BizFormItem: React.FC<BizFormItemProps> = ({
   transform,
   renderField,
   name,
+  label,
+  colon,
+  className,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   colProps,
   rules = [],
   extendRules = [],
   labelWidth,
+  placeholderLabel,
   hideLabel,
   labelCol,
   contentBefore,
@@ -86,6 +95,9 @@ const BizFormItem: React.FC<BizFormItemProps> = ({
       rules={[...rules, ...extendRules]}
       labelCol={Object.keys(labelColProps).length > 0 ? labelColProps : undefined}
       shouldUpdate={shouldUpdate}
+      label={label !== undefined ? label : (placeholderLabel ? ' ' : undefined)}
+      colon={colon !== undefined ? colon : (placeholderLabel ? false : undefined)}
+      className={classNames(className, { [formItemPlaceholderLabelClass]: placeholderLabel })}
       // trigger={trigger}
       {...restProps}
     >

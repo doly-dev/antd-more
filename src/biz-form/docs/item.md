@@ -32,6 +32,7 @@ import { BizFormItem } from 'antd-more';
 | --- | --- | --- | --- |
 | labelWidth | label 宽度。默认继承 `BizForm` 的 `labelWidth`。 | `number \| 'auto'` | - |
 | hideLabel | 隐藏 label 。默认继承 `BizForm` 的 `hideLabel`。 | `boolean` | - |
+| placeholderLabel | 占位 label ，将 label 高度设置为 0。该值为 `true` 时，BizFormItem 默认属性 `{ label: ' ', colon: false }`。 | `boolean` | - |
 | transform | 转换该字段值，表单提交时执行。 | `(value) => any` | - |
 | extendRules | 扩展校验规则。如果需要覆盖，请使用 `rules` | [Rule[]](https://ant-design.gitee.io/components/form-cn/#Rule) | - |
 | renderField | 自定义内部表单渲染。要注意透传 `props` ，可参考 `ItemUpload` 的示例。 | `(dom: React.ReactElement) => React.ReactNode` | - |

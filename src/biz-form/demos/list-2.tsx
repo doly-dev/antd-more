@@ -12,7 +12,6 @@ import { Button, Card, Space, Row, Col, Popconfirm } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { getPCA } from 'lcn';
 import { sleep } from 'ut2';
-import styles from './list-2.module.less';
 
 const pca = getPCA({ inland: true, fieldNames: { code: 'value', name: 'label' } });
 
@@ -93,7 +92,6 @@ const Demo = () => {
                                 type="mobile"
                                 label={mobileFieldIndex === 0 ? '手机号码' : ' '}
                                 colon={mobileFieldIndex === 0}
-                                className={mobileFieldIndex !== 0 ? styles.hideLabel : ''}
                                 messageVariables={{ label: '手机号码' }}
                                 contentAfter={(
                                   <MinusCircleOutlined
@@ -103,7 +101,7 @@ const Demo = () => {
                               />
                             ))}
                             {mobileFields.length < 3 && (
-                              <BizFormItem label=" " colon={false} className={styles.hideLabel} style={{ marginBottom: 0 }}>
+                              <BizFormItem placeholderLabel style={{ marginBottom: 0 }}>
                                 <Button
                                   type="dashed"
                                   block

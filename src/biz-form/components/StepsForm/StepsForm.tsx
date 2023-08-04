@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { Steps, Form } from 'antd';
+import { Steps } from 'antd';
 import classNames from 'classnames';
 import { isPromiseLike, uniqueId } from 'ut2';
 import { useUpdate, useControllableValue, useSafeState, useLatest } from 'rc-hooks';
 import type { StepsProps, StepProps, FormInstance } from '../antd.interface';
+import BizFormItem from '../Item';
 import StepsFormContext, { StepsFormAction } from './StepsFormContext';
 import type { BaseFormProps } from '../BaseForm';
 import type { StepFormProps } from './StepForm';
@@ -14,7 +15,6 @@ import StepsSubmitter from './StepsSubmitter';
 import './index.less';
 
 const prefixCls = 'antd-more-steps-form';
-const formItemHideLabelClass = 'antd-more-form-item-hide-label';
 
 export type StepsFormActionType = {
   prev: () => void; // 返回上一步
@@ -247,9 +247,9 @@ const StepsForm: React.FC<StepsFormProps> & {
         <>
           {stepFormRender ? stepFormRender(dom) : dom}
           {!stepsFormRender && isCurrentIndex ? (
-            <Form.Item label=" " colon={false} className={formItemHideLabelClass}>
+            <BizFormItem placeholderLabel>
               {submitterDom}
-            </Form.Item>
+            </BizFormItem>
           ) : null}
         </>
       )

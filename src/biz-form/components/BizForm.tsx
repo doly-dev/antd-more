@@ -6,8 +6,6 @@ import List from './List';
 import BaseForm from './BaseForm';
 import type { BaseFormProps, FormExtraInstance } from './BaseForm';
 
-const formItemHideLabelClass = 'antd-more-form-item-hide-label';
-
 export type BizFormProps = BaseFormProps;
 export type BizFormExtraInstance<Values = any> = FormExtraInstance<Values>;
 
@@ -25,14 +23,12 @@ const BizForm: React.FC<BizFormProps> & {
     typeof submitter === 'undefined' || submitter
       ? {
         render: (_, dom) => (
-          <Form.Item
-            label=" "
-            colon={false}
-            className={formItemHideLabelClass}
+          <Item
+            placeholderLabel
             style={{ marginBottom: 0 }}
           >
             {Array.isArray(dom) && dom.length > 1 ? <Space>{dom}</Space> : dom}
-          </Form.Item>
+          </Item>
         ),
         ...submitterProps
       }
