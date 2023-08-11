@@ -66,6 +66,14 @@ nav:
 
 <code src="./demos/freight.tsx" background="#f5f5f5" />
 
+### 自动轮询
+
+设置 `asyncOptions.pollingInterval` 之后，将定时使用上一次的参数发起请求。
+
+你可以输入查询表单，再打开控制台查看请求参数。
+
+<code src="./demos/polling.tsx" background="#f5f5f5"></code>
+
 ### 更多查询表单项
 
 <code src="./demos/Demo4.tsx" background="#f5f5f5" />
@@ -92,6 +100,7 @@ nav:
 | formRef | 获取查询表单的 `form` 实例 | `MutableRefObject<FormInstance \| undefined>` | - |
 | actionRef | 常用操作引用，便于自定义触发 | `MutableRefObject<ActionType \| undefined>` | - |
 | tableRender | 自定义表格渲染 | `(props: BizTableProps<RecordType>, dom: ReactElement) => ReactNode` | - |
+| asyncOptions | 异步请求配置，同 [useAsync](https://doly-dev.github.io/rc-hooks/latest/index.html#/async/use-async#params) 部分参数。 | `{ cacheKey?: string; cacheTime?: number; pollingInterval?: number; pollingWhenHidden?: boolean; refreshOnWindowFocus?: boolean; focusTimespan?: number; }` | - |
 
 ### Request 请求方法
 
