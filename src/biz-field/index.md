@@ -125,6 +125,7 @@ export type EnumData<ValueType = any> = EnumItem<ValueType>[];
 | width | 图片宽度 | `string \| number` | `100` |
 | bordered | 显示边框。以正方形方式呈现，图片根据最长的宽或高自适应。 | `boolean` | `false` |
 | renderName | 自定义文件名称渲染 | `(name: string, index: number, item: string\|ImageValue)=>ReactNode` | - |
+| nameWrap | 名称支持换行 | `boolean` | `false` |
 
 其余同 antd [Image](https://ant-design.gitee.io/components/image-cn/#API) 。
 

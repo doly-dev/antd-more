@@ -1,6 +1,6 @@
 import * as React from 'react';
 import type { ImageProps } from 'antd';
-import { Image } from 'antd';
+import { Image, Typography } from 'antd';
 import classNames from 'classnames';
 
 import './Image.less';
@@ -13,16 +13,19 @@ type ImageValue = {
   [k: string]: any;
 };
 
-export interface FiledImageProps extends Omit<ImageProps, 'src'> {
+export interface FiledImageProps extends Omit<ImageProps, 'src' | 'width'> {
   value: string | string[] | ImageValue | ImageValue[];
   bordered?: boolean;
   renderName?: (name: string, index: number, item: string | ImageValue) => React.ReactNode;
+  width?: number;
+  nameWrap?: boolean;
 }
 
 const FiledImage: React.FC<FiledImageProps> = ({
   value,
   bordered = false,
   width = 100,
+  nameWrap = false,
   renderName,
   ...restProps
 }) => {
@@ -42,10 +45,10 @@ const FiledImage: React.FC<FiledImageProps> = ({
                 <Image src={src} width={width} {...defaultProps} {...restProps} />
               </div>
               {name && (
-                <div className={`${prefixCls}-item-name`}>
-                  <div className={`${prefixCls}-item-name-inner`} title={name}>
+                <div className={classNames(`${prefixCls}-item-name`, { [`${prefixCls}-item-name-wrap`]: nameWrap })} style={{ width: width + (bordered ? 20 : 0) }}>
+                  <Typography.Text ellipsis={nameWrap ? undefined : { tooltip: name }}>
                     {typeof renderName === 'function' ? renderName(name, index, item) : name}
-                  </div>
+                  </Typography.Text>
                 </div>
               )}
             </div>

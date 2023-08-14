@@ -100,10 +100,11 @@ export default () => {
           <BizField
             value={[
               { src: 'https://dummyimage.com/300x600', name: '测试名称' },
-              { src: 'https://dummyimage.com/600x200', name: '测试名称测试名称测试名称测试名称' }
+              { src: 'https://dummyimage.com/600x200', name: '测试名称测试名称测试名称' }
             ]}
             valueType="image"
             bordered
+            nameWrap
           />
         </Descriptions.Item>
       </Descriptions>

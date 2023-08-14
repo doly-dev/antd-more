@@ -20,21 +20,15 @@
     }
 
     &-name {
-      position: relative;
-      height: 32px;
+      box-sizing: border-box;
+      padding: 5px 2px;
+      color: rgba(0, 0, 0, 0.65);
+      line-height: 1.5;
+      white-space: nowrap;
+      text-align: center;
 
-      &-inner {
-        position: absolute;
-        top: 0;
-        left: 0;
-        box-sizing: border-box;
-        width: 100%;
-        padding: 5px 2px;
-        overflow: hidden;
-        color: rgba(0, 0, 0, 0.65);
-        white-space: nowrap;
-        text-align: center;
-        text-overflow: ellipsis;
+      &-wrap {
+        white-space: normal;
       }
     }
   }
