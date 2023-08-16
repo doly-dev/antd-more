@@ -13,23 +13,26 @@ type ImageValue = {
   [k: string]: any;
 };
 
+const defaultWidth = 100;
+
 export interface FiledImageProps extends Omit<ImageProps, 'src' | 'width'> {
   value: string | string[] | ImageValue | ImageValue[];
   bordered?: boolean;
   renderName?: (name: string, index: number, item: string | ImageValue) => React.ReactNode;
-  width?: number;
+  width?: string | number;
   nameWrap?: boolean;
 }
 
 const FiledImage: React.FC<FiledImageProps> = ({
   value,
   bordered = false,
-  width = 100,
+  width: outWidth = defaultWidth,
   nameWrap = false,
   renderName,
   ...restProps
 }) => {
   const values = React.useMemo(() => (Array.isArray(value) ? value : [value]), [value]);
+  const width = React.useMemo(() => typeof outWidth === 'number' ? outWidth : (parseInt(outWidth) || defaultWidth), [outWidth]);
   const defaultProps = React.useMemo(() => (bordered ? { height: width } : {}), [bordered, width]);
 
   return (
