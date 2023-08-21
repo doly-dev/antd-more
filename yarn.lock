@@ -2668,6 +2668,14 @@ cache2@^1.0.3:
     emitter-pro "^1.0.3"
     tslib "^2.6.0"
 
+cache2@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/cache2/-/cache2-1.0.4.tgz#8dfd59932048280e83491d7442469728f053c704"
+  integrity sha512-FenAiJ+X2DKJs8Hg3m+R8MGIVqTGy34Wlw8pleGxlBFYdrV23n0sJa5NgMWh6OaPOcpIO4rV8IHB0Kt75ZcugQ==
+  dependencies:
+    emitter-pro "^1.0.3"
+    tslib "^2.6.0"
+
 cachedir@2.3.0:
   version "2.3.0"
   resolved "https://registry.npmjs.org/cachedir/-/cachedir-2.3.0.tgz#0c75892a052198f0b21c7c1804d8331edfcae0e8"
@@ -6813,10 +6821,10 @@ lazy-cache@^1.0.4:
   resolved "https://registry.npmjs.org/lazy-cache/-/lazy-cache-1.0.4.tgz#a1d78fc3a50474cb80845d3b3b6e1da49a446e8e"
   integrity sha512-RE2g0b5VGZsOCFOCgP7omTRYFqydmZkBwl5oNnQ1lDYC57uyO9KqNnNVxT7COSHTxrRCWVcAVOcbjk+tvh/rgQ==
 
-lcn@^5.0.4:
-  version "5.0.4"
-  resolved "https://registry.npmjs.org/lcn/-/lcn-5.0.4.tgz#f18aba37ac158926b7a23ea4013924ec0bedc9f7"
-  integrity sha512-GHElKcKhHOr1N8Qr7pA+yY9EzjaSmCo3HKcsfbTUpQ/U93eBpQ3u33WpEsXYHKHKb7Ejn8GuOT39vuze8gCxxw==
+lcn@^5.0.5:
+  version "5.0.5"
+  resolved "https://registry.yarnpkg.com/lcn/-/lcn-5.0.5.tgz#2a64b2406c653fd791029730f16524b62bff39da"
+  integrity sha512-A7543yRB0txPl8Xbmz7bVpJyw0BFSsmAeWxJGFe2TXZdzHrYUvCivPaiiUXzumBLhttDKbO/IkjZ3FnNjxjnmQ==
 
 ldjson-stream@^1.2.1:
   version "1.2.1"
@@ -9682,7 +9690,7 @@ rc-field-form@~1.30.0:
     async-validator "^4.1.0"
     rc-util "^5.8.0"
 
-rc-hooks@^3.0.1, rc-hooks@^3.0.2:
+rc-hooks@^3.0.1:
   version "3.0.2"
   resolved "https://registry.npmjs.org/rc-hooks/-/rc-hooks-3.0.2.tgz#1b3e88638b649ce6506318a484d8924bee6868ac"
   integrity sha512-4UYNz7v6hXT9bGkHaO25Z1awbAgAPeZtJhrOvbud2xQdSFNMQQOfXmepT9HL0UV4dEs72sLZi3tsz1ewMmxkzw==
@@ -9690,6 +9698,15 @@ rc-hooks@^3.0.1, rc-hooks@^3.0.2:
     cache2 "^1.0.3"
     tslib "^2.6.0"
     ut2 "^1.1.0"
+
+rc-hooks@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/rc-hooks/-/rc-hooks-3.0.3.tgz#f6560df23ea04aa92553bad567eaae4880a545b7"
+  integrity sha512-Q0FrAqUImARedqVPd317E1Wu4DZuPwvyC7mLud6pZYVP8E+P0pXTdNForwLJLG3xuqHYa4EDvaQf9pR91T0Nhw==
+  dependencies:
+    cache2 "^1.0.3"
+    tslib "^2.6.0"
+    ut2 "^1.3.0"
 
 rc-image@~5.13.0:
   version "5.13.0"
@@ -12475,13 +12492,6 @@ ut2@^1.1.0:
   dependencies:
     tslib "^2.6.0"
 
-ut2@^1.1.3:
-  version "1.2.2"
-  resolved "https://registry.npmjs.org/ut2/-/ut2-1.2.2.tgz#36a58b18d1d20ff125c17af9c0ab5fb5392d2c42"
-  integrity sha512-VJuiihtUhgdC1EM3xyGN8lHmgj4gWn+ZTuH+ztvRW+YvG0Zd/dBV7drYaqBb531DZDdbjsXkbLVqCsj0cSKP+g==
-  dependencies:
-    tslib "^2.6.0"
-
 ut2@^1.3.0:
   version "1.3.0"
   resolved "https://registry.npmjs.org/ut2/-/ut2-1.3.0.tgz#0a4f9f3c4f83c0c0cd763b0c4f7ea22f55d23bef"
@@ -12489,18 +12499,23 @@ ut2@^1.3.0:
   dependencies:
     tslib "^2.6.0"
 
+ut2@^1.3.2, ut2@^1.4.3:
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/ut2/-/ut2-1.4.3.tgz#0a89506c439baab69acbfda3e45194537819bd1a"
+  integrity sha512-YeL1Quc+X+lvR2ELb+B/gQkZ05Tw+M/28CwM6HgQBJaY3syDwx/RjeSams33oVjShk7Y8ZskCEFF5TCFJPVtcg==
+
 util-deprecate@^1.0.1, util-deprecate@^1.0.2, util-deprecate@~1.0.1:
   version "1.0.2"
   resolved "https://registry.npmjs.org/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
   integrity sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==
 
-util-helpers@^4.19.3:
-  version "4.19.3"
-  resolved "https://registry.npmjs.org/util-helpers/-/util-helpers-4.19.3.tgz#a207b830701b41f93ebf9fe539558a5dec8f2916"
-  integrity sha512-e8lxcLBL+H0f59tqszyxH70ypUB8+QoIeApusHb+JBXALwWOPTVAG32ZWpsxQHr4h/fSZ8HJlNyso46TQbB1lw==
+util-helpers@^4.19.4:
+  version "4.19.4"
+  resolved "https://registry.yarnpkg.com/util-helpers/-/util-helpers-4.19.4.tgz#69abda2c38bdc2656fbfd2d57040adc59375d52a"
+  integrity sha512-92lD9oQCOwfASzJcZgoQ4yAcS0dNBJ9NCNLXxkYxonxBbAy/ogByYWoeeLdaWt0iX0EiyqFam96P2mpa1wZD5w==
   dependencies:
     tslib "^2.6.0"
-    ut2 "^1.1.3"
+    ut2 "^1.3.2"
 
 util@0.10.3:
   version "0.10.3"
