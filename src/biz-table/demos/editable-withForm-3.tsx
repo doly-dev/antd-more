@@ -135,7 +135,7 @@ const Demo = () => {
 
   return (
     <BizForm
-      name="editable-5"
+      name="editable-withForm-3"
       onFinish={(values) => {
         console.log('onFinish ', values);
       }}
