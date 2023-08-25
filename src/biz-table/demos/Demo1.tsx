@@ -1,7 +1,6 @@
 import * as React from 'react';
 import type { BizTableRequest, BizTableColumnType } from 'antd-more';
 import { BizTable } from 'antd-more';
-import { divide } from 'util-helpers';
 import { getApplyList } from './service';
 import type { DataItem } from './service';
 
@@ -14,25 +13,6 @@ const columns: BizTableColumnType<DataItem> = [
     title: '申请编号',
     tooltip: '提示文字',
     search: true
-  },
-  {
-    dataIndex: 'money',
-    title: '金额',
-    valueType: 'money',
-    align: 'right',
-    // 写法一，传递给 BizField的参数
-    field: {
-      formatValue: (value) => divide(value, 100), // 分转元
-      prefix: '¥'
-    }
-    // 写法二，可关联当前数据配置
-    // field: (text, record, index) => {
-    //   console.log(text, record, index);
-    //   return {
-    //     formatValue: value => divide(value, 100), // 分转元
-    //     prefix: `${record.applicantName} `,
-    //   }
-    // }
   },
   {
     dataIndex: 'createTime',
