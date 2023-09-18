@@ -24,7 +24,8 @@
     "precommit": "lint-staged",
     "prepublishOnly": "npm run build",
     "commit": "cz",
-    "tsc": "tsc --noEmit"
+    "tsc": "tsc --noEmit",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -74,7 +75,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "father": "^4.2.3",
     "file-loader": "^6.2.0",
-    "husky": "^4.3.0",
+    "husky": "^8.0.0",
     "invariant": "^2.2.4",
     "lcn": "^5.0.5",
     "lint-staged": "^13.2.2",
@@ -111,11 +112,6 @@
     "**/*.less": "stylelint --fix",
     "**/*.{ts,tsx,js,jsx}": "eslint",
     "**/*.{ts,tsx,js,jsx,less,md}": "prettier -w"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
   },
   "config": {
     "commitizen": {
