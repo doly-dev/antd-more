@@ -9,8 +9,7 @@ const preVersionSiteRoot = `refs/heads/v${preMajorVersionNumber}`;
 
 const version = process.env.BUIDL_DOC_VERSION ? versionSiteRoot : 'latest';
 
-const serverRootDirect =
-  !isDev ? 'https://doly-dev.github.io/antd-more/' : '/';
+const serverRootDirect = !isDev ? `https://doly-dev.github.io/${pkg.name}/` : '/';
 const logo = 'https://doly-dev.github.io/logo.png';
 const favicon = 'https://doly-dev.github.io/favicon.png';
 
@@ -23,7 +22,7 @@ const addFileLoader = (config) => {
     .test(/\.(mp3|mp4|pdf|doc|docx|xls|xlsx|zip)$/)
     .use('file-loader')
     .loader('file-loader');
-}
+};
 
 const umiConfig = {
   extraBabelPlugins: [
@@ -86,15 +85,15 @@ const umiConfig = {
     },
     {
       title: `v${preMajorVersionNumber}.x`,
-      path: `https://doly-dev.github.io/antd-more/${preVersionSiteRoot}/index.html`
+      path: `https://doly-dev.github.io/${pkg.name}/${preVersionSiteRoot}/index.html`
     },
     {
       title: 'GitHub',
-      path: 'https://github.com/doly-dev/antd-more'
+      path: `https://github.com/doly-dev/${pkg.name}`
     },
     {
       title: '更新日志',
-      path: 'https://github.com/doly-dev/antd-more/releases'
+      path: `https://github.com/doly-dev/${pkg.name}/releases`
     }
   ],
   menus: {
@@ -120,7 +119,14 @@ const umiConfig = {
       },
       {
         title: '通用',
-        children: ['captcha-button', 'color', 'dictionary', 'file-viewer', 'input-icon', 'tree-table']
+        children: [
+          'captcha-button',
+          'color',
+          'dictionary',
+          'file-viewer',
+          'input-icon',
+          'tree-table'
+        ]
       }
     ]
   }
