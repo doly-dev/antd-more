@@ -20,7 +20,6 @@
     "lint:style": "stylelint src/**/*.less",
     "lint-fix:style": "npm run lint:style -- --fix",
     "prettier": "prettier --write **/*",
-    "precommit": "lint-staged",
     "prepublishOnly": "npm run build",
     "commit": "cz",
     "tsc": "tsc --noEmit",
