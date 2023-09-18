@@ -17,10 +17,12 @@ nav:
 npm install antd-more
 ```
 
-<br />
-
 ```shell
 yarn add antd-more
+```
+
+```shell
+pnpm add antd-more
 ```
 
 ### 示例
@@ -34,9 +36,9 @@ ReactDon.render(<BizField value="red" valueType="color" />, mountNode);
 
 ## 对应版本
 
-| antd-more                   | antd   |
-| --------------------------- | ------ |
-| `v0.x` `v1.x` `v2.x` `v3.x` | `v4.x` |
+| antd-more | antd |
+| --------- | ---- |
+| `v0 ~ v3` | `v4` |
 
 ## API
 

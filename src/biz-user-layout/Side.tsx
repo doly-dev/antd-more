@@ -1,7 +1,7 @@
 import * as React from 'react';
 import type { CarouselProps, ColProps, RowProps } from 'antd';
 import { Carousel, Row, Col } from 'antd';
-import type { BannerItem } from './Banner';
+import type { BannerItem, BannerItemObject } from './Banner';
 import { prefixClass } from './config';
 import './Side.less';
 
@@ -46,10 +46,10 @@ const Side: React.FC<SideProps> = ({ rowProps, colProps, banner = [], carouselPr
                     if (typeof itemBanner === 'string') {
                       src = itemBanner;
                     } else {
-                      src = itemBanner.src;
-                      link = itemBanner.link;
-                      title = itemBanner.title;
-                      onClick = itemBanner.onClick;
+                      src = (itemBanner as BannerItemObject).src;
+                      link = (itemBanner as BannerItemObject).link;
+                      title = (itemBanner as BannerItemObject).title;
+                      onClick = (itemBanner as BannerItemObject).onClick;
                     }
                   }
 

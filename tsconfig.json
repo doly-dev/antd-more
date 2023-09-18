@@ -6,6 +6,7 @@
     "target": "esnext",
     "moduleResolution": "node",
     "jsx": "react",
+    "skipLibCheck": true
   },
   "include": [
     "./src"
