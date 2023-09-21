@@ -33,7 +33,7 @@ const showTotal = (total: number) => `共 ${total} 条数据`;
 
 export declare interface BizTableProps<RecordType = any>
   extends Omit<TableProps<RecordType>, 'columns'>,
-  Pick<SearchFormProps, 'formItems'> {
+    Pick<SearchFormProps, 'formItems'> {
   formRef?: React.MutableRefObject<FormInstance | undefined> | ((ref: FormInstance) => void);
   actionRef?: React.MutableRefObject<BizTableActionType | undefined>;
   columns?: BizTableColumnType<RecordType>;
@@ -53,12 +53,20 @@ export declare interface BizTableProps<RecordType = any>
   tableClassName?: string;
   tableStyle?: React.CSSProperties;
   fullScreenBackgroundColor?: string; // 全屏时的背景颜色
-  asyncOptions?: Pick<AsyncOptions, 'cacheKey' | 'cacheTime' | 'pollingInterval' | 'pollingWhenHidden' | 'refreshOnWindowFocus' | 'focusTimespan'>;
+  asyncOptions?: Pick<
+    AsyncOptions,
+    | 'cacheKey'
+    | 'cacheTime'
+    | 'pollingInterval'
+    | 'pollingWhenHidden'
+    | 'refreshOnWindowFocus'
+    | 'focusTimespan'
+  >;
 
   // 以下供 EditableBizTable 使用
   editableKeys?: (string | number)[];
   editableForm?: FormInstance;
-  editableKeyMapRef?: React.MutableRefObject<{ value: object; }>;
+  editableKeyMapRef?: React.MutableRefObject<{ value: object }>;
   onDataSourceChange?: (newData: RecordType[]) => void;
 }
 
@@ -172,11 +180,11 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
   );
 
   const columnsWithKey = React.useMemo(() => {
-    function recursion(arr: any[] = [], parentKey: string | number = '') {
+    function recursion(arr: any[] = [], parentKey: React.Key = '') {
       const tmpColumns: any[] = [];
       arr.forEach((item, index) => {
         const key = getColumnKey(item, index, parentKey);
-        const newItem = { ...item, key }
+        const newItem = { ...item, key };
         if (!isEmpty(newItem?.children)) {
           newItem.children = recursion(newItem.children, key);
         }
@@ -331,10 +339,12 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
     return ret;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [columnsWithKey, nowrap, rowKey, editableKeys.join('.'), editableForm]);
-  const [columnConfigKeys, setColumnConfigKeys] = React.useState<ColumnConfigKeys>(() => currentColumns.map(item => item.key));
+  const [columnConfigKeys, setColumnConfigKeys] = React.useState<ColumnConfigKeys>(() =>
+    currentColumns.map((item) => item.key)
+  );
 
   useUpdateEffect(() => {
-    setColumnConfigKeys(currentColumns.map(item => item.key))
+    setColumnConfigKeys(currentColumns.map((item) => item.key));
   }, [currentColumns]);
 
   const finalColumns = React.useMemo(() => {
@@ -342,8 +352,8 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
       return currentColumns;
     }
     const tmpColumns: any[] = [];
-    columnConfigKeys.forEach(key => {
-      const columnItem = currentColumns.find(item => item?.key === key);
+    columnConfigKeys.forEach((key) => {
+      const columnItem = currentColumns.find((item) => item?.key === key);
       if (columnItem) {
         tmpColumns.push(columnItem);
       }
@@ -353,10 +363,12 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
 
   React.useEffect(() => {
     if (Array.isArray(editableKeys)) {
-      const delKeys = Object.keys(editableKeyMap.current).filter(item => !editableKeys.find(k => k === item));
-      delKeys.forEach(k => {
+      const delKeys = Object.keys(editableKeyMap.current).filter(
+        (item) => !editableKeys.find((k) => k === item)
+      );
+      delKeys.forEach((k) => {
         delete editableKeyMap.current[k];
-      })
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editableKeys.join('.')]);
@@ -440,16 +452,22 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
     }
   }, [actionCacheKey, hasSearch, pagination]);
 
-  const handleSubmitAndCurrent = React.useCallback((current: number) => {
-    const [oldParams, ...restParams] = params;
-    const formValues = hasSearch ? innerFormExtraRef.current.getTransformFieldsValue() : {};
-    return run({
-      ...oldParams,
-      current,
-      pageSize: pagination.pageSize,
-      search: formValues
-    }, ...restParams);
-  }, [hasSearch, pagination.pageSize, params, run]);
+  const handleSubmitAndCurrent = React.useCallback(
+    (current: number) => {
+      const [oldParams, ...restParams] = params;
+      const formValues = hasSearch ? innerFormExtraRef.current.getTransformFieldsValue() : {};
+      return run(
+        {
+          ...oldParams,
+          current,
+          pageSize: pagination.pageSize,
+          search: formValues
+        },
+        ...restParams
+      );
+    },
+    [hasSearch, pagination.pageSize, params, run]
+  );
 
   // 默认 onReset 中已经重置表单，这里只需触发请求
   const handleDefaultReset = React.useCallback(() => {
@@ -554,12 +572,12 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
         pagination={
           paginationProp !== false
             ? {
-              ...tableProps.pagination,
-              showTotal,
-              showSizeChanger: true,
-              showQuickJumper: true,
-              ...omit(paginationProp, ['current', 'pageSize', 'total'])
-            }
+                ...tableProps.pagination,
+                showTotal,
+                showSizeChanger: true,
+                showQuickJumper: true,
+                ...omit(paginationProp, ['current', 'pageSize', 'total'])
+              }
             : false
         }
         onChange={handleChange}
@@ -576,10 +594,10 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
 
   const wrapperDefaultStyle = isFullScreen
     ? {
-      background: fullScreenBackgroundColor,
-      overflow: 'auto',
-      padding: !hasSearch && !extra ? 24 : 0
-    }
+        background: fullScreenBackgroundColor,
+        overflow: 'auto',
+        padding: !hasSearch && !extra ? 24 : 0
+      }
     : {};
 
   const finallyDom = (

@@ -11,17 +11,23 @@ const prefixCls = 'antd-more-table';
 
 const ColumnSetting = () => {
   const { columns, columnConfigKeys, setColumnConfigKeys } = React.useContext(TableContext);
-  const [sortedKeys, setSortedKeys] = React.useState(() => columns.map(item => item.key));
-  const [selectedKeys, setSelectedKeys] = React.useState(columnConfigKeys); // 无序
+  const [sortedKeys, setSortedKeys] = React.useState(() => columns.map((item) => item.key));
+  const [selectedKeys, setSelectedKeys] = React.useState<React.Key[]>(columnConfigKeys); // 无序
 
   // 是否全选
-  const checkAll = React.useMemo(() => selectedKeys.length === sortedKeys.length, [selectedKeys, sortedKeys]);
+  const checkAll = React.useMemo(
+    () => selectedKeys.length === sortedKeys.length,
+    [selectedKeys, sortedKeys]
+  );
   // 是否部分选中
-  const indeterminate = React.useMemo(() => selectedKeys.length > 0 && selectedKeys.length !== sortedKeys.length, [selectedKeys, sortedKeys]);
+  const indeterminate = React.useMemo(
+    () => selectedKeys.length > 0 && selectedKeys.length !== sortedKeys.length,
+    [selectedKeys, sortedKeys]
+  );
 
   // 当列数据发生变化时
   useUpdateEffect(() => {
-    const allColumnKey = columns.map(item => item.key);
+    const allColumnKey = columns.map((item) => item.key);
     setSortedKeys(allColumnKey);
     setSelectedKeys(allColumnKey);
   }, [columns]);
@@ -29,8 +35,8 @@ const ColumnSetting = () => {
   // 当 columns 顺序或显示/隐藏变了以后重置
   React.useEffect(() => {
     const newColumnKeys = [];
-    sortedKeys.forEach(key => {
-      if (selectedKeys.find(item => item === key)) {
+    sortedKeys.forEach((key) => {
+      if (selectedKeys.find((item) => item === key)) {
         newColumnKeys.push(key);
       }
     });
@@ -41,7 +47,7 @@ const ColumnSetting = () => {
     return sortedKeys.map((key) => {
       return {
         key,
-        title: (columns.find(item => item.key === key)?.title || '') as React.ReactNode
+        title: (columns.find((item) => item.key === key)?.title || '') as React.ReactNode
       };
     });
   }, [columns, sortedKeys]);
@@ -50,7 +56,7 @@ const ColumnSetting = () => {
     if (checkAll) {
       setSelectedKeys([]);
     } else {
-      setSelectedKeys(columns.map(item => item.key));
+      setSelectedKeys(columns.map((item) => item.key));
     }
   }, [checkAll, columns]);
 
@@ -68,7 +74,7 @@ const ColumnSetting = () => {
     const loop = (
       data: TreeDataNode[],
       key: React.Key,
-      callback: (node: TreeDataNode, i: number, data: TreeDataNode[]) => void,
+      callback: (node: TreeDataNode, i: number, data: TreeDataNode[]) => void
     ) => {
       for (let i = 0; i < data.length; i++) {
         if (data[i].key === key) {
@@ -120,7 +126,7 @@ const ColumnSetting = () => {
         ar.splice(i + 1, 0, dragObj);
       }
     }
-    setSortedKeys(data.map(item => item.key));
+    setSortedKeys(data.map((item) => item.key));
   };
 
   return (

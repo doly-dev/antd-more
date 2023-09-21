@@ -118,7 +118,8 @@
   },
   "resolutions": {
     "@types/react": "^18",
-    "@types/react-dom": "^18"
+    "@types/react-dom": "^18",
+    "file-system-cache": "^2.4.4"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",

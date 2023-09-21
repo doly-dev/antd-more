@@ -1,6 +1,6 @@
-import type { TableColumnType } from "antd";
+import type { TableColumnType } from 'antd';
 
-function getColumnKey(column: TableColumnType<any>, index: number, parentKey: string | number = '') {
+function getColumnKey(column: TableColumnType<any>, index: number, parentKey: React.Key = '') {
   if (column?.key) {
     return column.key;
   }
