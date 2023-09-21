@@ -43,7 +43,7 @@
   "author": "caijf",
   "license": "MIT",
   "peerDependencies": {
-    "@ant-design/icons": "^4.0.0",
+    "@ant-design/icons": ">= 4.0.0",
     "antd": "^4.24.0",
     "react": ">= 16.9.0",
     "react-dom": ">= 16.9.0"
