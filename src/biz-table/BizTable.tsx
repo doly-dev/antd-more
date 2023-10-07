@@ -386,10 +386,7 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
     );
   }, [searchItems, formItems]);
 
-  const { data, loading, run, refresh, tableProps, params, pagination } = usePagination<{
-    list: RecordType[];
-    total: number;
-  }>(
+  const { data, loading, run, refresh, tableProps, params, pagination } = usePagination<RecordType>(
     (arg) => {
       const {
         current,
