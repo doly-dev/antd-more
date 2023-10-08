@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import type { EnumData } from '../dictionary';
 
 type BizFieldValueType =
@@ -31,5 +32,7 @@ export interface BizFieldProps<T = any> {
   valueType?: BizFieldValueType;
   valueEnum?: EnumData<T>;
   formatValue?: (value: any) => T;
+  defaultValue?: ReactNode;
+  whitespaceLineBreak?: boolean;
   [x: string]: any;
 }

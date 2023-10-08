@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { isNil } from 'ut2';
 import type { BizFieldProps } from '../interface';
 
 function getColor(value) {
@@ -15,17 +16,33 @@ function getSymbol(value) {
   return '+';
 }
 
-const Percent: React.FC<BizFieldProps> = React.memo(
-  ({ value, style, precision = 2, showColor = false, showSymbol = false, suffix = '%' }) => {
+const Percent: React.FC<
+  Pick<BizFieldProps, 'value' | 'defaultValue'> & {
+    precision?: number;
+    showColor?: boolean;
+    showSymbol?: boolean;
+    suffix?: React.ReactNode;
+  } & Omit<React.HTMLAttributes<HTMLSpanElement>, 'defaultValue'>
+> = React.memo(
+  ({
+    value,
+    style,
+    precision = 2,
+    showColor = false,
+    showSymbol = false,
+    suffix = '%',
+    defaultValue = '-'
+  }) => {
     const realValue =
       typeof value === 'string' && (value as string).includes('%')
         ? parseFloat((value as string).replace('%', ''))
         : parseFloat(value);
     const color = getColor(realValue);
-    const styles = showColor && color ? { color, ...style } : {};
+    const styles = showColor && color ? { color, ...style } : style;
     const symbol = showSymbol ? getSymbol(realValue) : '';
 
-    const ret = symbol + realValue.toFixed(precision) + suffix;
+    const ret =
+      value === '' || isNil(value) ? defaultValue : symbol + realValue.toFixed(precision) + suffix;
 
     return <span style={styles}>{ret}</span>;
   }

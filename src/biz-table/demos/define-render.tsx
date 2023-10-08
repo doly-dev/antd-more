@@ -1,7 +1,7 @@
 import * as React from 'react';
 import type { BizTableRequest, BizTableColumnType } from 'antd-more';
 import { BizTable } from 'antd-more';
-import { renderMoney, renderDateTime, renderStatusWithRemark } from './utils/field';
+import { renderMoney, renderStatusWithRemark } from './utils/field';
 import { getApplyList } from './service';
 import type { DataItem } from './service';
 import { ApproveStatus, ApproveStatusOptions } from './constants';
@@ -24,8 +24,10 @@ const columns: BizTableColumnType<DataItem> = [
   {
     dataIndex: 'createTime',
     title: '提交时间',
-    valueType: 'dateTime',
-    render: renderDateTime,
+    field: {
+      valueType: 'text',
+      whitespaceLineBreak: true
+    },
     search: {
       valueType: 'date',
       order: 1
@@ -42,13 +44,20 @@ const columns: BizTableColumnType<DataItem> = [
     tooltip: '提示文字',
     sorter: true,
     valueType: 'dateTime',
-    render: renderDateTime
+    field: {
+      valueType: 'text',
+      whitespaceLineBreak: true
+    }
   },
   {
     dataIndex: 'approveResult',
     title: '审核状态',
     render: (text, record) => {
-      return renderStatusWithRemark(text, ApproveStatusOptions, text === ApproveStatus.Refused && record.remark ? record.remark : '');
+      return renderStatusWithRemark(
+        text,
+        ApproveStatusOptions,
+        text === ApproveStatus.Refused && record.remark ? record.remark : ''
+      );
     }
   }
 ];
@@ -73,12 +82,7 @@ const Demo = () => {
   };
 
   return (
-    <BizTable
-      request={request}
-      columns={columns}
-      rowKey="applyCode"
-      pagination={{ pageSize: 5 }}
-    />
+    <BizTable request={request} columns={columns} rowKey="applyCode" pagination={{ pageSize: 5 }} />
   );
 };
 

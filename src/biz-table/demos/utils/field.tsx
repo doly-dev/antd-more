@@ -4,15 +4,6 @@ import type { EnumData } from 'antd-more';
 import { BizField } from 'antd-more';
 import { Typography } from 'antd';
 
-// 日期时间换行
-export const renderDateTime = (dateTimeStr?: string) => {
-  if (dateTimeStr) {
-    const str = dateTimeStr.replace(/\s+/g, '<br/>');
-    return <span dangerouslySetInnerHTML={{ __html: str }} />;
-  }
-  return '-';
-};
-
 // 超长省略展示
 // 超过10个字，只展示前3后2
 export const renderLongOmitted = (str?: string) => {
@@ -44,11 +35,22 @@ export const renderBase64Buffer = (buffer?: string) => {
 
 // 状态和备注（错误原因）
 export const renderStatusWithRemark = (text: string, valueEnum: EnumData = [], remark = '') => {
-  const remarkView = typeof remark === 'string' && remark.indexOf('\n') > -1 ? <>{remark.split('\n').map(item => <div key={item} style={{ marginBottom: 5 }}>{item}</div>)}</> : remark;
+  const remarkView =
+    typeof remark === 'string' && remark.indexOf('\n') > -1 ? (
+      <>
+        {remark.split('\n').map((item) => (
+          <div key={item} style={{ marginBottom: 5 }}>
+            {item}
+          </div>
+        ))}
+      </>
+    ) : (
+      remark
+    );
 
   return (
     <div>
-      <BizField value={text} valueType='enumBadge' valueEnum={valueEnum} />
+      <BizField value={text} valueType="enumBadge" valueEnum={valueEnum} />
       {remark && (
         <div>
           <Typography.Text
@@ -60,5 +62,5 @@ export const renderStatusWithRemark = (text: string, valueEnum: EnumData = [], r
         </div>
       )}
     </div>
-  )
-}
+  );
+};

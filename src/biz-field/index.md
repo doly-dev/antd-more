@@ -21,6 +21,10 @@ nav:
 
 <code src="./demos/Demo1.tsx" />
 
+### 更多场景
+
+<code src="./demos/more.tsx"></code>
+
 ### fieldNames
 
 枚举类型 `enum` `enumTag` `enumBadge` 可设置 `fieldNames` 自定义字段名。
@@ -48,7 +52,7 @@ import { BizField } from 'antd-more';
 
 | 类型 | 描述 | 示例 |
 | --- | --- | --- |
-| text | 默认不做处理，当值为 `null` `undefined` `""` 时，显示 `-` | - |
+| text | 默认不做处理，当值为 `null` `undefined` `""` 时，显示默认值 `-` | - |
 | money | 金额 | - |
 | index | 序列号 | - |
 | indexBorder | 带 border 的序列号 | - |
@@ -95,21 +99,24 @@ export type EnumData<ValueType = any> = EnumItem<ValueType>[];
 
 #### text、money
 
-| 参数   | 说明     | 类型        | 默认值 |
-| ------ | -------- | ----------- | ------ |
-| prefix | 前缀     | `ReactNode` | -      |
-| suffix | 后缀     | `ReactNode` | -      |
-| color  | 颜色     | `string`    | -      |
-| size   | 文字大小 | `number`    | -      |
+| 参数                | 说明                                          | 类型        | 默认值  |
+| ------------------- | --------------------------------------------- | ----------- | ------- |
+| prefix              | 前缀                                          | `ReactNode` | -       |
+| suffix              | 后缀                                          | `ReactNode` | -       |
+| color               | 颜色                                          | `string`    | -       |
+| size                | 文字大小                                      | `number`    | -       |
+| defaultValue        | 默认值，当值为 `null` `undefined` `""` 时显示 | `ReactNode` | `"-"`   |
+| whitespaceLineBreak | 空白换行，仅 `text` 类型生效                  | `boolean`   | `false` |
 
 #### percent
 
-| 参数       | 说明       | 类型      | 默认值  |
-| ---------- | ---------- | --------- | ------- |
-| precision  | 精度       | `number`  | `2`     |
-| showColor  | 显示颜色   | `boolean` | `false` |
-| showSymbol | 显示符号   | `boolean` | `false` |
-| suffix     | 百分号后缀 | `string`  | `%`     |
+| 参数         | 说明                                          | 类型        | 默认值  |
+| ------------ | --------------------------------------------- | ----------- | ------- |
+| precision    | 精度                                          | `number`    | `2`     |
+| showColor    | 显示颜色                                      | `boolean`   | `false` |
+| showSymbol   | 显示符号                                      | `boolean`   | `false` |
+| suffix       | 百分号后缀                                    | `string`    | `"%"`   |
+| defaultValue | 默认值，当值为 `null` `undefined` `""` 时显示 | `ReactNode` | `"-"`   |
 
 #### 日期类
 
@@ -141,7 +148,7 @@ export type EnumData<ValueType = any> = EnumItem<ValueType>[];
 | --- | --- | --- | --- |
 | valueEnum | 数据字典 | `EnumData` | `[]` |
 | value | 当前字典值 | `any` | - |
-| defaultLabel | 当找不到字典值对应的名称时，显示默认名称 | `ReactNode` | - |
+| defaultLabel | 当找不到字典值对应的名称时，显示默认名称 | `ReactNode` | `"-"` |
 | type | 显示方式 | `'text' \| 'tag' \| 'badge'` | `'text'` |
 | fieldNames | 自定义节点 `label`、`value` 的字段 | `{label: string; value: string;}` | - |
 | match | 自定义 value 匹配方法 | `(itemValue: any, value: any) => boolean;` | - |

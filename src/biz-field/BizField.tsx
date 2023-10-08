@@ -1,4 +1,5 @@
 import React from 'react';
+import { isNil } from 'ut2';
 import { formatMoney } from 'util-helpers';
 import type { BizFieldProps } from './interface';
 import FieldProgress from './components/Progress';
@@ -36,16 +37,29 @@ const BizField: React.FC<BizFieldProps> = ({
   valueType,
   valueEnum = [],
   formatValue,
+  defaultValue = '-',
+  whitespaceLineBreak = false,
   ...restProps
 }) => {
   const realValue = typeof formatValue === 'function' ? formatValue(value) : value;
+  const isTextType = valueType === 'text';
 
-  if (valueType === 'text' || valueType === 'money') {
+  if (isTextType || valueType === 'money') {
     // 文本 或 金额
     const { color, size, prefix, suffix, style, ...restTextProps } = restProps || {}; // eslint-disable-line @typescript-eslint/no-unused-vars
     const styles: Record<string, any> = { ...style };
 
-    const retValue = valueType === 'text' ? realValue : formatMoney(realValue);
+    let retValue: React.ReactNode;
+
+    if (isTextType) {
+      retValue = whitespaceLineBreak ? (
+        <span dangerouslySetInnerHTML={{ __html: realValue.replace(/\s+/g, '<br/>') }}></span>
+      ) : (
+        realValue
+      );
+    } else {
+      retValue = formatMoney(realValue);
+    }
 
     if (restProps?.color && retValue) {
       styles.color = restProps.color;
@@ -56,8 +70,8 @@ const BizField: React.FC<BizFieldProps> = ({
 
     return (
       <span {...restTextProps} style={styles}>
-        {retValue === null || retValue === undefined || retValue === '' ? (
-          '-'
+        {isNil(retValue) || retValue === '' ? (
+          defaultValue
         ) : (
           <>
             {prefix}
@@ -82,7 +96,7 @@ const BizField: React.FC<BizFieldProps> = ({
     return <FieldProgress value={realValue} {...restProps} />;
   } else if (valueType === 'percent') {
     // 百分比
-    return <Percent value={realValue} {...restProps} />;
+    return <Percent value={realValue} defaultValue={defaultValue} {...restProps} />;
   } else if (EnumType.includes(valueType as string)) {
     // 枚举值
     const enumProps = {

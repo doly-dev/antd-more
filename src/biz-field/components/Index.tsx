@@ -6,12 +6,9 @@ import './Index.less';
 
 const prefixCls = 'antd-more-field-index';
 
-const FieldIndex: React.FC<BizFieldProps> = ({
-  value,
-  type = 'index',
-  className,
-  ...restProps
-}) => {
+const FieldIndex: React.FC<
+  Pick<BizFieldProps, 'value' | 'type'> & React.HTMLAttributes<HTMLSpanElement>
+> = ({ value, type = 'index', className, ...restProps }) => {
   return (
     <span
       className={classnames(prefixCls, className, {
