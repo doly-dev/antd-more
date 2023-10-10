@@ -52,11 +52,12 @@ const BizField: React.FC<BizFieldProps> = ({
     let retValue: React.ReactNode;
 
     if (isTextType) {
-      retValue = whitespaceLineBreak ? (
-        <span dangerouslySetInnerHTML={{ __html: realValue.replace(/\s+/g, '<br/>') }}></span>
-      ) : (
-        realValue
-      );
+      retValue =
+        typeof realValue === 'string' && realValue !== '' && whitespaceLineBreak ? (
+          <span dangerouslySetInnerHTML={{ __html: realValue.replace(/\s+/g, '<br/>') }}></span>
+        ) : (
+          realValue
+        );
     } else {
       retValue = formatMoney(realValue);
     }
