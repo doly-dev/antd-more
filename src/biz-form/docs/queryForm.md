@@ -14,15 +14,15 @@ nav:
 
 ## 代码演示
 
-### 查询表单
+### 基础用法
 
 <code src='../demos/query-form-1.tsx' />
 
-### 查询表单-展开收起
+### 展开收起
 
 <code src='../demos/query-form-2.tsx' />
 
-### 查询表单-垂直布局
+### 垂直布局
 
 <code src='../demos/query-form-3.tsx' />
 

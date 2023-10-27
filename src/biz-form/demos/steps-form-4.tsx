@@ -1,8 +1,3 @@
-/**
- * title: 分步表单-固定页脚
- * desc: |
- *      第二步即可提交，提交成功后，手动触发下一步，第三步仅用作显示
- */
 import * as React from 'react';
 import { Card, Result, Space, Button, Popconfirm, message } from 'antd';
 import { PayCircleOutlined } from '@ant-design/icons';
