@@ -3,7 +3,7 @@ import { BizForm, BizFormItemDateRange } from 'antd-more';
 import moment from 'moment';
 
 const initialValues = {
-  date7: [moment().subtract(30, 'days').startOf('day'), moment().endOf('day')],
+  date7: [moment().subtract(29, 'days'), moment()],
   date8: ['2020-10-10', '2020-12-12']
 };
 
