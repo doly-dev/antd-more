@@ -1,16 +1,16 @@
-import Cache2 from 'cache2';
+import { Cache } from 'cache2';
 import type { UploadFile } from 'antd/es/upload';
 
 function checkFileType(file?: UploadFile, types: string[] = [], suffix: string[] = []) {
   let ret = false;
   if (file?.type) {
-    ret = types.some(item => file.type.indexOf(item) !== -1);
+    ret = types.some((item) => file.type.indexOf(item) !== -1);
   }
   if (!ret && file?.name) {
-    ret = suffix.some(item => file.name.indexOf(item) !== -1);
+    ret = suffix.some((item) => file.name.indexOf(item) !== -1);
   }
   if (!ret && file?.url) {
-    ret = suffix.some(item => file.url.indexOf(item) !== -1);
+    ret = suffix.some((item) => file.url.indexOf(item) !== -1);
   }
   return ret;
 }
@@ -28,10 +28,21 @@ export function isPdfType(file?: UploadFile) {
   return checkFileType(file, ['application/pdf'], ['.pdf']);
 }
 export function isWordType(file?: UploadFile) {
-  return checkFileType(file, ['application/vnd.openxmlformats-officedocument.wordprocessingml.document'], ['.doc', '.docx']);
+  return checkFileType(
+    file,
+    ['application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
+    ['.doc', '.docx']
+  );
 }
 export function isExcelType(file?: UploadFile) {
-  return checkFileType(file, ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel'], ['.xls', '.xlsx']);
+  return checkFileType(
+    file,
+    [
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      'application/vnd.ms-excel'
+    ],
+    ['.xls', '.xlsx']
+  );
 }
 
 export function getFileType(file?: UploadFile) {
@@ -57,7 +68,7 @@ export function getFileType(file?: UploadFile) {
 }
 
 // 缓存 URL.createObjectURL
-export const fileCache = new Cache2({ max: 20, maxStrategy: 'replaced' });
+export const fileCache = new Cache({ max: 20, maxStrategy: 'replaced' });
 
 fileCache.on('del', (key, value) => {
   try {

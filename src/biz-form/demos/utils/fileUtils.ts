@@ -1,10 +1,10 @@
-import Cache2 from 'cache2';
+import { Cache } from 'cache2';
 import type { UploadFile } from 'antd';
 import { uniqueId } from 'ut2';
 import { downloadFile } from '../services';
 
 const asyncCache: Record<string, any> = {};
-const fileCache = new Cache2({ max: 20, maxStrategy: 'replaced', stdTTL: 5 * 60 * 1000 });
+const fileCache = new Cache({ max: 20, maxStrategy: 'replaced', stdTTL: 5 * 60 * 1000 });
 
 fileCache.on('del', (key, value) => {
   if (value && value?.fileUrl) {
@@ -17,9 +17,10 @@ async function getFileByFssid(fssid: string): Promise<UploadFile> {
 
   if (!cache) {
     if (!asyncCache[fssid]) {
-      asyncCache[fssid] = async () => downloadFile(fssid).finally(() => {
-        delete asyncCache[fssid];
-      });
+      asyncCache[fssid] = async () =>
+        downloadFile(fssid).finally(() => {
+          delete asyncCache[fssid];
+        });
     }
     try {
       const res = await asyncCache[fssid]();
@@ -35,7 +36,7 @@ async function getFileByFssid(fssid: string): Promise<UploadFile> {
         response: {
           fssid
         }
-      }
+      };
     }
   }
 
@@ -63,7 +64,7 @@ export function fssidToUploadFile(fssid: string | string[]) {
   if (Array.isArray(fssid)) {
     const tasks: Promise<any>[] = [];
 
-    fssid.forEach(item => {
+    fssid.forEach((item) => {
       tasks.push(getFileByFssid(item));
     });
 
@@ -80,7 +81,7 @@ export function uploadFileToFssid(fileList: UploadFile[], nil?: true): string[];
 export function uploadFileToFssid(fileList: any, nil = true) {
   const result: any[] = [];
   if (Array.isArray(fileList)) {
-    fileList.forEach(item => {
+    fileList.forEach((item) => {
       if (item && typeof item === 'object' && typeof item.response === 'object') {
         const fssid = item.response.fssid || item.response.fssId; // 部分项目中没有严格区分 fssId 和 fssid
         if (!nil || fssid) {
