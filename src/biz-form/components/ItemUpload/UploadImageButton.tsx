@@ -1,15 +1,25 @@
 import * as React from 'react';
 import { PlusOutlined, LoadingOutlined } from '@ant-design/icons';
+import { useConfig } from '../../../biz-config-provider';
 
-const UploadImageButton: React.FC<{
+interface UploadImageButtonProps {
   loading?: boolean;
   uploading?: boolean;
   icon?: React.ReactNode;
   title?: React.ReactNode;
-}> = ({ loading = false, uploading = false, icon = <PlusOutlined />, title = '点击上传' }) => {
+}
+
+const UploadImageButton: React.FC<UploadImageButtonProps> = (props) => {
+  const { locale } = useConfig();
+  const {
+    loading = false,
+    uploading = false,
+    icon = <PlusOutlined />,
+    title = locale.form.upload.buttonText
+  } = props;
   const text = React.useMemo(() => {
-    return loading ? '加载中' : uploading ? '上传中' : title; // eslint-disable-line
-  }, [loading, title, uploading]);
+    return loading ? locale.form.upload.loading : uploading ? locale.form.upload.uploading : title; // eslint-disable-line
+  }, [loading, locale.form.upload.loading, locale.form.upload.uploading, title, uploading]);
   return (
     <div>
       {loading || uploading ? <LoadingOutlined /> : icon}

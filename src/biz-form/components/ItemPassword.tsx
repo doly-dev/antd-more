@@ -4,7 +4,7 @@ import { validatePassword } from 'util-helpers';
 import type { PasswordProps } from './antd.interface';
 import type { BizFormItemProps } from './Item';
 import BizFormItem from './Item';
-import getLabel from '../_util/getLabel';
+import { useConfig } from '../../biz-config-provider';
 
 type Validated = {
   len?: boolean;
@@ -12,7 +12,9 @@ type Validated = {
   special?: boolean;
 };
 
-export interface BizFormItemPasswordProps extends BizFormItemProps, Pick<PasswordProps, 'placeholder' | 'allowClear' | 'visibilityToggle' | 'maxLength'> {
+export interface BizFormItemPasswordProps
+  extends BizFormItemProps,
+    Pick<PasswordProps, 'placeholder' | 'allowClear' | 'visibilityToggle' | 'maxLength'> {
   level?: 1 | 2 | 3;
   min?: number;
   max?: number;
@@ -23,35 +25,28 @@ export interface BizFormItemPasswordProps extends BizFormItemProps, Pick<Passwor
   disabledCopy?: boolean;
 
   validated?: boolean | Validated;
-  // validateMessages?: {
-  //   len?: string;
-  //   level?: string;
-  //   special?: string;
-  // }
 }
 
-// 数字
-const numMap = ['零', '一', '两', '三'];
+const BizFormItemPassword: React.FC<BizFormItemPasswordProps> = (props) => {
+  const { locale } = useConfig();
+  const {
+    placeholder = locale.form.common.inputPlaceholder,
+    allowClear,
+    visibilityToggle = true,
+    maxLength,
+    level = 2,
+    min = 8,
+    max = 16,
+    ignoreCase = false,
+    special = '\\x21-\\x2F\\x3A-\\x40\\x5B-\\x60\\x7B-\\x7E',
+    validated = true,
+    disabledPaste = false,
+    disabledCopy = true,
 
-const BizFormItemPassword: React.FC<BizFormItemPasswordProps> = ({
-  placeholder = "请输入",
-  allowClear,
-  visibilityToggle = true,
-  maxLength,
-  level = 2,
-  min = 8,
-  max = 16,
-  ignoreCase = false,
-  special = '\\x21-\\x2F\\x3A-\\x40\\x5B-\\x60\\x7B-\\x7E',
-  validated = true,
-  // validateMessages,
-  disabledPaste = false,
-  disabledCopy = true,
-
-  inputProps = {},
-  required = false,
-  ...restProps
-}) => {
+    inputProps = {},
+    required = false,
+    ...restProps
+  } = props;
   const validateObj: Validated = React.useMemo(() => {
     let ret: Validated = {
       len: true,
@@ -91,8 +86,6 @@ const BizFormItemPassword: React.FC<BizFormItemPasswordProps> = ({
     [disabledCopy, inputProps]
   );
 
-  const messageLabel = getLabel(restProps);
-
   return (
     <BizFormItem
       validateTrigger={validated ? 'onBlur' : 'onChange'}
@@ -103,16 +96,16 @@ const BizFormItemPassword: React.FC<BizFormItemPasswordProps> = ({
             let errMsg = '';
 
             if (!value) {
-              errMsg = required ? `请输入${messageLabel}` : '';
+              errMsg = required ? locale.form.common.inputRequired : '';
             } else if (validated) {
               if (validateObj.len && (value.length < min || value.length > max)) {
-                errMsg = `${messageLabel}为${min}～${max}位`;
+                errMsg = locale.form.password.range(min, max);
               } else {
                 const result = validatePassword(value, { ignoreCase, level, special });
                 if (validateObj.special && result.containes.unallowableCharacter) {
-                  errMsg = `${messageLabel}包含无法识别的字符`;
+                  errMsg = locale.form.password.unallowable;
                 } else if (validateObj.level && !result.validated) {
-                  errMsg = `${messageLabel}为大小写字母、数字或符号任意${numMap[level]}者组成`;
+                  errMsg = locale.form.password.level(level);
                 }
               }
             }

@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { Checkbox } from 'antd';
+import { isArray } from 'ut2';
 import type { CheckboxOptionType, CheckboxGroupProps } from './antd.interface';
 import useFilterOptions from '../_util/useFilterOptions';
 import type { BizFormItemProps } from './Item';
 import BizFormItem from './Item';
-import getLabel from '../_util/getLabel';
+import { useConfig } from '../../biz-config-provider';
 
 export interface CheckboxWrapperProps {
   value?: any;
@@ -19,8 +20,8 @@ export interface CheckboxWrapperProps {
 const CheckboxWrapper: React.FC<CheckboxWrapperProps> = ({
   value,
   onChange,
-  all = false,
-  allLabel = '全部',
+  all,
+  allLabel,
   excludeValues = [],
   options: outOptions = [],
   checkboxGroupProps = {}
@@ -74,17 +75,19 @@ const CheckboxWrapper: React.FC<CheckboxWrapperProps> = ({
   );
 };
 
-export interface BizFormItemCheckboxProps extends BizFormItemProps, CheckboxWrapperProps { }
+export interface BizFormItemCheckboxProps extends BizFormItemProps, CheckboxWrapperProps {}
 
-const BizFormItemCheckbox: React.FC<BizFormItemCheckboxProps> = ({
-  all = false,
-  allLabel = '全部',
-  excludeValues = [],
-  options = [],
-  checkboxGroupProps = {},
-  required = false,
-  ...restProps
-}) => {
+const BizFormItemCheckbox: React.FC<BizFormItemCheckboxProps> = (props) => {
+  const { locale } = useConfig();
+  const {
+    all = false,
+    allLabel = locale.form.common.allLabel,
+    excludeValues = [],
+    options = [],
+    checkboxGroupProps = {},
+    required = false,
+    ...restProps
+  } = props;
   const checkboxWrapperProps = React.useMemo(
     () => ({ all, allName: allLabel, excludeValues, options, checkboxGroupProps }),
     [all, allLabel, excludeValues, options, checkboxGroupProps]
@@ -97,8 +100,8 @@ const BizFormItemCheckbox: React.FC<BizFormItemCheckboxProps> = ({
         {
           validator(rule, value) {
             let errMsg = '';
-            if (!value || (Array.isArray(value) && value.length === 0)) {
-              errMsg = required ? `请选择${getLabel(restProps)}` : '';
+            if (required && (!value || (isArray(value) && value.length === 0))) {
+              errMsg = locale.form.common.selectRequired;
             }
             if (errMsg) {
               return Promise.reject(errMsg);

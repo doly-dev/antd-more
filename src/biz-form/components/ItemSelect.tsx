@@ -5,9 +5,14 @@ import useFilterOptions from '../_util/useFilterOptions';
 import type { BizFormItemProps } from './Item';
 import BizFormItem from './Item';
 import FieldContext from '../FieldContext';
-import getLabel from '../_util/getLabel';
+import { useConfig } from '../../biz-config-provider';
 
-export interface BizFormItemSelectProps<ValueType = any> extends BizFormItemProps, Pick<SelectProps<ValueType>, 'allowClear' | 'placeholder' | 'options' | 'fieldNames' | 'filterOption'> {
+export interface BizFormItemSelectProps<ValueType = any>
+  extends BizFormItemProps,
+    Pick<
+      SelectProps<ValueType>,
+      'allowClear' | 'placeholder' | 'options' | 'fieldNames' | 'filterOption'
+    > {
   all?: boolean;
   allValue?: any;
   allLabel?: React.ReactNode;
@@ -15,21 +20,23 @@ export interface BizFormItemSelectProps<ValueType = any> extends BizFormItemProp
   selectProps?: SelectProps<ValueType>;
 }
 
-function BizFormItemSelect<Values = any>({
-  placeholder = "请选择",
-  allowClear = false,
-  fieldNames,
-  filterOption = true,
+function BizFormItemSelect<Values = any>(props: BizFormItemSelectProps<Values>) {
+  const { locale } = useConfig();
+  const {
+    placeholder = locale.form.common.selectPlaceholder,
+    allowClear = false,
+    fieldNames,
+    filterOption = true,
 
-  all = false,
-  allValue = '',
-  allLabel = '全部',
-  excludeValues = [],
-  options: outOptions = [],
-  selectProps = {},
-  required = false,
-  ...restProps
-}: BizFormItemSelectProps<Values>) {
+    all = false,
+    allValue = locale.form.common.allValue,
+    allLabel = locale.form.common.allLabel,
+    excludeValues = [],
+    options: outOptions = [],
+    selectProps = {},
+    required = false,
+    ...restProps
+  } = props;
   const { getPopupContainer } = React.useContext(FieldContext);
   const options = React.useMemo(
     () => selectProps.options || outOptions,
@@ -59,12 +66,16 @@ function BizFormItemSelect<Values = any>({
         {
           validator(rule, value) {
             let errMsg = '';
-            const hasOptValue = options.find((item) => item[valueKey] === value);
-            if (
-              (!value && !hasOptValue && !(all && allValue === value)) ||
-              ((selectProps?.mode === 'multiple' || selectProps?.mode === 'tags') && value && value.length <= 0)
-            ) {
-              errMsg = required ? `请选择${getLabel(restProps)}` : '';
+            if (required) {
+              const hasOptValue = options.find((item) => item[valueKey] === value);
+              if (
+                (!value && !hasOptValue && !(all && allValue === value)) ||
+                ((selectProps?.mode === 'multiple' || selectProps?.mode === 'tags') &&
+                  value &&
+                  value.length <= 0)
+              ) {
+                errMsg = locale.form.common.selectRequired;
+              }
             }
             if (errMsg) {
               return Promise.reject(errMsg);

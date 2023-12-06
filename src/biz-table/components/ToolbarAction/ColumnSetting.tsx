@@ -4,12 +4,14 @@ import { Tooltip, Popover, Tree, Checkbox } from 'antd';
 import { SettingOutlined } from '@ant-design/icons';
 import { useUpdateEffect } from 'rc-hooks';
 import TableContext from '../../TableContext';
+import { useConfig } from '../../../biz-config-provider';
 
 import './index.less';
 
 const prefixCls = 'antd-more-table';
 
 const ColumnSetting = () => {
+  const { locale } = useConfig();
   const { columns, columnConfigKeys, setColumnConfigKeys } = React.useContext(TableContext);
   const [sortedKeys, setSortedKeys] = React.useState(() => columns.map((item) => item.key));
   const [selectedKeys, setSelectedKeys] = React.useState<React.Key[]>(columnConfigKeys); // 无序
@@ -138,7 +140,7 @@ const ColumnSetting = () => {
           checked={checkAll}
           style={{ height: '32px', lineHeight: '32px' }}
         >
-          全选
+          {locale.table.toolbar.checkAll}
         </Checkbox>
       }
       content={
@@ -158,7 +160,7 @@ const ColumnSetting = () => {
       placement="bottomRight"
       trigger={['click']}
     >
-      <Tooltip title="列设置">
+      <Tooltip title={locale.table.toolbar.columnSetting}>
         <SettingOutlined />
       </Tooltip>
     </Popover>

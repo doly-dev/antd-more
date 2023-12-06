@@ -14,16 +14,6 @@ export enum MomentScale {
   year = 'years'
 }
 
-// 中文单位
-export enum DateUnit {
-  time = '小时',
-  date = '天',
-  week = '周',
-  month = '月',
-  quarter = '季',
-  year = '年'
-}
-
 // 日期格式
 export enum DateFormat {
   date = 'YYYY-MM-DD',

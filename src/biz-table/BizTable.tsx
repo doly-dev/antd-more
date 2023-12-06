@@ -23,13 +23,11 @@ import getColumnKey from './_util/getColumnKey';
 import type { ColumnConfigKeys } from './TableContext';
 import TableContext from './TableContext';
 import ToolbarAction from './components/ToolbarAction';
+import { useConfig } from '../biz-config-provider';
 
 import './index.less';
 
 const prefixCls = 'antd-more-table';
-
-// 显示数据总量
-const showTotal = (total: number) => `共 ${total} 条数据`;
 
 export declare interface BizTableProps<RecordType = any>
   extends Omit<TableProps<RecordType>, 'columns'>,
@@ -71,6 +69,7 @@ export declare interface BizTableProps<RecordType = any>
 }
 
 function BizTable<RecordType extends object = any>(props: BizTableProps<RecordType>) {
+  const { locale } = useConfig();
   const {
     formItems,
     formRef,
@@ -570,7 +569,7 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
           paginationProp !== false
             ? {
                 ...tableProps.pagination,
-                showTotal,
+                showTotal: locale.table.pagination.total,
                 showSizeChanger: true,
                 showQuickJumper: true,
                 ...omit(paginationProp, ['current', 'pageSize', 'total'])

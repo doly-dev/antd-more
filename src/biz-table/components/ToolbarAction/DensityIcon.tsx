@@ -3,8 +3,10 @@ import { Menu, Dropdown, Tooltip } from 'antd';
 import { ColumnHeightOutlined } from '@ant-design/icons';
 import TableContext from '../../TableContext';
 import type { TableContextProps } from '../../TableContext';
+import { useConfig } from '../../../biz-config-provider';
 
 const DensityIcon = () => {
+  const { locale } = useConfig();
   const { size, setSize } = React.useContext(TableContext);
 
   return (
@@ -17,15 +19,15 @@ const DensityIcon = () => {
           }}
           items={[
             {
-              label: '默认',
+              label: locale.table.toolbar.densityDefault,
               key: 'default'
             },
             {
-              label: '中等',
+              label: locale.table.toolbar.densityMiddle,
               key: 'middle'
             },
             {
-              label: '紧凑',
+              label: locale.table.toolbar.densitySmall,
               key: 'small'
             }
           ]}
@@ -36,7 +38,7 @@ const DensityIcon = () => {
       }
       trigger={['click']}
     >
-      <Tooltip title="表格密度">
+      <Tooltip title={locale.table.toolbar.density}>
         <ColumnHeightOutlined />
       </Tooltip>
     </Dropdown>

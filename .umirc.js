@@ -114,8 +114,8 @@ const umiConfig = {
         ]
       },
       {
-        title: '布局',
-        children: ['biz-user-layout']
+        title: '其他',
+        children: ['biz-config-provider', 'biz-user-layout']
       },
       {
         title: '通用',

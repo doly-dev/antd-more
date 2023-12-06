@@ -5,26 +5,30 @@ import type { CascaderProps } from './antd.interface';
 import type { BizFormItemProps } from './Item';
 import BizFormItem from './Item';
 import FieldContext from '../FieldContext';
-import getLabel from '../_util/getLabel';
 import { InvalidFieldValue } from '../_util/transform';
+import { useConfig } from '../../biz-config-provider';
 
-export interface BizFormItemCascaderProps<DataNodeType = any> extends BizFormItemProps, Pick<CascaderProps<DataNodeType>, 'options' | 'placeholder' | 'fieldNames' | 'allowClear'> {
+export interface BizFormItemCascaderProps<DataNodeType = any>
+  extends BizFormItemProps,
+    Pick<CascaderProps<DataNodeType>, 'options' | 'placeholder' | 'fieldNames' | 'allowClear'> {
   names?: string[];
   cascaderProps?: CascaderProps<DataNodeType>;
 }
 
-function BizFormItemCascader<DataNodeType = any>({
-  placeholder = '请选择',
-  options = [],
-  fieldNames,
-  allowClear = true,
-  names,
-  name,
-  cascaderProps = {},
-  required = false,
-  transform,
-  ...restProps
-}: BizFormItemCascaderProps<DataNodeType>) {
+function BizFormItemCascader<DataNodeType = any>(props: BizFormItemCascaderProps<DataNodeType>) {
+  const { locale } = useConfig();
+  const {
+    placeholder = locale.form.common.selectPlaceholder,
+    options = [],
+    fieldNames,
+    allowClear = true,
+    names,
+    name,
+    cascaderProps = {},
+    required = false,
+    transform,
+    ...restProps
+  } = props;
   const hasNames = React.useMemo(() => Array.isArray(names) && names.length > 0, [names]);
   const currentName = React.useMemo(
     () => name || (hasNames ? uniqueId('__am_cascader_') : name),
@@ -54,8 +58,8 @@ function BizFormItemCascader<DataNodeType = any>({
         {
           validator(rule, value) {
             let errMsg = '';
-            if (!value || (cascaderProps?.multiple && value.length <= 0)) {
-              errMsg = required ? `请选择${getLabel(restProps)}` : '';
+            if (required && (!value || (cascaderProps?.multiple && value.length <= 0))) {
+              errMsg = locale.form.common.selectRequired;
             }
             if (errMsg) {
               return Promise.reject(errMsg);

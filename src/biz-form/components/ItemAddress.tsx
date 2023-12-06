@@ -4,9 +4,11 @@ import type { InputProps, CascaderProps, FormItemProps } from './antd.interface'
 import { normalizeWhiteSpace } from '../_util/normalize';
 import type { BizFormItemProps } from './Item';
 import BizFormItem from './Item';
+import { useConfig } from '../../biz-config-provider';
 
 export interface BizFormItemAddressProps<DataNodeType = any>
-  extends Omit<BizFormItemProps, 'name' | 'transform'>, Pick<CascaderProps<DataNodeType>, 'options' | 'fieldNames'> {
+  extends Omit<BizFormItemProps, 'name' | 'transform'>,
+    Pick<CascaderProps<DataNodeType>, 'options' | 'fieldNames'> {
   names: [FormItemProps['name'], FormItemProps['name']]; // 如 ['location', 'address']
   labels: [string, string]; // 如 ['省/市/区', '详细地址']
   formItemProps?: [BizFormItemProps, BizFormItemProps];
@@ -27,6 +29,7 @@ function BizFormItemAddress<DataNodeType = any>({
   required = false,
   ...restProps
 }: BizFormItemAddressProps<DataNodeType>) {
+  const { locale } = useConfig();
   const [
     { colProps: cascaderColProps, ...cascaderFormItemProps },
     { colProps: inputColProps, ...inputFormItemProps }
@@ -38,12 +41,14 @@ function BizFormItemAddress<DataNodeType = any>({
         <Col span={24} md={12} lg={8} {...cascaderColProps}>
           <BizFormItem
             name={names[0]}
+            label={labels[0]}
+            hideLabel
             rules={[
               {
                 validator(rule, value) {
                   let errMsg = '';
                   if (!value || value.length <= 0) {
-                    errMsg = required ? `请选择${labels[0]}` : '';
+                    errMsg = required ? locale.form.common.selectRequired : '';
                   }
                   if (errMsg) {
                     return Promise.reject(errMsg);
@@ -54,31 +59,30 @@ function BizFormItemAddress<DataNodeType = any>({
             ]}
             {...cascaderFormItemProps}
           >
-            <Cascader placeholder={`请选择${labels[0]}`} options={options} fieldNames={fieldNames} {...cascaderProps} />
+            <Cascader
+              placeholder={locale.form.common.selectPlaceholder + labels[0]}
+              options={options}
+              fieldNames={fieldNames}
+              {...cascaderProps}
+            />
           </BizFormItem>
         </Col>
         <Col span={24} md={12} lg={16} {...inputColProps}>
           <BizFormItem
             name={names[1]}
+            label={labels[1]}
+            hideLabel
             normalize={normalizeWhiteSpace}
             rules={[
               {
-                validator(rule, value) {
-                  let errMsg = '';
-                  if (!value) {
-                    errMsg = required ? `请输入${labels[1]}` : '';
-                  }
-                  if (errMsg) {
-                    return Promise.reject(errMsg);
-                  }
-                  return Promise.resolve();
-                }
+                required,
+                message: locale.form.common.inputRequired
               }
             ]}
             {...inputFormItemProps}
           >
             <Input
-              placeholder={`请输入${labels[1]}`}
+              placeholder={locale.form.common.inputPlaceholder + labels[1]}
               allowClear
               autoComplete="off"
               {...inputProps}

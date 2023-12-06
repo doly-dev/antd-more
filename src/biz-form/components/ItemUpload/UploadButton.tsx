@@ -3,17 +3,20 @@ import { Button } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import type { UploadWrapperProps } from './UploadWrapper';
 import UploadWrapper from './UploadWrapper';
+import { useConfig } from '../../../biz-config-provider';
 
 const defaultShowUploadList = {
   showPreviewIcon: false
 };
 
-const UploadButton: React.FC<UploadWrapperProps> = ({
-  showUploadList,
-  icon = <UploadOutlined />,
-  title = '点击上传',
-  ...restProps
-}) => {
+const UploadButton: React.FC<UploadWrapperProps> = (props) => {
+  const { locale } = useConfig();
+  const {
+    showUploadList,
+    icon = <UploadOutlined />,
+    title = locale.form.upload.buttonText,
+    ...restProps
+  } = props;
   const innerShowUploadList = React.useMemo(() => {
     if (typeof showUploadList === 'boolean' && showUploadList === false) {
       return false;

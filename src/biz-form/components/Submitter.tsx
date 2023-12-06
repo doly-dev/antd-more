@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Button, Space } from 'antd';
 import { omit } from 'ut2';
 import type { ButtonProps, FormInstance } from './antd.interface';
+import { useConfig } from '../../biz-config-provider';
 
 export interface BizFormSubmitterProps {
   resetText?: React.ReactNode;
@@ -15,19 +16,20 @@ export interface BizFormSubmitterProps {
 
   form?: FormInstance;
   render?:
-  | ((
-    props: BizFormSubmitterProps,
-    dom: React.ReactElement[]
-  ) => React.ReactNode[] | React.ReactNode | false)
-  | false;
+    | ((
+        props: BizFormSubmitterProps,
+        dom: React.ReactElement[]
+      ) => React.ReactNode[] | React.ReactNode | false)
+    | false;
 }
 
 const BizFormSubmitter: React.FC<BizFormSubmitterProps> = (props) => {
+  const { locale } = useConfig();
   const {
-    onSubmit = () => { },
-    onReset = () => { },
-    submitText = '提交',
-    resetText = '重置',
+    onSubmit = () => {},
+    onReset = () => {},
+    submitText = locale.form.common.submit,
+    resetText = locale.form.common.reset,
     submitButtonProps = {},
     resetButtonProps = {},
     noReset = false,
@@ -35,19 +37,25 @@ const BizFormSubmitter: React.FC<BizFormSubmitterProps> = (props) => {
     render
   } = props;
 
-  const handleReset = React.useCallback((e) => {
-    form?.resetFields();
-    // 由于刚重置表单，使用异步可防止立即触发提交操作，导致数据过时而提交失败。
-    // refs: https://github.com/ant-design/ant-design/issues/26747
-    Promise.resolve().then(() => {
-      onReset?.(e);
-    });
-  }, [form, onReset]);
+  const handleReset = React.useCallback(
+    (e) => {
+      form?.resetFields();
+      // 由于刚重置表单，使用异步可防止立即触发提交操作，导致数据过时而提交失败。
+      // refs: https://github.com/ant-design/ant-design/issues/26747
+      Promise.resolve().then(() => {
+        onReset?.(e);
+      });
+    },
+    [form, onReset]
+  );
 
-  const handleSubmit = React.useCallback((e) => {
-    form?.submit();
-    onSubmit?.(e);
-  }, [form, onSubmit]);
+  const handleSubmit = React.useCallback(
+    (e) => {
+      form?.submit();
+      onSubmit?.(e);
+    },
+    [form, onSubmit]
+  );
 
   const dom = React.useMemo(() => {
     const ret = [
@@ -77,7 +85,15 @@ const BizFormSubmitter: React.FC<BizFormSubmitterProps> = (props) => {
       return ret.slice(0, 1);
     }
     return ret;
-  }, [submitButtonProps, submitText, resetButtonProps, resetText, noReset, handleSubmit, handleReset]);
+  }, [
+    submitButtonProps,
+    submitText,
+    resetButtonProps,
+    resetText,
+    noReset,
+    handleSubmit,
+    handleReset
+  ]);
 
   const renderDom = render ? render(props, dom) : dom;
 

@@ -103,7 +103,7 @@
     "rc-select": "^14.10.0",
     "rc-util": "^5.38.1",
     "react-color": "^2.19.3",
-    "ut2": "^1.5.5",
+    "ut2": "^1.5.6",
     "util-helpers": "^4.20.8"
   },
   "lint-staged": {

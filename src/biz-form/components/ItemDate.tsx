@@ -12,7 +12,9 @@ import { createDisabledDate, transformMomentValue, getDateFormat } from '../_uti
 import { transformDate } from '../_util/transform';
 import type { BizFormItemProps } from './Item';
 import BizFormItem from './Item';
-import getLabel from '../_util/getLabel';
+import { useConfig } from '../../biz-config-provider';
+
+const prefixCls = 'antd-more-form-item-date';
 
 const DatePickerWrapper: React.FC<DatePickerProps | MonthPickerProps | WeekPickerProps | any> = ({
   value,
@@ -32,8 +34,6 @@ export interface BizFormItemDateProps extends BizFormItemProps {
   pickerProps?: DatePickerProps | MonthPickerProps | WeekPickerProps | any;
 }
 
-const prefixCls = 'antd-more-form-item-date';
-
 const BizFormItemDate: React.FC<BizFormItemDateProps> = ({
   disabledDateBefore,
   disabledDateAfter,
@@ -48,6 +48,7 @@ const BizFormItemDate: React.FC<BizFormItemDateProps> = ({
   transform,
   ...restProps
 }) => {
+  const { locale } = useConfig();
   const currentPicker = React.useMemo(
     () => pickerProps.picker || picker,
     [pickerProps.picker, picker]
@@ -78,16 +79,8 @@ const BizFormItemDate: React.FC<BizFormItemDateProps> = ({
       required={required}
       rules={[
         {
-          validator(rule, value) {
-            let errMsg = '';
-            if (!value) {
-              errMsg = required ? `请选择${getLabel(restProps)}` : '';
-            }
-            if (errMsg) {
-              return Promise.reject(errMsg);
-            }
-            return Promise.resolve();
-          }
+          required,
+          message: locale.form.common.selectRequired
         }
       ]}
       className={classNames(prefixCls, className)}

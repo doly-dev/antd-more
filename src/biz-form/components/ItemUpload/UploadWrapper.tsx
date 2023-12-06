@@ -5,9 +5,16 @@ import { bytesToSize } from 'util-helpers';
 import { useUnmount } from 'rc-hooks';
 import { uniqueId } from 'ut2';
 import type { UploadProps, UploadFile, RcFile } from '../antd.interface';
-import { checkFileSize, checkFileType, createFileUrl, getFileName, revokeFileUrl } from './uploadUtil';
+import {
+  checkFileSize,
+  checkFileType,
+  createFileUrl,
+  getFileName,
+  revokeFileUrl
+} from './uploadUtil';
 import type { PreviewProps } from './Preview';
 import Preview from './Preview';
+import { useConfig } from '../../../biz-config-provider';
 
 import './index.less';
 
@@ -32,30 +39,32 @@ export interface UploadWrapperProps extends UploadProps {
   previewModalProps?: Partial<PreviewProps>;
 }
 
-const UploadWrapper: React.FC<UploadWrapperProps> = ({
-  onUpload,
-  fileTypeMessage = '只支持上传 %s 文件',
-  fileSizeMessage = '必须小于 %s！',
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  maxCountMessage = '最多上传%s个文件',
-  maxSize = 1024 * 1024 * 2,
-  maxCount,
-  onGetPreviewUrl,
-  dragger = false,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  icon,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  title,
+const UploadWrapper: React.FC<UploadWrapperProps> = (props) => {
+  const { locale } = useConfig();
+  const {
+    onUpload,
+    fileTypeMessage = locale.form.upload.fileTypeMessage,
+    fileSizeMessage = locale.form.upload.fileSizeMessage,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    maxCountMessage = locale.form.upload.maxCountMessage,
+    maxSize = 1024 * 1024 * 2,
+    maxCount,
+    onGetPreviewUrl,
+    dragger = false,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    icon,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    title,
 
-  previewModalProps,
+    previewModalProps,
 
-  accept,
-  className,
-  disabled,
-  action,
-  beforeUpload,
-  ...restProps
-}) => {
+    accept,
+    className,
+    disabled,
+    action,
+    beforeUpload,
+    ...restProps
+  } = props;
   // 当前组件唯一标识，用于缓存和释放 URL.createObjectURL
   const uniqueKey = React.useMemo(() => uniqueId('__am_itemUpload_'), []);
 
@@ -90,45 +99,62 @@ const UploadWrapper: React.FC<UploadWrapperProps> = ({
         return Upload.LIST_IGNORE;
       }
 
-      return beforeUpload ? beforeUpload(file, fileList) : (!!action || !!onUpload || !!restProps?.customRequest);
+      return beforeUpload
+        ? beforeUpload(file, fileList)
+        : !!action || !!onUpload || !!restProps?.customRequest;
     },
-    [accept, maxSize, beforeUpload, action, onUpload, restProps?.customRequest, fileTypeMessage, fileSizeMessage]
+    [
+      accept,
+      maxSize,
+      beforeUpload,
+      action,
+      onUpload,
+      restProps?.customRequest,
+      fileTypeMessage,
+      fileSizeMessage
+    ]
   );
 
   // 自定义上传
-  const internalCustomRequest = React.useCallback((obj: any) => {
-    let timer: any = null;
+  const internalCustomRequest = React.useCallback(
+    (obj: any) => {
+      let timer: any = null;
 
-    function queueUpload() {
-      if (!uploadingFlagRef.current) {
-        uploadingFlagRef.current = true;
-        clearTimeout(timer);
+      function queueUpload() {
+        if (!uploadingFlagRef.current) {
+          uploadingFlagRef.current = true;
+          clearTimeout(timer);
 
-        setTimeout(() => {
-          obj.onProgress?.({ percent: 99 });
-          onUpload?.(obj.file).then(res => {
-            // TODO 下个大版本废弃，目前保留是为了兼容
-            if (typeof res === 'object') {
-              const resKeys = Object.keys(res);
-              if (resKeys.length > 0) {
-                resKeys.forEach((resKey) => {
-                  obj.file[resKey] = res[resKey];
-                });
-              }
-            }
+          setTimeout(() => {
+            obj.onProgress?.({ percent: 99 });
+            onUpload?.(obj.file)
+              .then((res) => {
+                // TODO 下个大版本废弃，目前保留是为了兼容
+                if (typeof res === 'object') {
+                  const resKeys = Object.keys(res);
+                  if (resKeys.length > 0) {
+                    resKeys.forEach((resKey) => {
+                      obj.file[resKey] = res[resKey];
+                    });
+                  }
+                }
 
-            return obj.onSuccess?.(res);
-          }).catch(obj.onError).finally(() => {
-            uploadingFlagRef.current = false;
+                return obj.onSuccess?.(res);
+              })
+              .catch(obj.onError)
+              .finally(() => {
+                uploadingFlagRef.current = false;
+              });
           });
-        });
-      } else {
-        timer = setTimeout(queueUpload, 100);
+        } else {
+          timer = setTimeout(queueUpload, 100);
+        }
       }
-    }
 
-    queueUpload();
-  }, [onUpload]);
+      queueUpload();
+    },
+    [onUpload]
+  );
 
   // 是否支持预览
   const enabledShowPreview = React.useMemo(() => {
@@ -157,7 +183,7 @@ const UploadWrapper: React.FC<UploadWrapperProps> = ({
       }
 
       if (!file.preview && !file.url && !file.thumbUrl) {
-        message.error('当前文件不支持预览！');
+        message.error(locale.form.upload.unsupportPreviewTiptext);
         return;
       }
 
@@ -167,7 +193,7 @@ const UploadWrapper: React.FC<UploadWrapperProps> = ({
         title: file.name || getFileName(file.url)
       });
     },
-    [enabledShowPreview, onGetPreviewUrl, uniqueKey]
+    [enabledShowPreview, locale.form.upload.unsupportPreviewTiptext, onGetPreviewUrl, uniqueKey]
   );
 
   // 关闭预览
@@ -198,7 +224,9 @@ const UploadWrapper: React.FC<UploadWrapperProps> = ({
         maxCount={maxCount}
         {...restProps}
       />
-      {enabledShowPreview && !restProps.onPreview && <Preview {...previewProps} {...previewModalProps} onCancel={handlePreviewCancel} />}
+      {enabledShowPreview && !restProps.onPreview && (
+        <Preview {...previewProps} {...previewModalProps} onCancel={handlePreviewCancel} />
+      )}
     </>
   );
 };

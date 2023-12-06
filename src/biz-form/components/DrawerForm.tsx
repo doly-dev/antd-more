@@ -5,8 +5,10 @@ import { isPromiseLike } from 'ut2';
 import type { DrawerProps } from './antd.interface';
 import type { BaseFormProps } from './BaseForm';
 import BaseForm from './BaseForm';
+import { useConfig } from '../../biz-config-provider';
 
-export interface DrawerFormProps<Values = any> extends Omit<BaseFormProps<Values>, 'title' | 'defaultValue'> {
+export interface DrawerFormProps<Values = any>
+  extends Omit<BaseFormProps<Values>, 'title' | 'defaultValue'> {
   title?: React.ReactNode;
   width?: DrawerProps['width'];
   trigger?: React.ReactElement;
@@ -16,6 +18,7 @@ export interface DrawerFormProps<Values = any> extends Omit<BaseFormProps<Values
 }
 
 function DrawerForm<Values = any>(props: DrawerFormProps<Values>) {
+  const { locale } = useConfig();
   const {
     title,
     width,
@@ -54,26 +57,30 @@ function DrawerForm<Values = any>(props: DrawerFormProps<Values>) {
             setVisible(false);
           }
         }}
-        submitter={typeof submitter === 'undefined' || submitter ? {
-          submitText: '确认',
-          resetText: '取消',
-          ...submitter,
-          resetButtonProps: {
-            preventDefault: true,
-            ...(submitter ? submitter?.resetButtonProps : {}),
-            onClick: (e: any) => {
-              drawerProps?.onClose?.(e);
-              setVisible(false);
-              submitter && submitter?.resetButtonProps?.onClick?.(e);
-            }
-          },
-          render: (submitterProps, submitterDom) => {
-            if (submitter && typeof submitter?.render === 'function') {
-              return submitter.render(submitterProps, submitterDom.reverse());
-            }
-            return submitterDom.reverse();
-          }
-        } : submitter}
+        submitter={
+          typeof submitter === 'undefined' || submitter
+            ? {
+                submitText: locale.form.common.ok,
+                resetText: locale.form.common.cancel,
+                ...submitter,
+                resetButtonProps: {
+                  preventDefault: true,
+                  ...(submitter ? submitter?.resetButtonProps : {}),
+                  onClick: (e: any) => {
+                    drawerProps?.onClose?.(e);
+                    setVisible(false);
+                    submitter && submitter?.resetButtonProps?.onClick?.(e);
+                  }
+                },
+                render: (submitterProps, submitterDom) => {
+                  if (submitter && typeof submitter?.render === 'function') {
+                    return submitter.render(submitterProps, submitterDom.reverse());
+                  }
+                  return submitterDom.reverse();
+                }
+              }
+            : submitter
+        }
         formRender={(formDom, submitterDom) => (
           <Drawer
             title={title}
@@ -94,12 +101,11 @@ function DrawerForm<Values = any>(props: DrawerFormProps<Values>) {
               setVisible(false);
               drawerProps?.onClose?.(e);
             }}
-            afterVisibleChange={v => {
+            afterVisibleChange={(v) => {
               if (!v && drawerProps?.destroyOnClose) {
                 formRef.current.resetFields();
               }
               drawerProps?.afterVisibleChange?.(v);
-
             }}
           >
             {formDom}
