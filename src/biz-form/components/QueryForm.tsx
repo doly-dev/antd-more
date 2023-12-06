@@ -5,6 +5,7 @@ import { DownOutlined } from '@ant-design/icons';
 import type { BaseFormProps } from './BaseForm';
 import BaseForm from './BaseForm';
 import BizFormItem from './Item';
+import { useConfig } from '../../biz-config-provider';
 
 const prefixCls = 'antd-more-form';
 
@@ -14,12 +15,13 @@ export interface CollapseProps {
 }
 
 const Collapse: React.FC<CollapseProps> = React.memo(({ collapsed, onToggle }) => {
+  const { locale } = useConfig();
   const handleToggle = () => {
     onToggle?.(!collapsed);
   };
   return (
     <a onClick={handleToggle} className={`${prefixCls}-query-collapse`}>
-      {collapsed ? '展开' : '收起'}
+      {collapsed ? locale.form.common.expand : locale.form.common.collapsed}
       <DownOutlined
         style={{
           marginLeft: '0.5em',
@@ -46,11 +48,12 @@ const colSpan = {
 };
 
 function QueryForm<Values = any>(props: QueryFormProps<Values>) {
+  const { locale } = useConfig();
   const {
     layout = 'horizontal',
     submitter,
-    submitText = '查询',
-    resetText = '重置',
+    submitText = locale.form.common.search,
+    resetText = locale.form.common.reset,
     defaultCollapsed = true,
     defaultColsNumber,
     className,
@@ -75,7 +78,9 @@ function QueryForm<Values = any>(props: QueryFormProps<Values>) {
           <Row gutter={16}>
             {items.map((item: any, index) => {
               const { colProps, ...restItemProps } = item.props;
-              const hidden = (collapsed && enabledCollapse && index >= defaultColsNumber) || restItemProps?.hidden;
+              const hidden =
+                (collapsed && enabledCollapse && index >= defaultColsNumber) ||
+                restItemProps?.hidden;
               return (
                 <Col
                   key={item?.key || item.name + index.toString()}
@@ -96,11 +101,7 @@ function QueryForm<Values = any>(props: QueryFormProps<Values>) {
                 justifyContent: 'flex-end'
               }}
             >
-              <BizFormItem
-                label=" "
-                colon={false}
-                hideLabel={layout !== 'vertical'}
-              >
+              <BizFormItem label=" " colon={false} hideLabel={layout !== 'vertical'}>
                 <Space>
                   {internalSubmitter}
                   {enabledCollapse && <Collapse collapsed={collapsed} onToggle={setCollapsed} />}

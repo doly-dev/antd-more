@@ -31,3 +31,10 @@ export * from './biz-user-layout';
 
 export { default as FileViewer } from './file-viewer';
 export * from './file-viewer';
+
+export { default as BizConfigProvider } from './biz-config-provider';
+export type {
+  BizConfigProviderProps,
+  Locale as BizLocale,
+  DeepPartial
+} from './biz-config-provider';

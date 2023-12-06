@@ -7,8 +7,8 @@ import UploadButton from './UploadButton';
 import UploadImage from './UploadImage';
 import UploadAvatar from './UploadAvatar';
 import UploadDragger from './UploadDragger';
-import getLabel from '../../_util/getLabel';
 import Preview from './Preview';
+import { useConfig } from '../../../biz-config-provider';
 
 const normFile = (e) => {
   if (Array.isArray(e)) {
@@ -19,17 +19,17 @@ const normFile = (e) => {
 
 export interface BizFormItemUploadProps
   extends BizFormItemProps,
-  Pick<
-    UploadWrapperProps,
-    | 'accept'
-    | 'onUpload'
-    | 'fileTypeMessage'
-    | 'fileSizeMessage'
-    | 'maxSize'
-    | 'maxCount'
-    | 'onGetPreviewUrl'
-    | 'previewModalProps'
-  > {
+    Pick<
+      UploadWrapperProps,
+      | 'accept'
+      | 'onUpload'
+      | 'fileTypeMessage'
+      | 'fileSizeMessage'
+      | 'maxSize'
+      | 'maxCount'
+      | 'onGetPreviewUrl'
+      | 'previewModalProps'
+    > {
   type?: 'default' | 'image' | 'avatar' | 'dragger';
   uploadProps?: UploadProps;
   disabled?: boolean;
@@ -61,62 +61,63 @@ const BizFormItemUpload: React.FC<BizFormItemUploadProps> & {
   transform,
   ...restProps
 }) => {
-    const Comp = React.useMemo(() => {
-      if (type === 'image') {
-        return UploadImage;
-      }
-      if (type === 'avatar') {
-        return UploadAvatar;
-      }
-      if (type === 'dragger') {
-        return UploadDragger;
-      }
-      return UploadButton;
-    }, [type]);
+  const { locale } = useConfig();
+  const Comp = React.useMemo(() => {
+    if (type === 'image') {
+      return UploadImage;
+    }
+    if (type === 'avatar') {
+      return UploadAvatar;
+    }
+    if (type === 'dragger') {
+      return UploadDragger;
+    }
+    return UploadButton;
+  }, [type]);
 
-    return (
-      <BizFormItem
-        required={required}
-        valuePropName="fileList"
-        getValueFromEvent={normFile}
-        transform={transform}
-        name={name}
-        rules={[
-          {
-            validator(rules, value) {
-              let errMsg = '';
-              const realValue = value && typeof transform === 'function' ? transform(value) : value;
+  return (
+    <BizFormItem
+      required={required}
+      valuePropName="fileList"
+      getValueFromEvent={normFile}
+      transform={transform}
+      name={name}
+      rules={[
+        {
+          validator(rules, value) {
+            let errMsg = '';
+            const realValue = value && typeof transform === 'function' ? transform(value) : value;
 
-              if (!realValue || (Array.isArray(realValue) && realValue.length <= 0)) {
-                errMsg = required ? `请上传${getLabel(restProps)}` : '';
-              }
-              if (errMsg) {
-                return Promise.reject(errMsg);
-              }
-              return Promise.resolve();
+            if (!realValue || (Array.isArray(realValue) && realValue.length <= 0)) {
+              errMsg = required ? locale.form.common.uploadRequired : '';
             }
+            if (errMsg) {
+              return Promise.reject(errMsg);
+            }
+            return Promise.resolve();
           }
-        ]}
-        {...restProps}
-      >
-        <Comp
-          accept={accept}
-          onUpload={onUpload}
-          onGetPreviewUrl={onGetPreviewUrl}
-          fileTypeMessage={fileTypeMessage}
-          fileSizeMessage={fileSizeMessage}
-          maxSize={maxSize}
-          maxCount={maxCount}
-          disabled={disabled}
-          multiple={multiple}
-          icon={icon}
-          title={title}
-          previewModalProps={previewModalProps}
-          {...uploadProps}
-        />
-      </BizFormItem>
-    );
-  };
+        }
+      ]}
+      {...restProps}
+    >
+      <Comp
+        accept={accept}
+        onUpload={onUpload}
+        onGetPreviewUrl={onGetPreviewUrl}
+        fileTypeMessage={fileTypeMessage}
+        fileSizeMessage={fileSizeMessage}
+        maxSize={maxSize}
+        maxCount={maxCount}
+        disabled={disabled}
+        multiple={multiple}
+        icon={icon}
+        title={title}
+        previewModalProps={previewModalProps}
+        {...uploadProps}
+      />
+    </BizFormItem>
+  );
+};
 
 BizFormItemUpload.Preview = Preview;
 

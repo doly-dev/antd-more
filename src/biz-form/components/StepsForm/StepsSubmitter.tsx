@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Space, Button } from 'antd';
 import type { ButtonProps } from '../antd.interface';
 import type { BizFormSubmitterProps } from '../Submitter';
+import { useConfig } from '../../../biz-config-provider';
 
 export interface StepsFormSubmitterProps
   extends Omit<
@@ -28,31 +29,32 @@ export interface StepsFormSubmitterProps
   forceShowSubmit?: boolean;
 
   render?:
-  | ((
-    props: StepsFormSubmitterProps,
-    dom: React.ReactElement[]
-  ) => React.ReactNode[] | React.ReactNode | false)
-  | false;
+    | ((
+        props: StepsFormSubmitterProps,
+        dom: React.ReactElement[]
+      ) => React.ReactNode[] | React.ReactNode | false)
+    | false;
 }
 
 const StepsFormSubmitter: React.FC<StepsFormSubmitterProps> = (props) => {
+  const { locale } = useConfig();
   const {
     total = 0,
     current = 0,
 
-    prevText = '上一步',
+    prevText = locale.form.common.prev,
     prevButtonProps = {},
-    onPrev = () => { },
+    onPrev = () => {},
     noPrev = false,
 
-    nextText = '下一步',
+    nextText = locale.form.common.next,
     nextButtonProps = {},
-    onNext = () => { },
+    onNext = () => {},
     noNext = false,
 
-    submitText = '提交',
+    submitText = locale.form.common.submit,
     submitButtonProps = {},
-    onSubmit = () => { },
+    onSubmit = () => {},
 
     forceShowPrev = false,
     forceShowNext = false,

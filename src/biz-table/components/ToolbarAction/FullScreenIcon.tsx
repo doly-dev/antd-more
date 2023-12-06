@@ -2,8 +2,10 @@ import * as React from 'react';
 import { FullscreenExitOutlined, FullscreenOutlined } from '@ant-design/icons';
 import { message, Tooltip } from 'antd';
 import TableContext from '../../TableContext';
+import { useConfig } from '../../../biz-config-provider';
 
 const FullScreenIcon = () => {
+  const { locale } = useConfig();
   const { rootRef, isFullScreen, setFullScreen } = React.useContext(TableContext);
 
   React.useEffect(() => {
@@ -18,7 +20,7 @@ const FullScreenIcon = () => {
 
   const toggleFullScreen = React.useCallback(() => {
     if (!document.fullscreenEnabled) {
-      message.warning('当前页面不支持全屏功能');
+      message.warning(locale.table.toolbar.unsupportFullScreenTiptext);
       return;
     }
 
@@ -27,14 +29,14 @@ const FullScreenIcon = () => {
     } else {
       document.exitFullscreen();
     }
-  }, [fullScreen]);
+  }, [fullScreen, locale.table.toolbar.unsupportFullScreenTiptext]);
 
   return isFullScreen ? (
-    <Tooltip title="退出全屏">
+    <Tooltip title={locale.table.toolbar.exitFullScreen}>
       <FullscreenExitOutlined onClick={toggleFullScreen} />
     </Tooltip>
   ) : (
-    <Tooltip title="全屏">
+    <Tooltip title={locale.table.toolbar.fullScreen}>
       <FullscreenOutlined onClick={toggleFullScreen} />
     </Tooltip>
   );

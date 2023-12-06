@@ -6,7 +6,7 @@ import type { BizFormItemProps } from './Item';
 import BizFormItem from './Item';
 import { transformDayjsTime } from '../_util/dateUtil';
 import { transformDate } from '../_util/transform';
-import getLabel from '../_util/getLabel';
+import { useConfig } from '../../biz-config-provider';
 
 const prefixCls = 'antd-more-form-item-date';
 
@@ -24,7 +24,9 @@ const TimePickerWrapper: React.FC<TimePickerProps> = ({
   );
 };
 
-export interface BizFormItemTimeProps extends BizFormItemProps, Pick<TimePickerProps, 'placeholder' | 'allowClear'> {
+export interface BizFormItemTimeProps
+  extends BizFormItemProps,
+    Pick<TimePickerProps, 'placeholder' | 'allowClear'> {
   format?: string;
   pickerProps?: TimePickerProps;
 }
@@ -41,6 +43,7 @@ const BizFormItemTime: React.FC<BizFormItemTimeProps> = ({
   transform,
   ...restProps
 }) => {
+  const { locale } = useConfig();
   const currentFormat = React.useMemo(() => {
     if (format) {
       return format;
@@ -73,27 +76,15 @@ const BizFormItemTime: React.FC<BizFormItemTimeProps> = ({
       required={required}
       rules={[
         {
-          validator(rules, value) {
-            let errMsg = '';
-            if (!value) {
-              errMsg = required ? `请选择${getLabel(restProps)}` : '';
-            }
-            if (errMsg) {
-              return Promise.reject(errMsg);
-            }
-            return Promise.resolve();
-          }
+          required,
+          message: locale.form.common.selectRequired
         }
       ]}
       className={classNames(prefixCls, className)}
       transform={handleTransform}
       {...restProps}
     >
-      <TimePickerWrapper
-        {...defaultTimePickerProps}
-        format={currentFormat}
-        {...pickerProps}
-      />
+      <TimePickerWrapper {...defaultTimePickerProps} format={currentFormat} {...pickerProps} />
     </BizFormItem>
   );
 };

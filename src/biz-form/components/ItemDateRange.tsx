@@ -7,7 +7,6 @@ import type { RangePickerProps, RangePickerDateProps } from './antd.interface';
 import type { Picker } from '../_util/dateUtil';
 import {
   DateScale,
-  DateUnit,
   createDisabledDate,
   transformDayjsValue,
   getDateFormat,
@@ -16,15 +15,23 @@ import {
 import type { BizFormItemProps } from './Item';
 import BizFormItem from './Item';
 import { transformDate, InvalidFieldValue } from '../_util/transform';
-import getLabel from '../_util/getLabel';
+import { useConfig } from '../../biz-config-provider';
+
+const prefixCls = 'antd-more-form-item-date';
 
 const DateRangePickerWrapper: React.FC<RangePickerProps> = ({ value, format, ...restProps }) => {
-  return <DatePicker.RangePicker value={transformDayjsValue(value as [Dayjs, Dayjs], format as string)} format={format === DateFormat['quarter'] ? undefined : format} {...restProps} />;
+  return (
+    <DatePicker.RangePicker
+      value={transformDayjsValue(value as [Dayjs, Dayjs], format as string)}
+      format={format === DateFormat['quarter'] ? undefined : format}
+      {...restProps}
+    />
+  );
 };
 
 export interface BizFormItemDateRangeProps
   extends BizFormItemProps,
-  Pick<RangePickerDateProps<Dayjs>, 'showTime' | 'placeholder' | 'allowClear'> {
+    Pick<RangePickerDateProps<Dayjs>, 'showTime' | 'placeholder' | 'allowClear'> {
   disabledDateBefore?: number;
   disabledDateAfter?: number;
   maxRange?: number; // 最大可选范围值，根据当前 picker 为单位。
@@ -33,8 +40,6 @@ export interface BizFormItemDateRangeProps
   pickerProps?: RangePickerProps & Pick<RangePickerDateProps<Dayjs>, 'showTime'>;
   names?: [string, string];
 }
-
-const prefixCls = 'antd-more-form-item-date';
 
 const BizFormItemDateRange: React.FC<BizFormItemDateRangeProps> = ({
   disabledDateBefore,
@@ -53,6 +58,7 @@ const BizFormItemDateRange: React.FC<BizFormItemDateRangeProps> = ({
   transform,
   ...restProps
 }) => {
+  const { locale } = useConfig();
   const hasNames = React.useMemo(() => Array.isArray(names) && names.length > 0, [names]);
   const currentName = React.useMemo(
     () => name || (hasNames ? uniqueId('__am_dateRange_') : name),
@@ -102,13 +108,16 @@ const BizFormItemDateRange: React.FC<BizFormItemDateRangeProps> = ({
           validator(rule, value) {
             let errMsg = '';
             if (!value) {
-              errMsg = required ? `请选择${getLabel(restProps)}` : '';
+              errMsg = required ? locale.form.common.selectRequired : '';
             } else if (maxRange > 0) {
               const [t1, t2] = value;
               const range = currentPicker === 'quarter' ? maxRange * 3 : maxRange;
 
               if (t2.diff(t1, DateScale[currentPicker]) >= range) {
-                errMsg = `时间跨度不能超过${maxRange}${DateUnit[currentPicker] === '月' ? `个月` : DateUnit[currentPicker]}`;
+                errMsg = locale.form.dateRange.maxRange(
+                  maxRange,
+                  locale.form.dateRange.uint[currentPicker]
+                );
               }
             }
             if (errMsg) {

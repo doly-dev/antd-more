@@ -5,6 +5,7 @@ import { isPromiseLike } from 'ut2';
 import type { ModalProps } from './antd.interface';
 import type { BaseFormProps } from './BaseForm';
 import BaseForm from './BaseForm';
+import { useConfig } from '../../biz-config-provider';
 
 export interface ModalFormProps<Values = any>
   extends Omit<BaseFormProps<Values>, 'title' | 'defaultValue'>,
@@ -17,6 +18,7 @@ export interface ModalFormProps<Values = any>
 }
 
 function ModalForm<Values = any>(props: ModalFormProps<Values>) {
+  const { locale } = useConfig();
   const {
     title,
     width,
@@ -58,8 +60,8 @@ function ModalForm<Values = any>(props: ModalFormProps<Values>) {
         submitter={
           typeof submitter === 'undefined' || submitter
             ? {
-                submitText: modalProps?.okText || '确认',
-                resetText: modalProps?.cancelText || '取消',
+                submitText: modalProps?.okText || locale.form.common.ok,
+                resetText: modalProps?.cancelText || locale.form.common.cancel,
                 submitButtonProps: {
                   type: (modalProps?.okType as 'text') || 'primary'
                 },

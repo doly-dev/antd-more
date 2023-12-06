@@ -14,16 +14,6 @@ export enum DateScale {
   year = 'years'
 }
 
-// 中文单位
-export enum DateUnit {
-  time = '小时',
-  date = '天',
-  week = '周',
-  month = '月',
-  quarter = '季',
-  year = '年'
-}
-
 // 日期格式
 export enum DateFormat {
   date = 'YYYY-MM-DD',
@@ -99,7 +89,10 @@ export function createDisabledDate(picker: Picker = 'date', opts?: CreateDisable
 // 转换为dayjs值
 export function transformDayjsValue(val: string | Dayjs, format?: string): Dayjs;
 export function transformDayjsValue(val: (string | Dayjs)[], format?: string): [Dayjs, Dayjs];
-export function transformDayjsValue(val: string | Dayjs | (string | Dayjs)[], format = 'YYYY-MM-DD') {
+export function transformDayjsValue(
+  val: string | Dayjs | (string | Dayjs)[],
+  format = 'YYYY-MM-DD'
+) {
   if (Array.isArray(val)) {
     return val.map((item) => transformDayjsValue(item, format));
   }

@@ -5,11 +5,11 @@ import { InputNumber } from 'antd';
 import type { BizFormItemProps } from './Item';
 import BizFormItem from './Item';
 import type { InputNumberProps } from './antd.interface';
-import getLabel from '../_util/getLabel';
+import { useConfig } from '../../biz-config-provider';
 
 export interface BizFormItemNumberProps
   extends BizFormItemProps,
-  Pick<InputNumberProps, 'precision' | 'placeholder' | 'step' | 'min' | 'max' | 'formatter'> {
+    Pick<InputNumberProps, 'precision' | 'placeholder' | 'step' | 'min' | 'max' | 'formatter'> {
   lt?: number;
   gt?: number;
   lte?: number;
@@ -19,30 +19,35 @@ export interface BizFormItemNumberProps
   inputProps?: InputNumberProps;
 }
 
-const BizFormItemNumber: React.FC<BizFormItemNumberProps> = ({
-  lt,
-  gt,
-  lte,
-  gte,
-  inputProps = {},
-  precision,
-  useFloor = false,
-  maxPrecision,
-  placeholder = "请输入",
-  step = 1,
-  min = Number.MIN_SAFE_INTEGER,
-  max = Number.MAX_SAFE_INTEGER,
-  formatter,
+const BizFormItemNumber: React.FC<BizFormItemNumberProps> = (props) => {
+  const { locale } = useConfig();
+  const {
+    lt,
+    gt,
+    lte,
+    gte,
+    inputProps = {},
+    precision,
+    useFloor = false,
+    maxPrecision,
+    placeholder = locale.form.common.inputPlaceholder,
+    step = 1,
+    min = Number.MIN_SAFE_INTEGER,
+    max = Number.MAX_SAFE_INTEGER,
+    formatter,
 
-  required = false,
-  ...restProps
-}) => {
-  const internalParse = React.useCallback((displayValue: any) => {
-    if (displayValue && useFloor && typeof precision === 'number') {
-      return floor(displayValue, precision);
-    }
-    return displayValue;
-  }, [precision, useFloor]);
+    required = false,
+    ...restProps
+  } = props;
+  const internalParse = React.useCallback(
+    (displayValue: any) => {
+      if (displayValue && useFloor && typeof precision === 'number') {
+        return floor(displayValue, precision);
+      }
+      return displayValue;
+    },
+    [precision, useFloor]
+  );
 
   return (
     <BizFormItem
@@ -52,19 +57,19 @@ const BizFormItemNumber: React.FC<BizFormItemNumberProps> = ({
           validator(rule, value) {
             let errMsg = '';
             if (!isValidNumber(value, true)) {
-              errMsg = required ? `请输入${getLabel(restProps)}` : '';
+              errMsg = required ? locale.form.common.inputRequired : '';
             } else if (isValidNumber(lt) && value >= lt) {
-              errMsg = `不能大于等于${lt}`;
+              errMsg = locale.form.number.lt(lt);
             } else if (isValidNumber(gt) && value <= gt) {
-              errMsg = `不能小于等于${gt}`;
+              errMsg = locale.form.number.gt(gt);
             } else if (isValidNumber(lte) && value > lte) {
-              errMsg = `不能大于${lte}`;
+              errMsg = locale.form.number.lte(lte);
             } else if (isValidNumber(gte) && value < gte) {
-              errMsg = `不能小于${gte}`;
+              errMsg = locale.form.number.gte(gte);
             } else if (isValidNumber(maxPrecision) && maxPrecision > 0) {
               const decimal = `${value}`.split('.')[1];
               if (decimal && decimal.length > maxPrecision) {
-                errMsg = `支持${maxPrecision}位小数`;
+                errMsg = locale.form.number.maxPrecision(maxPrecision);
               }
             }
             if (errMsg) {

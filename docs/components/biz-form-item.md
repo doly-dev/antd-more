@@ -238,7 +238,7 @@ import { BizFormItem } from 'antd-more';
 **校验顺序**
 
 - 必填时为空，提示：`请选择${label}`
-- 日期范围判断超过区间，提示：`时间跨度不能超过${maxRange}天/周/月/季/年`
+- 日期范围判断超过区间，提示：`时间跨度不能超过${maxRange}天|周|月|季|年`
 
 <code src="../../src/biz-form/demos/item-dateRange-1.tsx"></code>
 
@@ -271,11 +271,10 @@ Input 输入框
 **校验顺序**
 
 - 必填时为空，提示：`请输入${label}`
-- 开启脱敏校验后，判断是否与初始值相等，相等即 `验证通过`
-- 根据 `type` 使用 `util-helpers` [isMobile]、[isIdCard]、[isBankCard]、[isEmail] 验证，提示：`请输入正确的${label}`
-- 如果是用户名（如有长度限制，可通过 `excludeRules` 扩展规则）
+- 如果是用户名 `type=userName`（如有长度限制，可通过 `excludeRules` 扩展规则）
   - 验证非手机号码，提示：`${label}不能为手机号码`
   - 验证不包含@符号，提示：`${label}不能包含@符号`
+- 如果是内置指定类型 `type=bankCard | email | idCard | mobile` 使用 `util-helpers` [isBankCard]、[isEmail]、[isIdCard]、[isMobile] 验证，提示：`请输入正确的${label}`
 
 <code src="../../src/biz-form/demos/item-input-1.tsx"></code>
 
@@ -303,10 +302,10 @@ Input 输入框
 **校验顺序**
 
 - 必填时不为数字，提示：`请输入${label}`
-- 大于等于 `lt` 时，提示：`不能大于等于${lt}`
-- 小于等于 `gt` 时，提示：`不能小于等于${gt}`
-- 大于 `lte` 时，提示：`不能大于${lte}`
-- 小于 `gte` 时，提示：`不能小于${gt}`
+- 大于等于 `lt` 时，提示：`${label}必须小于${lt}`
+- 小于等于 `gt` 时，提示：`${label}必须大于${gt}`
+- 大于 `lte` 时，提示：`${label}必须小于或等于${lte}`
+- 小于 `gte` 时，提示：`${label}必须大于或等于${gt}`
 - 小数位数大于 `maxPrecision` 时，提示：`支持${maxPrecision}位小数`
 
 <code src="../../src/biz-form/demos/item-number-1.tsx"></code>
@@ -338,8 +337,9 @@ Input 输入框
 - 必填时为空，提示：`请输入${label}`
 - `validated` 为 `true` 时：
   - 验证长度，提示：`${label}为${min}～${max}位`
-  - 使用 `util-helpers` [validatePassword] 验证非法字符，提示：`${label}包含无法识别的字符`
-  - 验证密码强度，提示：`${label}为大小写字母、数字或符号任意${numMap[level]}者组成`
+  - 使用 `util-helpers` [validatePassword]
+    - 验证非法字符，提示：`${label}包含无法识别的字符`
+    - 验证密码强度，提示：`${label}为大小写字母、数字或符号任意${level}种以上组成`
 
 <code src="../../src/biz-form/demos/item-password-1.tsx"></code>
 

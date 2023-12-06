@@ -8,7 +8,7 @@ import type { BizFormItemProps } from './Item';
 import BizFormItem from './Item';
 import { transformDayjsTime } from '../_util/dateUtil';
 import { transformDate, InvalidFieldValue } from '../_util/transform';
-import getLabel from '../_util/getLabel';
+import { useConfig } from '../../biz-config-provider';
 
 const prefixCls = 'antd-more-form-item-date';
 
@@ -28,7 +28,9 @@ const TimePickerRangeWrapper: React.FC<TimeRangePickerProps> = ({
   );
 };
 
-export interface BizFormItemTimeRangeProps extends BizFormItemProps, Pick<TimeRangePickerProps, 'placeholder' | 'allowClear'> {
+export interface BizFormItemTimeRangeProps
+  extends BizFormItemProps,
+    Pick<TimeRangePickerProps, 'placeholder' | 'allowClear'> {
   format?: string;
   pickerProps?: TimeRangePickerProps;
   names?: [string, string];
@@ -47,6 +49,7 @@ const BizFormItemTimeRange: React.FC<BizFormItemTimeRangeProps> = ({
   transform,
   ...restProps
 }) => {
+  const { locale } = useConfig();
   const hasNames = React.useMemo(() => Array.isArray(names) && names.length > 0, [names]);
   const currentName = React.useMemo(
     () => name || (hasNames ? uniqueId('__am_timeRange_') : name),
@@ -94,27 +97,15 @@ const BizFormItemTimeRange: React.FC<BizFormItemTimeRangeProps> = ({
       required={required}
       rules={[
         {
-          validator(rules, value) {
-            let errMsg = '';
-            if (!value) {
-              errMsg = required ? `请选择${getLabel(restProps)}` : '';
-            }
-            if (errMsg) {
-              return Promise.reject(errMsg);
-            }
-            return Promise.resolve();
-          }
+          required,
+          message: locale.form.common.selectRequired
         }
       ]}
       className={classNames(prefixCls, className)}
       transform={handleTransform}
       {...restProps}
     >
-      <TimePickerRangeWrapper
-        {...defaultTimePickerProps}
-        format={currentFormat}
-        {...pickerProps}
-      />
+      <TimePickerRangeWrapper {...defaultTimePickerProps} format={currentFormat} {...pickerProps} />
     </BizFormItem>
   );
 };

@@ -2,17 +2,21 @@ import * as React from 'react';
 import { InboxOutlined } from '@ant-design/icons';
 import type { UploadWrapperProps } from './UploadWrapper';
 import UploadWrapper from './UploadWrapper';
+import { useConfig } from '../../../biz-config-provider';
 
 const defaultShowUploadList = {
   showPreviewIcon: false
 };
 
-const UploadDragger: React.FC<UploadWrapperProps> = ({
-  showUploadList,
-  icon = <InboxOutlined />,
-  title = '单击或拖动文件到此区域进行上传',
-  ...restProps
-}) => {
+const UploadDragger: React.FC<UploadWrapperProps> = (props) => {
+  const { locale } = useConfig();
+  const {
+    showUploadList,
+    icon = <InboxOutlined />,
+    title = locale.form.upload.dragTiptext,
+    ...restProps
+  } = props;
+
   const innerShowUploadList = React.useMemo(() => {
     if (typeof showUploadList === 'boolean' && showUploadList === false) {
       return false;

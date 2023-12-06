@@ -4,7 +4,7 @@ import type { CheckboxOptionType, RadioGroupProps } from './antd.interface';
 import useFilterOptions from '../_util/useFilterOptions';
 import type { BizFormItemProps } from './Item';
 import BizFormItem from './Item';
-import getLabel from '../_util/getLabel';
+import { useConfig } from '../../biz-config-provider';
 
 export interface BizFormItemRadioProps extends BizFormItemProps {
   all?: boolean;
@@ -16,17 +16,19 @@ export interface BizFormItemRadioProps extends BizFormItemProps {
   radioGroupProps?: Omit<RadioGroupProps, 'options'> & { options?: CheckboxOptionType[] };
 }
 
-const BizFormItemRadio: React.FC<BizFormItemRadioProps> = ({
-  all = false,
-  allValue = '',
-  allLabel = '全部',
-  excludeValues = [],
-  options: outOptions = [],
-  optionType = 'default',
-  radioGroupProps = {},
-  required = false,
-  ...restProps
-}) => {
+const BizFormItemRadio: React.FC<BizFormItemRadioProps> = (props) => {
+  const { locale } = useConfig();
+  const {
+    all = false,
+    allValue = locale.form.common.allValue,
+    allLabel = locale.form.common.allLabel,
+    excludeValues = [],
+    options: outOptions = [],
+    optionType = 'default',
+    radioGroupProps = {},
+    required = false,
+    ...restProps
+  } = props;
   const options = React.useMemo(
     () => radioGroupProps.options || outOptions,
     [outOptions, radioGroupProps.options]
@@ -46,9 +48,11 @@ const BizFormItemRadio: React.FC<BizFormItemRadioProps> = ({
         {
           validator(rule, value) {
             let errMsg = '';
-            const hasOptValue = options.find((item) => item.value === value);
-            if (!value && !hasOptValue && !(all && allValue === value)) {
-              errMsg = required ? `请选择${getLabel(restProps)}` : '';
+            if (required) {
+              const hasOptValue = options.find((item) => item.value === value);
+              if (!value && !hasOptValue && !(all && allValue === value)) {
+                errMsg = locale.form.common.selectRequired;
+              }
             }
             if (errMsg) {
               return Promise.reject(errMsg);

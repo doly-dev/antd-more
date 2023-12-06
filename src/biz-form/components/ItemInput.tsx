@@ -4,24 +4,8 @@ import type { BizFormItemProps } from './Item';
 import BizFormItem from './Item';
 import type { InputWrapperProps } from './form/InputWrapper';
 import InputWrapper from './form/InputWrapper';
-import getLabel from '../_util/getLabel';
 import type { InputProps } from './antd.interface';
-
-const validateUserName = (value, { label }) => {
-  const ret = {
-    validated: true,
-    message: ''
-  };
-  if (isMobile(value)) {
-    ret.message = `${label}不能为手机号码`;
-  } else if (value.indexOf('@') > -1) {
-    ret.message = `${label}不能包含@符号`;
-  }
-  if (ret.message) {
-    ret.validated = false;
-  }
-  return ret;
-};
+import { useConfig } from '../../biz-config-provider';
 
 const validateMethod = {
   bankCard: (val) => isBankCard(val, { loose: true }),
@@ -30,25 +14,29 @@ const validateMethod = {
   mobile: isMobile
 };
 
-export interface BizFormItemInputProps extends BizFormItemProps, Pick<InputProps, 'placeholder' | 'allowClear' | 'maxLength'> {
+export interface BizFormItemInputProps
+  extends BizFormItemProps,
+    Pick<InputProps, 'placeholder' | 'allowClear' | 'maxLength'> {
   type?: InputWrapperProps['type'];
   disabledWhiteSpace?: boolean;
   inputProps?: InputProps;
   format?: InputWrapperProps['format'];
 }
 
-const BizFormItemInput: React.FC<BizFormItemInputProps> = ({
-  placeholder = '请输入',
-  allowClear,
-  maxLength,
-  type,
-  disabledWhiteSpace,
-  inputProps = {},
-  required = false,
-  transform,
-  format = false,
-  ...restProps
-}) => {
+const BizFormItemInput: React.FC<BizFormItemInputProps> = (props) => {
+  const { locale } = useConfig();
+  const {
+    placeholder = locale.form.common.inputPlaceholder,
+    allowClear,
+    maxLength,
+    type,
+    disabledWhiteSpace,
+    inputProps = {},
+    required = false,
+    transform,
+    format = false,
+    ...restProps
+  } = props;
   const hasSpecialType = React.useMemo(
     () =>
       type === 'bankCard' ||
@@ -71,8 +59,6 @@ const BizFormItemInput: React.FC<BizFormItemInputProps> = ({
     [format, transform, type]
   );
 
-  const messageLabel = getLabel(restProps);
-
   return (
     <BizFormItem
       required={required}
@@ -81,11 +67,15 @@ const BizFormItemInput: React.FC<BizFormItemInputProps> = ({
           validator(rule, value) {
             let errMsg = '';
             if (!value) {
-              errMsg = required ? `请输入${messageLabel}` : '';
+              errMsg = required ? locale.form.common.inputRequired : '';
             } else if (type === 'userName') {
-              errMsg = validateUserName(value, { label: messageLabel }).message;
+              if (isMobile(value)) {
+                errMsg = locale.form.input.userName.mobile;
+              } else if (value.indexOf('@') > -1) {
+                errMsg = locale.form.input.userName.email;
+              }
             } else if (validateMethod[type] && !validateMethod[type](value)) {
-              errMsg = `请输入正确的${messageLabel}`;
+              errMsg = locale.form.input.invalid;
             }
             if (errMsg) {
               return Promise.reject(errMsg);

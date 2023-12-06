@@ -3,9 +3,11 @@ import type { ColorSketchPickerProps } from '../../color';
 import { ColorSketchPicker } from '../../color';
 import type { BizFormItemProps } from './Item';
 import BizFormItem from './Item';
-import getLabel from '../_util/getLabel';
+import { useConfig } from '../../biz-config-provider';
 
-export interface BizFormItemColorProps extends BizFormItemProps, Pick<ColorSketchPickerProps, 'showText' | 'colorMode' | 'placement' | 'size'> {
+export interface BizFormItemColorProps
+  extends BizFormItemProps,
+    Pick<ColorSketchPickerProps, 'showText' | 'colorMode' | 'placement' | 'size'> {
   colorProps?: ColorSketchPickerProps;
 }
 
@@ -18,21 +20,15 @@ const BizFormItemColor: React.FC<BizFormItemColorProps> = ({
   colorProps,
   ...restProps
 }) => {
+  const { locale } = useConfig();
+
   return (
     <BizFormItem
       required={required}
       rules={[
         {
-          validator(rules, value) {
-            let errMsg = '';
-            if (!value) {
-              errMsg = required ? `请选择${getLabel(restProps)}` : '';
-            }
-            if (errMsg) {
-              return Promise.reject(errMsg);
-            }
-            return Promise.resolve();
-          }
+          required,
+          message: locale.form.common.selectRequired
         }
       ]}
       {...restProps}

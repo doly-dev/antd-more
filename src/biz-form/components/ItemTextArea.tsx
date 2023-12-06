@@ -4,23 +4,27 @@ import type { TextAreaProps } from './antd.interface';
 import { normalizeWhiteSpace } from '../_util/normalize';
 import type { BizFormItemProps } from './Item';
 import BizFormItem from './Item';
-import getLabel from '../_util/getLabel';
+import { useConfig } from '../../biz-config-provider';
 
-export interface BizFormItemTextAreaProps extends BizFormItemProps, Pick<TextAreaProps, 'placeholder' | 'allowClear' | 'maxLength' | 'showCount'> {
+export interface BizFormItemTextAreaProps
+  extends BizFormItemProps,
+    Pick<TextAreaProps, 'placeholder' | 'allowClear' | 'maxLength' | 'showCount'> {
   disabledWhiteSpace?: boolean;
   inputProps?: TextAreaProps;
 }
 
-const BizFormItemTextArea: React.FC<BizFormItemTextAreaProps> = ({
-  placeholder = "请输入",
-  allowClear = false,
-  maxLength,
-  showCount = false,
-  disabledWhiteSpace = false,
-  inputProps = {},
-  required = false,
-  ...restProps
-}) => {
+const BizFormItemTextArea: React.FC<BizFormItemTextAreaProps> = (props) => {
+  const { locale } = useConfig();
+  const {
+    placeholder = locale.form.common.inputPlaceholder,
+    allowClear = false,
+    maxLength,
+    showCount = false,
+    disabledWhiteSpace = false,
+    inputProps = {},
+    required = false,
+    ...restProps
+  } = props;
   const handleNormalize = React.useCallback(
     (val) => {
       if (disabledWhiteSpace) {
@@ -37,16 +41,8 @@ const BizFormItemTextArea: React.FC<BizFormItemTextAreaProps> = ({
       normalize={handleNormalize}
       rules={[
         {
-          validator(rule, value) {
-            let errMsg = '';
-            if (!value) {
-              errMsg = required ? `请输入${getLabel(restProps)}` : '';
-            }
-            if (errMsg) {
-              return Promise.reject(errMsg);
-            }
-            return Promise.resolve();
-          }
+          required,
+          message: locale.form.common.inputRequired
         }
       ]}
       {...restProps}

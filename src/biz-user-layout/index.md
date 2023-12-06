@@ -1,6 +1,6 @@
 ---
 group:
-  title: 页面布局
+  title: 其他
   order: 3
 ---
 

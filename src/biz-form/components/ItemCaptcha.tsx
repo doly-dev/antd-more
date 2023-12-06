@@ -6,9 +6,11 @@ import type { CaptchaButtonProps } from '../../captcha-button';
 import CaptchaButton from '../../captcha-button';
 import type { BizFormItemProps } from './Item';
 import BizFormItem from './Item';
-import getLabel from '../_util/getLabel';
+import { useConfig } from '../../biz-config-provider';
 
-interface VerificateCodeInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange' | 'type' | 'size'>, Pick<InputProps, 'size' | 'allowClear' | 'placeholder'> {
+interface VerificateCodeInputProps
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange' | 'type' | 'size'>,
+    Pick<InputProps, 'size' | 'allowClear' | 'placeholder'> {
   value?: any;
   onChange?: (value: any) => void;
   onGetCaptcha?: () => boolean | Promise<any>; // 发送验证码
@@ -174,45 +176,48 @@ const VerificateCodeInput: React.FC<VerificateCodeInputProps> = ({
 
 export interface BizFormItemCaptchaProps
   extends BizFormItemProps,
-  Pick<
-    VerificateCodeInputProps,
-    'onGetCaptcha' | 'type' | 'inputProps' | 'buttonProps' | 'autoClick' | 'autoFocusOnGetCaptcha' | 'placeholder' | 'allowClear' | 'maxLength'
-  >,
-  Pick<CaptchaButtonProps, 'initText' | 'runText' | 'resetText' | 'second'> { }
+    Pick<
+      VerificateCodeInputProps,
+      | 'onGetCaptcha'
+      | 'type'
+      | 'inputProps'
+      | 'buttonProps'
+      | 'autoClick'
+      | 'autoFocusOnGetCaptcha'
+      | 'placeholder'
+      | 'allowClear'
+      | 'maxLength'
+    >,
+    Pick<CaptchaButtonProps, 'initText' | 'runText' | 'resetText' | 'second'> {}
 
-const BizFormItemCaptcha: React.FC<BizFormItemCaptchaProps> = ({
-  type,
-  placeholder = '请输入',
-  maxLength,
-  allowClear,
-  onGetCaptcha,
-  initText,
-  runText,
-  resetText,
-  second,
-  autoClick,
-  autoFocusOnGetCaptcha = true,
-  inputProps = {},
-  buttonProps = {},
+const BizFormItemCaptcha: React.FC<BizFormItemCaptchaProps> = (props) => {
+  const { locale } = useConfig();
+  const {
+    type,
+    placeholder = locale.form.common.inputPlaceholder,
+    maxLength,
+    allowClear,
+    onGetCaptcha,
+    initText,
+    runText,
+    resetText,
+    second,
+    autoClick,
+    autoFocusOnGetCaptcha = true,
+    inputProps = {},
+    buttonProps = {},
 
-  required,
-  ...restProps
-}) => {
+    required,
+    ...restProps
+  } = props;
+
   return (
     <BizFormItem
       required={required}
       rules={[
         {
-          validator(rules, value) {
-            let errMsg = '';
-            if (!value) {
-              errMsg = required ? `请输入${getLabel(restProps)}` : '';
-            }
-            if (errMsg) {
-              return Promise.reject(errMsg);
-            }
-            return Promise.resolve();
-          }
+          required,
+          message: locale.form.common.inputRequired
         }
       ]}
       {...restProps}
