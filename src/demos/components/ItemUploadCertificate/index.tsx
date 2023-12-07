@@ -14,7 +14,12 @@ const normFile = (e: any) => {
   return e?.fileList;
 };
 
-interface ItemUploadCertificateProps extends BizFormItemProps, Pick<UploadCertificateProps, 'idType' | 'icon' | 'title' | 'popoverProps' | 'onUpload' | 'maxCount' | 'block'> {
+interface ItemUploadCertificateProps
+  extends BizFormItemProps,
+    Pick<
+      UploadCertificateProps,
+      'idType' | 'icon' | 'title' | 'popoverProps' | 'onUpload' | 'maxCount' | 'block'
+    > {
   uploadProps?: UploadCertificateProps;
 }
 
@@ -35,20 +40,16 @@ const ItemUploadCertificate: React.FC<ItemUploadCertificateProps> = ({
   return (
     <BizFormItem
       className={classnames(styles.itemUploadCertificate, className)}
-      valuePropName='fileList'
+      valuePropName="fileList"
       getValueFromEvent={normFile}
       required={required}
       rules={[
-        // {
-        //   required,
-        //   message: `请上传${restProps?.messageVariables?.label || restProps?.label}`
-        // },
         {
           validator(_, value) {
             if (value) {
               const realValue = value.filter((item: any) => item?.response?.fssid);
               if (realValue.length <= 0) {
-                return Promise.reject(`请上传${restProps?.messageVariables?.label || restProps?.label}`);
+                return Promise.reject('请上传${label}');
               }
             }
             return Promise.resolve();
@@ -69,6 +70,6 @@ const ItemUploadCertificate: React.FC<ItemUploadCertificateProps> = ({
       />
     </BizFormItem>
   );
-}
+};
 
 export default ItemUploadCertificate;

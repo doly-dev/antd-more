@@ -1,26 +1,30 @@
 import React, { useMemo } from 'react';
-import { Space } from "antd";
-import type { BizFormItemProps } from "antd-more";
-import { BizForm, BizFormItem, BizFormItemDate } from "antd-more";
-import type { Dayjs } from "dayjs";
-import dayjs from "dayjs";
-import type { DatePickerEndProps } from "./DatePickerEnd";
-import DatePickerEnd from "./DatePickerEnd";
+import { Space } from 'antd';
+import type { BizFormItemProps } from 'antd-more';
+import { BizForm, BizFormItem, BizFormItemDate } from 'antd-more';
+import type { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
+import type { DatePickerEndProps } from './DatePickerEnd';
+import DatePickerEnd from './DatePickerEnd';
 
 const dayUnit = 'day';
 
-export type ItemDateRangeWithInfinityProps = Omit<BizFormItemProps, 'name'> & Pick<DatePickerEndProps, 'infinityLabel' | 'infinityValue' | 'hideOnInfinity' | 'format' | 'disabled'> & {
-  labels: [BizFormItemProps['label'], BizFormItemProps['label']],
-  names: [BizFormItemProps['name'], BizFormItemProps['name']],
-  formItemProps?: [BizFormItemProps, BizFormItemProps];
-  strict?: boolean;
-};
+export type ItemDateRangeWithInfinityProps = Omit<BizFormItemProps, 'name'> &
+  Pick<
+    DatePickerEndProps,
+    'infinityLabel' | 'infinityValue' | 'hideOnInfinity' | 'format' | 'disabled'
+  > & {
+    labels: [BizFormItemProps['label'], BizFormItemProps['label']];
+    names: [BizFormItemProps['name'], BizFormItemProps['name']];
+    formItemProps?: [BizFormItemProps, BizFormItemProps];
+    strict?: boolean;
+  };
 
 const ItemDateRangeWithInfinity: React.FC<ItemDateRangeWithInfinityProps> = ({
-  infinityValue = '9999-12-31',
-  infinityLabel = '长期',
-  hideOnInfinity = true,
-  format = 'YYYY-MM-DD',
+  infinityValue,
+  infinityLabel,
+  hideOnInfinity,
+  format,
   strict = false,
   labels,
   names,
@@ -38,7 +42,7 @@ const ItemDateRangeWithInfinity: React.FC<ItemDateRangeWithInfinityProps> = ({
   const endDateIsInfinity = useMemo(() => {
     const fmtEndDate = dayjs.isDayjs(endDate) ? endDate.format(format as string) : endDate;
     return fmtEndDate === infinityValue;
-  }, [endDate, format, infinityValue])
+  }, [endDate, format, infinityValue]);
 
   const disabledStartDate = (currentDate: Dayjs) => {
     if (strict && currentDate > dayjs().endOf(dayUnit)) {
@@ -48,7 +52,7 @@ const ItemDateRangeWithInfinity: React.FC<ItemDateRangeWithInfinityProps> = ({
       return currentDate > dayjs(endDate).endOf(dayUnit);
     }
     return false;
-  }
+  };
 
   const disabledEndDate = (currentDate: Dayjs) => {
     if (strict && currentDate < dayjs().startOf(dayUnit)) {
@@ -58,14 +62,14 @@ const ItemDateRangeWithInfinity: React.FC<ItemDateRangeWithInfinityProps> = ({
       return currentDate < dayjs(startDate).startOf(dayUnit);
     }
     return false;
-  }
+  };
 
   const transform = (val: any) => {
     if (val) {
       return dayjs(val).format(format as string);
     }
     return val;
-  }
+  };
 
   return (
     <BizFormItem required={required} style={{ marginBottom: 0, ...style }} {...restProps}>
@@ -99,7 +103,11 @@ const ItemDateRangeWithInfinity: React.FC<ItemDateRangeWithInfinityProps> = ({
                 } else {
                   // 避免通过 setFieldValue 赋值导致结束日期小雨开始日期
                   const startDate = form.getFieldValue(names[0]);
-                  if (startDate && dayjs(value).startOf(dayUnit).diff(dayjs(startDate).startOf(dayUnit), dayUnit) < 0) {
+                  if (
+                    startDate &&
+                    dayjs(value).startOf(dayUnit).diff(dayjs(startDate).startOf(dayUnit), dayUnit) <
+                      0
+                  ) {
                     errMsg = '不能小于开始日期';
                   }
                 }
@@ -124,6 +132,6 @@ const ItemDateRangeWithInfinity: React.FC<ItemDateRangeWithInfinityProps> = ({
       </Space>
     </BizFormItem>
   );
-}
+};
 
 export default ItemDateRangeWithInfinity;

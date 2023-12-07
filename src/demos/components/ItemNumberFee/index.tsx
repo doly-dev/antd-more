@@ -5,9 +5,7 @@ import { BizFormItem } from 'antd-more';
 import type { InputNumberFeeProps } from './InputNumberFee';
 import InputNumberFee from './InputNumberFee';
 
-interface ItemNumberFeeProps
-  extends BizFormItemProps,
-  Pick<InputNumberFeeProps, 'beforeValue'> {
+interface ItemNumberFeeProps extends BizFormItemProps, Pick<InputNumberFeeProps, 'beforeValue'> {
   inputProps?: InputNumberFeeProps;
   gte?: number;
   lte?: number;
@@ -36,23 +34,20 @@ const ItemNumberFee: React.FC<ItemNumberFeeProps> = ({
             if (!isValidNumber(value, true)) {
               errMsg = required ? `请输入${messageVariables?.label || label}` : '';
             } else if (isValidNumber(gte) && value < gte) {
-              errMsg = `不能小于${gte}`;
+              errMsg = `\${label}必须大于或等于${gte}`;
             } else if (isValidNumber(lte) && value > lte) {
-              errMsg = `不能大于${lte}`;
+              errMsg = `\${label}必须小于或等于${lte}`;
             }
             if (errMsg) {
               return Promise.reject(errMsg);
             }
             return Promise.resolve();
-          },
-        },
+          }
+        }
       ]}
       {...restProps}
     >
-      <InputNumberFee
-        beforeValue={beforeValue}
-        {...inputProps}
-      />
+      <InputNumberFee beforeValue={beforeValue} {...inputProps} />
     </BizFormItem>
   );
 };
