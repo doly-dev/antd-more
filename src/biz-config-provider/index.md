@@ -18,3 +18,9 @@ nav:
 ### 嵌套
 
 <code src="./demos/nested.tsx"></code>
+
+### 组件配置
+
+支持 `BizDescriptions` `BizForm` `BizTable` 组件的部分通用属性配置。
+
+<code src="./demos/comp.tsx"></code>

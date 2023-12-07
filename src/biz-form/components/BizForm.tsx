@@ -5,6 +5,7 @@ import List from './List';
 
 import BaseForm from './BaseForm';
 import type { BaseFormProps, FormExtraInstance } from './BaseForm';
+import { useConfig } from '../../biz-config-provider';
 
 export type BizFormProps = BaseFormProps;
 export type BizFormExtraInstance<Values = any> = FormExtraInstance<Values>;
@@ -17,21 +18,20 @@ const BizForm: React.FC<BizFormProps> & {
   ErrorList: typeof Form.ErrorList;
   useFormInstance: typeof Form.useFormInstance;
   useWatch: typeof Form.useWatch;
-} = ({ submitter, ...restProps }) => {
+} = (props) => {
+  const { bizForm: contextProps } = useConfig();
+  const { submitter, ...restProps } = { ...contextProps, ...props };
   const submitterProps = typeof submitter === 'boolean' || !submitter ? {} : submitter;
   const submitterConfig =
     typeof submitter === 'undefined' || submitter
       ? {
-        render: (_, dom) => (
-          <Item
-            placeholderLabel
-            style={{ marginBottom: 0 }}
-          >
-            {Array.isArray(dom) && dom.length > 1 ? <Space>{dom}</Space> : dom}
-          </Item>
-        ),
-        ...submitterProps
-      }
+          render: (_, dom) => (
+            <Item placeholderLabel style={{ marginBottom: 0 }}>
+              {Array.isArray(dom) && dom.length > 1 ? <Space>{dom}</Space> : dom}
+            </Item>
+          ),
+          ...submitterProps
+        }
       : false;
 
   return (

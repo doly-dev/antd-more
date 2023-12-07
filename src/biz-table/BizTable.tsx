@@ -69,7 +69,8 @@ export declare interface BizTableProps<RecordType = any>
 }
 
 function BizTable<RecordType extends object = any>(props: BizTableProps<RecordType>) {
-  const { locale } = useConfig();
+  const { locale, bizTable: contextProps } = useConfig();
+  const mergeProps = { ...contextProps, ...props };
   const {
     formItems,
     formRef,
@@ -107,7 +108,7 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
     onChange,
     size: defaultSize,
     ...restProps
-  } = props;
+  } = mergeProps;
 
   const actionCacheKey = React.useMemo(() => createActionCacheKey(), []);
   const editableKeyMap = React.useRef({}); // 可编辑项的namePath映射
@@ -401,6 +402,13 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
         currentDataSource: tableProps.dataSource || [],
         action: actionCache[actionCacheKey] || extraOut?.action || 'submit'
       };
+      if (!autoRequest && !request) {
+        const { dataSource = [] } = restProps;
+        return Promise.resolve({
+          list: dataSource,
+          total: dataSource.length
+        });
+      }
       return request(param, filters, sorter, extra).then((res) => ({
         list: res.data,
         total: res.total
@@ -586,7 +594,7 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
     </Card>
   );
 
-  const renderTable = () => (tableRender ? tableRender(props, tableDom) : tableDom);
+  const renderTable = () => (tableRender ? tableRender(mergeProps, tableDom) : tableDom);
 
   const wrapperDefaultStyle = isFullScreen
     ? {

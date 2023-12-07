@@ -99,7 +99,6 @@ function Demo() {
         pagination={{ pageSize: 1, showSizeChanger: false }}
         className="custom-class"
         size="large"
-        compact
       />
     </BizConfigProvider>
   );
