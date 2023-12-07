@@ -6,6 +6,7 @@ import BizField from '../biz-field';
 import type { BizFieldValueType, EnumData, BizFieldProps } from '../biz-field';
 import WithTooltip from './WithTooltip';
 import type { WithTooltipProps } from './WithTooltip';
+import { useConfig } from '../biz-config-provider';
 
 export interface BizDescriptionsItemProps<DataType extends object = any>
   extends DescriptionsItemProps {
@@ -13,8 +14,8 @@ export interface BizDescriptionsItemProps<DataType extends object = any>
   valueEnum?: EnumData;
   tooltip?: WithTooltipProps['tooltip'];
   field?:
-  | Partial<BizFieldProps>
-  | ((text: any, record?: DataType, index?: number) => Partial<BizFieldProps>);
+    | Partial<BizFieldProps>
+    | ((text: any, record?: DataType, index?: number) => Partial<BizFieldProps>);
   key?: string | number;
   dataSource?: DataType;
   index?: number;
@@ -51,8 +52,8 @@ type DataIndex = string | number;
 export interface BizDescriptionsColumnItemProps<DataType extends object = any>
   extends Omit<BizDescriptionsItemProps<DataType>, 'children' | 'field'> {
   field?:
-  | Partial<BizFieldProps>
-  | ((text: any, record: DataType, index: number) => Partial<BizFieldProps>);
+    | Partial<BizFieldProps>
+    | ((text: any, record: DataType, index: number) => Partial<BizFieldProps>);
   dataIndex?: DataIndex | DataIndex[];
   title?: React.ReactNode;
   render?: (value: any, dataSource: DataType, index: number) => React.ReactNode;
@@ -64,16 +65,22 @@ export interface BizDescriptionsProps<DataType extends object = any> extends Des
   tooltip?: WithTooltipProps['tooltip'];
 }
 
-function BizDescriptions<DataType extends object = any>({
-  dataSource,
-  columns,
-  children,
-  title: outTitle,
-  tooltip,
-  ...restProps
-}: BizDescriptionsProps<DataType>) {
+function BizDescriptions<DataType extends object = any>(props: BizDescriptionsProps<DataType>) {
+  const { bizDescriptions: contextProps } = useConfig();
+  const {
+    dataSource,
+    columns,
+    children,
+    title: outTitle,
+    tooltip,
+    ...restProps
+  } = {
+    ...contextProps,
+    ...props
+  };
+
   const title = React.useMemo(
-    () => outTitle && tooltip ? <WithTooltip label={outTitle} tooltip={tooltip} /> : outTitle,
+    () => (outTitle && tooltip ? <WithTooltip label={outTitle} tooltip={tooltip} /> : outTitle),
     [outTitle, tooltip]
   );
 
