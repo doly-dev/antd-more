@@ -54,8 +54,16 @@ ReactDon.render(<BizField value="red" valueType="color" />, mountNode);
   - [Modal/Drawer] - 浮层表单
   - [QueryForm] - 查询表单
   - [StepsForm] - 分步表单
-- **布局**
+- **其他**
+  - [BizConfigProvider] - 上下文配置
   - [BizUserLayout] - 用户界面布局
+- **通用**
+  - [CaptchaButton] - 验证码按钮
+  - [Color] - 颜色
+  - [Dictionary] - 数据字典
+  - [FileViewer] - 文件预览
+  - [InputIcon] - 图标输入
+  - [TreeTable] - 树表格
 
 ## 精选第三方 react 组件
 
@@ -65,23 +73,27 @@ ReactDon.render(<BizField value="red" valueType="color" />, mountNode);
 [npm]: https://img.shields.io/npm/v/antd-more.svg
 [npm-url]: https://npmjs.com/package/antd-more
 [site]: https://doly-dev.github.io/antd-more/latest/index.html
-[babel-plugin-import]: https://www.npmjs.com/package/babel-plugin-import
 [doly]: https://www.npmjs.com/package/doly-cli
 [umi]: https://umijs.org/zh-CN
 [antd]: https://ant-design.gitee.io
-[captchabutton]: /components/captcha-button
-[color]: /components/color
-[dictionary]: /components/dictionary
-[bizdescriptions]: /components/biz-descriptions
-[bizfield]: /components/biz-field
-[biztable]: /components/biz-table
-[editablebiztable]: /components/editable-biz-table
-[bizform]: /components/biz-form
-[bizformitem]: /components/item
-[bizformlist]: /components/list
-[modal/drawer]: /components/modal-form
-[queryform]: /components/query-form
-[stepsform]: /components/steps-form
-[bizuserlayout]: /components/biz-user-layout
+[captchabutton]: https://doly-dev.github.io/antd-more/refs/heads/v3/index.html#/components/captcha-button
+[color]: https://doly-dev.github.io/antd-more/refs/heads/v3/index.html#/components/color
+[dictionary]: https://doly-dev.github.io/antd-more/refs/heads/v3/index.html#/components/dictionary
+[bizdescriptions]: https://doly-dev.github.io/antd-more/refs/heads/v3/index.html#/components/biz-descriptions
+[bizfield]: https://doly-dev.github.io/antd-more/refs/heads/v3/index.html#/components/biz-field
+[biztable]: https://doly-dev.github.io/antd-more/refs/heads/v3/index.html#/components/biz-table
+[editablebiztable]: https://doly-dev.github.io/antd-more/refs/heads/v3/index.html#/components/editable-biz-table
+[bizform]: https://doly-dev.github.io/antd-more/refs/heads/v3/index.html#/components/biz-form
+[bizformitem]: https://doly-dev.github.io/antd-more/refs/heads/v3/index.html#/components/item
+[bizformlist]: https://doly-dev.github.io/antd-more/refs/heads/v3/index.html#/components/list
+[modal/drawer]: https://doly-dev.github.io/antd-more/refs/heads/v3/index.html#/components/modal-form
+[queryform]: https://doly-dev.github.io/antd-more/refs/heads/v3/index.html#/components/query-form
+[stepsform]: https://doly-dev.github.io/antd-more/refs/heads/v3/index.html#/components/steps-form
+[BizConfigProvider]: https://doly-dev.github.io/antd-more/refs/heads/v3/index.html#/components/biz-config-provider
+[BizUserLayout]: https://doly-dev.github.io/antd-more/refs/heads/v3/index.html#/components/biz-user-layout
+[FileViewer]: https://doly-dev.github.io/antd-more/refs/heads/v3/index.html#/components/file-viewer
+[InputIcon]: https://doly-dev.github.io/antd-more/refs/heads/v3/index.html#/components/input-icon
+[TreeTable]: https://doly-dev.github.io/antd-more/refs/heads/v3/index.html#/components/tree-table
+[what is commitlint]: https://github.com/conventional-changelog/commitlint#what-is-commitlint
 [qrcode.react]: https://www.npmjs.com/package/qrcode.react
 [wangeditor]: https://www.npmjs.com/package/wangeditor
