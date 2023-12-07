@@ -20,11 +20,12 @@ toc: content
 - [QueryForm] - 查询表单
 - [StepsForm] - 分步表单
 
-## 页面布局
+### 其他
 
+- [BizConfigProvider] - 上下文配置
 - [BizUserLayout] - 用户界面布局
 
-## 通用
+### 通用
 
 - [CaptchaButton] - 验证码按钮
 - [Color] - 颜色
@@ -50,3 +51,4 @@ toc: content
 [inputicon]: /components/input-icon
 [treetable]: /components/tree-table
 [fileviewer]: /components/file-viewer
+[BizConfigProvider]: /components/biz-config-provider

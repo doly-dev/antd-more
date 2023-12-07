@@ -62,8 +62,9 @@ ReactDon.render(<BizField value="red" valueType="color" />, mountNode);
 - [QueryForm] - 查询表单
 - [StepsForm] - 分步表单
 
-### 页面布局
+### 其他
 
+- [BizConfigProvider] - 上下文配置
 - [BizUserLayout] - 用户界面布局
 
 ### 通用
@@ -99,6 +100,7 @@ ReactDon.render(<BizField value="red" valueType="color" />, mountNode);
 [queryform]: https://doly-dev.github.io/antd-more/latest/components/query-form
 [stepsform]: https://doly-dev.github.io/antd-more/latest/components/steps-form
 [bizuserlayout]: https://doly-dev.github.io/antd-more/latest/components/biz-user-layout
+[BizConfigProvider]: https://doly-dev.github.io/antd-more/latest/components/biz-config-provider
 [inputicon]: https://doly-dev.github.io/antd-more/latest/components/input-icon
 [fileviewer]: https://doly-dev.github.io/antd-more/latest/components/file-viewer
 [treetable]: https://doly-dev.github.io/antd-more/latest/components/tree-table
