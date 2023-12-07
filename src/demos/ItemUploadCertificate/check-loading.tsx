@@ -25,14 +25,14 @@ function Demo() {
 
   return (
     <BizForm
-      onFinish={values => {
+      onFinish={(values) => {
         console.log(values);
         return checkLoadingCountIsZero();
       }}
     >
       <ItemUploadCertificate
-        name='materials'
-        label='证件材料'
+        name="materials"
+        label="证件材料"
         maxCount={9}
         required
         onUpload={wrapperFileUpload}
@@ -41,7 +41,7 @@ function Demo() {
             validator(rule, value) {
               const realValue = uploadFileToFssid(value);
               if (realValue.length <= 0) {
-                return Promise.reject('请上传证件材料');
+                return Promise.reject('请上传${label}');
               }
               return Promise.resolve();
             }

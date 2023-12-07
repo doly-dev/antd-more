@@ -50,7 +50,7 @@ const Demo = () => {
           {
             min: 6,
             max: 32,
-            message: '用户名为6～32位'
+            message: '${label}为6～32位'
           }
         ]}
       />
