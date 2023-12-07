@@ -1,6 +1,6 @@
 {
   "name": "antd-more",
-  "version": "4.1.54",
+  "version": "4.2.0",
   "description": "基于 antd 扩展的业务场景组件。",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
