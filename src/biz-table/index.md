@@ -18,13 +18,13 @@ nav:
 
 只需定义 `request` `rowKey` `columns` 。
 
-<code src="./demos/Demo1.tsx" background="#f5f5f5" />
+<code src="./demos/Demo1.tsx" background="rgba(0,0,0,0.1)" />
 
 ### 复杂列表页
 
 自定义查询表单操作，表单默认值，默认展示 1 个表单项，扩展区域，工具栏区域。
 
-<code src="./demos/Demo2.tsx" background="#f5f5f5" />
+<code src="./demos/Demo2.tsx" background="rgba(0,0,0,0.1)" />
 
 ### 自定义渲染字段
 
@@ -32,11 +32,11 @@ nav:
 
 将 BizField 不支持的展示字段，抽象到 `utils/field.tsx` 文件。
 
-<code src="./demos/define-render.tsx" background="#f5f5f5" />
+<code src="./demos/define-render.tsx" background="rgba(0,0,0,0.1)" />
 
 ### 普通表格
 
-<code src="./demos/Demo3.tsx" background="#f5f5f5" />
+<code src="./demos/Demo3.tsx" background="rgba(0,0,0,0.1)" />
 
 ### formItems 配置
 
@@ -44,13 +44,13 @@ nav:
 
 当有 `formItems` 配置时， `columns` 配置的 `search` 将失效。
 
-<code src="./demos/formItems.tsx" background="#f5f5f5" />
+<code src="./demos/formItems.tsx" background="rgba(0,0,0,0.1)" />
 
 ### 异步初始值查询表单
 
 5 秒后获取到初始值再发起请求。
 
-<code src="./demos/async-initial-values.tsx" background="#f5f5f5" />
+<code src="./demos/async-initial-values.tsx" background="rgba(0,0,0,0.1)" />
 
 ### 手动设置查询表单
 
@@ -58,13 +58,13 @@ nav:
 
 > 如果需要自动获取 URL 的 search 并且支持 keep-alive 激活时调用，可参考 [未展示示例](https://github.com/doly-dev/antd-more/blob/master/src/biz-table/demos/search-form-ref-2.tsx#L107) 的 init 方法。
 
-<code src="./demos/search-form-ref-1.tsx" background="#f5f5f5" />
+<code src="./demos/search-form-ref-1.tsx" background="rgba(0,0,0,0.1)" />
 
 ### 仅使用 field 转换功能
 
 仅使用表格的 `field` 转换功能，如果不使用 `request`，需将 `autoRequest` 设为 `false`。
 
-<code src="./demos/freight.tsx" background="#f5f5f5" />
+<code src="./demos/freight.tsx" background="rgba(0,0,0,0.1)" />
 
 ### 自动轮询
 
@@ -72,11 +72,11 @@ nav:
 
 你可以输入查询表单，再打开控制台查看请求参数。
 
-<code src="./demos/polling.tsx" background="#f5f5f5"></code>
+<code src="./demos/polling.tsx" background="rgba(0,0,0,0.1)"></code>
 
 ### 更多查询表单项
 
-<code src="./demos/Demo4.tsx" background="#f5f5f5" />
+<code src="./demos/Demo4.tsx" background="rgba(0,0,0,0.1)" />
 
 ## API
 
@@ -94,7 +94,7 @@ nav:
 | toolbar | 工具栏，表格内的上面区域 | `ReactNode` | - |
 | toolbarAction | 工具栏右侧显示内置工具 | `boolean \| { reload?: boolean; density?: boolean; fullScreen?: boolean; columnSetting?: boolean; }` | `false` |
 | toolbarRender | 自定义工具栏渲染。<br/>如果有设置 toolbarAction，参数 dom 包含了右侧内置工具。 | `(dom: ReactElement) => ReactNode` | - |
-| fullScreenBackgroundColor | 全屏时显示的背景颜色 | `string` | `#ffffff` |
+| fullScreenBackgroundColor | 全屏时显示的背景颜色 | `string` | `rgba(255,255,255,0.25)` |
 | extra | 扩展内容，表格外的上面、查询表单下面的区域 | `ReactNode` | - |
 | form | 同 [QueryForm] 配置参数 | [QueryFormProps] | - |
 | formRef | 获取查询表单的 `form` 实例 | `MutableRefObject<FormInstance \| undefined>` | - |

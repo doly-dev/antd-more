@@ -90,7 +90,7 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
     style,
     tableClassName,
     tableStyle,
-    fullScreenBackgroundColor = '#fff',
+    fullScreenBackgroundColor = 'rgba(255,255,255,0.25)',
     asyncOptions,
 
     request,

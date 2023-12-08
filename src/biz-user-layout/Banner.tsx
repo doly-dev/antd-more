@@ -2,7 +2,7 @@ import * as React from 'react';
 import type { CarouselProps } from 'antd';
 import { Carousel } from 'antd';
 import { prefixClass } from './config';
-import './Banner.less';
+import './index.less';
 
 const prefixCls = `${prefixClass}-banner`;
 
@@ -13,10 +13,7 @@ export type BannerItemObject = {
   onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
 };
 
-export type BannerItem =
-  | BannerItemObject
-  | React.ReactElement
-  | string;
+export type BannerItem = BannerItemObject | React.ReactElement | string;
 
 export interface BannerProps {
   data?: BannerItem[]; // 支持单张和多张，配置链接

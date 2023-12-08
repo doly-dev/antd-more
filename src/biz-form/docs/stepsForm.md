@@ -30,7 +30,7 @@ nav:
 
 ### 忘记密码 2
 
-<code src="../demos/steps-form-5.tsx" background="#f5f5f5" />
+<code src="../demos/steps-form-5.tsx" background="rgba(0,0,0,0.1)" />
 
 ### 与 Modal 配合使用
 

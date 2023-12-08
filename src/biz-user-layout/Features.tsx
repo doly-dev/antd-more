@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Row, Col } from 'antd';
 import { prefixClass } from './config';
-import './Features.less';
+import './index.less';
 
 const prefixCls = `${prefixClass}-features`;
 

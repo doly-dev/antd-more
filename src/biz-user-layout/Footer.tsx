@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Space } from 'antd';
 import { prefixClass } from './config';
-import './Footer.less';
+import './index.less';
 
 const prefixCls = `${prefixClass}-footer`;
 
