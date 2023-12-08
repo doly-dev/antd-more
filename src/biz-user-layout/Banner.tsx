@@ -2,7 +2,7 @@ import * as React from 'react';
 import type { CarouselProps } from 'antd';
 import { Carousel } from 'antd';
 import { prefixClass } from './config';
-import './Banner.less';
+import './index.less';
 
 const prefixCls = `${prefixClass}-banner`;
 

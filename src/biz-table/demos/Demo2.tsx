@@ -167,7 +167,7 @@ const Demo = () => {
         </Space>
       }
       toolbarAction
-      fullScreenBackgroundColor="#f5f5f5"
+      fullScreenBackgroundColor="rgba(0,0,0,0.1)"
       extra={<Card bordered={false}>Extra Block!</Card>}
     />
   );

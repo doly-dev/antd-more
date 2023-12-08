@@ -46,7 +46,7 @@ toc: content
 
 ### 含查询表单和分页
 
-<code src="../../src/biz-table/demos/editable-request-1.tsx" background="#f5f5f5"></code>
+<code src="../../src/biz-table/demos/editable-request-1.tsx" background="rgba(0,0,0,0.1)"></code>
 
 ## API
 

@@ -3,7 +3,7 @@ import type { CarouselProps, ColProps, RowProps } from 'antd';
 import { Carousel, Row, Col } from 'antd';
 import type { BannerItem, BannerItemObject } from './Banner';
 import { prefixClass } from './config';
-import './Side.less';
+import './index.less';
 
 const prefixCls = `${prefixClass}-side`;
 

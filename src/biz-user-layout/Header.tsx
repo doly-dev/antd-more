@@ -1,7 +1,7 @@
 import * as React from 'react';
 import classnames from 'classnames';
 import { prefixClass } from './config';
-import './Header.less';
+import './index.less';
 
 const prefixCls = `${prefixClass}-header`;
 
@@ -21,13 +21,7 @@ const Header: React.FC<HeaderProps> = ({ logo, title, headerRightContent, onClic
       })}
     >
       <div className={`${prefixCls}-main`} onClick={onClickLogo}>
-        {
-          logo && (
-            <div className={`${prefixCls}-logo`}>
-              {logo}
-            </div>
-          )
-        }
+        {logo && <div className={`${prefixCls}-logo`}>{logo}</div>}
         {title && <div className={`${prefixCls}-title`}>{title}</div>}
       </div>
       {headerRightContent && <div className={`${prefixCls}-right`}>{headerRightContent}</div>}

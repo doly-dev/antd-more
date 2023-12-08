@@ -27,7 +27,7 @@ toc: content
 
 ### 忘记密码 2
 
-<code src="../../src/biz-form/demos/steps-form-5.tsx" background="#f5f5f5"></code>
+<code src="../../src/biz-form/demos/steps-form-5.tsx" background="rgba(0,0,0,0.1)"></code>
 
 ### 与 Modal 配合使用
 
