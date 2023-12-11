@@ -12,7 +12,7 @@ export type DeepPartial<V> = {
 export type Locale = typeof zhCN;
 
 type Config = {
-  locale?: Locale;
+  locale: Locale;
   children?: React.ReactNode;
 
   bizDescriptions?: Pick<

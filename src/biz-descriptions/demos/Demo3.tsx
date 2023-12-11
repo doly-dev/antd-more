@@ -39,7 +39,7 @@ const Demo = () => {
   return (
     <BizDescriptions<typeof data> dataSource={data} columns={columns}>
       <BizDescriptions.Item label="Label1" valueType="text">
-        {}
+        {''}
       </BizDescriptions.Item>
       <BizDescriptions.Item label="Label2" span={2}>
         测试文本
