@@ -20,7 +20,7 @@ const localeValues = {
       cancel: 'Cancel'
     },
     dateRange: {
-      uint: {
+      unit: {
         time: 'hours',
         date: 'days',
         week: 'weeks',

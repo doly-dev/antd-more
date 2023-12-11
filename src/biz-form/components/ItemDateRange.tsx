@@ -109,7 +109,7 @@ const BizFormItemDateRange: React.FC<BizFormItemDateRangeProps> = ({
               if (t2.diff(t1, MomentScale[currentPicker]) >= range) {
                 errMsg = locale.form.dateRange.maxRange(
                   maxRange,
-                  locale.form.dateRange.uint[currentPicker]
+                  locale.form.dateRange.unit[currentPicker]
                 );
               }
             }
