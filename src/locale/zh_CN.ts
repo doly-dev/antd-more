@@ -20,7 +20,7 @@ const localeValues = {
       cancel: '取消'
     },
     dateRange: {
-      uint: {
+      unit: {
         time: '小时',
         date: '天',
         week: '周',
