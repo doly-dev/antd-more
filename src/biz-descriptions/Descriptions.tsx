@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { isArray } from 'ut2';
 import { Descriptions } from 'antd';
 import type { DescriptionsProps } from 'antd';
 import type { DescriptionsItemProps } from 'antd/lib/descriptions/Item';
@@ -97,7 +98,7 @@ function BizDescriptions<DataType extends object = any>(props: BizDescriptionsPr
   if (
     typeof dataSource === 'object' &&
     dataSource !== null &&
-    Array.isArray(columns) &&
+    isArray(columns) &&
     columns.length > 0
   ) {
     return (
@@ -109,7 +110,7 @@ function BizDescriptions<DataType extends object = any>(props: BizDescriptionsPr
             index
           ) => {
             let currentDataValue;
-            if (Array.isArray(dataIndex)) {
+            if (isArray(dataIndex)) {
               currentDataValue = dataIndex.map((subItem) => dataSource[subItem]);
             } else if (typeof dataIndex === 'string' || typeof dataIndex === 'number') {
               currentDataValue = dataSource[dataIndex];

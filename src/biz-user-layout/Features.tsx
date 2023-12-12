@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { isArray } from 'ut2';
 import { Row, Col } from 'antd';
 import { prefixClass } from './config';
 import './index.less';
@@ -24,7 +25,7 @@ export interface FeaturesProps {
 }
 
 const Features: React.FC<FeaturesProps> = ({ data = [] }) => {
-  if (!Array.isArray(data) || data.length <= 0) {
+  if (!isArray(data) || data.length <= 0) {
     return null;
   }
 

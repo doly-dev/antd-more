@@ -1,4 +1,5 @@
 import React from 'react';
+import { isArray } from 'ut2';
 import classnames from 'classnames';
 import type { BizFormItemProps } from 'antd-more';
 import { BizFormItem } from 'antd-more';
@@ -8,7 +9,7 @@ import UploadCertificate from './UploadCertificate';
 
 const normFile = (e: any) => {
   // console.log('Upload event:', e);
-  if (Array.isArray(e)) {
+  if (isArray(e)) {
     return e;
   }
   return e?.fileList;

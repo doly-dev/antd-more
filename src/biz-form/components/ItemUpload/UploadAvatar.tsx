@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { isArray } from 'ut2';
 import { Tooltip } from 'antd';
 import { PictureOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
@@ -16,7 +17,7 @@ const UploadAvatar: React.FC<{
 }> = ({ fileList, icon, title }) => {
   const [imgUrl, setImgUrl] = React.useState('');
   const currentFile = React.useMemo(() => {
-    return Array.isArray(fileList) && fileList.length > 0 ? fileList[0] : null;
+    return isArray(fileList) && fileList.length > 0 ? fileList[0] : null;
   }, [fileList]);
   const uploading = currentFile?.status === 'uploading';
 

@@ -3,7 +3,7 @@ import type { TableProps } from 'antd';
 import { Checkbox, Table } from 'antd';
 import { useControllableValue, useLatest, useSafeState } from 'rc-hooks';
 import { findTreeNode } from 'util-helpers';
-import { omit, isEmpty } from 'ut2';
+import { omit, isEmpty, isArray } from 'ut2';
 import classNames from 'classnames';
 import type { ValueType, TreeTableDataItem, TreeTableData, TreeTableFieldNames } from './type';
 import './index.less';
@@ -211,7 +211,7 @@ function findChildrenByValue(
   fieldNames: TreeTableFieldNames
 ): TreeTableData {
   const { value: valueKey, children: childrenKey } = fieldNames;
-  const currentItem = findTreeNode(data, item => item[valueKey] === value, childrenKey);
+  const currentItem = findTreeNode(data, (item) => item[valueKey] === value, childrenKey);
   return currentItem?.[childrenKey] || EmptyArray;
 }
 
@@ -392,7 +392,7 @@ const TreeTable: React.FC<TreeTableProps> = (props) => {
       // 处理所有子级勾选/不勾选
       childValues.forEach((item) => {
         if (currentChecked) {
-          if (checkListRef.current.find(checkItem => checkItem === item[valueKey])) {
+          if (checkListRef.current.find((checkItem) => checkItem === item[valueKey])) {
             newCheckList.delete(item[valueKey]);
           }
         } else if (!item.disabled) {
@@ -438,7 +438,12 @@ const TreeTable: React.FC<TreeTableProps> = (props) => {
 
   const realColumns = React.useMemo(() => {
     // 优化没有数据时的表格标题展示
-    const internalColumns = Array.isArray(columns) && columns.length > 0 ? columns : (Array.isArray(columnTitles) && columnTitles.length > 0 ? columnTitles.map(() => ({})) : []);
+    const internalColumns =
+      isArray(columns) && columns.length > 0
+        ? columns
+        : isArray(columnTitles) && columnTitles.length > 0
+        ? columnTitles.map(() => ({}))
+        : [];
     return internalColumns.map((item, i) => ({
       ...item,
       title: columnTitles[i] || '-',
@@ -454,22 +459,31 @@ const TreeTable: React.FC<TreeTableProps> = (props) => {
 
         return col[valueKey]
           ? col.data.map((subItem) => (
-            <Checkbox
-              checked={(checkList || EmptyArray).includes(subItem[valueKey])}
-              indeterminate={indeterminateList.includes(subItem[valueKey])}
-              onChange={() => {
-                handleChange(subItem);
-              }}
-              disabled={subItem.disabled}
-              key={subItem[valueKey]}
-            >
-              {labelRender ? labelRender(subItem) : subItem[labelKey] || subItem[valueKey]}
-            </Checkbox>
-          ))
+              <Checkbox
+                checked={(checkList || EmptyArray).includes(subItem[valueKey])}
+                indeterminate={indeterminateList.includes(subItem[valueKey])}
+                onChange={() => {
+                  handleChange(subItem);
+                }}
+                disabled={subItem.disabled}
+                key={subItem[valueKey]}
+              >
+                {labelRender ? labelRender(subItem) : subItem[labelKey] || subItem[valueKey]}
+              </Checkbox>
+            ))
           : '-';
       }
     }));
-  }, [checkList, columnTitles, columns, handleChange, indeterminateList, labelKey, labelRender, valueKey]);
+  }, [
+    checkList,
+    columnTitles,
+    columns,
+    handleChange,
+    indeterminateList,
+    labelKey,
+    labelRender,
+    valueKey
+  ]);
 
   return (
     <Table

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useUpdateEffect, useControllableValue } from 'rc-hooks';
-import { uniqueId } from 'ut2';
+import { isArray, uniqueId } from 'ut2';
 import type { BizFormProps, BizFormExtraInstance } from '../../biz-form';
 import { BizForm } from '../../biz-form';
 import ChildFormContext from '../../biz-form/ChildFormContext';
@@ -63,7 +63,9 @@ export interface EditableBizTableProps<RecordType extends object = any>
   onTableChange?: BizTableProps<RecordType>['onChange'];
 }
 
-const EditableBizTable = <RecordType extends object = any>(props: EditableBizTableProps<RecordType>) => {
+const EditableBizTable = <RecordType extends object = any>(
+  props: EditableBizTableProps<RecordType>
+) => {
   const {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     value: outValue,
@@ -91,7 +93,7 @@ const EditableBizTable = <RecordType extends object = any>(props: EditableBizTab
 
   const editableKeyMapRef = React.useRef<{ value: Record<string, any> }>();
   const triggerTimer = React.useRef(null);
-  const innerTriggerFlag = React.useRef(false); // 标识内部触发 onValusChange 
+  const innerTriggerFlag = React.useRef(false); // 标识内部触发 onValusChange
 
   const { regChildForm, unregChildForm } = React.useContext(ChildFormContext) || {};
 
@@ -206,7 +208,7 @@ const EditableBizTable = <RecordType extends object = any>(props: EditableBizTab
   };
 
   const clearFieldsByRowKey = (rowKey: Key | Key[]) => {
-    const rowKeys = Array.isArray(rowKey) ? rowKey : [rowKey];
+    const rowKeys = isArray(rowKey) ? rowKey : [rowKey];
     const formValues = form.getFieldsValue();
     rowKeys.forEach((item) => {
       delete formValues[item];
@@ -219,8 +221,7 @@ const EditableBizTable = <RecordType extends object = any>(props: EditableBizTab
   const handleReset = (rowKey: Key) => {
     const editableValues = editableKeyMapRef.current.value;
     if (rowKey) {
-      editableValues[rowKey]?.nameList &&
-        form.resetFields(editableValues[rowKey]?.nameList);
+      editableValues[rowKey]?.nameList && form.resetFields(editableValues[rowKey]?.nameList);
     } else {
       form.resetFields();
     }

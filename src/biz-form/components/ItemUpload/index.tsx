@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { isArray } from 'ut2';
 import type { UploadProps } from '../antd.interface';
 import type { BizFormItemProps } from '../Item';
 import BizFormItem from '../Item';
@@ -11,7 +12,7 @@ import Preview from './Preview';
 import { useConfig } from '../../../biz-config-provider';
 
 const normFile = (e) => {
-  if (Array.isArray(e)) {
+  if (isArray(e)) {
     return e;
   }
   return e && e.fileList;
@@ -90,7 +91,7 @@ const BizFormItemUpload: React.FC<BizFormItemUploadProps> & {
             let errMsg = '';
             const realValue = value && typeof transform === 'function' ? transform(value) : value;
 
-            if (!realValue || (Array.isArray(realValue) && realValue.length <= 0)) {
+            if (!realValue || (isArray(realValue) && realValue.length <= 0)) {
               errMsg = required ? locale.form.common.uploadRequired : '';
             }
             if (errMsg) {

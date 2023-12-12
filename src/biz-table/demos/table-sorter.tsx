@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Table } from 'antd';
-import { sleep } from 'ut2';
+import { isArray, sleep } from 'ut2';
 
 type DataType = {
   name: string;
@@ -39,7 +39,7 @@ const Demo = () => {
       rowKey="name"
       onChange={(page, filters, sorter, extra) => {
         console.log(page, filters, sorter, extra);
-        if (!Array.isArray(sorter)) {
+        if (!isArray(sorter)) {
           console.log(sorter.order);
         }
       }}

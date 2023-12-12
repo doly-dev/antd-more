@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { isArray } from 'ut2';
 
 const MOMENT_INVALID_DATE = 'Invalid date';
 
@@ -45,7 +46,7 @@ export function getDateStr(value, type, format) {
   const fmt = format || DateFormat[type];
 
   if (type === 'dateRange' || type === 'dateTimeRange' || type === 'timeRange') {
-    const [startDate, endDate] = Array.isArray(value) ? value : [];
+    const [startDate, endDate] = isArray(value) ? value : [];
     const startText = startDate ? transformDateString(startDate, type, fmt) : '';
     const endText = endDate ? transformDateString(endDate, type, fmt) : '';
     str = `${startText} ~ ${endText}`;

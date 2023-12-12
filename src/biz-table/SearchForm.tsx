@@ -1,7 +1,7 @@
 import * as React from 'react';
 import type { CardProps, FormInstance } from 'antd';
 import { Card } from 'antd';
-import { uniqueId } from 'ut2';
+import { isArray, uniqueId } from 'ut2';
 import type { QueryFormProps } from '../biz-form';
 import { BizForm, QueryForm } from '../biz-form';
 import createFormItems from './_util/createFormItems';
@@ -19,16 +19,13 @@ const SearchForm: React.FC<SearchFormProps> = React.forwardRef(
     let items = [];
     const [form] = BizForm.useForm();
 
-    if (Array.isArray(formItems) && formItems.length > 0) {
+    if (isArray(formItems) && formItems.length > 0) {
       items = formItems;
-    } else if (Array.isArray(searchItems) && searchItems.length > 0) {
+    } else if (isArray(searchItems) && searchItems.length > 0) {
       items = createFormItems(searchItems, form);
     }
 
-    const formName = React.useMemo(
-      () => name || uniqueId('__am_bizTableSearchForm_'),
-      [name]
-    );
+    const formName = React.useMemo(() => name || uniqueId('__am_bizTableSearchForm_'), [name]);
     React.useImperativeHandle(ref, () => form, [form]);
 
     if (items.length <= 0) {

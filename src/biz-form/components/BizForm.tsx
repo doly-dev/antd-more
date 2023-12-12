@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { isArray } from 'ut2';
 import { Form, Space } from 'antd';
 import Item from './Item';
 import List from './List';
@@ -27,7 +28,7 @@ const BizForm: React.FC<BizFormProps> & {
       ? {
           render: (_, dom) => (
             <Item placeholderLabel style={{ marginBottom: 0 }}>
-              {Array.isArray(dom) && dom.length > 1 ? <Space>{dom}</Space> : dom}
+              {isArray(dom) && dom.length > 1 ? <Space>{dom}</Space> : dom}
             </Item>
           ),
           ...submitterProps

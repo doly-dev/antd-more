@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { isArray } from 'ut2';
 import type { ImageProps } from 'antd';
 import { Image, Typography } from 'antd';
 import classNames from 'classnames';
@@ -31,8 +32,11 @@ const FiledImage: React.FC<FiledImageProps> = ({
   renderName,
   ...restProps
 }) => {
-  const values = React.useMemo(() => (Array.isArray(value) ? value : [value]), [value]);
-  const width = React.useMemo(() => typeof outWidth === 'number' ? outWidth : (parseInt(outWidth) || defaultWidth), [outWidth]);
+  const values = React.useMemo(() => (isArray(value) ? value : [value]), [value]);
+  const width = React.useMemo(
+    () => (typeof outWidth === 'number' ? outWidth : parseInt(outWidth) || defaultWidth),
+    [outWidth]
+  );
   const defaultProps = React.useMemo(() => (bordered ? { height: width } : {}), [bordered, width]);
 
   return (
@@ -48,7 +52,12 @@ const FiledImage: React.FC<FiledImageProps> = ({
                 <Image src={src} width={width} {...defaultProps} {...restProps} />
               </div>
               {name && (
-                <div className={classNames(`${prefixCls}-item-name`, { [`${prefixCls}-item-name-wrap`]: nameWrap })} style={{ width: width + (bordered ? 20 : 0) }}>
+                <div
+                  className={classNames(`${prefixCls}-item-name`, {
+                    [`${prefixCls}-item-name-wrap`]: nameWrap
+                  })}
+                  style={{ width: width + (bordered ? 20 : 0) }}
+                >
                   <Typography.Text ellipsis={nameWrap ? undefined : { tooltip: name }}>
                     {typeof renderName === 'function' ? renderName(name, index, item) : name}
                   </Typography.Text>

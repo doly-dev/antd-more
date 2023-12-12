@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { isArray } from 'ut2';
 import { Space, Button } from 'antd';
 import type { ButtonProps } from '../antd.interface';
 import type { BizFormSubmitterProps } from '../Submitter';
@@ -124,7 +125,7 @@ const StepsFormSubmitter: React.FC<StepsFormSubmitterProps> = (props) => {
   if (!renderDom) {
     return null;
   }
-  if (Array.isArray(renderDom)) {
+  if (isArray(renderDom)) {
     if (renderDom?.length < 1) {
       return null;
     }

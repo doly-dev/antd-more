@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
+import { isArray } from 'ut2';
 import { Badge, Tag, Space } from 'antd';
 import classnames from 'classnames';
 import type { DictionaryProps } from './interface';
@@ -25,7 +26,7 @@ function Dictionary<ValueType = any>({
     }),
     [outFieldNames]
   );
-  const values = Array.isArray(value) ? value : [value];
+  const values = isArray(value) ? value : [value];
   const realOptionName = optionName || type;
   const matchMethod = useCallback(
     (itemValue, currentValue) => {
@@ -36,10 +37,12 @@ function Dictionary<ValueType = any>({
     [match]
   );
 
-  const ret = values.map(curr => valueEnum.find(item => matchMethod(item[valueKey], curr))).filter(item => !!item);
+  const ret = values
+    .map((curr) => valueEnum.find((item) => matchMethod(item[valueKey], curr)))
+    .filter((item) => !!item);
   let view: JSX.Element;
 
-  if (!Array.isArray(ret) || ret.length <= 0) {
+  if (!isArray(ret) || ret.length <= 0) {
     view = <span className={`${prefixCls}-default`}>{defaultLabel}</span>;
   } else {
     view = (
@@ -51,14 +54,22 @@ function Dictionary<ValueType = any>({
           const key = `${item[valueKey]}${typeof label === 'string' ? label : ''}${index}`;
 
           if (type === 'tag') {
-            return <Tag key={key} {...restOptions}>{label}</Tag>;
+            return (
+              <Tag key={key} {...restOptions}>
+                {label}
+              </Tag>
+            );
           }
 
           if (type === 'badge') {
             return <Badge key={key} text={label} {...restOptions} />;
           }
 
-          return <span key={key} {...restOptions}>{label}</span>;
+          return (
+            <span key={key} {...restOptions}>
+              {label}
+            </span>
+          );
         })}
       </>
     );

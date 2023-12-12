@@ -1,5 +1,6 @@
 import type { Moment } from 'moment';
 import moment from 'moment';
+import { isArray } from 'ut2';
 
 // DatePicker picker值
 export type Picker = 'time' | 'date' | 'week' | 'month' | 'quarter' | 'year';
@@ -90,7 +91,7 @@ export function createDisabledDate(picker: Picker = 'date', opts?: CreateDisable
 export function transformMomentValue(val: string | Moment): Moment;
 export function transformMomentValue(val: (string | Moment)[]): [Moment, Moment];
 export function transformMomentValue(val: string | Moment | (string | Moment)[]) {
-  if (Array.isArray(val)) {
+  if (isArray(val)) {
     return val.map((item) => transformMomentValue(item));
   }
   if (typeof val === 'string' && val) {
@@ -103,7 +104,7 @@ export function transformMomentValue(val: string | Moment | (string | Moment)[])
 export function transformMomentTime(time: string | Moment, format?: string): Moment;
 export function transformMomentTime(time: (string | Moment)[], format?: string): [Moment, Moment];
 export function transformMomentTime(time, format = 'HH:mm:ss') {
-  if (Array.isArray(time)) {
+  if (isArray(time)) {
     return time.map((timeItem) => transformMomentTime(timeItem, format));
   }
   if (typeof time === 'string' && time) {
