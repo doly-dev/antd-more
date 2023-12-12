@@ -3,7 +3,7 @@ import { TimePicker } from 'antd';
 import classNames from 'classnames';
 import type { TimeRangePickerProps } from './antd.interface';
 import type { Dayjs } from 'dayjs';
-import { uniqueId } from 'ut2';
+import { isArray, uniqueId } from 'ut2';
 import type { BizFormItemProps } from './Item';
 import BizFormItem from './Item';
 import { transformDayjsTime } from '../_util/dateUtil';
@@ -50,7 +50,7 @@ const BizFormItemTimeRange: React.FC<BizFormItemTimeRangeProps> = ({
   ...restProps
 }) => {
   const { locale } = useConfig();
-  const hasNames = React.useMemo(() => Array.isArray(names) && names.length > 0, [names]);
+  const hasNames = React.useMemo(() => isArray(names) && names.length > 0, [names]);
   const currentName = React.useMemo(
     () => name || (hasNames ? uniqueId('__am_timeRange_') : name),
     [hasNames, name]
@@ -71,9 +71,9 @@ const BizFormItemTimeRange: React.FC<BizFormItemTimeRangeProps> = ({
         transValue = transformDate(val, currentFormat);
       }
 
-      if (Array.isArray(names) && names.length === 2 && currentPathValues) {
-        currentPathValues[names[0]] = Array.isArray(transValue) ? transValue[0] : undefined;
-        currentPathValues[names[1]] = Array.isArray(transValue) ? transValue[1] : undefined;
+      if (isArray(names) && names.length === 2 && currentPathValues) {
+        currentPathValues[names[0]] = isArray(transValue) ? transValue[0] : undefined;
+        currentPathValues[names[1]] = isArray(transValue) ? transValue[1] : undefined;
         return InvalidFieldValue;
       } else {
         return transValue;

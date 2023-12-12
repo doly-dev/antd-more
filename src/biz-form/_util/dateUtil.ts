@@ -1,4 +1,5 @@
 import type { Dayjs } from 'dayjs';
+import { isArray } from 'ut2';
 import dayjs, { transformQuarter } from '../../utils/dayjs-wrapper';
 
 // DatePicker picker值
@@ -93,7 +94,7 @@ export function transformDayjsValue(
   val: string | Dayjs | (string | Dayjs)[],
   format = 'YYYY-MM-DD'
 ) {
-  if (Array.isArray(val)) {
+  if (isArray(val)) {
     return val.map((item) => transformDayjsValue(item, format));
   }
 
@@ -107,7 +108,7 @@ export function transformDayjsValue(
 export function transformDayjsTime(time: string | Dayjs, format?: string): Dayjs;
 export function transformDayjsTime(time: (string | Dayjs)[], format?: string): [Dayjs, Dayjs];
 export function transformDayjsTime(time, format = 'HH:mm:ss') {
-  if (Array.isArray(time)) {
+  if (isArray(time)) {
     return time.map((timeItem) => transformDayjsTime(timeItem, format));
   }
   if (typeof time === 'string' && time) {

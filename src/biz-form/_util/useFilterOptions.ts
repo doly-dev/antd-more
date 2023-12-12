@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { isArray } from 'ut2';
 import type { SelectProps } from '../components/antd.interface';
 
 type Params<T = any[]> = {
@@ -39,7 +40,7 @@ function useFilterOptions<T extends Record<string, any>[] = any[]>({
     if (all) {
       ret.push({ [valueKey]: allValue, [labelKey]: allName });
     }
-    if (Array.isArray(options) && options.length > 0) {
+    if (isArray(options) && options.length > 0) {
       options.forEach((item) => {
         if (!excludeValues.includes(item?.[valueKey])) {
           ret.push({

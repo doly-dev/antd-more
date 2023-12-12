@@ -1,18 +1,20 @@
+import { isArray } from 'ut2';
+
 type NamePath = string | number;
 type NamePaths = NamePath[];
 
 const getNamePaths = (name: NamePath | NamePaths, parentListName?: (NamePath | NamePaths)[]) => {
   const paths: NamePaths = [];
-  if (Array.isArray(parentListName) && parentListName.length > 0) {
+  if (isArray(parentListName) && parentListName.length > 0) {
     parentListName.forEach((parentItemPath) => {
-      if (Array.isArray(parentItemPath)) {
+      if (isArray(parentItemPath)) {
         paths.push(...parentItemPath);
       } else {
         paths.push(parentItemPath);
       }
     });
   }
-  if (Array.isArray(name)) {
+  if (isArray(name)) {
     paths.push(...name);
   } else {
     paths.push(name);

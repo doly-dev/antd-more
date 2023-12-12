@@ -1,6 +1,6 @@
 import { Cache } from 'cache2';
 import type { UploadFile } from 'antd';
-import { uniqueId } from 'ut2';
+import { isArray, uniqueId } from 'ut2';
 import { downloadFile } from '../services';
 
 const asyncCache: Record<string, any> = {};
@@ -61,7 +61,7 @@ export function fssidToUploadFile(fssid: string | string[]) {
     return getFileByFssid(fssid);
   }
 
-  if (Array.isArray(fssid)) {
+  if (isArray(fssid)) {
     const tasks: Promise<any>[] = [];
 
     fssid.forEach((item) => {
@@ -80,7 +80,7 @@ export function uploadFileToFssid(fileList: UploadFile[], nil: false): (string |
 export function uploadFileToFssid(fileList: UploadFile[], nil?: true): string[];
 export function uploadFileToFssid(fileList: any, nil = true) {
   const result: any[] = [];
-  if (Array.isArray(fileList)) {
+  if (isArray(fileList)) {
     fileList.forEach((item) => {
       if (item && typeof item === 'object' && typeof item.response === 'object') {
         const fssid = item.response.fssid || item.response.fssId; // 部分项目中没有严格区分 fssId 和 fssid

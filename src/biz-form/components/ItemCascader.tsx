@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Cascader } from 'antd';
-import { uniqueId } from 'ut2';
+import { isArray, uniqueId } from 'ut2';
 import type { CascaderProps } from './antd.interface';
 import type { BizFormItemProps } from './Item';
 import BizFormItem from './Item';
@@ -30,7 +30,7 @@ function BizFormItemCascader<DataNodeType = any>(props: BizFormItemCascaderProps
     ...restProps
   } = props;
 
-  const hasNames = React.useMemo(() => Array.isArray(names) && names.length > 0, [names]);
+  const hasNames = React.useMemo(() => isArray(names) && names.length > 0, [names]);
   const currentName = React.useMemo(
     () => name || (hasNames ? uniqueId('__am_cascader_') : name),
     [hasNames, name]
@@ -40,9 +40,9 @@ function BizFormItemCascader<DataNodeType = any>(props: BizFormItemCascaderProps
     (val, currentPathValues) => {
       const transVal = typeof transform === 'function' ? transform(val) : val;
 
-      if (Array.isArray(names) && names.length > 0 && currentPathValues) {
+      if (isArray(names) && names.length > 0 && currentPathValues) {
         names.forEach((item, index) => {
-          currentPathValues[item] = Array.isArray(transVal) ? transVal[index] : undefined;
+          currentPathValues[item] = isArray(transVal) ? transVal[index] : undefined;
         });
         return InvalidFieldValue;
       } else {

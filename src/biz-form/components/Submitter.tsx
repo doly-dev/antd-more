@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Button, Space } from 'antd';
-import { omit } from 'ut2';
+import { isArray, omit } from 'ut2';
 import type { ButtonProps, FormInstance } from './antd.interface';
 import { useConfig } from '../../biz-config-provider';
 
@@ -101,7 +101,7 @@ const BizFormSubmitter: React.FC<BizFormSubmitterProps> = (props) => {
     return null;
   }
 
-  if (Array.isArray(renderDom)) {
+  if (isArray(renderDom)) {
     if (renderDom?.length < 1) {
       return null;
     }

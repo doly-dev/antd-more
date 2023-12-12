@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { isArray } from 'ut2';
 import type { FormInstance } from 'antd';
 import type { NamePath } from 'antd/es/form/interface';
 import type { SearchProps } from '../interface';
@@ -69,7 +70,7 @@ export function createFormItem({ search, ...restProps }: SearchProps, form: Form
 }
 
 function createFormItems(options: SearchProps[], form: FormInstance) {
-  if (!Array.isArray(options) || options.length <= 0) {
+  if (!isArray(options) || options.length <= 0) {
     return null;
   }
 

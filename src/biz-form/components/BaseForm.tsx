@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Form } from 'antd';
 import namePathSet from 'rc-util/es/utils/set';
 import classnames from 'classnames';
-import { isPromiseLike } from 'ut2';
+import { isArray, isPromiseLike } from 'ut2';
 import { useUpdateEffect, useUnmountedRef, useMountedRef } from 'rc-hooks';
 import type { FormProps, FormInstance } from './antd.interface';
 import { transformFormValues } from '../_util/transform';
@@ -24,7 +24,7 @@ export type TransformRecordActionType = {
 export type FormExtraInstance<Values = any> = {
   getTransformFieldsValue: () => Values;
   transformFieldsValue: (values: any) => any;
-}
+};
 
 export interface BaseFormProps<Values = any> extends Omit<FormProps<Values>, 'onFinish'> {
   contentRender?: (
@@ -47,7 +47,9 @@ export interface BaseFormProps<Values = any> extends Omit<FormProps<Values>, 'on
   onFinish?: (values: Values) => any;
   transformRecordActionRef?: React.MutableRefObject<TransformRecordActionType | undefined>;
   formComponentType?: FiledContextProps['formComponentType'];
-  formExtraRef?: React.MutableRefObject<FormExtraInstance | undefined> | ((ref: FormExtraInstance) => void);
+  formExtraRef?:
+    | React.MutableRefObject<FormExtraInstance | undefined>
+    | ((ref: FormExtraInstance) => void);
 }
 
 function BaseForm<Values = any>(props: BaseFormProps<Values>) {
@@ -91,10 +93,10 @@ function BaseForm<Values = any>(props: BaseFormProps<Values>) {
 
   const setFieldTransform = React.useCallback((name, transform, parentListName) => {
     if (name && transform) {
-      if (Array.isArray(parentListName) && parentListName.length > 0) {
+      if (isArray(parentListName) && parentListName.length > 0) {
         const paths = getNamePaths(name, parentListName);
         transformRecordRef.current = namePathSet(transformRecordRef.current, paths, transform);
-      } else if (Array.isArray(name)) {
+      } else if (isArray(name)) {
         transformRecordRef.current = namePathSet(transformRecordRef.current, name, transform);
       } else {
         transformRecordRef.current[String(name)] = transform;
@@ -138,7 +140,7 @@ function BaseForm<Values = any>(props: BaseFormProps<Values>) {
           errorInfo = err;
           // 外部表单有错误时，不需要滚动
           isScrollToField &&
-            Array.isArray(err?.errorFields) &&
+            isArray(err?.errorFields) &&
             err.errorFields[0]?.name &&
             childForms[i].scrollToField(err.errorFields[0].name);
         } else {
@@ -293,16 +295,14 @@ function BaseForm<Values = any>(props: BaseFormProps<Values>) {
           className={classnames(prefixCls, className)}
           {...restProps}
         >
-          {
-            restProps?.component !== false && (
-              <input
-                type="text"
-                style={{
-                  display: 'none'
-                }}
-              />
-            )
-          }
+          {restProps?.component !== false && (
+            <input
+              type="text"
+              style={{
+                display: 'none'
+              }}
+            />
+          )}
           <Form.Item noStyle shouldUpdate>
             {(formInstance) => {
               if (!isUpdate) forgetUpdate();

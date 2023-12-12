@@ -3,7 +3,7 @@ import { useEffect, useMemo, useRef } from 'react';
 import type { FormInstance } from 'antd';
 import type { BizTableActionType, BizTableProps, BizTableRequest } from 'antd-more';
 import { BizTable } from 'antd-more';
-import { isNil, negate, omit } from 'ut2';
+import { isArray, isNil, negate, omit } from 'ut2';
 import dayjs from 'dayjs';
 import { memoryCache } from './storage';
 
@@ -42,7 +42,7 @@ const BizTableWithCache: React.FC<BizTableWithCacheProps> = ({
   const cacheTransformInfo = useMemo(() => {
     const result: Record<string, { type: string; names: any[] }> = {};
     columns.forEach((item) => {
-      if (typeof item.search === 'object' && Array.isArray(item.search.names)) {
+      if (typeof item.search === 'object' && isArray(item.search.names)) {
         const type = item.search.itemType || item.search.valueType || item.valueType || '';
         const name = item.search.name || item.search.dataIndex || (item as any).dataIndex;
         result[name] = {
@@ -60,7 +60,7 @@ const BizTableWithCache: React.FC<BizTableWithCacheProps> = ({
       if (typeof cacheTransformInfo === 'object' && formValues) {
         Object.keys(cacheTransformInfo).forEach((key) => {
           const { type, names } = cacheTransformInfo[key];
-          if (Array.isArray(names) && names.length > 0) {
+          if (isArray(names) && names.length > 0) {
             formValues[key] = names
               .map((field) => {
                 let val = formValues[field];

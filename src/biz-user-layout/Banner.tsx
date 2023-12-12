@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { isArray } from 'ut2';
 import type { CarouselProps } from 'antd';
 import { Carousel } from 'antd';
 import { prefixClass } from './config';
@@ -22,7 +23,7 @@ export interface BannerProps {
 }
 
 const Banner: React.FC<BannerProps> = ({ data = [], carouselProps, rightContent }) => {
-  if (!Array.isArray(data) || data.length <= 0) {
+  if (!isArray(data) || data.length <= 0) {
     return null;
   }
 

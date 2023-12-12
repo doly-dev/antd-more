@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Checkbox } from 'antd';
 import { BizForm, BizFormItemTimeRange } from 'antd-more';
 import dayjs from 'dayjs';
+import { isArray } from 'ut2';
 
 const initialValues = {
   time5: ['14:59:45', '18:00:00'],
@@ -10,7 +11,7 @@ const initialValues = {
 
 // 回显时判断是否选中24小时
 function isAllDay(times) {
-  if (Array.isArray(times) && times.length === 2) {
+  if (isArray(times) && times.length === 2) {
     const t1 = typeof times[0] === 'object' ? times[0]?.format('HH:mm:ss') : times[0];
     const t2 = typeof times[1] === 'object' ? times[1]?.format('HH:mm:ss') : times[1];
     return t1 === '00:00:00' && t2 === '23:59:59';

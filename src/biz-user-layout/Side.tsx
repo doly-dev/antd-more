@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { isArray } from 'ut2';
 import type { CarouselProps, ColProps, RowProps } from 'antd';
 import { Carousel, Row, Col } from 'antd';
 import type { BannerItem, BannerItemObject } from './Banner';
@@ -22,7 +23,7 @@ export interface SideProps {
 
 const Side: React.FC<SideProps> = ({ rowProps, colProps, banner = [], carouselProps, content }) => {
   const calcColProps = React.useMemo(() => {
-    if (Array.isArray(colProps)) {
+    if (isArray(colProps)) {
       return colProps;
     }
     return [colProps, colProps];

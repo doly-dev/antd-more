@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Steps } from 'antd';
 import classNames from 'classnames';
-import { isPromiseLike, uniqueId } from 'ut2';
+import { isArray, isPromiseLike, uniqueId } from 'ut2';
 import { useUpdate, useControllableValue, useSafeState, useLatest } from 'rc-hooks';
 import type { StepsProps, StepProps, FormInstance } from '../antd.interface';
 import BizFormItem from '../Item';
@@ -164,7 +164,7 @@ const StepsForm: React.FC<StepsFormProps> & {
   };
 
   const renderSubmitter = () => {
-    if (!Array.isArray(formSubmitterRef.current) || formSubmitterRef.current.length <= 0) {
+    if (!isArray(formSubmitterRef.current) || formSubmitterRef.current.length <= 0) {
       return null;
     }
 
@@ -218,11 +218,11 @@ const StepsForm: React.FC<StepsFormProps> & {
   const submitterDom = renderSubmitter();
 
   const renderStepsDom = () => {
-    if (!Array.isArray(stepsConfigRef.current) || stepsConfigRef.current.length <= 0) {
+    if (!isArray(stepsConfigRef.current) || stepsConfigRef.current.length <= 0) {
       return null;
     }
 
-    const dom = (<Steps {...stepsProps} items={stepsConfigRef.current} current={step} />);
+    const dom = <Steps {...stepsProps} items={stepsConfigRef.current} current={step} />;
 
     return stepsRender ? stepsRender(stepsConfigRef.current, dom) : dom;
   };
@@ -239,9 +239,7 @@ const StepsForm: React.FC<StepsFormProps> & {
         <>
           {stepFormRender ? stepFormRender(dom) : dom}
           {!stepsFormRender && isCurrentIndex ? (
-            <BizFormItem placeholderLabel>
-              {submitterDom}
-            </BizFormItem>
+            <BizFormItem placeholderLabel>{submitterDom}</BizFormItem>
           ) : null}
         </>
       )

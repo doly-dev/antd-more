@@ -4,7 +4,7 @@ import type { TableProps, SpaceProps, CardProps, FormInstance } from 'antd';
 import classnames from 'classnames';
 import type { AsyncOptions } from 'rc-hooks';
 import { useUpdateEffect, usePagination } from 'rc-hooks';
-import { isEmpty, omit } from 'ut2';
+import { isArray, isEmpty, omit } from 'ut2';
 import type { SearchFormProps } from './SearchForm';
 import SearchForm from './SearchForm';
 import type { BizFormExtraInstance, QueryFormProps } from '../biz-form';
@@ -201,7 +201,7 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
       columns: []
     };
 
-    if (!Array.isArray(columnsWithKey) || columnsWithKey.length <= 0) {
+    if (!isArray(columnsWithKey) || columnsWithKey.length <= 0) {
       return ret;
     }
 
@@ -255,7 +255,7 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
             ...restItem
           };
 
-          if (Array.isArray(newItem.children) && newItem.children.length > 0) {
+          if (isArray(newItem.children) && newItem.children.length > 0) {
             newItem.children = processColumns(newItem.children);
           } else {
             newItem.render = (text, record, index) => {
@@ -266,7 +266,7 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
 
               const currentNamePath = [
                 currentRowKey,
-                ...(Array.isArray(dataIndex) ? dataIndex : [dataIndex])
+                ...(isArray(dataIndex) ? dataIndex : [dataIndex])
               ];
 
               // 缓存namePath
@@ -346,7 +346,7 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
   }, [currentColumns]);
 
   const finalColumns = React.useMemo(() => {
-    if (!Array.isArray(columnConfigKeys)) {
+    if (!isArray(columnConfigKeys)) {
       return currentColumns;
     }
     const tmpColumns: any[] = [];
@@ -360,7 +360,7 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
   }, [currentColumns, columnConfigKeys]);
 
   React.useEffect(() => {
-    if (Array.isArray(editableKeys)) {
+    if (isArray(editableKeys)) {
       const delKeys = Object.keys(editableKeyMap.current).filter(
         (item) => !editableKeys.find((k) => k === item)
       );
@@ -379,8 +379,8 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
 
   const hasSearch = React.useMemo(() => {
     return (
-      (Array.isArray(searchItems) && searchItems.length > 0) ||
-      (Array.isArray(formItems) && formItems.length > 0)
+      (isArray(searchItems) && searchItems.length > 0) ||
+      (isArray(formItems) && formItems.length > 0)
     );
   }, [searchItems, formItems]);
 
