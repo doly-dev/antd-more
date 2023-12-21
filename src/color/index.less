@@ -21,7 +21,7 @@
     padding: 3px;
     line-height: 0;
     vertical-align: middle;
-    background: rgba(255, 255, 255, 0.75);
+    background: rgba(255, 255, 255, 0.2);
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 3px;
 
@@ -74,19 +74,21 @@
     .ant-popover-inner,
     .ant-popover-inner-content {
       padding: 0 !important;
+      color: #000;
+      font-family: monospace, arial;
       background: none;
     }
 
-    .sketch-picker input,
-    .compact-picker input {
-      box-sizing: border-box;
-      width: 100% !important;
+    .block-picker input {
+      background-color: #fff;
     }
-
+    .chrome-picker input,
     .sketch-picker input,
-    .photoshop-picker > .flexbox-fix .flexbox-fix,
-    .photoshop-picker > .flexbox-fix .flexbox-fix input {
-      color: rgba(0, 0, 0, 0.85);
+    .photoshop-picker input,
+    .compact-picker input {
+      box-sizing: content-box;
+      color: #000;
+      background-color: #fff;
     }
   }
 }
