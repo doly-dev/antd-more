@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { isArray } from 'ut2';
+import { isArray, uniqueId } from 'ut2';
+import { useUnmount } from 'rc-hooks';
 import { Tooltip } from 'antd';
 import { PictureOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
@@ -7,6 +8,7 @@ import type { UploadFile } from '../antd.interface';
 import type { UploadWrapperProps } from './UploadWrapper';
 import UploadWrapper from './UploadWrapper';
 import UploadImageButton from './UploadImageButton';
+import { createFileUrl, revokeFileUrl } from './uploadUtil';
 
 const prefixCls = 'antd-more-form-upload-avatar';
 
@@ -15,6 +17,8 @@ const UploadAvatar: React.FC<{
   title?: React.ReactNode;
   icon?: React.ReactNode;
 }> = ({ fileList, icon, title }) => {
+  // 当前组件唯一标识，用于缓存和释放 URL.createObjectURL
+  const uniqueKey = React.useMemo(() => uniqueId('__am_itemUpload_avatar_'), []);
   const [imgUrl, setImgUrl] = React.useState('');
   const currentFile = React.useMemo(() => {
     return isArray(fileList) && fileList.length > 0 ? fileList[0] : null;
@@ -24,13 +28,21 @@ const UploadAvatar: React.FC<{
   React.useEffect(() => {
     if (currentFile) {
       if (!currentFile.thumbUrl && !currentFile.url && !currentFile.preview) {
-        currentFile.preview = URL.createObjectURL(
+        currentFile.preview = createFileUrl(
+          uniqueKey,
+          currentFile.uid,
           (currentFile?.originFileObj || currentFile) as File
         );
       }
       setImgUrl(currentFile.thumbUrl || currentFile.url || currentFile.preview);
+    } else {
+      setImgUrl('');
     }
-  }, [currentFile]);
+  }, [currentFile, uniqueKey]);
+
+  useUnmount(() => {
+    revokeFileUrl(uniqueKey);
+  });
 
   let view = null;
 
