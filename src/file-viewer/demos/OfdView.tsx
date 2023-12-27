@@ -11,7 +11,7 @@ interface OfdViewProps {
 }
 
 const OfdView: React.FC<OfdViewProps> = ({ fileUrl, fileName, screenWidth }) => {
-  const contentRef = useRef<HTMLDivElement>();
+  const contentRef = useRef<HTMLDivElement>(null);
   const [processing, setProcessing] = useSafeState(false);
 
   useEffect(() => {
@@ -20,9 +20,9 @@ const OfdView: React.FC<OfdViewProps> = ({ fileUrl, fileName, screenWidth }) => 
       contentRef.current.innerHTML = '';
       parseOfdDocument({
         ofd: fileUrl,
-        success(res) {
+        success(res: any) {
           const ofdObj = res[0];
-          const width = screenWidth || contentRef.current.clientWidth;
+          const width = screenWidth || contentRef.current?.clientWidth || 800;
           const divs = renderOfd(width, ofdObj);
           for (const div of divs) {
             if (contentRef.current) {
@@ -31,10 +31,12 @@ const OfdView: React.FC<OfdViewProps> = ({ fileUrl, fileName, screenWidth }) => 
           }
           setProcessing(false);
         },
-        error(err) {
+        error(err: any) {
           setProcessing(false);
           console.error(err);
-          contentRef.current.innerHTML = `该文件不支持预览，你可尝试<a href=${fileUrl} download=${fileName}>点击下载</a>。`;
+          if (contentRef.current) {
+            contentRef.current.innerHTML = `该文件不支持预览，你可尝试<a href=${fileUrl} download=${fileName}>点击下载</a>。`;
+          }
         }
       });
     }
