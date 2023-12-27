@@ -14,4 +14,5 @@ declare module '*.xlsx';
 declare module '*.doc';
 declare module '*.docx';
 declare module '*.zip';
+declare module '*.ofd';
 declare module 'antd-more/es/*';

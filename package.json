@@ -73,6 +73,7 @@
     "lcn": "^5.0.6",
     "lint-staged": "^13.3.0",
     "mockjs": "^1.1.0",
+    "ofd-pageview": "^1.4.4",
     "prettier": "^2.8.8",
     "prettier-plugin-two-style-order": "^1.0.1",
     "qs": "^6.11.2",

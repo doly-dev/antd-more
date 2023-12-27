@@ -19,6 +19,10 @@ toc: content
 
 <code src='./demos/multiple.tsx'></code>
 
+### 自定义预览
+
+<code src='./demos/custom.tsx'></code>
+
 ### 上传各种类型文件预览
 
 <code src='../biz-form/demos/upload-file-viewer.tsx'></code>

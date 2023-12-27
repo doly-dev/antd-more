@@ -7,12 +7,14 @@ import TestPdf from './assets/test.pdf';
 import TestWord from './assets/test.docx';
 import TestExcel from './assets/test.xlsx';
 import TestZip from './assets/test.zip';
+import TestOfd from './assets/test.ofd';
+import OfdView from './OfdView';
 
 const fileList = [
   {
     uid: '-1',
     url: TestImage,
-    name: 'test.jpg',
+    name: 'test.jpg'
   },
   {
     uid: '-2',
@@ -44,13 +46,29 @@ const fileList = [
     url: TestZip,
     name: 'test.zip'
   },
-].map(item => ({
+  {
+    uid: '-8',
+    url: TestOfd,
+    name: 'test.ofd'
+  }
+].map((item) => ({
   ...item,
   thumbUrl: FileViewer.getFileThumbUrl(item)
 }));
 
 function Demo() {
-  return <FileViewer.PictureCard fileList={fileList} />
+  return (
+    <FileViewer.PictureCard
+      fileList={fileList}
+      renderView={(dom, { file }) => {
+        const url = typeof file === 'string' ? file : file.url;
+        if (url.indexOf('.ofd') !== -1) {
+          return <OfdView fileUrl={url} />;
+        }
+        return dom;
+      }}
+    />
+  );
 }
 
 export default Demo;
