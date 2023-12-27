@@ -29,8 +29,9 @@ function Demo() {
         open={open}
         onCancel={() => setOpen(false)}
         renderView={(dom, { file }) => {
-          const url = typeof file === 'string' ? file : file.url!;
-          if (url.indexOf('.ofd') !== -1) {
+          const name = typeof file === 'string' ? '' : file.name;
+          const url = typeof file === 'string' ? file : file.url || file.preview;
+          if (url && (name.slice(-4) === '.ofd' || url.slice(-4) === '.ofd')) {
             return <OfdView fileUrl={url} />;
           }
           return dom;

@@ -44,7 +44,7 @@ const OfdView: React.FC<OfdViewProps> = ({ fileUrl, fileName, screenWidth }) => 
 
   return (
     <Spin spinning={processing}>
-      <div ref={contentRef} style={{ minHeight: 50 }} />
+      <div ref={contentRef} />
     </Spin>
   );
 };
