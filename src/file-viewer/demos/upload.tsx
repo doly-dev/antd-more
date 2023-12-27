@@ -61,7 +61,7 @@ function Demo() {
     <FileViewer.PictureCard
       fileList={fileList}
       renderView={(dom, { file }) => {
-        const url = typeof file === 'string' ? file : file.url;
+        const url = typeof file === 'string' ? file : file.url!;
         if (url.indexOf('.ofd') !== -1) {
           return <OfdView fileUrl={url} />;
         }
