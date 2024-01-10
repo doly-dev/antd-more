@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Form } from 'antd';
 import type { FormItemProps, ColProps } from './antd.interface';
+import type { FiledContextProps } from '../FieldContext';
 import FieldContext from '../FieldContext';
 import ListFieldContext from '../ListFieldContext';
 import WrapperFormElement from './form/WrapperFormElement';
@@ -15,13 +16,13 @@ const formItemPlaceholderLabelClass = 'antd-more-form-item-placeholder-label';
 
 type TransformFn<T = any> = (value: T, currentPathValues?: any) => T | any;
 
-export interface BizFormItemProps extends FormItemProps {
+export interface BizFormItemProps
+  extends FormItemProps,
+    Pick<FiledContextProps, 'hideLabel' | 'labelWidth'> {
   transform?: TransformFn;
   colProps?: ColProps;
   extendRules?: FormItemProps['rules'];
-  labelWidth?: number | 'auto';
   placeholderLabel?: boolean;
-  hideLabel?: boolean;
   renderField?: (dom: React.ReactElement) => React.ReactElement;
   contentBefore?: React.ReactNode;
   contentAfter?: React.ReactNode;
@@ -54,33 +55,37 @@ const BizFormItem: React.FC<BizFormItemProps> = ({
 }) => {
   const {
     setFieldTransform,
-    layout,
     hideLabel: formHideLabel,
+    labelWidth: formLabelWidth,
     labelCol: formLabelCol
   } = React.useContext(FieldContext);
   const { parentListName } = React.useContext(ListFieldContext);
 
   const labelColProps = React.useMemo(() => {
-    const { flex: formLabelFlex, style: formLabelStyle, ...restFormLabelCol } = formLabelCol || {};
-    const formLabelColFlex = formLabelFlex && labelWidth !== 'auto' ? { flex: formLabelFlex } : {};
-    const labelFlex =
-      layout !== 'vertical' && labelWidth && labelWidth !== 'auto'
-        ? { flex: `0 0 ${labelWidth}px` }
-        : formLabelColFlex;
-    const labelStyle = {
-      ...formLabelStyle,
-      ...(formHideLabel && hideLabel === false ? { display: 'block' } : {}),
-      ...(hideLabel ? { display: 'none' } : {}),
-      ...labelCol?.style
-    };
-    const realLabelStyle = Object.keys(labelStyle).length > 0 ? { style: labelStyle } : undefined;
+    const { style: formLabelStyle, ...restFormLabelCol } = formLabelCol || {};
+    const internalLabelWidth = typeof labelWidth !== 'undefined' ? labelWidth : formLabelWidth;
+    const internalHideLabel = typeof hideLabel !== 'undefined' ? hideLabel : formHideLabel;
+    const labelStyle: React.CSSProperties = {};
+    if (internalHideLabel) {
+      labelStyle.display = 'none';
+    }
+    if (
+      internalLabelWidth !== false &&
+      internalLabelWidth !== null &&
+      typeof internalLabelWidth !== 'undefined'
+    ) {
+      labelStyle.width = internalLabelWidth;
+    }
     return {
       ...restFormLabelCol,
-      ...labelFlex,
       ...labelCol,
-      ...realLabelStyle
+      style: {
+        ...formLabelStyle,
+        ...labelStyle,
+        ...labelCol?.style
+      }
     };
-  }, [layout, labelWidth, hideLabel, labelCol, formHideLabel, formLabelCol]);
+  }, [labelWidth, hideLabel, labelCol, formHideLabel, formLabelWidth, formLabelCol]);
 
   React.useEffect(() => {
     if (name && transform && setFieldTransform) {
@@ -93,10 +98,10 @@ const BizFormItem: React.FC<BizFormItemProps> = ({
       name={name}
       validateFirst
       rules={[...rules, ...extendRules]}
-      labelCol={Object.keys(labelColProps).length > 0 ? labelColProps : undefined}
+      labelCol={labelColProps}
       shouldUpdate={shouldUpdate}
-      label={label !== undefined ? label : (placeholderLabel ? ' ' : undefined)}
-      colon={colon !== undefined ? colon : (placeholderLabel ? false : undefined)}
+      label={label !== undefined ? label : placeholderLabel ? ' ' : undefined}
+      colon={colon !== undefined ? colon : placeholderLabel ? false : undefined}
       className={classNames(className, { [formItemPlaceholderLabelClass]: placeholderLabel })}
       // trigger={trigger}
       {...restProps}
@@ -105,21 +110,13 @@ const BizFormItem: React.FC<BizFormItemProps> = ({
         (...args) => {
           const innerChildren = typeof children === 'function' ? children(...args) : children;
           return (
-            <WrapperFormElement
-              before={contentBefore}
-              after={contentAfter}
-              {...contentConfig}
-            >
+            <WrapperFormElement before={contentBefore} after={contentAfter} {...contentConfig}>
               {renderField ? renderField(innerChildren as React.ReactElement) : innerChildren}
             </WrapperFormElement>
           );
         }
       ) : (
-        <WrapperFormElement
-          before={contentBefore}
-          after={contentAfter}
-          {...contentConfig}
-        >
+        <WrapperFormElement before={contentBefore} after={contentAfter} {...contentConfig}>
           {renderField ? renderField(children as React.ReactElement) : children}
         </WrapperFormElement>
       )}

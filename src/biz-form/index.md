@@ -102,7 +102,7 @@ import { BizForm } from 'antd-more';
 | pressEnterSubmit | 是否开启回车键提交，注意不要与自定义的 `htmlType='submit'` 的按钮冲突。 | `boolean` | `true` |
 | ready | 为 `false` 时，禁止提交/重置表单。<br/>为 `true` 时，会重新设置表单初始值。 | `boolean` | `true` |
 | loading | 设置提交、重置的加载/禁止状态。<br/>如果 `onFinish` 返回异步则无需设置，内部会自动更新。 | `boolean` | `false` |
-| labelWidth | label 宽度 | `number \| 'auto'` | `84` |
+| labelWidth | label 宽度 | `number \| string \| false \| null` | `84` |
 | hideLabel | 隐藏 label | `boolean` | `false` |
 
 ### BizFormSubmitterProps

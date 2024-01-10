@@ -10,6 +10,7 @@ export interface FiledContextProps extends Pick<FormProps, 'layout' | 'labelCol'
     parentList?: FormItemProps['name'][]
   ) => void;
   hideLabel?: boolean;
+  labelWidth?: number | string | false | null;
   getPopupContainer?: (e: HTMLElement) => HTMLElement;
   formComponentType?: 'DrawerForm' | 'ModalForm' | 'QueryForm';
 }

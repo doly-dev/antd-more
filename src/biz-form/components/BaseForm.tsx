@@ -26,7 +26,9 @@ export type FormExtraInstance<Values = any> = {
   transformFieldsValue: (values: any) => any;
 };
 
-export interface BaseFormProps<Values = any> extends Omit<FormProps<Values>, 'onFinish'> {
+export interface BaseFormProps<Values = any>
+  extends Omit<FormProps<Values>, 'onFinish'>,
+    Pick<FiledContextProps, 'hideLabel' | 'labelWidth' | 'formComponentType'> {
   contentRender?: (
     items: React.ReactNode[],
     submitter: React.ReactElement<BizFormSubmitterProps> | undefined,
@@ -42,11 +44,8 @@ export interface BaseFormProps<Values = any> extends Omit<FormProps<Values>, 'on
   onReset?: (event: React.FormEvent<HTMLFormElement>) => void;
   pressEnterSubmit?: boolean;
   children?: React.ReactNode;
-  labelWidth?: number | 'auto';
-  hideLabel?: boolean;
   onFinish?: (values: Values) => any;
   transformRecordActionRef?: React.MutableRefObject<TransformRecordActionType | undefined>;
-  formComponentType?: FiledContextProps['formComponentType'];
   formExtraRef?:
     | React.MutableRefObject<FormExtraInstance | undefined>
     | ((ref: FormExtraInstance) => void);
@@ -172,19 +171,6 @@ function BaseForm<Values = any>(props: BaseFormProps<Values>) {
   const items = React.Children.toArray(children);
   const content = contentRender ? contentRender(items, submitterDom, formRef.current) : items;
 
-  const labelColProps = React.useMemo(() => {
-    const labelFlex =
-      layout !== 'vertical' && labelWidth && labelWidth !== 'auto'
-        ? { flex: `0 0 ${labelWidth}px` }
-        : {};
-    const labelStyle = { style: { ...(hideLabel ? { display: 'none' } : {}), ...labelCol?.style } };
-    return {
-      ...labelFlex,
-      ...labelCol,
-      ...labelStyle
-    };
-  }, [hideLabel, layout, labelWidth, labelCol]);
-
   const getPopupContainer = React.useMemo(() => {
     if (typeof window === 'undefined') return undefined;
     if (formComponentType && ['DrawerForm'].includes(formComponentType)) {
@@ -233,7 +219,8 @@ function BaseForm<Values = any>(props: BaseFormProps<Values>) {
           setFieldTransform,
           layout,
           hideLabel,
-          labelCol: labelColProps,
+          labelWidth,
+          labelCol,
           form: formRef.current,
           formComponentType,
           getPopupContainer
@@ -290,7 +277,7 @@ function BaseForm<Values = any>(props: BaseFormProps<Values>) {
           }}
           initialValues={initialValues}
           layout={layout}
-          labelCol={labelColProps}
+          labelCol={labelCol}
           className={classnames(prefixCls, className)}
           {...restProps}
         >
