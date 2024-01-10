@@ -27,7 +27,7 @@ import { BizFormItem } from 'antd-more';
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| labelWidth | label 宽度。默认继承 `BizForm` 的 `labelWidth`。 | `number \| 'auto'` | - |
+| labelWidth | label 宽度。默认继承 `BizForm` 的 `labelWidth`。 | `number \| string \| false \| null` | - |
 | hideLabel | 隐藏 label 。默认继承 `BizForm` 的 `hideLabel`。 | `boolean` | - |
 | placeholderLabel | 占位 label ，将 label 高度设置为 0。该值为 `true` 时，BizFormItem 默认属性 `{ label: ' ', colon: false }`。 | `boolean` | - |
 | transform | 转换该字段值，表单提交时执行。 | `(value) => any` | - |
