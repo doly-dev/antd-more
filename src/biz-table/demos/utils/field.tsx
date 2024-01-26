@@ -33,34 +33,33 @@ export const renderBase64Buffer = (buffer?: string) => {
   return '-';
 };
 
-// 状态和备注（错误原因）
-export const renderStatusWithRemark = (text: string, valueEnum: EnumData = [], remark = '') => {
+// 备注
+export function renderRemark(text?: string) {
   const remarkView =
-    typeof remark === 'string' && remark.indexOf('\n') > -1 ? (
+    typeof text === 'string' && text.indexOf('\n') > -1 ? (
       <>
-        {remark.split('\n').map((item) => (
+        {text.split('\n').map((item) => (
           <div key={item} style={{ marginBottom: 5 }}>
             {item}
           </div>
         ))}
       </>
     ) : (
-      remark
+      text
     );
+  return (
+    <Typography.Text style={{ maxWidth: 160, color: 'gray' }} ellipsis={{ tooltip: remarkView }}>
+      {remarkView || '-'}
+    </Typography.Text>
+  );
+}
 
+// 状态和备注（错误原因）
+export const renderStatusWithRemark = (text: string, valueEnum: EnumData = [], remark = '') => {
   return (
     <div>
       <BizField value={text} valueType="enumBadge" valueEnum={valueEnum} />
-      {remark && (
-        <div>
-          <Typography.Text
-            style={{ maxWidth: 140, color: 'gray' }}
-            ellipsis={{ tooltip: remarkView }}
-          >
-            {remark}
-          </Typography.Text>
-        </div>
-      )}
+      {remark && <div>{renderRemark(remark)}</div>}
     </div>
   );
 };
