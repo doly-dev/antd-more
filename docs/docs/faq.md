@@ -35,6 +35,17 @@ order: 3
 
 ## 表单设置 `scrollToFirstError` ，文件上传校验失败，不会滚动至表单位置
 
+```javascript
+scrollToFirstError={{
+  behavior(actions) {
+    actions.forEach(({ el, top }) => {
+      // implement the scroll anyway you want
+      el.scrollTop = top - 72;
+    });
+  },
+}}
+```
+
 参考 [scrollToFirstError for Upload input](https://github.com/ant-design/ant-design/issues/28869) ，官方还未解决。
 
 建议在 `onFinishFailed` 中判断第一个错误是文件上传，增加 `message.error` 提示。
