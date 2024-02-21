@@ -29,7 +29,6 @@ export type {
 export type { CheckboxGroupProps } from 'antd/es/checkbox';
 export type { MonthPickerProps, WeekPickerProps } from 'antd/es/date-picker';
 export type { RangePickerProps } from 'antd/es/date-picker';
-export type { RangePickerDateProps } from 'antd/es/date-picker/generatePicker';
 export type { PasswordProps, TextAreaProps } from 'antd/es/input';
 export type { SliderRangeProps } from 'antd/es/slider';
 export type { FormListProps } from 'antd/es/form';
