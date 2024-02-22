@@ -8,12 +8,10 @@ import BaseForm from './BaseForm';
 import { useConfig } from '../../biz-config-provider';
 
 export interface DrawerFormProps<Values = any>
-  extends Omit<BaseFormProps<Values>, 'title' | 'defaultValue'> {
-  title?: React.ReactNode;
-  width?: DrawerProps['width'];
+  extends Omit<BaseFormProps<Values>, 'title' | 'defaultValue'>,
+    Pick<DrawerProps, 'visible' | 'title' | 'width' | 'maskClosable' | 'destroyOnClose'> {
   trigger?: React.ReactElement;
   drawerProps?: Omit<DrawerProps, 'visible' | 'footer'>;
-  visible?: boolean;
   onVisibleChange?: (visible: boolean) => void;
 }
 
@@ -24,6 +22,8 @@ function DrawerForm<Values = any>(props: DrawerFormProps<Values>) {
     width,
     trigger,
     drawerProps,
+    maskClosable,
+    destroyOnClose,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     visible: outVisible,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -85,6 +85,8 @@ function DrawerForm<Values = any>(props: DrawerFormProps<Values>) {
           <Drawer
             title={title}
             width={width || 600}
+            maskClosable={maskClosable}
+            destroyOnClose={destroyOnClose}
             {...drawerProps}
             visible={visible}
             footer={
@@ -102,7 +104,7 @@ function DrawerForm<Values = any>(props: DrawerFormProps<Values>) {
               drawerProps?.onClose?.(e);
             }}
             afterVisibleChange={(v) => {
-              if (!v && drawerProps?.destroyOnClose) {
+              if (!v && (destroyOnClose || drawerProps?.destroyOnClose)) {
                 formRef.current.resetFields();
               }
               drawerProps?.afterVisibleChange?.(v);

@@ -57,6 +57,8 @@ import { ModalForm } from 'antd-more';
 | trigger | 用于触发 `Modal` 打开的 dom，一般是 button | `ReactElement` | - |
 | visible | 是否打开。<br/>设置后表示为 `受控组件`，可结合 `onVisibleChange` 进行控制。 | `boolean` | - |
 | onVisibleChange | `visible` 改变时触发 | `(visible:boolean) => void` | - |
+| maskClosable | 点击蒙层是否允许关闭 | `boolean` | `true` |
+| destroyOnClose | 关闭时销毁 Modal 里的子元素 | `boolean` | `false` |
 | modalProps | `Modal` 的 `props`，使用方式与 antd 相同。注意：不支持 'visible'，请使用全局的 visible。 | [ModalProps](https://ant.design/components/modal-cn/#API) | - |
 | onFinish | 提交数据时触发。如果返回 `false` 或 `Promise.reject()` 表示提交失败。否则表示提交成功，然后会关掉弹框。 | `async (values) => any` | - |
 
@@ -75,5 +77,7 @@ import { DrawerForm } from 'antd-more';
 | trigger | 用于触发 `Drawer` 打开的 dom，一般是 button | `ReactElement` | - |
 | visible | 是否打开。<br/>设置后表示为 `受控组件`，可结合 `onVisibleChange` 进行控制。 | `boolean` | - |
 | onVisibleChange | `visible` 改变时触发 | `(visible:boolean) => void` | - |
+| maskClosable | 点击蒙层是否允许关闭 | `boolean` | `true` |
+| destroyOnClose | 关闭时销毁 Drawer 里的子元素 | `boolean` | `false` |
 | drawerProps | `Drawer` 的 `props`，使用方式与 antd 相同。注意：不支持 'visible'，请使用全局的 visible。 | [DrawerProps](https://ant.design/components/drawer-cn/#API) | - |
 | onFinish | 提交数据时触发。如果返回 `false` 或 `Promise.reject()` 表示提交失败。否则表示提交成功，然后会关掉弹框。 | `async (values) => any` | - |

@@ -21,7 +21,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({ data, onChange, visible, ...r
 
   return (
     <ModalForm
-      name='update-modal-form'
+      name="update-modal-form"
       title={data ? '修改' : '新增'}
       visible={visible}
       form={form}
@@ -32,20 +32,12 @@ const UpdateModal: React.FC<UpdateModalProps> = ({ data, onChange, visible, ...r
 
         onChange(); // 响应成功后，通知外部数据更新
       }}
-      modalProps={{
-        destroyOnClose: true, // 弹窗关闭后，将重置表单
-        maskClosable: false
-      }}
+      destroyOnClose // 弹窗关闭后，将重置表单
+      maskClosable={false}
       {...restProps}
     >
       <BizFormItemInput label="姓名" name="name" required />
-      <BizFormItemTextArea
-        label="简介"
-        name="resume"
-        required
-        maxLength={100}
-        showCount
-      />
+      <BizFormItemTextArea label="简介" name="resume" required maxLength={100} showCount />
     </ModalForm>
   );
 };
