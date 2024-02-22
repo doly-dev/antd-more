@@ -12,6 +12,9 @@ export interface ColorProps extends React.HTMLAttributes<HTMLSpanElement> {
   renderColor?: (dom: JSX.Element, color: string) => React.ReactNode;
 }
 
+/**
+ * @deprecated 即将废弃，建议使用 `import { ColorPicker } from antd`
+ */
 const Color: React.FC<ColorProps> = ({
   className,
   value,
@@ -20,17 +23,14 @@ const Color: React.FC<ColorProps> = ({
   renderColor,
   ...restProps
 }) => {
-  const colorDom = useMemo(
-    () => {
-      const dom = (
-        <span className={`${prefixCls}-outer`} title={value}>
-          <span className={`${prefixCls}-inner`} style={{ backgroundColor: value }} />
-        </span>
-      );
-      return renderColor ? renderColor(dom, value) : dom;
-    },
-    [value, renderColor]
-  );
+  const colorDom = useMemo(() => {
+    const dom = (
+      <span className={`${prefixCls}-outer`} title={value}>
+        <span className={`${prefixCls}-inner`} style={{ backgroundColor: value }} />
+      </span>
+    );
+    return renderColor ? renderColor(dom, value) : dom;
+  }, [value, renderColor]);
 
   return (
     <span className={classNames(className, prefixCls, `${prefixCls}-${size}`)} {...restProps}>

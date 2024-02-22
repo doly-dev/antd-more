@@ -8,10 +8,10 @@ export interface ColorCompactPickerProps extends PickerWrapperProps {
   pickerProps?: Omit<CompactPickerProps, 'onChange' | 'onChangeComplete'>;
 }
 
-const CompactPickerWrapper: React.FC<ColorCompactPickerProps> = ({
-  pickerProps,
-  ...restProps
-}) => {
+/**
+ * @deprecated 即将废弃，建议使用 `import { ColorPicker } from antd`
+ */
+const CompactPickerWrapper: React.FC<ColorCompactPickerProps> = ({ pickerProps, ...restProps }) => {
   return (
     <PickerWrapper {...restProps}>
       <CompactPicker {...pickerProps} />

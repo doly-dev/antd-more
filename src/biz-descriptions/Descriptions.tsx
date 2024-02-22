@@ -62,6 +62,9 @@ export interface BizDescriptionsColumnItemProps<DataType extends object = any>
 
 export interface BizDescriptionsProps<DataType extends object = any> extends DescriptionsProps {
   dataSource?: DataType;
+  /**
+   * @deprecated 即将废弃
+   */
   columns?: BizDescriptionsColumnItemProps<DataType>[];
   tooltip?: WithTooltipProps['tooltip'];
 }

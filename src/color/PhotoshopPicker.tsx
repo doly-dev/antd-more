@@ -10,6 +10,9 @@ export interface ColorPhotoshopPickerProps extends Omit<PickerWrapperProps, 'cha
   changeMethod?: 'onChangeComplete' | 'onAccept';
 }
 
+/**
+ * @deprecated 即将废弃，建议使用 `import { ColorPicker } from antd`
+ */
 const ColorPhotoshopPicker: React.FC<ColorPhotoshopPickerProps> = ({
   pickerProps,
   changeMethod = 'onAccept',

@@ -15,7 +15,7 @@ toc: content
 
 <code src="./demos/Demo1.tsx"></code>
 
-### 数据配置
+<!-- ### 数据配置
 
 使用数据配置 dataSource 和 columns 。
 
@@ -25,7 +25,7 @@ toc: content
 
 支持数据配置和组件方式混合使用。
 
-<code src="./demos/Demo3.tsx"></code>
+<code src="./demos/Demo3.tsx"></code> -->
 
 ## API
 
@@ -40,7 +40,6 @@ import { BizDescriptions } from 'antd-more';
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | dataSource | 数据 | `object` | - |
-| columns | 列的配置描述 | `ColumnItem[]` | - |
 | tooltip | 标题后面的补充提示，需有标题才生效 | `ReactNode \| (TooltipProps & { icon: ReactNode })` | - |
 
 ### BizDescriptions.Item

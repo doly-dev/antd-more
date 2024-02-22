@@ -8,10 +8,10 @@ export interface ColorBlockPickerProps extends PickerWrapperProps {
   pickerProps?: Omit<BlockPickerProps, 'onChange' | 'onChangeComplete'>;
 }
 
-const ColorBlockPicker: React.FC<ColorBlockPickerProps> = ({
-  pickerProps,
-  ...restProps
-}) => {
+/**
+ * @deprecated 即将废弃，建议使用 `import { ColorPicker } from antd`
+ */
+const ColorBlockPicker: React.FC<ColorBlockPickerProps> = ({ pickerProps, ...restProps }) => {
   return (
     <PickerWrapper {...restProps}>
       <BlockPicker triangle="hide" {...pickerProps} />
