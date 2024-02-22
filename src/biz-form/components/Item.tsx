@@ -31,7 +31,9 @@ export interface BizFormItemProps
   };
 }
 
-const BizFormItem: React.FC<BizFormItemProps> = ({
+const BizFormItem: React.FC<BizFormItemProps> & {
+  useStatus: typeof Form.Item.useStatus;
+} = ({
   children,
   transform,
   renderField,
@@ -123,5 +125,7 @@ const BizFormItem: React.FC<BizFormItemProps> = ({
     </Form.Item>
   );
 };
+
+BizFormItem.useStatus = Form.Item.useStatus;
 
 export default BizFormItem;
