@@ -44,7 +44,7 @@
   "license": "MIT",
   "peerDependencies": {
     "@ant-design/icons": ">= 4.0.0",
-    "antd": "^5.2.0",
+    "antd": "^5.7.0",
     "react": ">= 16.9.0",
     "react-dom": ">= 16.9.0"
   },

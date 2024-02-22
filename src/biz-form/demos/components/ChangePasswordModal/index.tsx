@@ -5,14 +5,14 @@ import { BizForm, ModalForm, BizFormItemPassword } from 'antd-more';
 import { sleep } from 'ut2';
 
 export interface ChangePasswordModalProps
-  extends Pick<ModalFormProps, 'open' | 'onOpenChange'> { }
+  extends Pick<ModalFormProps, 'open' | 'onOpenChange' | 'form'> {}
 
 const ChangePasswordModal: React.FC<ChangePasswordModalProps> = (props) => {
   const [form] = BizForm.useForm();
 
   return (
     <ModalForm
-      name='change-password-modal-form'
+      name="change-password-modal-form"
       title="修改密码"
       width={520}
       labelWidth={112}
@@ -25,11 +25,9 @@ const ChangePasswordModal: React.FC<ChangePasswordModalProps> = (props) => {
         await sleep();
         message.success('修改成功，请重新登录！');
       }}
+      destroyOnClose
+      maskClosable={false}
       {...props}
-      modalProps={{
-        destroyOnClose: true,
-        maskClosable: false
-      }}
       form={form}
     >
       <BizFormItemPassword

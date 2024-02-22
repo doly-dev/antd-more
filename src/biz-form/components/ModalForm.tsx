@@ -9,9 +9,7 @@ import { useConfig } from '../../biz-config-provider';
 
 export interface ModalFormProps<Values = any>
   extends Omit<BaseFormProps<Values>, 'title' | 'defaultValue'>,
-    Pick<ModalProps, 'open'> {
-  title?: React.ReactNode;
-  width?: ModalProps['width'];
+    Pick<ModalProps, 'open' | 'title' | 'width' | 'maskClosable' | 'destroyOnClose'> {
   trigger?: React.ReactElement;
   modalProps?: Omit<ModalProps, 'open' | 'visible' | 'footer'>;
   onOpenChange?: (open: boolean) => void;
@@ -24,6 +22,8 @@ function ModalForm<Values = any>(props: ModalFormProps<Values>) {
     width,
     trigger,
     modalProps,
+    maskClosable,
+    destroyOnClose,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     open: outOpen,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -89,6 +89,8 @@ function ModalForm<Values = any>(props: ModalFormProps<Values>) {
             title={title}
             width={width || 600}
             centered
+            destroyOnClose={destroyOnClose}
+            maskClosable={maskClosable}
             {...modalProps}
             open={open}
             footer={submitterDom}
@@ -97,7 +99,7 @@ function ModalForm<Values = any>(props: ModalFormProps<Values>) {
               modalProps?.onCancel?.(e);
             }}
             afterClose={() => {
-              if (modalProps?.destroyOnClose) {
+              if (destroyOnClose || modalProps?.destroyOnClose) {
                 formRef.current.resetFields();
               }
               modalProps?.afterClose?.();

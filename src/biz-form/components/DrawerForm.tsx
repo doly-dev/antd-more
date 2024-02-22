@@ -9,9 +9,7 @@ import { useConfig } from '../../biz-config-provider';
 
 export interface DrawerFormProps<Values = any>
   extends Omit<BaseFormProps<Values>, 'title' | 'defaultValue'>,
-    Pick<DrawerProps, 'open'> {
-  title?: React.ReactNode;
-  width?: DrawerProps['width'];
+    Pick<DrawerProps, 'open' | 'title' | 'width' | 'maskClosable' | 'destroyOnClose'> {
   trigger?: React.ReactElement;
   drawerProps?: Omit<DrawerProps, 'open' | 'visible' | 'footer'>;
   onOpenChange?: (open: boolean) => void;
@@ -24,6 +22,8 @@ function DrawerForm<Values = any>(props: DrawerFormProps<Values>) {
     width,
     trigger,
     drawerProps,
+    maskClosable,
+    destroyOnClose,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     open: outOpen,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -85,6 +85,7 @@ function DrawerForm<Values = any>(props: DrawerFormProps<Values>) {
           <Drawer
             title={title}
             width={width || 600}
+            maskClosable={maskClosable}
             {...drawerProps}
             open={open}
             footer={
@@ -102,7 +103,7 @@ function DrawerForm<Values = any>(props: DrawerFormProps<Values>) {
               drawerProps?.onClose?.(e);
             }}
             afterOpenChange={(v) => {
-              if (!v && drawerProps?.destroyOnClose) {
+              if (!v && (destroyOnClose || drawerProps?.destroyOnClose)) {
                 formRef.current.resetFields();
               }
               drawerProps?.afterOpenChange?.(v);
