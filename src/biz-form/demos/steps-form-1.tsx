@@ -44,7 +44,7 @@ const Demo = () => {
           console.log(values);
         }}
       >
-        <BizFormItemNumber label="付款金额" name="money" required precision={2} contentAfter="¥" />
+        <BizFormItemNumber label="付款金额" name="money" required precision={2} addonAfter="元" />
         <BizFormItemUpload
           label="材料文件"
           name="files"

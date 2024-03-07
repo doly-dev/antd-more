@@ -16,7 +16,7 @@ const validateMethod = {
 
 export interface BizFormItemInputProps
   extends BizFormItemProps,
-    Pick<InputProps, 'placeholder' | 'allowClear' | 'maxLength'> {
+    Pick<InputProps, 'placeholder' | 'allowClear' | 'maxLength' | 'addonAfter' | 'addonBefore'> {
   type?: InputWrapperProps['type'];
   disabledWhiteSpace?: boolean;
   inputProps?: InputProps;
@@ -35,6 +35,8 @@ const BizFormItemInput: React.FC<BizFormItemInputProps> = (props) => {
     required = false,
     transform,
     format = false,
+    addonAfter,
+    addonBefore,
     ...restProps
   } = props;
   const hasSpecialType = React.useMemo(
@@ -97,6 +99,8 @@ const BizFormItemInput: React.FC<BizFormItemInputProps> = (props) => {
         type={type}
         disabledWhiteSpace={disabledWhiteSpace}
         format={format}
+        addonAfter={addonAfter}
+        addonBefore={addonBefore}
         {...inputProps}
       />
     </BizFormItem>

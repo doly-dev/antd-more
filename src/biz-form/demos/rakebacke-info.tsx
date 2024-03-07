@@ -54,7 +54,7 @@ const RakebackeInfo = () => {
                   labelWidth={98}
                   required
                   precision={2}
-                  contentAfter="%"
+                  addonAfter="%"
                   gt={0}
                   lt={100}
                 />
@@ -66,7 +66,7 @@ const RakebackeInfo = () => {
                   labelWidth={98}
                   required
                   precision={2}
-                  contentAfter="元"
+                  addonAfter="元"
                   gt={0}
                 />
               </Col>
@@ -77,7 +77,7 @@ const RakebackeInfo = () => {
                   labelWidth={98}
                   required
                   precision={2}
-                  contentAfter="%"
+                  addonAfter="%"
                   gt={0}
                   lt={100}
                 />
@@ -90,7 +90,7 @@ const RakebackeInfo = () => {
                   required
                   precision={2}
                   tooltip="IC卡小额双免优惠费率"
-                  contentAfter="%"
+                  addonAfter="%"
                   gt={0}
                   lt={100}
                 />
@@ -108,7 +108,7 @@ const RakebackeInfo = () => {
                   labelWidth={98}
                   required
                   precision={2}
-                  contentAfter="%"
+                  addonAfter="%"
                   gt={0}
                   lt={100}
                 />
@@ -120,7 +120,7 @@ const RakebackeInfo = () => {
                   labelWidth={98}
                   required
                   precision={2}
-                  contentAfter="%"
+                  addonAfter="%"
                   gt={0}
                   lt={100}
                 />
@@ -133,7 +133,7 @@ const RakebackeInfo = () => {
                   required
                   precision={2}
                   tooltip="银联二维码小额优惠费率"
-                  contentAfter="%"
+                  addonAfter="%"
                   gt={0}
                   lt={100}
                 />
@@ -151,7 +151,7 @@ const RakebackeInfo = () => {
                   labelWidth={98}
                   required
                   precision={2}
-                  contentAfter="元/笔"
+                  addonAfter="元/笔"
                   gte={0}
                 />
               </Col>

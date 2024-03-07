@@ -14,7 +14,7 @@ import { BillAccountOptions } from './constants';
 const Demo = () => {
   return (
     <ModalForm
-      name='modal-form-1'
+      name="modal-form-1"
       title="创建付款单"
       trigger={<Button type="primary">创建付款单</Button>}
       onFinish={async (values) => {
@@ -34,7 +34,7 @@ const Demo = () => {
         options={BillAccountOptions}
         required
       />
-      <BizFormItemNumber label="付款金额" name="money" required precision={2} contentAfter="¥" />
+      <BizFormItemNumber label="付款金额" name="money" required precision={2} addonAfter="元" />
       <BizFormItemUpload
         label="材料文件"
         name="files"

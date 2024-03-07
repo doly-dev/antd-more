@@ -16,7 +16,7 @@ const Demo = () => {
         label="金额"
         name="number3"
         precision={2}
-        contentAfter="元"
+        addonAfter="元"
         gte={0}
         lte={10000}
         tooltip="大于等于0，小于等于10000"
@@ -30,7 +30,7 @@ const Demo = () => {
         label="费率"
         name="number4"
         precision={2}
-        contentAfter="%"
+        addonAfter="%"
         gt={0}
         lt={6}
         tooltip="大于0，小于6"
@@ -40,7 +40,7 @@ const Demo = () => {
         label="费率向下舍入"
         name="number5"
         precision={2}
-        contentAfter="%"
+        addonAfter="%"
         gt={0}
         lt={6}
         tooltip="数字精度向下舍入"
@@ -51,7 +51,7 @@ const Demo = () => {
         label="费率n位小数"
         name="number6"
         maxPrecision={1}
-        contentAfter="%"
+        addonAfter="%"
         gt={0}
         lt={6}
         tooltip="支持n位小数"

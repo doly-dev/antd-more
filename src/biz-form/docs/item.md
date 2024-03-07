@@ -291,6 +291,8 @@ Input 输入框
 | placeholder | 输入框提示 | `string` | `请输入` |
 | allowClear | 支持清除 | `boolean \| {clearIcon?: React.ReactNode;}` | - |
 | maxLength | 最大长度 | `number` | - |
+| addonAfter | 带标签的 input，设置后置标签 | `ReactNode` | - |
+| addonBefore | 带标签的 input，设置前置标签 | `ReactNode` | - |
 | inputProps | 输入框的属性 | [InputProps](https://ant-design.gitee.io/components/input-cn/#API) | - |
 
 ### Number
@@ -329,6 +331,8 @@ Input 输入框
 | max | 最大值 | `number` | Number.MAX_SAFE_INTEGER |
 | min | 最小值 | `number` | Number.MIN_SAFE_INTEGER |
 | formatter | 指定输入框展示值的格式 | `function(value: number \| string, info: { userTyping: boolean, input: string }): string` | - |
+| addonAfter | 带标签的 input，设置后置标签 | `ReactNode` | - |
+| addonBefore | 带标签的 input，设置前置标签 | `ReactNode` | - |
 | inputProps | 数字输入框的属性 | [InputNumberProps](https://ant-design.gitee.io/components/input-number-cn/#API) | - |
 
 ### Password
