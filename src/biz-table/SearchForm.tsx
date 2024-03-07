@@ -11,7 +11,7 @@ export declare interface SearchFormProps extends QueryFormProps {
   formItems?: Exclude<React.ReactNode, string | number | boolean | null | undefined>[];
   searchItems?: SearchProps[];
   cardProps?: CardProps;
-  ref?: React.MutableRefObject<FormInstance | undefined> | ((instance: FormInstance<any>) => void);
+  ref?: React.LegacyRef<FormInstance<any>>;
 }
 
 const SearchForm: React.FC<SearchFormProps> = React.forwardRef(

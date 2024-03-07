@@ -27,7 +27,7 @@ const Demo = () => {
         </Button>
       </Space>
       <ModalForm
-        name='modal-form-2'
+        name="modal-form-2"
         title="创建付款单"
         onFinish={async (values) => {
           await sleep(2000);
@@ -45,7 +45,7 @@ const Demo = () => {
           options={BillAccountOptions}
           required
         />
-        <BizFormItemNumber label="付款金额" name="money" required precision={2} contentAfter="¥" />
+        <BizFormItemNumber label="付款金额" name="money" required precision={2} addonAfter="元" />
         <BizFormItemUpload
           label="材料文件"
           name="files"
@@ -62,7 +62,7 @@ const Demo = () => {
         />
       </ModalForm>
       <DrawerForm
-        name='drawer-form-2'
+        name="drawer-form-2"
         title="创建付款单"
         onFinish={async (values) => {
           await sleep(2000);
@@ -79,7 +79,7 @@ const Demo = () => {
           options={BillAccountOptions}
           required
         />
-        <BizFormItemNumber label="付款金额" name="money" required precision={2} contentAfter="¥" />
+        <BizFormItemNumber label="付款金额" name="money" required precision={2} addonAfter="元" />
         <BizFormItemUpload
           label="材料文件"
           name="files"

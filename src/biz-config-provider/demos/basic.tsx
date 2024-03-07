@@ -125,7 +125,7 @@ function FormDemo() {
           label="金额"
           name="number-2"
           precision={2}
-          contentAfter="元"
+          addonAfter="元"
           gte={0}
           lte={10000}
           tooltip="大于等于0，小于等于10000"
@@ -139,7 +139,7 @@ function FormDemo() {
           label="费率"
           name="number-3"
           precision={2}
-          contentAfter="%"
+          addonAfter="%"
           gt={0}
           lt={6}
           tooltip="大于0，小于6"
@@ -149,7 +149,7 @@ function FormDemo() {
           label="费率向下舍入"
           name="number-4"
           precision={2}
-          contentAfter="%"
+          addonAfter="%"
           gt={0}
           lt={6}
           tooltip="数字精度向下舍入"

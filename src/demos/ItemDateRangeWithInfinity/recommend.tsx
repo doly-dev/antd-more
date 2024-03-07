@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { BizForm, BizFormItemDate, BizFormItemSelect } from "antd-more";
+import { BizForm, BizFormItemDate, BizFormItemSelect } from 'antd-more';
 
 // 身份证有效期
 // 五年、十年、二十年、长期
@@ -7,7 +7,7 @@ enum IdCardExpireDate {
   Five = 5,
   Ten = 10,
   Twenty = 20,
-  Infinity = 9999
+  Forever = 9999
 }
 const IdCardExpireDateOptions = [
   {
@@ -24,8 +24,8 @@ const IdCardExpireDateOptions = [
   },
   {
     label: '长期',
-    value: IdCardExpireDate.Infinity
-  },
+    value: IdCardExpireDate.Forever
+  }
 ];
 
 function Demo() {
@@ -33,19 +33,19 @@ function Demo() {
     <BizForm
       labelWrap
       labelWidth={98}
-      onFinish={values => {
+      onFinish={(values) => {
         console.log(values);
       }}
     >
       <BizFormItemDate
-        label='身份证有效期起始日期'
-        name='beginDate'
+        label="身份证有效期起始日期"
+        name="beginDate"
         required
         disabledDateAfter={1}
       />
       <BizFormItemSelect
-        label='身份证有效期结束日期'
-        name='expireDate'
+        label="身份证有效期结束日期"
+        name="expireDate"
         options={IdCardExpireDateOptions}
         required
       />

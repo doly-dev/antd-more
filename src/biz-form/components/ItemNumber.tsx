@@ -9,7 +9,17 @@ import { useConfig } from '../../biz-config-provider';
 
 export interface BizFormItemNumberProps
   extends BizFormItemProps,
-    Pick<InputNumberProps, 'precision' | 'placeholder' | 'step' | 'min' | 'max' | 'formatter'> {
+    Pick<
+      InputNumberProps,
+      | 'precision'
+      | 'placeholder'
+      | 'step'
+      | 'min'
+      | 'max'
+      | 'formatter'
+      | 'addonAfter'
+      | 'addonBefore'
+    > {
   lt?: number;
   gt?: number;
   lte?: number;
@@ -35,6 +45,8 @@ const BizFormItemNumber: React.FC<BizFormItemNumberProps> = (props) => {
     min = Number.MIN_SAFE_INTEGER,
     max = Number.MAX_SAFE_INTEGER,
     formatter,
+    addonBefore,
+    addonAfter,
 
     required = false,
     ...restProps
@@ -90,6 +102,8 @@ const BizFormItemNumber: React.FC<BizFormItemNumberProps> = (props) => {
         step={step}
         formatter={formatter}
         parser={internalParse}
+        addonBefore={addonBefore}
+        addonAfter={addonAfter}
         {...inputProps}
       />
     </BizFormItem>

@@ -128,7 +128,7 @@ const Demo = () => {
                 name="money"
                 required
                 precision={2}
-                contentAfter="¥"
+                addonAfter="元"
               />
               <BizFormItemUpload
                 label="材料文件"

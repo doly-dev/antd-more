@@ -11,14 +11,18 @@ function Demo() {
       <div className={styles.rakeback}>
         <BizForm
           labelWidth={112}
-          requiredMark='optional'
-          onFinish={values => {
+          requiredMark="optional"
+          onFinish={(values) => {
             console.log(values);
           }}
           submitter={{
             render(props, dom) {
-              return <div style={{ margin: '48px 0', textAlign: 'center' }}><Space size='large'>{dom}</Space></div>
-            },
+              return (
+                <div style={{ margin: '48px 0', textAlign: 'center' }}>
+                  <Space size="large">{dom}</Space>
+                </div>
+              );
+            }
           }}
         >
           <table className={styles.payTable}>
@@ -39,8 +43,8 @@ function Demo() {
                     <Col>
                       <BizFormItemNumber
                         label="贷记卡"
-                        name='standardCreditRate'
-                        contentAfter="%"
+                        name="standardCreditRate"
+                        addonAfter="%"
                         precision={4}
                         useFloor
                         step={0.1}
@@ -53,8 +57,8 @@ function Demo() {
                     <Col>
                       <BizFormItemNumber
                         label="借记卡封顶"
-                        name='standardMaxValue'
-                        contentAfter="元"
+                        name="standardMaxValue"
+                        addonAfter="元"
                         precision={2}
                         useFloor
                         min={0}
@@ -66,8 +70,8 @@ function Demo() {
                     <Col>
                       <BizFormItemNumber
                         label="借记卡"
-                        name='standardDebitRate'
-                        contentAfter="%"
+                        name="standardDebitRate"
+                        addonAfter="%"
                         precision={4}
                         useFloor
                         step={0.1}
@@ -92,7 +96,7 @@ function Demo() {
                     <Col xl={12} xs={24}>
                       <ItemNumberFee
                         label="微信扫码"
-                        name='wxScanPaymentRate'
+                        name="wxScanPaymentRate"
                         beforeValue={0.21}
                         gte={0.21}
                         lte={0.42}
@@ -109,7 +113,7 @@ function Demo() {
                           </div>
                         }
                         messageVariables={{ label: '银联二维码小额' }}
-                        name='unionpayQrcodeSmallDiscountRate'
+                        name="unionpayQrcodeSmallDiscountRate"
                         className={styles.itemWrapLine}
                         beforeValue={0.21}
                         gte={0.21}
@@ -120,7 +124,7 @@ function Demo() {
                     <Col xl={12} xs={24}>
                       <ItemNumberFee
                         label="支付宝扫码"
-                        name='zfbScanPaymentRate'
+                        name="zfbScanPaymentRate"
                         beforeValue={0.21}
                         gte={0.21}
                         lte={0.42}

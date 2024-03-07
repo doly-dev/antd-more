@@ -64,13 +64,7 @@ const Demo = () => {
           />
         </StepsForm.StepForm>
         <StepsForm.StepForm title="填写付款信息" labelWidth={112}>
-          <BizFormItemNumber
-            label="付款金额"
-            name="money"
-            required
-            precision={2}
-            contentAfter="¥"
-          />
+          <BizFormItemNumber label="付款金额" name="money" required precision={2} addonAfter="元" />
           <BizFormItemUpload
             label="材料文件"
             name="files"

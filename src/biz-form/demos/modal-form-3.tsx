@@ -19,7 +19,7 @@ const Demo = () => {
   return (
     <Space>
       <ModalForm
-        name='modal-form-3.1'
+        name="modal-form-3.1"
         title="test提交按钮"
         trigger={<Button type="primary">自定义test按钮</Button>}
         onFinish={async (values) => {
@@ -47,7 +47,7 @@ const Demo = () => {
           options={BillAccountOptions}
           required
         />
-        <BizFormItemNumber label="付款金额" name="money" required precision={2} contentAfter="¥" />
+        <BizFormItemNumber label="付款金额" name="money" required precision={2} addonAfter="元" />
         <BizFormItemUpload
           label="材料文件"
           name="files"
@@ -63,7 +63,7 @@ const Demo = () => {
         />
       </ModalForm>
       <ModalForm
-        name='modal-form-3.2'
+        name="modal-form-3.2"
         title="创建付款单"
         trigger={<Button type="primary">自定义文字</Button>}
         onFinish={async (values) => {
@@ -84,7 +84,7 @@ const Demo = () => {
           options={BillAccountOptions}
           required
         />
-        <BizFormItemNumber label="付款金额" name="money" required precision={2} contentAfter="¥" />
+        <BizFormItemNumber label="付款金额" name="money" required precision={2} addonAfter="元" />
         <BizFormItemUpload
           label="材料文件"
           name="files"
