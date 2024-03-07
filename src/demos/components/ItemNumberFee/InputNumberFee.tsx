@@ -21,7 +21,7 @@ const InputNumberFee: React.FC<InputNumberFeeProps> = ({
   const [inputValue, setInputValue] = useState<string | number | null>();
   const commonProps = {
     precision,
-    step,
+    step
   };
   const handleChange = (val: string | number | null) => {
     const realVal = val ? floor(val as number, precision) : 0;
@@ -33,20 +33,20 @@ const InputNumberFee: React.FC<InputNumberFeeProps> = ({
     if (inputValue === '' || inputValue === void 0) {
       onChange?.(beforeValue);
     }
-  }
+  };
 
-  const handleParser = useCallback((displayValue: any) => {
-    if (displayValue && typeof precision === 'number') {
-      return floor(displayValue, precision);
-    }
-    return displayValue;
-  }, [precision]);
+  const handleParser = useCallback(
+    (displayValue: any) => {
+      if (displayValue && typeof precision === 'number') {
+        return floor(displayValue, precision);
+      }
+      return displayValue;
+    },
+    [precision]
+  );
 
   useEffect(() => {
-    if (
-      isValidNumber(value, true) &&
-      isValidNumber(beforeValue, true)
-    ) {
+    if (isValidNumber(value, true) && isValidNumber(beforeValue, true)) {
       setInputValue(minus(value!, beforeValue));
     }
   }, [value, beforeValue]);
@@ -65,8 +65,7 @@ const InputNumberFee: React.FC<InputNumberFeeProps> = ({
         {...restProps}
       />
       <span className={styles.symbol}>=</span>
-      <InputNumber disabled value={value || beforeValue} {...commonProps} />
-      <span className={styles.symbol}>%</span>
+      <InputNumber disabled value={value || beforeValue} addonAfter="%" {...commonProps} />
     </div>
   );
 };
