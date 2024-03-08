@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { floor } from 'ut2';
+import { floor, gt, gte, lt, lte } from 'ut2';
 import { isValidNumber } from 'util-helpers';
 import { InputNumber } from 'antd';
 import type { BizFormItemProps } from './Item';
@@ -20,10 +20,10 @@ export interface BizFormItemNumberProps
       | 'addonAfter'
       | 'addonBefore'
     > {
-  lt?: number;
-  gt?: number;
-  lte?: number;
-  gte?: number;
+  lt?: string | number;
+  gt?: string | number;
+  lte?: string | number;
+  gte?: string | number;
   maxPrecision?: number;
   useFloor?: boolean;
   inputProps?: InputNumberProps;
@@ -32,10 +32,10 @@ export interface BizFormItemNumberProps
 const BizFormItemNumber: React.FC<BizFormItemNumberProps> = (props) => {
   const { locale } = useConfig();
   const {
-    lt,
-    gt,
-    lte,
-    gte,
+    lt: outLt,
+    gt: outGt,
+    lte: outLte,
+    gte: outGte,
     inputProps = {},
     precision,
     useFloor = false,
@@ -70,14 +70,14 @@ const BizFormItemNumber: React.FC<BizFormItemNumberProps> = (props) => {
             let errMsg = '';
             if (!isValidNumber(value, true)) {
               errMsg = required ? locale.form.common.inputRequired : '';
-            } else if (isValidNumber(lt) && value >= lt) {
-              errMsg = locale.form.number.lt(lt);
-            } else if (isValidNumber(gt) && value <= gt) {
-              errMsg = locale.form.number.gt(gt);
-            } else if (isValidNumber(lte) && value > lte) {
-              errMsg = locale.form.number.lte(lte);
-            } else if (isValidNumber(gte) && value < gte) {
-              errMsg = locale.form.number.gte(gte);
+            } else if (isValidNumber(outLt) && gte(value, outLt)) {
+              errMsg = locale.form.number.lt(outLt);
+            } else if (isValidNumber(outGt) && lte(value, outGt)) {
+              errMsg = locale.form.number.gt(outGt);
+            } else if (isValidNumber(outLte) && gt(value, outLte)) {
+              errMsg = locale.form.number.lte(outLte);
+            } else if (isValidNumber(outGte) && lt(value, outGte)) {
+              errMsg = locale.form.number.gte(outGte);
             } else if (isValidNumber(maxPrecision) && maxPrecision > 0) {
               const decimal = `${value}`.split('.')[1];
               if (decimal && decimal.length > maxPrecision) {

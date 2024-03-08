@@ -316,10 +316,10 @@ Input 输入框
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| lt | 最大值，用于校验 | `number` | - |
-| lte | 最大值（允许等于），用于校验 | `number` | - |
-| gt | 最小值，用于校验 | `number` | - |
-| gte | 最小值（允许等于），用于校验 | `number` | - |
+| lt | 最大值，用于校验 | `string \| number` | - |
+| lte | 最大值（允许等于），用于校验 | `string \| number` | - |
+| gt | 最小值，用于校验 | `string \| number` | - |
+| gte | 最小值（允许等于），用于校验 | `string \| number` | - |
 | precision | 数值精度 | `number` | - |
 | useFloor | 数值精度向下舍入，需配合 `precision` 使用。 | `boolean` | - |
 | maxPrecision | 最大支持多少位小数精度校验，无需配合 `precision` 使用。 | `number` | - |
