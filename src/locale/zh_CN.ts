@@ -38,10 +38,10 @@ const localeValues = {
       invalid: '请输入正确的${label}'
     },
     number: {
-      lt: (num: number) => `\${label}必须小于${num}`,
-      gt: (num: number) => `\${label}必须大于${num}`,
-      lte: (num: number) => `\${label}必须小于或等于${num}`,
-      gte: (num: number) => `\${label}必须大于或等于${num}`,
+      lt: (num: string | number) => `\${label}必须小于${num}`,
+      gt: (num: string | number) => `\${label}必须大于${num}`,
+      lte: (num: string | number) => `\${label}必须小于或等于${num}`,
+      gte: (num: string | number) => `\${label}必须大于或等于${num}`,
       maxPrecision: (precision: number) => `支持${precision}位小数`
     },
     password: {
