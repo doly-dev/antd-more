@@ -20,7 +20,15 @@ function Demo() {
       }}
       bizForm={{
         labelWidth: 120,
-        className: 'context-class'
+        className: 'context-class',
+        scrollToFirstError: {
+          behavior(actions) {
+            actions.forEach(({ el, top }) => {
+              // implement the scroll anyway you want
+              el.scrollTop = top - 72;
+            });
+          }
+        }
       }}
       bizTable={{
         autoRequest: false,
@@ -54,7 +62,7 @@ function Demo() {
           console.log(values);
         }}
       >
-        <BizFormItemInput label="姓名" name="name" />
+        <BizFormItemInput label="姓名" name="name" required />
         <BizFormItemNumber label="年龄" name="age" precision={0} />
       </BizForm>
       <Divider />
@@ -67,7 +75,7 @@ function Demo() {
           console.log(values);
         }}
       >
-        <BizFormItemInput label="姓名" name="name" />
+        <BizFormItemInput label="姓名" name="name" required />
         <BizFormItemNumber label="年龄" name="age" precision={0} />
       </BizForm>
       <Divider />

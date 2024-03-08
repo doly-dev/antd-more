@@ -42,6 +42,8 @@ type Config = {
     | 'layout'
     | 'className'
     | 'style'
+    | 'size'
+    | 'scrollToFirstError'
   >;
   bizTable?: Pick<
     BizTableProps,
