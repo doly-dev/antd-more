@@ -27,18 +27,23 @@ export default defineConfig({
   outputPath,
   legacy: {
     buildOnly: true,
-    nodeModulesTransform: true,
+    nodeModulesTransform: true
   },
   // fastRefresh: false,
   // mfsu: false,
-  targets: isDev ? undefined : {
-    ie: 11,
-    chrome: 80
-  },
-  polyfill: isDev ? undefined : {
-    imports: ['element-remove', 'core-js']
-  },
+  targets: isDev
+    ? undefined
+    : {
+        ie: 11,
+        chrome: 80
+      },
+  polyfill: isDev
+    ? undefined
+    : {
+        imports: ['element-remove', 'core-js']
+      },
   favicons,
+  styles: [`body .dumi-default-sidebar{ width: 250px }`],
   themeConfig: {
     name,
     logo,
@@ -68,9 +73,9 @@ export default defineConfig({
         title: '更新日志',
         link: `https://github.com/doly-dev/${name}/releases`
       }
-    ],
+    ]
   },
   analytics: {
     ga_v2: 'G-N328Y9JJTL'
-  },
+  }
 });
