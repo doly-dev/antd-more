@@ -50,6 +50,8 @@ export interface DictionaryProps<ValueType = any> extends SpaceProps {
 
 <br />
 
+除了以下参数，其余同 [Space](https://ant-design.gitee.io/components/space-cn#api) 一样。
+
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | valueEnum | 数据字典 | `EnumData` | `[]` |
