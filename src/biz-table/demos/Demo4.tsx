@@ -1,10 +1,15 @@
 import * as React from 'react';
-import { Slider } from 'antd';
 import type { BizTableRequest, BizTableColumnType } from 'antd-more';
-import { BizTable, BizFormItem } from 'antd-more';
+import { BizTable } from 'antd-more';
+import { getPC } from 'lcn';
 import { getApplyList } from './service';
 import type { DataItem } from './service';
 import { ApproveStatusOptions } from './constants';
+
+const pcOptions = getPC({
+  inland: true,
+  fieldNames: { code: 'value', name: 'label' }
+});
 
 const columns: BizTableColumnType<DataItem> = [
   {
@@ -173,12 +178,24 @@ const columns: BizTableColumnType<DataItem> = [
     title: '自定义滑动条',
     search: {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      render: ({ dataIndex, title }, dom, form) => (
-        <BizFormItem name={dataIndex} label={title as string} colProps={{ lg: 12, md: 24 }}>
-          <Slider />
-        </BizFormItem>
-      ),
+      // render: ({ dataIndex, title }, dom, form) => (
+      //   <BizFormItem name={dataIndex} label={title as string} colProps={{ lg: 12, md: 24 }}>
+      //     <Slider />
+      //   </BizFormItem>
+      // ),
+      itemType: 'slider',
       order: 10
+    },
+    table: false
+  },
+  {
+    dataIndex: 'cascader',
+    title: '省市',
+    search: {
+      itemType: 'cascader',
+      options: pcOptions,
+      colProps: { lg: 12, md: 24 },
+      order: 11
     },
     table: false
   }
