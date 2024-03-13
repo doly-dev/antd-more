@@ -89,7 +89,7 @@ const BizFormItemCheckbox: React.FC<BizFormItemCheckboxProps> = (props) => {
     ...restProps
   } = props;
   const checkboxWrapperProps = React.useMemo(
-    () => ({ all, allName: allLabel, excludeValues, options, checkboxGroupProps }),
+    () => ({ all, allLabel, excludeValues, options, checkboxGroupProps }),
     [all, allLabel, excludeValues, options, checkboxGroupProps]
   );
 
