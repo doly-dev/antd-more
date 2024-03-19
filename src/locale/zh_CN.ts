@@ -1,4 +1,7 @@
+import DatePicker from 'antd/es/date-picker/locale/zh_CN';
+
 const localeValues = {
+  DatePicker,
   form: {
     common: {
       inputPlaceholder: '请输入',

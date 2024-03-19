@@ -54,7 +54,7 @@ function FormDemo() {
       >
         <BizFormItemAddress
           label="地址"
-          labels={['省市区', '详细地址']}
+          // labels={['省市区', '详细地址']}
           names={['location', 'address']}
           options={pca}
           required
