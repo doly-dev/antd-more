@@ -10,7 +10,7 @@ export interface BizFormItemAddressProps<DataNodeType = any>
   extends Omit<BizFormItemProps, 'name' | 'transform'>,
     Pick<CascaderProps<DataNodeType>, 'options' | 'fieldNames'> {
   names: [FormItemProps['name'], FormItemProps['name']]; // 如 ['location', 'address']
-  labels: [string, string]; // 如 ['省/市/区', '详细地址']
+  labels?: [string, string]; // 如 ['省/市/区', '详细地址']
   formItemProps?: [BizFormItemProps, BizFormItemProps];
   inputProps?: InputProps;
   cascaderProps?: CascaderProps<DataNodeType>;
@@ -18,7 +18,7 @@ export interface BizFormItemAddressProps<DataNodeType = any>
 
 function BizFormItemAddress<DataNodeType = any>({
   names,
-  labels,
+  labels = ['', ''],
   options = [],
   fieldNames,
   formItemProps = [{}, {}],
