@@ -43,7 +43,7 @@ export default defineConfig({
         imports: ['element-remove', 'core-js']
       },
   favicons,
-  styles: [`body .dumi-default-sidebar{ width: 250px }`],
+  styles: [`body .dumi-default-sidebar{ width: 238px; padding-inline-end: 16px; }`],
   themeConfig: {
     name,
     logo,
