@@ -4,15 +4,17 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { uniqueId, sleep } from 'ut2';
 import { BizForm, BizFormItem, BizFormItemInput, BizFormItemPassword } from 'antd-more';
 
-const LoginBox: React.FC<{ showRegisterEnter?: boolean; }> = ({ showRegisterEnter = false }) => {
+const LoginBox: React.FC<{ showRegisterEnter?: boolean }> = ({ showRegisterEnter = false }) => {
   const formName = React.useMemo(() => uniqueId('loginForm_'), []);
   return (
     <Card
       title="账号密码登录"
       bordered={false}
       style={{ minWidth: 320, boxShadow: 'none' }}
-      headStyle={{ border: '0 none', fontSize: 24 }}
-      bodyStyle={{ paddingTop: 0 }}
+      styles={{
+        header: { border: '0 none', fontSize: 24 },
+        body: { paddingTop: 0 }
+      }}
     >
       <BizForm
         name={formName}
@@ -57,13 +59,11 @@ const LoginBox: React.FC<{ showRegisterEnter?: boolean; }> = ({ showRegisterEnte
           <a style={{ float: 'right' }}>忘记密码</a>
         </BizFormItem>
       </BizForm>
-      {
-        showRegisterEnter && (
-          <div style={{ marginTop: 24, textAlign: 'center' }}>
-            还没注册，<a>免费注册</a>
-          </div>
-        )
-      }
+      {showRegisterEnter && (
+        <div style={{ marginTop: 24, textAlign: 'center' }}>
+          还没注册，<a>免费注册</a>
+        </div>
+      )}
     </Card>
   );
 };

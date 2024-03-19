@@ -535,7 +535,13 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
       bordered={false}
       {...tableCardProps}
       className={classnames({ [`${prefixCls}-compact`]: compact }, tableCardProps?.className)}
-      bodyStyle={{ ...tableCardStyle, ...tableCardProps?.bodyStyle }}
+      styles={{
+        body: {
+          ...tableCardStyle,
+          ...tableCardProps?.bodyStyle,
+          ...tableCardProps?.styles?.body
+        }
+      }}
     >
       {toolbarRender ? toolbarRender(toolbarDom) : toolbarDom}
       <Table

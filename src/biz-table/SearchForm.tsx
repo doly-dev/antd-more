@@ -36,7 +36,13 @@ const SearchForm: React.FC<SearchFormProps> = React.forwardRef(
       <Card
         bordered={false}
         {...cardProps}
-        bodyStyle={{ paddingBottom: 0, ...cardProps?.bodyStyle }}
+        styles={{
+          body: {
+            paddingBottom: 0,
+            ...cardProps?.bodyStyle,
+            ...cardProps?.styles?.body
+          }
+        }}
       >
         <QueryForm form={form} name={formName} {...restProps}>
           {items.map((item: any, index) =>
