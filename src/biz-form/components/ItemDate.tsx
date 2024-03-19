@@ -106,6 +106,7 @@ const BizFormItemDate: React.FC<BizFormItemDateProps> = ({
         picker={picker}
         placeholder={placeholder}
         allowClear={allowClear}
+        locale={locale.DatePicker}
         {...pickerProps}
       />
     </BizFormItem>

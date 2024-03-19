@@ -46,7 +46,7 @@ scrollToFirstError={{
 }}
 ```
 
-参考 [scrollToFirstError for Upload input](https://github.com/ant-design/ant-design/issues/28869) ，官方还未解决。
+> 参考 [scrollToFirstError for Upload input](https://github.com/ant-design/ant-design/issues/28869) ，官方还未解决。
 
 建议在 `onFinishFailed` 中判断第一个错误是文件上传，增加 `message.error` 提示。
 
@@ -58,4 +58,24 @@ onFinishFailed={(errorInfo) => {
     message.error(errorInfo.errorFields[0].errors[0]);
   }
 }}
+```
+
+## 为什么时间类组件的国际化 locale 设置不生效？
+
+> 参考：[为什么时间类组件的国际化-locale-设置不生效](https://ant.design/docs/react/faq-cn#为什么时间类组件的国际化-locale-设置不生效)
+
+请检查是否正确设置了 dayjs 语言包。
+
+```javascript
+import 'dayjs/locale/zh-cn';
+
+dayjs.locale('zh-cn');
+```
+
+如果还有问题，请检查是否有两个版本的 dayjs 共存？
+
+```bash
+npm ls dayjs
+# or
+pnpm why dayjs
 ```

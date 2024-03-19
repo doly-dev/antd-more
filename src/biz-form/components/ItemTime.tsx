@@ -84,7 +84,12 @@ const BizFormItemTime: React.FC<BizFormItemTimeProps> = ({
       transform={handleTransform}
       {...restProps}
     >
-      <TimePickerWrapper {...defaultTimePickerProps} format={currentFormat} {...pickerProps} />
+      <TimePickerWrapper
+        {...defaultTimePickerProps}
+        format={currentFormat}
+        locale={locale.DatePicker}
+        {...pickerProps}
+      />
     </BizFormItem>
   );
 };

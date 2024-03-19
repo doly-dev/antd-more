@@ -24,13 +24,17 @@ import {
 } from 'antd-more';
 import { randomString } from 'util-helpers';
 import { getPCA } from 'lcn';
-import zhCN from 'antd-more/es/locale/zh_CN';
-import enUS from 'antd-more/es/locale/en_US';
 import { CycleOptions } from '../../biz-form/demos/constants';
 import BizTableDemo from '../../biz-table/demos/Demo2';
 import DrawerFormDemo from '../../biz-form/demos/drawer-form-1';
 import ModalFormDemo from '../../biz-form/demos/modal-form-1';
 import StepsFormDemo from '../../biz-form/demos/steps-form-1';
+import zhCN from 'antd-more/es/locale/zh_CN';
+import enUS from 'antd-more/es/locale/en_US';
+import dayjs from 'dayjs';
+import 'dayjs/locale/zh-cn';
+
+dayjs.locale('zh-cn');
 
 const pca = getPCA({ inland: true, fieldNames: { code: 'value', name: 'label' } });
 
@@ -54,7 +58,7 @@ function FormDemo() {
       >
         <BizFormItemAddress
           label="地址"
-          labels={['省市区', '详细地址']}
+          // labels={['省市区', '详细地址']}
           names={['location', 'address']}
           options={pca}
           required
@@ -175,6 +179,11 @@ function Demo() {
   const changeLocale = (e: RadioChangeEvent) => {
     const localeValue = e.target.value;
     setLocal(localeValue);
+    if (localeValue === zhCN) {
+      dayjs.locale('zh-cn');
+    } else {
+      dayjs.locale('en');
+    }
   };
 
   return (

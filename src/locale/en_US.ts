@@ -1,4 +1,7 @@
+import DatePicker from 'antd/es/date-picker/locale/en_US';
+
 const localeValues = {
+  DatePicker,
   form: {
     common: {
       inputPlaceholder: 'Please enter ',
