@@ -51,8 +51,9 @@
   "devDependencies": {
     "@ant-design/icons": "^4.8.1",
     "@ant-design/pro-layout": "^6.38.22",
-    "@commitlint/cli": "^17.8.1",
-    "@commitlint/config-conventional": "^17.8.1",
+    "@commitlint/cli": "^19.2.1",
+    "@commitlint/config-conventional": "^19.1.0",
+    "@commitlint/cz-commitlint": "^19.2.0",
     "@types/estree": "^0.0.51",
     "@types/mockjs": "^1.0.10",
     "@types/react": "^18.2.64",
@@ -63,9 +64,8 @@
     "@umijs/types": "^3.5.41",
     "antd": "^4.24.15",
     "babel-plugin-import": "^1.13.8",
-    "commitlint": "^17.8.1",
+    "commitizen": "^4.3.0",
     "cross-env": "^7.0.3",
-    "cz-conventional-changelog": "^3.3.0",
     "dumi": "^1.1.54",
     "dumi-theme-default": "^1.1.24",
     "element-remove": "^1.0.4",
@@ -75,6 +75,7 @@
     "father": "^4.4.0",
     "file-loader": "^6.2.0",
     "husky": "^8.0.3",
+    "inquirer": "9",
     "invariant": "^2.2.4",
     "lcn": "^5.0.6",
     "lint-staged": "^13.3.0",
@@ -114,7 +115,7 @@
   },
   "config": {
     "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
+      "path": "@commitlint/cz-commitlint"
     }
   },
   "resolutions": {
