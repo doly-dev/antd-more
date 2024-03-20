@@ -576,6 +576,7 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
         pagination={
           paginationProp !== false
             ? {
+                locale: locale.Pagination,
                 ...tableProps.pagination,
                 showTotal: locale.table.pagination.total,
                 showSizeChanger: true,
@@ -589,6 +590,10 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
         className={tableClassName}
         style={tableStyle}
         {...restProps}
+        locale={{
+          ...locale.Table,
+          ...restProps?.locale
+        }}
         scroll={{ ...(nowrap ? { x: true } : {}), ...restProps?.scroll }}
       />
     </Card>
