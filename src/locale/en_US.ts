@@ -1,7 +1,11 @@
-import DatePicker from 'antd/es/date-picker/locale/en_US';
+import 'rc-pagination/lib/locale/en_US';
+import antdLocale from 'antd/es/locale/en_US';
 
 const localeValues = {
-  DatePicker,
+  DatePicker: antdLocale.DatePicker,
+  Pagination: antdLocale.Pagination,
+  Table: antdLocale.Table,
+
   form: {
     common: {
       inputPlaceholder: 'Please enter ',

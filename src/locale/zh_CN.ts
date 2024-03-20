@@ -1,7 +1,11 @@
-import DatePicker from 'antd/es/date-picker/locale/zh_CN';
+import 'rc-pagination/lib/locale/zh_CN';
+import antdLocale from 'antd/es/locale/zh_CN';
 
 const localeValues = {
-  DatePicker,
+  DatePicker: antdLocale.DatePicker,
+  Pagination: antdLocale.Pagination,
+  Table: antdLocale.Table,
+
   form: {
     common: {
       inputPlaceholder: '请输入',

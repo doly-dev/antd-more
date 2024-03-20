@@ -31,7 +31,7 @@ export function createFormItem({ search, ...restProps }: SearchProps, form: Form
   const {
     render,
     itemType,
-    valueType,
+    valueType = 'text',
     valueEnum,
     label,
     name,

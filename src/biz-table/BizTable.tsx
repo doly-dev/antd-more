@@ -197,8 +197,8 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
 
   const { searchItems, columns: currentColumns } = React.useMemo(() => {
     const ret = {
-      searchItems: [],
-      columns: []
+      searchItems: [] as SearchFormProps['searchItems'],
+      columns: [] as TableProps['columns']
     };
 
     if (!isArray(columnsWithKey) || columnsWithKey.length <= 0) {
@@ -307,7 +307,7 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
                     },
                     originItem: item
                   },
-                  editableForm
+                  editableForm!
                 );
               }
 
@@ -338,11 +338,11 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [columnsWithKey, nowrap, rowKey, editableKeys.join('.'), editableForm]);
   const [columnConfigKeys, setColumnConfigKeys] = React.useState<ColumnConfigKeys>(() =>
-    currentColumns.map((item) => item.key)
+    currentColumns.map((item: any) => item.key)
   );
 
   useUpdateEffect(() => {
-    setColumnConfigKeys(currentColumns.map((item) => item.key));
+    setColumnConfigKeys(currentColumns.map((item: any) => item.key));
   }, [currentColumns]);
 
   const finalColumns = React.useMemo(() => {
@@ -351,7 +351,7 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
     }
     const tmpColumns: any[] = [];
     columnConfigKeys.forEach((key) => {
-      const columnItem = currentColumns.find((item) => item?.key === key);
+      const columnItem = currentColumns.find((item: any) => item?.key === key);
       if (columnItem) {
         tmpColumns.push(columnItem);
       }
@@ -407,7 +407,7 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
           total: dataSource.length
         });
       }
-      return request(param, filters, sorter, extra).then((res) => ({
+      return request!(param, filters, sorter, extra).then((res) => ({
         list: res.data,
         total: res.total
       }));
@@ -449,7 +449,7 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
   const handleSubmitAndCurrent = React.useCallback(
     (current: number) => {
       const [oldParams, ...restParams] = params;
-      const formValues = hasSearch ? innerFormExtraRef.current.getTransformFieldsValue() : {};
+      const formValues = hasSearch ? innerFormExtraRef.current!.getTransformFieldsValue() : {};
       return run(
         {
           ...oldParams,
@@ -543,7 +543,7 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
         }
       }}
     >
-      {toolbarRender ? toolbarRender(toolbarDom) : toolbarDom}
+      {toolbarRender ? toolbarRender(toolbarDom!) : toolbarDom}
       <Table
         loading={loading}
         rowKey={rowKey}
@@ -552,11 +552,12 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
         pagination={
           paginationProp !== false
             ? {
+                locale: locale.Pagination,
                 ...tableProps.pagination,
                 showTotal: locale.table.pagination.total,
                 showSizeChanger: true,
                 showQuickJumper: true,
-                ...omit(paginationProp, ['current', 'pageSize', 'total'])
+                ...omit(paginationProp!, ['current', 'pageSize', 'total'])
               }
             : false
         }
@@ -565,6 +566,10 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
         className={tableClassName}
         style={tableStyle}
         {...restProps}
+        locale={{
+          ...locale.Table,
+          ...restProps?.locale
+        }}
         scroll={{ ...(nowrap ? { x: true } : {}), ...restProps?.scroll }}
       />
     </Card>
