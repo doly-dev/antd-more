@@ -23,7 +23,7 @@
     "prepublishOnly": "npm run build",
     "commit": "cz",
     "tsc": "tsc --noEmit",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "repository": {
     "type": "git",
@@ -69,7 +69,7 @@
     "eslint-plugin-react": "^7.34.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "father": "^4.4.0",
-    "husky": "^8.0.3",
+    "husky": "^9.0.11",
     "inquirer": "9",
     "lcn": "^5.0.6",
     "lint-staged": "^13.3.0",
