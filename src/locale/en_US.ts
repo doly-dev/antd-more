@@ -84,7 +84,8 @@ const localeValues = {
     },
     pagination: {
       total: (num: number) => `Total ${num} pieces of data`
-    }
+    },
+    emptyText: 'No data'
   },
   captcha: {
     initText: 'Get Verification Code',

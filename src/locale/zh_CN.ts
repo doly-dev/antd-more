@@ -83,7 +83,8 @@ const localeValues = {
     },
     pagination: {
       total: (num: number) => `总共 ${num} 条数据`
-    }
+    },
+    emptyText: '暂无数据'
   },
   captcha: {
     initText: '获取验证码',
