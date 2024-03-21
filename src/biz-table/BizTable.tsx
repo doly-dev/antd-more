@@ -567,6 +567,7 @@ function BizTable<RecordType extends object = any>(props: BizTableProps<RecordTy
         style={tableStyle}
         {...restProps}
         locale={{
+          emptyText: locale.table.emptyText,
           ...locale.Table,
           ...restProps?.locale
         }}
