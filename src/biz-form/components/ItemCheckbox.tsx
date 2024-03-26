@@ -36,31 +36,36 @@ const CheckboxWrapper: React.FC<CheckboxWrapperProps> = ({
     all: false
   });
 
-  const [indeterminate, setIndeterminate] = React.useState(
-    () => !!value && !!value.length && value.length < opts.length
-  );
-  const [checkAll, setCheckAll] = React.useState(() => !!value && value.length === opts.length);
+  const [indeterminate, setIndeterminate] = React.useState(false);
+  const [checkAll, setCheckAll] = React.useState(false);
 
   const onChangeValue = (list) => {
     onChange?.(list);
     checkboxGroupProps?.onChange?.(list);
-    setIndeterminate(!!list.length && list.length < opts.length);
-    setCheckAll(list.length === opts.length);
   };
 
   const onCheckAllChange = (e) => {
     const checkedValue = e.target.checked ? opts.map((item) => item.value) : [];
     onChange?.(checkedValue);
     checkboxGroupProps?.onChange?.(checkedValue);
-    setIndeterminate(false);
-    setCheckAll(e.target.checked);
   };
 
-  const allDom = all ? (
-    <Checkbox indeterminate={indeterminate} onChange={onCheckAllChange} checked={checkAll}>
-      {allLabel}
-    </Checkbox>
-  ) : null;
+  React.useEffect(() => {
+    if (isArray(value)) {
+      setIndeterminate(value.length > 0 && value.length < opts.length);
+      setCheckAll(value.length === opts.length);
+    } else {
+      setIndeterminate(false);
+      setCheckAll(false);
+    }
+  }, [opts.length, value]);
+
+  const allDom =
+    all && opts.length > 0 ? (
+      <Checkbox indeterminate={indeterminate} onChange={onCheckAllChange} checked={checkAll}>
+        {allLabel}
+      </Checkbox>
+    ) : null;
 
   return (
     <>
