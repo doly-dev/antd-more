@@ -12,7 +12,7 @@ const fileList = [
   {
     uid: '-1',
     url: TestImage,
-    name: 'test.jpg',
+    name: 'test.jpg'
   },
   {
     uid: '-2',
@@ -43,14 +43,14 @@ const fileList = [
     uid: '-7',
     url: TestZip,
     name: 'test.zip'
-  },
-].map(item => ({
+  }
+].map((item) => ({
   ...item,
   thumbUrl: FileViewer.getFileThumbUrl(item)
 }));
 
 function Demo() {
-  return <FileViewer.PictureCard fileList={fileList} />
+  return <FileViewer.PictureCard fileList={fileList} />;
 }
 
 export default Demo;

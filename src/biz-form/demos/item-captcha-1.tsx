@@ -66,7 +66,7 @@ const Demo = () => {
         initText="初始文本"
         runText="倒计时%ss"
         resetText="重新倒计时"
-        placeholder='6位数验证码'
+        placeholder="6位数验证码"
         maxLength={6}
       />
     </BizForm>

@@ -11,14 +11,14 @@ function Demo() {
       halfToChecked
       hideCheckbox
       size="small"
-    // 异步加载数据可以添加loading状态
-    // locale={
-    //   loading
-    //     ? {
-    //         emptyText: '数据加载中...',
-    //       }
-    //     : undefined
-    // }
+      // 异步加载数据可以添加loading状态
+      // locale={
+      //   loading
+      //     ? {
+      //         emptyText: '数据加载中...',
+      //       }
+      //     : undefined
+      // }
     />
   );
 }

@@ -10,7 +10,7 @@ import type { StepsFormSubmitterProps } from './StepsSubmitter';
 
 export interface StepFormProps
   extends Omit<BaseFormProps, 'title' | 'onReset' | 'contentRender' | 'submitter' | 'ready'>,
-  Pick<StepProps, 'title' | 'icon' | 'subTitle' | 'description'> {
+    Pick<StepProps, 'title' | 'icon' | 'subTitle' | 'description'> {
   stepProps?: StepProps;
   submitter?: Omit<StepsFormSubmitterProps, 'total' | 'current' | 'form'> | false;
   readonly step?: number;

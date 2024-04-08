@@ -20,7 +20,7 @@ function Demo() {
         onCancel={() => setVisible1(false)}
       />
       <FileViewer
-        file='https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
+        file="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
         visible={visible2}
         onCancel={() => setVisible2(false)}
       />

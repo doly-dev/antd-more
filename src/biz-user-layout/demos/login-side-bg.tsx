@@ -17,19 +17,23 @@ function Demo() {
           flexDirection: 'row-reverse'
         }
       }}
-      sideContent={(
+      sideContent={
         <Card bordered={false} className={styles.loginWrapper}>
-          <Row align="middle" justify="space-between" style={{ padding: '0 24px', marginBottom: 24 }}>
+          <Row
+            align="middle"
+            justify="space-between"
+            style={{ padding: '0 24px', marginBottom: 24 }}
+          >
             <Col>
               <Space>
-                <img src="https://doly-dev.github.io/logo.png" alt='logo' style={{ width: 40 }} />
+                <img src="https://doly-dev.github.io/logo.png" alt="logo" style={{ width: 40 }} />
                 <div style={{ fontSize: 24, fontWeight: 500 }}>antd-more</div>
               </Space>
             </Col>
           </Row>
           <LoginBox showRegisterEnter />
         </Card>
-      )}
+      }
     />
   );
 }

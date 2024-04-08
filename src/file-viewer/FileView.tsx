@@ -31,7 +31,11 @@ const FileView: React.FunctionComponent<FileViewProps> = ({ fileName, url, fileT
 
   return (
     <div>
-      该文件不支持预览，你可尝试<a href={url} download={fileName}>点击下载</a>。
+      该文件不支持预览，你可尝试
+      <a href={url} download={fileName}>
+        点击下载
+      </a>
+      。
     </div>
   );
 };

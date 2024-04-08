@@ -7,19 +7,19 @@ import { sleep } from 'ut2';
 const formItemLayout = {
   labelCol: {
     xs: { span: 24 },
-    sm: { span: 4 },
+    sm: { span: 4 }
   },
   wrapperCol: {
     xs: { span: 24 },
-    sm: { span: 20 },
-  },
+    sm: { span: 20 }
+  }
 };
 
 const formItemLayoutWithOutLabel = {
   wrapperCol: {
     xs: { span: 24, offset: 0 },
-    sm: { span: 20, offset: 4 },
-  },
+    sm: { span: 20, offset: 4 }
+  }
 };
 
 const Demo = () => {
@@ -29,7 +29,7 @@ const Demo = () => {
         await sleep();
         console.log(values);
       }}
-      labelWidth='auto'
+      labelWidth="auto"
       {...formItemLayoutWithOutLabel}
     >
       <BizFormList name="list">
@@ -43,11 +43,7 @@ const Demo = () => {
                   {...(index === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
                   label={index === 0 ? 'Passengers' : ''}
                   colon={index === 0}
-                  contentAfter={(
-                    <MinusCircleOutlined
-                      onClick={() => remove(field.name)}
-                    />
-                  )}
+                  contentAfter={<MinusCircleOutlined onClick={() => remove(field.name)} />}
                 />
               ))}
               <BizFormItem>

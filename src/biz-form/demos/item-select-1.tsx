@@ -22,7 +22,13 @@ const Demo = () => {
         excludeValues={[Cycle.Day]}
         tooltip="包含全部，并且排除按日"
       />
-      <BizFormItemSelect label="多选必填" name="select4" options={CycleOptions} required selectProps={{ mode: 'multiple' }} />
+      <BizFormItemSelect
+        label="多选必填"
+        name="select4"
+        options={CycleOptions}
+        required
+        selectProps={{ mode: 'multiple' }}
+      />
     </BizForm>
   );
 };

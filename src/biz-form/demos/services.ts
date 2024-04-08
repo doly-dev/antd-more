@@ -1,4 +1,4 @@
-import { sleep } from "ut2";
+import { sleep } from 'ut2';
 
 // 上传文件
 export async function uploadFile(file: File): Promise<{ fssid: string }> {
@@ -25,4 +25,3 @@ export async function downloadFile(fssid: string) {
   }
   throw new Error('error');
 }
-

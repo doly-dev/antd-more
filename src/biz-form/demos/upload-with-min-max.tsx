@@ -52,14 +52,14 @@ const defaultFssid = [
 
 // 将值转换为 UploadFile 对象
 const beforeTransformUploadValues = async (fssids: typeof defaultFssid) => {
-  const tasks: Promise<{ thumbImg: string; bigImg: string; }>[] = [];
+  const tasks: Promise<{ thumbImg: string; bigImg: string }>[] = [];
   const ret: UploadFile[] = [];
 
   for (let i = 0; i < fssids.length; i += 1) {
     tasks.push(getStaticServerPath(fssids[i].thumbImgId));
   }
 
-  await Promise.allSettled(tasks).then(results => {
+  await Promise.allSettled(tasks).then((results) => {
     results.forEach((item, index) => {
       const fulfilled = item.status === 'fulfilled';
 
@@ -73,9 +73,11 @@ const beforeTransformUploadValues = async (fssids: typeof defaultFssid) => {
         response: {
           ...fssids[index]
         },
-        error: fulfilled ? undefined : {
-          message: '图片加载失败'
-        }
+        error: fulfilled
+          ? undefined
+          : {
+              message: '图片加载失败'
+            }
       });
     });
   });

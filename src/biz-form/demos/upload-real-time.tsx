@@ -46,13 +46,13 @@ const Demo = () => {
         accept=".xls,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
         required
         fileTypeMessage="不支持文件类型"
-        tooltip='使用action上传'
+        tooltip="使用action上传"
         // 使用 action 上传
         uploadProps={{
-          name: "file",
-          action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
+          name: 'file',
+          action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
           headers: {
-            authorization: "authorization-text",
+            authorization: 'authorization-text'
           }
         }}
         transform={uploadFileToFssid}

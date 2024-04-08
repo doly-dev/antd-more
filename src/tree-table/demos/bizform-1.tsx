@@ -7,13 +7,7 @@ const Demo = () => {
     <BizForm
       name="tree-table-bizform-1"
       initialValues={{
-        roles: [
-          'HOME',
-          'MERCHANT_LIST',
-          'MERCHANT_QUERY',
-          'MERCHANT_ADD',
-          'MERCHANT'
-        ]
+        roles: ['HOME', 'MERCHANT_LIST', 'MERCHANT_QUERY', 'MERCHANT_ADD', 'MERCHANT']
       }}
       onFinish={(values) => {
         console.log(values);

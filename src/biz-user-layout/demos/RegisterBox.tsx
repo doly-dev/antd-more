@@ -1,10 +1,16 @@
-import React from "react";
-import { MobileOutlined, SafetyCertificateOutlined, LockOutlined } from "@ant-design/icons";
-import { Card, message } from "antd";
-import { BizForm, BizFormItemInput, BizFormItem, BizFormItemCaptcha, BizFormItemPassword } from "antd-more";
+import React from 'react';
+import { MobileOutlined, SafetyCertificateOutlined, LockOutlined } from '@ant-design/icons';
+import { Card, message } from 'antd';
+import {
+  BizForm,
+  BizFormItemInput,
+  BizFormItem,
+  BizFormItemCaptcha,
+  BizFormItemPassword
+} from 'antd-more';
 import SliderCaptcha from 'rc-slider-captcha';
 import { getCaptcha, verifyCaptcha } from './service';
-import { sleep } from "ut2";
+import { sleep } from 'ut2';
 
 async function sendCode(mobile: string) {
   console.log(mobile);
@@ -17,7 +23,7 @@ const RegisterBox = () => {
 
   return (
     <Card
-      title='欢迎免费注册'
+      title="欢迎免费注册"
       bordered={false}
       headStyle={{ border: '0 none', fontSize: 28, textAlign: 'center' }}
       bodyStyle={{ padding: 0 }}
@@ -61,7 +67,7 @@ const RegisterBox = () => {
             puzzleSize={{
               width: 62
             }}
-            mode='float'
+            mode="float"
             style={{ zIndex: 2 }}
           />
         </BizFormItem>
@@ -75,7 +81,7 @@ const RegisterBox = () => {
           }}
           required
           label="验证码"
-          type='inline'
+          type="inline"
           onGetCaptcha={async () => {
             try {
               // 验证手机号码或邮箱是否正确
@@ -129,6 +135,6 @@ const RegisterBox = () => {
       </BizForm>
     </Card>
   );
-}
+};
 
 export default RegisterBox;

@@ -48,7 +48,13 @@ function Demo() {
     >
       <BizFormItemCascader label="默认" name="cascader1" options={options} />
       <BizFormItemCascader label="必填" name="cascader2" options={options} required />
-      <BizFormItemCascader label="多选必填" name="cascader3" options={options} required cascaderProps={{ multiple: true }} />
+      <BizFormItemCascader
+        label="多选必填"
+        name="cascader3"
+        options={options}
+        required
+        cascaderProps={{ multiple: true }}
+      />
       <BizFormItemCascader
         label="省市"
         names={['province', 'city']}

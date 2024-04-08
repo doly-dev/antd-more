@@ -1,4 +1,3 @@
-
 export const isPDFFile = (file: any) => {
   if (file.type === 'application/pdf') {
     return true;
@@ -11,4 +10,4 @@ export const isPDFFile = (file: any) => {
     return true;
   }
   return false;
-}
+};

@@ -18,7 +18,7 @@ export interface StepsFormContextProps {
   loading: boolean;
   setLoading: (loading: boolean) => void;
 
-  getAction: () => StepsFormAction,
+  getAction: () => StepsFormAction;
   forceUpdate: () => void;
 }
 

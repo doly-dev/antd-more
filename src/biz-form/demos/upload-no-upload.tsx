@@ -55,13 +55,7 @@ const Demo = () => {
         tooltip="使用image的方式，修改时需要先删除才能再上传"
         required
       />
-      <BizFormItemUpload
-        name="dragger"
-        label="拖拽上传"
-        type="dragger"
-        required
-        multiple
-      />
+      <BizFormItemUpload name="dragger" label="拖拽上传" type="dragger" required multiple />
     </BizForm>
   );
 };

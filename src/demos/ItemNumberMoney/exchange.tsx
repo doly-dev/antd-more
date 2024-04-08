@@ -13,27 +13,46 @@ function Demo() {
   return (
     <BizForm
       form={form}
-      onFinish={values => {
+      onFinish={(values) => {
         console.log(values);
       }}
     >
       <ItemNumberMoney
-        label='汇兑金额1'
-        name='money1'
+        label="汇兑金额1"
+        name="money1"
         inputProps={{
           // @ts-ignore
           ref: inputRef1,
-          addonAfter: <Button type='link' style={{ height: 30 }} onClick={() => { inputRef1.current?.focus() }} icon={<EditOutlined />} />
+          addonAfter: (
+            <Button
+              type="link"
+              style={{ height: 30 }}
+              onClick={() => {
+                inputRef1.current?.focus();
+              }}
+              icon={<EditOutlined />}
+            />
+          )
         }}
       />
       <ItemNumberMoney
-        label='禁用'
-        name='money2'
+        label="禁用"
+        name="money2"
         inputProps={{
           // @ts-ignore
           ref: inputRef2,
           disabled: true,
-          addonAfter: <Button type='link' style={{ height: 30 }} onClick={() => { inputRef2.current?.focus() }} icon={<EditOutlined />} disabled />
+          addonAfter: (
+            <Button
+              type="link"
+              style={{ height: 30 }}
+              onClick={() => {
+                inputRef2.current?.focus();
+              }}
+              icon={<EditOutlined />}
+              disabled
+            />
+          )
         }}
       />
     </BizForm>

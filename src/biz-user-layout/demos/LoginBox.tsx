@@ -4,7 +4,7 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { sleep } from 'ut2';
 import { BizForm, BizFormItem, BizFormItemInput, BizFormItemPassword } from 'antd-more';
 
-const LoginBox: React.FC<{ showRegisterEnter?: boolean; }> = ({ showRegisterEnter = false }) => {
+const LoginBox: React.FC<{ showRegisterEnter?: boolean }> = ({ showRegisterEnter = false }) => {
   return (
     <Card
       title="账号密码登录"
@@ -55,13 +55,11 @@ const LoginBox: React.FC<{ showRegisterEnter?: boolean; }> = ({ showRegisterEnte
           <a style={{ float: 'right' }}>忘记密码</a>
         </BizFormItem>
       </BizForm>
-      {
-        showRegisterEnter && (
-          <div style={{ marginTop: 24, textAlign: 'center' }}>
-            还没注册，<a>免费注册</a>
-          </div>
-        )
-      }
+      {showRegisterEnter && (
+        <div style={{ marginTop: 24, textAlign: 'center' }}>
+          还没注册，<a>免费注册</a>
+        </div>
+      )}
     </Card>
   );
 };

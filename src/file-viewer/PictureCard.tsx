@@ -10,7 +10,11 @@ export interface FileViewerPictureCardProps extends Omit<FileViewerProps, 'file'
   uploadProps?: UploadProps;
 }
 
-const FileViewerPictureCard: React.FC<FileViewerPictureCardProps> = ({ fileList, uploadProps, ...restProps }) => {
+const FileViewerPictureCard: React.FC<FileViewerPictureCardProps> = ({
+  fileList,
+  uploadProps,
+  ...restProps
+}) => {
   const [fileInfo, setFileInfo] = React.useState<UploadFile>();
   const [visible, setVisible] = React.useState(false);
 
@@ -18,7 +22,7 @@ const FileViewerPictureCard: React.FC<FileViewerPictureCardProps> = ({ fileList,
     <>
       <Upload
         fileList={fileList}
-        listType='picture-card'
+        listType="picture-card"
         onPreview={(file) => {
           setFileInfo(file);
           setVisible(true);
@@ -27,9 +31,14 @@ const FileViewerPictureCard: React.FC<FileViewerPictureCardProps> = ({ fileList,
         previewFile={previewFile}
         {...uploadProps}
       />
-      <FileViewer visible={visible} onCancel={() => setVisible(false)} file={fileInfo} {...restProps} />
+      <FileViewer
+        visible={visible}
+        onCancel={() => setVisible(false)}
+        file={fileInfo}
+        {...restProps}
+      />
     </>
   );
-}
+};
 
 export default FileViewerPictureCard;

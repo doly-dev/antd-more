@@ -9,23 +9,20 @@ import { getFileType, getFileUrl } from './utils';
 
 const prefixCls = 'antd-more-file-viewer';
 
-export interface FileViewerProps extends Pick<ModalProps, 'visible' | 'onCancel' | 'className' | 'style'> {
+export interface FileViewerProps
+  extends Pick<ModalProps, 'visible' | 'onCancel' | 'className' | 'style'> {
   file: string | UploadFile; // url 或 UploadFile 对象
   renderView?: (dom: React.ReactElement, props: FileViewerProps) => React.ReactNode; // 自定义渲染视图
   modalProps?: ModalProps;
 }
 
 function FileViewer(props: FileViewerProps) {
-  const {
-    file,
-    visible,
-    onCancel,
-    className,
-    renderView,
-    style,
-    modalProps
-  } = props;
-  const fileObj = React.useMemo(() => typeof file === 'string' ? { uid: uniqueId('__am_fileViewer_'), name: '', url: file } : file, [file]);
+  const { file, visible, onCancel, className, renderView, style, modalProps } = props;
+  const fileObj = React.useMemo(
+    () =>
+      typeof file === 'string' ? { uid: uniqueId('__am_fileViewer_'), name: '', url: file } : file,
+    [file]
+  );
 
   if (!file || !fileObj) {
     return null;

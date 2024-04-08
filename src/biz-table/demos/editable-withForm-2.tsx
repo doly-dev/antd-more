@@ -148,12 +148,7 @@ const Demo = () => {
           <BizFormItemNumber label="终端编号" name="terminalNo" />
         </Col>
       </Row>
-      <BizFormItem
-        label="数据列表"
-        name="list"
-        hideLabel
-        style={{ marginBottom: 10 }}
-      >
+      <BizFormItem label="数据列表" name="list" hideLabel style={{ marginBottom: 10 }}>
         <EditableBizTable
           rowKey="id"
           columns={columns}

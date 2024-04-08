@@ -52,8 +52,8 @@ export function getFileName(url: string): string {
 // 缓存 URL.createObjectURL
 const urlCache: {
   [ukey: string]: {
-    [uid: string]: string
-  }
+    [uid: string]: string;
+  };
 } = {};
 
 export const createFileUrl = (ukey: string, uid: string, file: File) => {
@@ -64,7 +64,7 @@ export const createFileUrl = (ukey: string, uid: string, file: File) => {
     urlCache[ukey][uid] = URL.createObjectURL(file);
   }
   return urlCache[ukey][uid];
-}
+};
 
 export const revokeFileUrl = (ukey: string, uid?: string) => {
   if (urlCache[ukey]) {
@@ -75,10 +75,10 @@ export const revokeFileUrl = (ukey: string, uid?: string) => {
       delete urlCache[ukey][uid];
     } else {
       const uids = Object.keys(urlCache[ukey]);
-      uids.forEach(item => {
+      uids.forEach((item) => {
         URL.revokeObjectURL(urlCache[ukey][item]);
       });
       delete urlCache[ukey];
     }
   }
-}
+};

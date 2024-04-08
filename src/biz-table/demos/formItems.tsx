@@ -63,14 +63,7 @@ const Demo = () => {
     });
   };
 
-  return (
-    <BizTable
-      request={request}
-      columns={columns}
-      rowKey="applyCode"
-      formItems={formItems}
-    />
-  );
+  return <BizTable request={request} columns={columns} rowKey="applyCode" formItems={formItems} />;
 };
 
 export default Demo;

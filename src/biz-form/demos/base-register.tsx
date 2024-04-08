@@ -29,12 +29,7 @@ const RegisterDemo = () => {
       />
       <BizFormItemInput label="手机号码" name="mobile" type="mobile" required />
       <BizFormItemInput label="身份证号" name="idCard" type="idCard" required />
-      <BizFormItemInput
-        label="邮箱"
-        name="email"
-        type="email"
-        placeholder="请输入（选填）"
-      />
+      <BizFormItemInput label="邮箱" name="email" type="email" placeholder="请输入（选填）" />
       <BizFormItemPassword label="密码" name="password" required />
       <BizFormItemAddress
         label="地址"
