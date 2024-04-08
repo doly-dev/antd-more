@@ -15,6 +15,7 @@ export interface CheckboxWrapperProps {
   excludeValues?: ((options: CheckboxOptionType[]) => any[]) | any[];
   options?: CheckboxOptionType[];
   checkboxGroupProps?: Omit<CheckboxGroupProps, 'options'> & { options?: CheckboxOptionType[] };
+  [k: string]: any;
 }
 
 const CheckboxWrapper: React.FC<CheckboxWrapperProps> = ({
@@ -24,7 +25,8 @@ const CheckboxWrapper: React.FC<CheckboxWrapperProps> = ({
   allLabel,
   excludeValues = [],
   options: outOptions = [],
-  checkboxGroupProps = {}
+  checkboxGroupProps = {},
+  ...restProps
 }) => {
   const options = React.useMemo(
     () => checkboxGroupProps.options || outOptions,
@@ -62,6 +64,7 @@ const CheckboxWrapper: React.FC<CheckboxWrapperProps> = ({
     <>
       {allDom}
       <Checkbox.Group
+        {...restProps}
         value={value}
         {...checkboxGroupProps}
         onChange={onChangeValue}

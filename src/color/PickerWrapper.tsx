@@ -30,6 +30,7 @@ export interface PickerWrapperProps extends PickerCommonProps, PopoverProps {
 
 const PickerWrapper: React.FC<PickerWrapperProps> = ({
   className,
+  id,
   value,
   showText = false,
   trigger = 'click',
@@ -58,6 +59,7 @@ const PickerWrapper: React.FC<PickerWrapperProps> = ({
 
   return (
     <Color
+      id={id}
       value={value}
       showText={showText}
       size={size}
@@ -68,9 +70,9 @@ const PickerWrapper: React.FC<PickerWrapperProps> = ({
             defined
               ? children
               : cloneElement(children, {
-                [changeMethod]: handleChange,
-                color: value
-              })
+                  [changeMethod]: handleChange,
+                  color: value
+                })
           }
           trigger={trigger}
           visible={visible}
