@@ -23,6 +23,7 @@ export interface PickerCommonProps {
   disabled?: boolean;
 }
 
+// Note 此次属性设计有缺陷，外部传入id或其他无障碍属性无法传入Color组件
 export interface PickerWrapperProps extends PickerCommonProps, PopoverProps {
   children?: React.ReactElement;
   defined?: boolean;
@@ -31,6 +32,7 @@ export interface PickerWrapperProps extends PickerCommonProps, PopoverProps {
 
 const PickerWrapper: React.FC<PickerWrapperProps> = ({
   className,
+  id,
   value,
   showText = false,
   trigger = 'click',
@@ -60,33 +62,42 @@ const PickerWrapper: React.FC<PickerWrapperProps> = ({
 
   return (
     <Color
+      id={id}
       value={value}
       showText={showText}
       size={size}
-      className={classNames(`${prefixCls}-picker`, { [`${prefixCls}-picker-disabled`]: disabled }, className)}
-      renderColor={(dom) => disabled ? dom : (
-        <Popover
-          content={
-            defined
-              ? children
-              : cloneElement(children, {
-                [changeMethod]: handleChange,
-                color: value
-              })
-          }
-          trigger={trigger}
-          autoAdjustOverflow={false}
-          placement={placement}
-          showArrow={false}
-          arrow={false}
-          overlayClassName={`${prefixCls}-overlay-normalize`}
-          {...restProps}
-          open={open}
-          onOpenChange={setOpen}
-        >
-          {dom}
-        </Popover>
+      className={classNames(
+        `${prefixCls}-picker`,
+        { [`${prefixCls}-picker-disabled`]: disabled },
+        className
       )}
+      renderColor={(dom) =>
+        disabled ? (
+          dom
+        ) : (
+          <Popover
+            content={
+              defined
+                ? children
+                : cloneElement(children, {
+                    [changeMethod]: handleChange,
+                    color: value
+                  })
+            }
+            trigger={trigger}
+            autoAdjustOverflow={false}
+            placement={placement}
+            showArrow={false}
+            arrow={false}
+            overlayClassName={`${prefixCls}-overlay-normalize`}
+            {...restProps}
+            open={open}
+            onOpenChange={setOpen}
+          >
+            {dom}
+          </Popover>
+        )
+      }
     />
   );
 };

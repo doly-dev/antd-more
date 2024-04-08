@@ -7,6 +7,8 @@ import type { BizFormItemProps } from './Item';
 import BizFormItem from './Item';
 import { useConfig } from '../../biz-config-provider';
 
+// TODO 内部组件废弃checkboxGroupProps属性，直接使用extends继承扩展.
+// BizFormItemCheckboxProps继承时使用 Pick 筛选所需属性即可。
 export interface CheckboxWrapperProps {
   value?: any;
   onChange?: (checkValue: any) => void;
@@ -15,6 +17,7 @@ export interface CheckboxWrapperProps {
   excludeValues?: ((options: CheckboxOptionType[]) => any[]) | any[];
   options?: CheckboxOptionType[];
   checkboxGroupProps?: Omit<CheckboxGroupProps, 'options'> & { options?: CheckboxOptionType[] };
+  [k: string]: any;
 }
 
 const CheckboxWrapper: React.FC<CheckboxWrapperProps> = (props) => {
@@ -25,7 +28,8 @@ const CheckboxWrapper: React.FC<CheckboxWrapperProps> = (props) => {
     allLabel,
     excludeValues = [],
     options: outOptions = [],
-    checkboxGroupProps = {}
+    checkboxGroupProps = {},
+    ...restProps
   } = props;
   const options = React.useMemo(
     () => checkboxGroupProps.options || outOptions,
@@ -63,6 +67,7 @@ const CheckboxWrapper: React.FC<CheckboxWrapperProps> = (props) => {
     <>
       {allDom}
       <Checkbox.Group
+        {...restProps}
         value={value}
         {...checkboxGroupProps}
         onChange={onChangeValue}
