@@ -22,7 +22,11 @@ function Demo() {
         'https://dummyimage.com/500x500',
         'https://dummyimage.com/500x500'
       ]}
-      sideContent={<div style={{ maxWidth: 450, margin: '0 auto' }}><LoginBox /></div>}
+      sideContent={
+        <div style={{ maxWidth: 450, margin: '0 auto' }}>
+          <LoginBox />
+        </div>
+      }
       features={[
         {
           icon: 'https://dummyimage.com/80x80',

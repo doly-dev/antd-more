@@ -20,7 +20,7 @@ function Demo() {
         onCancel={() => setOpen1(false)}
       />
       <FileViewer
-        file='https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
+        file="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
         open={open2}
         onCancel={() => setOpen2(false)}
       />

@@ -47,8 +47,9 @@ const BaseInfo = () => {
   const isCompany = orgType === OrgType.Company;
   const legalIdCardLabel = `${isCompany ? '法人' : ''}身份证号`;
   const legalMobileLabel = `${isCompany ? '法人' : ''}手机号码`;
-  const orgNamePlaceholder = `请输入${isCompany ? '公司营业执照上的商户全称' : '机构代表人姓名'
-    }，将作为机构名称`;
+  const orgNamePlaceholder = `请输入${
+    isCompany ? '公司营业执照上的商户全称' : '机构代表人姓名'
+  }，将作为机构名称`;
 
   return (
     <BizForm

@@ -24,9 +24,13 @@ const ItemNumberMoney: React.FC<ItemNumberMoneyProps> = ({
         controls: !inputPrefixReverse,
         ...inputProps
       }}
-      className={classnames(styles.itemNumberMoney, { [styles.inputPrefixReverse]: inputPrefixReverse }, className)}
+      className={classnames(
+        styles.itemNumberMoney,
+        { [styles.inputPrefixReverse]: inputPrefixReverse },
+        className
+      )}
     />
   );
-}
+};
 
 export default ItemNumberMoney;

@@ -53,10 +53,10 @@ const Demo = () => {
         multiple
         // 使用 action 上传
         uploadProps={{
-          name: "file",
-          action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
+          name: 'file',
+          action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
           headers: {
-            authorization: "authorization-text",
+            authorization: 'authorization-text'
           }
         }}
         transform={uploadFileToFssid}
@@ -74,12 +74,7 @@ const Demo = () => {
         maxCount={1}
         tooltip="使用image的方式，修改时需要先删除才能再上传"
       />
-      <BizFormItemUpload
-        name="dragger"
-        label="拖拽上传"
-        type="dragger"
-        multiple
-      />
+      <BizFormItemUpload name="dragger" label="拖拽上传" type="dragger" multiple />
       {/* <ItemUploadSpecial
         name="special-upload-1"
         label="特殊自定义1"

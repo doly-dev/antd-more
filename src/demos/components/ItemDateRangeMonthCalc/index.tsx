@@ -1,14 +1,7 @@
 import * as React from 'react';
 import { Col, Row } from 'antd';
-import type {
-  BizFormItemDateRangeProps
-} from 'antd-more';
-import {
-  BizForm,
-  BizFormItem,
-  BizFormItemDate,
-  BizFormItemDateRange
-} from 'antd-more';
+import type { BizFormItemDateRangeProps } from 'antd-more';
+import { BizForm, BizFormItem, BizFormItemDate, BizFormItemDateRange } from 'antd-more';
 import type { NamePath } from 'antd/es/form/interface';
 import type { Dayjs } from 'dayjs';
 import dayjs from 'dayjs';
@@ -76,7 +69,7 @@ const ItemDateRangeMonthCalc: React.FC<ItemDateRangeMonthCalcProps> = ({
             placeholder="月份"
             initialValue={dateNow}
             pickerProps={{
-              onChange: onMonthChange,
+              onChange: onMonthChange
             }}
           />
         </Col>
@@ -90,7 +83,7 @@ const ItemDateRangeMonthCalc: React.FC<ItemDateRangeMonthCalcProps> = ({
             initialValue={initialDate}
             {...restProps}
             pickerProps={{
-              disabledDate,
+              disabledDate
             }}
           />
         </Col>

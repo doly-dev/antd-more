@@ -1,6 +1,15 @@
 import * as React from 'react';
 import { Button, Row, Col, TreeSelect } from 'antd';
-import { BizForm, ModalForm, BizFormItem, BizFormItemRadio, BizFormItemInput, BizFormItemNumber, InputIcon, InputIconsMap } from 'antd-more';
+import {
+  BizForm,
+  ModalForm,
+  BizFormItem,
+  BizFormItemRadio,
+  BizFormItemInput,
+  BizFormItemNumber,
+  InputIcon,
+  InputIconsMap
+} from 'antd-more';
 import { MenuType, HiddenMenu, CacheMenu } from './type';
 
 // 菜单列表

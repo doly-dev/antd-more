@@ -14,39 +14,39 @@ const data = {
   image: {
     uid: '-1',
     url: TestImage,
-    name: 'test.jpg',
+    name: 'test.jpg'
   },
   audio: {
     uid: '-2',
     url: TestAudio,
-    name: 'test.mp3',
+    name: 'test.mp3'
   },
   video: {
     uid: '-3',
     url: TestVideo,
-    name: 'test.mp4',
+    name: 'test.mp4'
   },
   pdf: {
     uid: '-4',
     url: TestPdf,
-    name: 'test.pdf',
+    name: 'test.pdf'
   },
   word: {
     uid: '-5',
     url: TestWord,
-    name: 'test.docx',
+    name: 'test.docx'
   },
   excel: {
     uid: '-6',
     url: TestExcel,
-    name: 'test.xlsx',
+    name: 'test.xlsx'
   },
   zip: {
     uid: '-7',
     url: TestZip,
-    name: 'test.zip',
-  },
-}
+    name: 'test.zip'
+  }
+};
 
 function Demo() {
   const [open, setOpen] = React.useState(false);
@@ -54,7 +54,7 @@ function Demo() {
   const preview = (type) => {
     setFileInfo(data[type]);
     setOpen(true);
-  }
+  };
 
   return (
     <div>
@@ -65,11 +65,7 @@ function Demo() {
       <Button onClick={() => preview('word')}>预览word</Button>
       <Button onClick={() => preview('excel')}>预览excel</Button>
       <Button onClick={() => preview('zip')}>预览zip</Button>
-      <FileViewer
-        file={fileInfo}
-        open={open}
-        onCancel={() => setOpen(false)}
-      />
+      <FileViewer file={fileInfo} open={open} onCancel={() => setOpen(false)} />
     </div>
   );
 }

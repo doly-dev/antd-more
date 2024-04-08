@@ -7,11 +7,7 @@ import { Spin } from 'antd';
 import { uploadFileToFssid } from './utils/fileUtils';
 
 // 默认初始值 fssid
-const internalFssids = [
-  'aaa',
-  'bbb',
-  'ccc'
-];
+const internalFssids = ['aaa', 'bbb', 'ccc'];
 
 // 将值转换为 UploadFile 对象
 const transformUploadFiles = async (fssids: string[]) => {
@@ -21,7 +17,7 @@ const transformUploadFiles = async (fssids: string[]) => {
     tasks.push(downloadFile(fssids[i]));
   }
 
-  await Promise.allSettled(tasks).then(results => {
+  await Promise.allSettled(tasks).then((results) => {
     results.forEach((item, index) => {
       const fulfilled = item.status === 'fulfilled';
 
@@ -34,12 +30,14 @@ const transformUploadFiles = async (fssids: string[]) => {
         response: {
           fssid: fssids[index]
         },
-        error: fulfilled ? undefined : {
-          message: '图片加载失败'
-        }
+        error: fulfilled
+          ? undefined
+          : {
+              message: '图片加载失败'
+            }
       });
     });
-  })
+  });
 
   return ret;
 };

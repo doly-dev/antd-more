@@ -20,13 +20,7 @@ const Demo = () => {
   return (
     <BizForm>
       <BizFormItemInput name="note" label="Note" required />
-      <BizFormItemSelect
-        name="gender"
-        label="Gender"
-        options={options}
-        required
-        allowClear
-      />
+      <BizFormItemSelect name="gender" label="Gender" options={options} required allowClear />
       <BizFormItem
         noStyle
         shouldUpdate={(prevValues, currentValues) => prevValues.gender !== currentValues.gender}

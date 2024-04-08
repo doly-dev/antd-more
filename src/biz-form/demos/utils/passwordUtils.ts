@@ -31,7 +31,7 @@ export const validatePassword: Validator = (rule, value) => {
 // 验证新密码，且不能与原密码一致
 export const wrapperValidateNewPassword = (
   form: FormInstance,
-  oldPwdNamePath: NamePath = 'password',
+  oldPwdNamePath: NamePath = 'password'
 ) => {
   const validateNewPwd: Validator = (rule, value) => {
     let errMsg = '';
@@ -53,7 +53,7 @@ export const wrapperValidateNewPassword = (
 // 验证确认新密码
 export const wrapperValidateRepeatPassword = (
   form: FormInstance,
-  pwdNamePath: NamePath = 'password',
+  pwdNamePath: NamePath = 'password'
 ) => {
   const validateRepeatPwd: Validator = (rule, value) => {
     let errMsg = '';

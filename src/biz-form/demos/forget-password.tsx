@@ -46,12 +46,7 @@ const ForgetPassword = () => {
           return sendCaptcha(form.getFieldValue('mobile'));
         }}
       />
-      <BizFormItemPassword
-        label="新密码"
-        name="password"
-        required
-        allowClear={false}
-      />
+      <BizFormItemPassword label="新密码" name="password" required allowClear={false} />
       <BizFormItemPassword
         label="重复新密码"
         name="repeatPassword"

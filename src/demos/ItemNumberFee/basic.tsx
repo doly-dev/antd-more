@@ -6,18 +6,18 @@ function Demo() {
   return (
     <BizForm
       labelWidth={98}
-      onFinish={values => {
+      onFinish={(values) => {
         console.log(values);
       }}
     >
       <ItemNumberFee
-        label='微信扫码'
-        name='wxscanRate'
+        label="微信扫码"
+        name="wxscanRate"
         beforeValue={0.21}
         gte={0.21}
         lte={0.42}
         required
-        tooltip='当前值范围大于等于0.21，小于等于0.42'
+        tooltip="当前值范围大于等于0.21，小于等于0.42"
       />
     </BizForm>
   );

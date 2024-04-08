@@ -93,11 +93,11 @@ const Demo = () => {
                                 label={mobileFieldIndex === 0 ? '手机号码' : ' '}
                                 colon={mobileFieldIndex === 0}
                                 messageVariables={{ label: '手机号码' }}
-                                contentAfter={(
+                                contentAfter={
                                   <MinusCircleOutlined
                                     onClick={() => mobileFieldAction.remove(mobileField.name)}
                                   />
-                                )}
+                                }
                               />
                             ))}
                             {mobileFields.length < 3 && (

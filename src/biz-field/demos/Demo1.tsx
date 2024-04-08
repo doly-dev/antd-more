@@ -65,7 +65,7 @@ export default () => {
               name: '测试名称测试名称测试名称'
             }}
             valueType="image"
-          // renderName={name => <a target='_blank' href='https://baidu.com/' rel="noreferrer">{name}</a>}
+            // renderName={name => <a target='_blank' href='https://baidu.com/' rel="noreferrer">{name}</a>}
           />
         </Descriptions.Item>
         <Descriptions.Item label="图片(边框/名称)">
@@ -142,13 +142,13 @@ export default () => {
           <BizField value="1" valueType="enumBadge" valueEnum={ApproveStatusOptions} />
         </Descriptions.Item>
         <Descriptions.Item label="多个文本">
-          <BizField value={["1", "2"]} valueType="enum" valueEnum={ApproveStatusOptions} />
+          <BizField value={['1', '2']} valueType="enum" valueEnum={ApproveStatusOptions} />
         </Descriptions.Item>
         <Descriptions.Item label="多个标签">
-          <BizField value={["2", "3"]} valueType="enumTag" valueEnum={ApproveStatusOptions} />
+          <BizField value={['2', '3']} valueType="enumTag" valueEnum={ApproveStatusOptions} />
         </Descriptions.Item>
         <Descriptions.Item label="多个徽章">
-          <BizField value={["1", "2"]} valueType="enumBadge" valueEnum={ApproveStatusOptions} />
+          <BizField value={['1', '2']} valueType="enumBadge" valueEnum={ApproveStatusOptions} />
         </Descriptions.Item>
       </Descriptions>
     </>

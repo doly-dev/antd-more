@@ -38,9 +38,7 @@ const WithTooltip: React.FC<WithTooltipProps> = ({ label, tooltip }) => {
     return (
       <Space size={4}>
         {label}
-        <Tooltip {...restTooltipProps}>
-          {icon}
-        </Tooltip>
+        <Tooltip {...restTooltipProps}>{icon}</Tooltip>
       </Space>
     );
   }

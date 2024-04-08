@@ -5,7 +5,16 @@ import IconFile from './images/icon-file.png';
 import IconPdf from './images/icon-pdf.png';
 import IconWord from './images/icon-word.png';
 import IconVideo from './images/icon-video.png';
-import { isAudioType, isExcelType, isImageType, isPdfType, isVideoType, isWordType, fileCache, getFileUrl } from './utils';
+import {
+  isAudioType,
+  isExcelType,
+  isImageType,
+  isPdfType,
+  isVideoType,
+  isWordType,
+  fileCache,
+  getFileUrl
+} from './utils';
 
 export function removeFile(file: RcFile) {
   fileCache.del(file.uid);

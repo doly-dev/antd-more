@@ -21,7 +21,7 @@ const services = {
       'data|3-5': [
         {
           freight: '@float(0.01,999,0,2)',
-          'freightRule|1': ["0", "1", "2"],
+          'freightRule|1': ['0', '1', '2'],
           'id|+1': 0,
           name: '@city'
         }
@@ -37,7 +37,7 @@ const services = {
     return {
       success: true,
       data: data.map((item) => {
-        if ((item.freightRule) !== FreightRuleType.Need) {
+        if (item.freightRule !== FreightRuleType.Need) {
           return {
             ...item,
             freight: 0
@@ -145,16 +145,11 @@ const Freight = () => {
       pagination={false}
       rowKey="id"
       loading={loading || updating}
-      toolbar={(
-        <Button
-          type="primary"
-          onClick={handleUpdate}
-          disabled={loading}
-          loading={updating}
-        >
+      toolbar={
+        <Button type="primary" onClick={handleUpdate} disabled={loading} loading={updating}>
           更新
         </Button>
-      )}
+      }
       toolbarAction={{
         // fullScreen: true,
         // density: true,

@@ -6,10 +6,10 @@ import PictureCard from './PictureCard';
 import { getFileUrl, getFileType } from './utils';
 import { getFileThumbUrl, previewFile, removeFile } from './upload-utils';
 
-export type { FileViewerProps, FileViewerPictureCardProps }
+export type { FileViewerProps, FileViewerPictureCardProps };
 
 function FileViewer(props: FileViewerProps) {
-  return <BaseFileViewer {...props} />
+  return <BaseFileViewer {...props} />;
 }
 
 FileViewer.PictureCard = PictureCard;

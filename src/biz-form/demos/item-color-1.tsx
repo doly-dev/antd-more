@@ -14,7 +14,7 @@ const Demo = () => {
       <BizFormItemColor label="rgb" name="color2" showText colorMode="rgb" />
       <BizFormItemColor label="hover" name="color3" colorProps={{ trigger: 'hover' }} />
       <BizFormItemColor label="颜色必选" name="color4" required />
-      <BizFormItemColor label="不同尺寸" name="color5" size='middle' />
+      <BizFormItemColor label="不同尺寸" name="color5" size="middle" />
     </BizForm>
   );
 };

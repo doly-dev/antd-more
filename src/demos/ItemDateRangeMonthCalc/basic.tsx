@@ -5,14 +5,11 @@ import ItemDateRangeMonthCalc from '../components/ItemDateRangeMonthCalc';
 function Demo() {
   return (
     <BizForm
-      onFinish={values => {
+      onFinish={(values) => {
         console.log(values);
       }}
     >
-      <ItemDateRangeMonthCalc
-        name='dateRangeCalc'
-        names={['startTime', 'endTime']}
-      />
+      <ItemDateRangeMonthCalc name="dateRangeCalc" names={['startTime', 'endTime']} />
     </BizForm>
   );
 }

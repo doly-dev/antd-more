@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from 'react';
 import classnames from 'classnames';
-import type { PopoverProps, UploadProps } from "antd";
-import { Image, message, Popover, Upload } from "antd";
-import type { RcFile } from "antd/es/upload/interface";
+import type { PopoverProps, UploadProps } from 'antd';
+import { Image, message, Popover, Upload } from 'antd';
+import type { RcFile } from 'antd/es/upload/interface';
 import ImageIdCardPersonal from './assets/idcard-personal.jpg';
 import ImageIdCardNational from './assets/idcard-national.jpg';
 import ImageBusinessLicense from './assets/business-license.jpg';
@@ -18,51 +18,51 @@ import ImageExampleAuthorization from './assets/example-authorization.jpg';
 import ImageExampleBusinessRegistry from './assets/example-business-registry.jpg';
 import styles from './index.module.less';
 import IconPDF from './assets/icon-pdf.png';
-import { isPDFFile } from "./utils";
+import { isPDFFile } from './utils';
 
 const InternalConfig = {
   idCardFront: {
-    icon: <img src={ImageIdCardPersonal} alt='' />,
+    icon: <img src={ImageIdCardPersonal} alt="" />,
     title: '身份证人像面',
     popoverProps: {
       title: '身份证人像面示例图',
-      content: <img src={ImageExampleIdCardPersonal} alt='' style={{ width: 260, height: 160 }} />
+      content: <img src={ImageExampleIdCardPersonal} alt="" style={{ width: 260, height: 160 }} />
     }
   },
   idCardBack: {
-    icon: <img src={ImageIdCardNational} alt='' />,
+    icon: <img src={ImageIdCardNational} alt="" />,
     title: '身份证国徽面',
     popoverProps: {
       title: '身份证国徽面示例图',
-      content: <img src={ImageExampleIdCardNational} alt='' style={{ width: 260, height: 160 }} />
+      content: <img src={ImageExampleIdCardNational} alt="" style={{ width: 260, height: 160 }} />
     }
   },
   businessLicense: {
-    icon: <img src={ImageBusinessLicense} alt='' />,
+    icon: <img src={ImageBusinessLicense} alt="" />,
     popoverProps: {
       title: '营业执照示例图',
-      content: <img src={ImageExampleBusinessLicense} alt='' style={{ width: 300, height: 428 }} />
+      content: <img src={ImageExampleBusinessLicense} alt="" style={{ width: 300, height: 428 }} />
     }
   },
   businessRegistry: {
-    icon: <img src={ImageBusinessLicense} alt='' />,
+    icon: <img src={ImageBusinessLicense} alt="" />,
     popoverProps: {
       title: '商业登记证BR示例图',
-      content: <img src={ImageExampleBusinessRegistry} alt='' style={{ width: 300, height: 395 }} />
+      content: <img src={ImageExampleBusinessRegistry} alt="" style={{ width: 300, height: 395 }} />
     }
   },
   passport: {
-    icon: <img src={ImagePassport} alt='' />,
+    icon: <img src={ImagePassport} alt="" />,
     popoverProps: {
       title: '护照示例图',
-      content: <img src={ImageExamplePassport} alt='' style={{ width: 260, height: 178 }} />
+      content: <img src={ImageExamplePassport} alt="" style={{ width: 260, height: 178 }} />
     }
   },
   authorization: {
-    icon: <img src={ImageAuthorization} alt='' />,
+    icon: <img src={ImageAuthorization} alt="" />,
     popoverProps: {
       title: '授权书示例图',
-      content: <img src={ImageExampleAuthorization} alt='' style={{ width: 300, height: 421 }} />
+      content: <img src={ImageExampleAuthorization} alt="" style={{ width: 300, height: 421 }} />
     }
   }
 } as const;
@@ -70,7 +70,13 @@ const InternalConfig = {
 const supportedFileType = ['image/jpg', 'image/jpeg', 'image/bmp', 'image/png', 'application/pdf'];
 
 export interface UploadCertificateProps extends UploadProps {
-  idType?: 'idCardFront' | 'idCardBack' | 'businessLicense' | 'businessRegistry' | 'passport' | 'authorization'; // 证件类型
+  idType?:
+    | 'idCardFront'
+    | 'idCardBack'
+    | 'businessLicense'
+    | 'businessRegistry'
+    | 'passport'
+    | 'authorization'; // 证件类型
   icon?: React.ReactNode;
   title?: React.ReactNode;
   block?: boolean;
@@ -93,8 +99,14 @@ const UploadCertificate: React.FC<UploadCertificateProps> = ({
   const previewCurrentRef = useRef(0);
   const uploadingFlagRef = useRef(false); // 标识正在上传
   const [visible, setVisible] = useState(false);
-  const config: Record<string, any> = useMemo(() => idType ? InternalConfig[idType] : {}, [idType]);
-  const icon = useMemo(() => outIcon || config?.icon || <img src={ImageCommonCert} alt='' />, [config?.icon, outIcon]);
+  const config: Record<string, any> = useMemo(
+    () => (idType ? InternalConfig[idType] : {}),
+    [idType]
+  );
+  const icon = useMemo(
+    () => outIcon || config?.icon || <img src={ImageCommonCert} alt="" />,
+    [config?.icon, outIcon]
+  );
   const title = useMemo(() => outTitle || config?.title || '点击上传', [config?.title, outTitle]);
 
   const uploadBoxDom = useMemo(() => {
@@ -103,7 +115,7 @@ const UploadCertificate: React.FC<UploadCertificateProps> = ({
         {icon}
         <div className={styles.text}>{title}</div>
       </div>
-    )
+    );
   }, [icon, title]);
 
   const handleBeforeUpload = useCallback((file: RcFile) => {
@@ -133,7 +145,7 @@ const UploadCertificate: React.FC<UploadCertificateProps> = ({
         }}
         disabled={disabled}
         beforeUpload={handleBeforeUpload}
-        accept='application/pdf,.pdf,image/*'
+        accept="application/pdf,.pdf,image/*"
         customRequest={(obj) => {
           // console.log('customRequest: ', obj);
           // const formData = new FormData();
@@ -147,9 +159,12 @@ const UploadCertificate: React.FC<UploadCertificateProps> = ({
 
               setTimeout(() => {
                 obj.onProgress?.({ percent: 99 });
-                onUpload?.(obj.file as File).then(obj.onSuccess).catch(obj.onError).finally(() => {
-                  uploadingFlagRef.current = false;
-                });
+                onUpload?.(obj.file as File)
+                  .then(obj.onSuccess)
+                  .catch(obj.onError)
+                  .finally(() => {
+                    uploadingFlagRef.current = false;
+                  });
               });
             } else {
               timer = setTimeout(queueUpload, 100);
@@ -159,40 +174,42 @@ const UploadCertificate: React.FC<UploadCertificateProps> = ({
           queueUpload();
         }}
         onPreview={(file) => {
-          previewCurrentRef.current = fileList.findIndex(item => item.uid === file.uid);
+          previewCurrentRef.current = fileList.findIndex((item) => item.uid === file.uid);
           setVisible(true);
         }}
         fileList={fileList}
         maxCount={maxCount}
         {...restProps}
       >
-        {
-          fileList.length < maxCount && (
-            (config?.popoverProps || popoverProps) && fileList.length === 0 ? (
-              <Popover
-                placement='rightTop'
-                {...(config?.popoverProps || {})}
-                {...popoverProps}
-                overlayClassName={classnames(styles.popoverTip, popoverProps?.className)}
-              >
-                {uploadBoxDom}
-              </Popover>
-            ) : uploadBoxDom
-          )
-        }
+        {fileList.length < maxCount &&
+          ((config?.popoverProps || popoverProps) && fileList.length === 0 ? (
+            <Popover
+              placement="rightTop"
+              {...(config?.popoverProps || {})}
+              {...popoverProps}
+              overlayClassName={classnames(styles.popoverTip, popoverProps?.className)}
+            >
+              {uploadBoxDom}
+            </Popover>
+          ) : (
+            uploadBoxDom
+          ))}
       </Upload>
       <div style={{ display: 'none' }}>
-        <Image.PreviewGroup preview={{ visible, onVisibleChange: vis => setVisible(vis), current: previewCurrentRef.current }}>
-          {
-            fileList.map(item => {
-              return <Image src={item.preview || item.url || item.thumbUrl} key={item.uid} />
-            })
-          }
+        <Image.PreviewGroup
+          preview={{
+            visible,
+            onVisibleChange: (vis) => setVisible(vis),
+            current: previewCurrentRef.current
+          }}
+        >
+          {fileList.map((item) => {
+            return <Image src={item.preview || item.url || item.thumbUrl} key={item.uid} />;
+          })}
         </Image.PreviewGroup>
       </div>
     </div>
   );
-}
+};
 
 export default UploadCertificate;
-

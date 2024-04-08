@@ -1,7 +1,10 @@
 import * as React from 'react';
 import { BizForm, BizFormItem, BizFormItemPassword } from 'antd-more';
 import { sleep } from 'ut2';
-import { wrapperValidateNewPassword, wrapperValidateRepeatPassword } from '../../../biz-form/demos/utils/passwordUtils';
+import {
+  wrapperValidateNewPassword,
+  wrapperValidateRepeatPassword
+} from '../../../biz-form/demos/utils/passwordUtils';
 
 const Demo = () => {
   const [form] = BizForm.useForm();
@@ -28,7 +31,7 @@ const Demo = () => {
         required
         allowClear
         validated={false}
-        validateTrigger='onBlur'
+        validateTrigger="onBlur"
         visibilityToggle={false}
       />
       <BizFormItemPassword
@@ -36,7 +39,7 @@ const Demo = () => {
         name="newPassword"
         required
         allowClear
-        validateTrigger='onBlur'
+        validateTrigger="onBlur"
         visibilityToggle={false}
         dependencies={['password']}
         extendRules={[
@@ -50,7 +53,7 @@ const Demo = () => {
         name="repeatNewPassword"
         required
         allowClear
-        validateTrigger='onBlur'
+        validateTrigger="onBlur"
         visibilityToggle={false}
         dependencies={['newPassword']}
         rules={[

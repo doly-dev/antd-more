@@ -9,8 +9,11 @@ import StepsFormContext, { StepsFormAction } from './StepsFormContext';
 import type { StepsFormSubmitterProps } from './StepsSubmitter';
 
 export interface StepFormProps<Values = any>
-  extends Omit<BaseFormProps<Values>, 'title' | 'onReset' | 'contentRender' | 'submitter' | 'ready'>,
-  Pick<StepProps, 'title' | 'icon' | 'subTitle' | 'description'> {
+  extends Omit<
+      BaseFormProps<Values>,
+      'title' | 'onReset' | 'contentRender' | 'submitter' | 'ready'
+    >,
+    Pick<StepProps, 'title' | 'icon' | 'subTitle' | 'description'> {
   stepProps?: StepProps;
   submitter?: Omit<StepsFormSubmitterProps, 'total' | 'current' | 'form'> | false;
   readonly step?: number;

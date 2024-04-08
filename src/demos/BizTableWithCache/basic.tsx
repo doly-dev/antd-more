@@ -1,6 +1,6 @@
 import * as React from 'react';
 import type { BizTableRequest, BizTableColumnType } from 'antd-more';
-import BizTableWithCache from "../components/BizTableWithCache";
+import BizTableWithCache from '../components/BizTableWithCache';
 import { getApplyList } from '../../biz-table/demos/service';
 
 function Demo() {
@@ -64,10 +64,10 @@ function Demo() {
 
   return (
     <BizTableWithCache
-      cacheKey='uniqueCacheKey'
+      cacheKey="uniqueCacheKey"
       request={request}
       columns={columns}
-      rowKey='applyCode'
+      rowKey="applyCode"
     />
   );
 }

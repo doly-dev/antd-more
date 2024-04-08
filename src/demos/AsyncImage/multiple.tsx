@@ -4,7 +4,10 @@ import AsyncImage from '../components/AsyncImage';
 function Demo() {
   return (
     <AsyncImage
-      fssid={[{ fileId: '1', fileName: '1.png' }, { fileId: '2', fileName: '2.png' }]}
+      fssid={[
+        { fileId: '1', fileName: '1.png' },
+        { fileId: '2', fileName: '2.png' }
+      ]}
       enabledDownload
     />
   );

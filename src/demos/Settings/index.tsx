@@ -14,14 +14,16 @@ const pages = [
     key: 'change-password',
     label: '修改密码',
     component: () => import('./ChangePassword')
-  },
+  }
 ];
 
 const Settings = () => {
-  const { token: { colorBgContainer } } = theme.useToken();
+  const {
+    token: { colorBgContainer }
+  } = theme.useToken();
 
   const [selectedKey, setSelectedKey] = useState(pages[0].key);
-  const currentPage = pages.find(item => item.key === selectedKey)!;
+  const currentPage = pages.find((item) => item.key === selectedKey)!;
 
   // 如果要支持跳转某个菜单页
   // const search = parse(history.location.search.substring(1)) || {};
@@ -59,7 +61,13 @@ const Settings = () => {
         <Content>
           <Header style={{ background: colorBgContainer }}>{currentPage.label}</Header>
           <Card bordered={false} style={{ boxShadow: 'none' }}>
-            <Suspense fallback={<div className={styles.lazyload}><Spin /></div>}>
+            <Suspense
+              fallback={
+                <div className={styles.lazyload}>
+                  <Spin />
+                </div>
+              }
+            >
               <Comp />
             </Suspense>
           </Card>
@@ -67,6 +75,6 @@ const Settings = () => {
       </Layout>
     </div>
   );
-}
+};
 
 export default Settings;

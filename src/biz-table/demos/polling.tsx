@@ -79,12 +79,18 @@ const Demo = () => {
         actionRef.current?.reload();
       });
     }
-  }
+  };
 
   return (
     <div>
       <Space style={{ marginBottom: 16 }}>
-        自动轮询<Switch checkedChildren="开启" unCheckedChildren="关闭" checked={polling} onChange={handleChangePolling} />
+        自动轮询
+        <Switch
+          checkedChildren="开启"
+          unCheckedChildren="关闭"
+          checked={polling}
+          onChange={handleChangePolling}
+        />
       </Space>
 
       <BizTable

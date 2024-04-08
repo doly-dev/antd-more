@@ -18,7 +18,7 @@ const prefixCls = prefixClass;
 
 export interface BizUserLayoutProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'>,
-  HeaderProps {
+    HeaderProps {
   renderHeader?: (props: BizUserLayoutProps) => React.ReactNode; // 自定义渲染头部
   hideHeader?: boolean;
   banner?: BannerProps['data'];

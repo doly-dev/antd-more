@@ -7,9 +7,9 @@ import styles from './index.module.less';
 // 配送规则
 // 0--不包邮 1--包邮 2-不配送
 export enum FreightRuleType {
-  Need = "0",
-  No = "1",
-  NoExpress = "2"
+  Need = '0',
+  No = '1',
+  NoExpress = '2'
 }
 
 // 配送规则选项
@@ -36,7 +36,7 @@ export type FreightItem = {
 
 export interface FreightProps
   extends Omit<RadioGroupProps, 'id' | 'value' | 'onChange'>,
-  FreightItem {
+    FreightItem {
   onChange?: (value: FreightItem) => void;
 }
 

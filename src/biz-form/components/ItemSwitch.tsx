@@ -6,7 +6,7 @@ import BizFormItem from './Item';
 
 export interface BizFormItemSwitchProps
   extends BizFormItemProps,
-  Pick<SwitchProps, 'checkedChildren' | 'unCheckedChildren'> {
+    Pick<SwitchProps, 'checkedChildren' | 'unCheckedChildren'> {
   switchProps?: SwitchProps;
 }
 

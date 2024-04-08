@@ -31,7 +31,7 @@ const applyList = ({ page: { pageNum, pageSize }, data = {} }) =>
         approverName: '@cname',
         createTime: '@datetime',
         approveTime: '@datetime',
-        'approveResult|1': ["1", "2", "3"],
+        'approveResult|1': ['1', '2', '3'],
         'money|0-10000.0-2': 0,
         remark: '@cword(10,20)'
       }

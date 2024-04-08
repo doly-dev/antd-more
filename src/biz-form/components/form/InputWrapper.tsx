@@ -53,14 +53,13 @@ const InputWrapper: React.FC<InputWrapperProps> = ({
   }, [type]);
   const needAdjustPos = React.useMemo(
     () =>
-      format && (
-        type === 'bankCard' ||
+      format &&
+      (type === 'bankCard' ||
         type === 'mobile' ||
         type === 'idCard' ||
         type === 'email' ||
         type === 'userName' ||
-        disabledWhiteSpace
-      ),
+        disabledWhiteSpace),
     [format, type, disabledWhiteSpace]
   );
 
@@ -135,7 +134,15 @@ const InputWrapper: React.FC<InputWrapperProps> = ({
     }
   }, [needAdjustPos, normalize, onChange, value]);
 
-  return <Input value={value} onChange={handleChange} type={realType} maxLength={maxLen} {...restProps} />;
+  return (
+    <Input
+      value={value}
+      onChange={handleChange}
+      type={realType}
+      maxLength={maxLen}
+      {...restProps}
+    />
+  );
 };
 
 export default InputWrapper;

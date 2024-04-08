@@ -66,14 +66,7 @@ const Demo = () => {
     });
   };
 
-  return (
-    <BizTable
-      request={request}
-      columns={columns}
-      rowKey="applyCode"
-      toolbarAction
-    />
-  );
+  return <BizTable request={request} columns={columns} rowKey="applyCode" toolbarAction />;
 };
 
 export default Demo;

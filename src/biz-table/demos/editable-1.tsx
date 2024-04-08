@@ -12,7 +12,7 @@ const defaultData = Mock.mock({
       'age|1-99': 20,
       name: '@cname',
       birthday: '@date',
-      'status|1': ["1", "2", "3"]
+      'status|1': ['1', '2', '3']
     }
   ]
 }).list;

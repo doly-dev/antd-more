@@ -6,7 +6,7 @@ import BizFormItem from './Item';
 
 export interface BizFormItemSliderProps
   extends BizFormItemProps,
-  Pick<SliderSingleProps, 'min' | 'max' | 'step' | 'marks'> {
+    Pick<SliderSingleProps, 'min' | 'max' | 'step' | 'marks'> {
   sliderProps?: SliderSingleProps | SliderRangeProps;
 }
 

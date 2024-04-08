@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Radio } from 'antd';
-import { BizForm, BizFormItem, BizFormItemInput, BizFormItemUpload, } from 'antd-more';
+import { BizForm, BizFormItem, BizFormItemInput, BizFormItemUpload } from 'antd-more';
 import { isUrl } from 'util-helpers';
 import { uploadFile } from './services';
 import { uploadFileToFssid } from './utils/fileUtils';
@@ -24,7 +24,7 @@ const CollectTypeOptions = [
   {
     label: '其他',
     value: CollectType.Other
-  },
+  }
 ];
 
 function Demo() {
@@ -32,15 +32,15 @@ function Demo() {
 
   return (
     <BizForm
-      name='business-info'
+      name="business-info"
       form={form}
-      onFinish={values => {
+      onFinish={(values) => {
         console.log(values);
       }}
     >
       <BizFormItem
-        label='收单方式'
-        name='collectType'
+        label="收单方式"
+        name="collectType"
         required
         rules={[
           {
@@ -55,47 +55,47 @@ function Demo() {
         ]}
       >
         <Radio.Group>
-          {
-            CollectTypeOptions.map(item => {
-              return (
-                <Radio key={item.value} value={item.value} style={item.value === CollectType.Other ? { marginTop: 3, height: 24 } : {}}>
-                  <div style={{ display: 'flex' }}>
-                    <span>{item.label}</span>
-                    {item.value === CollectType.Other ? (
-                      <BizFormItem noStyle shouldUpdate>
-                        {
-                          () => {
-                            const collectType = form.getFieldValue(['collectType']);
+          {CollectTypeOptions.map((item) => {
+            return (
+              <Radio
+                key={item.value}
+                value={item.value}
+                style={item.value === CollectType.Other ? { marginTop: 3, height: 24 } : {}}
+              >
+                <div style={{ display: 'flex' }}>
+                  <span>{item.label}</span>
+                  {item.value === CollectType.Other ? (
+                    <BizFormItem noStyle shouldUpdate>
+                      {() => {
+                        const collectType = form.getFieldValue(['collectType']);
 
-                            if (collectType === CollectType.Other) {
-                              return (
-                                <BizFormItemInput
-                                  label='收单方式名称'
-                                  name='collectName'
-                                  required
-                                  hideLabel
-                                  inputProps={{
-                                    placeholder: '请输入收单方式名称'
-                                  }}
-                                  style={{ marginTop: -5, marginLeft: 5, marginBottom: 0 }}
-                                />
-                              )
-                            }
-                            return null;
-                          }
+                        if (collectType === CollectType.Other) {
+                          return (
+                            <BizFormItemInput
+                              label="收单方式名称"
+                              name="collectName"
+                              required
+                              hideLabel
+                              inputProps={{
+                                placeholder: '请输入收单方式名称'
+                              }}
+                              style={{ marginTop: -5, marginLeft: 5, marginBottom: 0 }}
+                            />
+                          );
                         }
-                      </BizFormItem>
-                    ) : null}
-                  </div>
-                </Radio>
-              )
-            })
-          }
+                        return null;
+                      }}
+                    </BizFormItem>
+                  ) : null}
+                </div>
+              </Radio>
+            );
+          })}
         </Radio.Group>
       </BizFormItem>
       <BizFormItemInput
-        label='销售地址'
-        name='webSiteUrl'
+        label="销售地址"
+        name="webSiteUrl"
         required
         maxLength={350}
         extendRules={[
@@ -110,9 +110,9 @@ function Demo() {
         ]}
       />
       <BizFormItemUpload
-        label='证明文件'
-        name='busDesDocument'
-        type='image'
+        label="证明文件"
+        name="busDesDocument"
+        type="image"
         required
         maxCount={6}
         maxSize={20 * 1024 * 1024}

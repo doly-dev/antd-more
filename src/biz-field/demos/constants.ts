@@ -1,9 +1,9 @@
 // 审核状态
 // 1-审核中 2-审核通过 3-审核不通过
 export enum ApproveStatus {
-  Processing = "1",
-  Approve = "2",
-  Refused = "3"
+  Processing = '1',
+  Approve = '2',
+  Refused = '3'
 }
 
 // 审核状态选项

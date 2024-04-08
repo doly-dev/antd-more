@@ -31,7 +31,7 @@ const defaultData = Mock.mock({
       'money|0-10000.2': null,
       materials: [],
       remark: null, // '@cparagraph'
-      'status|1': ["1", "2", "3"]
+      'status|1': ['1', '2', '3']
     }
   ]
 }).list;
@@ -158,12 +158,7 @@ const Demo = () => {
           <BizFormItemNumber label="终端编号" name="terminalNo" />
         </Col>
       </Row>
-      <BizFormItem
-        label="付款列表"
-        name="list"
-        trigger="onValuesChange"
-        hideLabel
-      >
+      <BizFormItem label="付款列表" name="list" trigger="onValuesChange" hideLabel>
         <EditableBizTable
           rowKey="id"
           columns={columns}

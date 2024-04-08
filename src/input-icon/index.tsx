@@ -20,12 +20,7 @@ export interface InputIconProps extends Omit<InputProps, 'defaultValue' | 'value
 }
 
 const InputIcon: React.FC<InputIconProps> = (props) => {
-  const {
-    iconData: icons = new Map([]),
-    showSearch = true,
-    column,
-    ...restProps
-  } = props;
+  const { iconData: icons = new Map([]), showSearch = true, column, ...restProps } = props;
   const [state, setState] = useControllableValue(props);
 
   const handleSelect = React.useCallback(

@@ -19,8 +19,7 @@ const WrapperFormElement: React.FC<WrapperFormElementProps> = ({
   ...restProps
 }) => {
   const childrenView = React.isValidElement(children)
-    ? React.cloneElement(children,
-      composeProps(children?.props, restProps, true))
+    ? React.cloneElement(children, composeProps(children?.props, restProps, true))
     : (children as any);
 
   if (!after && !before) {
@@ -29,8 +28,8 @@ const WrapperFormElement: React.FC<WrapperFormElementProps> = ({
 
   const styles = align
     ? {
-      alignItems: align
-    }
+        alignItems: align
+      }
     : {};
 
   return (
