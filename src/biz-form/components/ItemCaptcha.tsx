@@ -90,7 +90,11 @@ const VerificateCodeInput: React.FC<VerificateCodeInputProps> = ({
     [buttonProps]
   );
 
-  React.useImperativeHandle(buttonProps?.ref, () => buttonRef.current, [buttonRef]);
+  React.useImperativeHandle(
+    buttonProps?.ref as React.MutableRefObject<HTMLButtonElement | HTMLAnchorElement>,
+    () => buttonRef.current,
+    [buttonRef]
+  );
 
   const defaultStyle = React.useMemo(() => {
     let inputStyle: Record<string, any> = {
