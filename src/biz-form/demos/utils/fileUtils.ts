@@ -3,6 +3,17 @@ import type { UploadFile } from 'antd';
 import { isArray, uniqueId } from 'ut2';
 import { downloadFile } from '../services';
 
+export function wrapperUploadFile<T = any>(opts: Partial<UploadFile>) {
+  return {
+    uid: uniqueId(),
+    status: 'done',
+    thumbUrl: opts.url,
+    url: opts.url,
+    name: '',
+    ...opts
+  } as UploadFile<T>;
+}
+
 const asyncCache: Record<string, any> = {};
 const fileCache = new Cache({ max: 20, maxStrategy: 'replaced', stdTTL: 5 * 60 * 1000 });
 
@@ -27,29 +38,23 @@ async function getFileByFssid(fssid: string): Promise<UploadFile> {
       fileCache.set(fssid, res);
       cache = res;
     } catch (error) {
-      return {
-        uid: uniqueId(fssid),
-        name: '',
+      return wrapperUploadFile({
         status: 'error',
         error,
-        url: '',
         response: {
           fssid
         }
-      };
+      });
     }
   }
 
-  return {
-    uid: uniqueId(fssid),
+  return wrapperUploadFile({
     name: cache?.data,
-    status: 'done',
     response: {
       fssid
     },
-    thumbUrl: cache?.data,
     url: cache?.data
-  };
+  });
 }
 
 // 通过 fssid 转为 UploadFile
