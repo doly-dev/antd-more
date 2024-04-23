@@ -10,6 +10,7 @@ import UploadAvatar from './UploadAvatar';
 import UploadDragger from './UploadDragger';
 import Preview from './Preview';
 import { useConfig } from '../../../biz-config-provider';
+import type { StyleWithVariable } from '../../../utils/types';
 
 const normFile = (e) => {
   if (isArray(e)) {
@@ -19,7 +20,7 @@ const normFile = (e) => {
 };
 
 export interface BizFormItemUploadProps
-  extends BizFormItemProps,
+  extends Omit<BizFormItemProps, 'style'>,
     Pick<
       UploadWrapperProps,
       | 'accept'
@@ -37,6 +38,9 @@ export interface BizFormItemUploadProps
   multiple?: boolean;
   icon?: React.ReactNode;
   title?: React.ReactNode;
+  style?: StyleWithVariable<
+    '--size' | '--gap' | '--avatar-size' | '--avatar-hover-color' | '--error-color'
+  >;
 }
 
 const BizFormItemUpload: React.FC<BizFormItemUploadProps> & {
