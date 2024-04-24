@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { floor, gt, gte, lt, lte } from 'ut2';
+import { floor, gt, gte, lt, lte, toNumber } from 'ut2';
 import { isValidNumber } from 'util-helpers';
 import { InputNumber } from 'antd';
 import type { BizFormItemProps } from './Item';
@@ -70,13 +70,13 @@ const BizFormItemNumber: React.FC<BizFormItemNumberProps> = (props) => {
             let errMsg = '';
             if (!isValidNumber(value, true)) {
               errMsg = required ? locale.form.common.inputRequired : '';
-            } else if (isValidNumber(outLt) && gte(value, outLt)) {
+            } else if (isValidNumber(outLt) && gte(value, toNumber(outLt))) {
               errMsg = locale.form.number.lt(outLt);
-            } else if (isValidNumber(outGt) && lte(value, outGt)) {
+            } else if (isValidNumber(outGt) && lte(value, toNumber(outGt))) {
               errMsg = locale.form.number.gt(outGt);
-            } else if (isValidNumber(outLte) && gt(value, outLte)) {
+            } else if (isValidNumber(outLte) && gt(value, toNumber(outLte))) {
               errMsg = locale.form.number.lte(outLte);
-            } else if (isValidNumber(outGte) && lt(value, outGte)) {
+            } else if (isValidNumber(outGte) && lt(value, toNumber(outGte))) {
               errMsg = locale.form.number.gte(outGte);
             } else if (isValidNumber(maxPrecision) && maxPrecision > 0) {
               const decimal = `${value}`.split('.')[1];
