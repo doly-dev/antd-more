@@ -12,7 +12,7 @@ export interface BizFormItemCascaderProps<DataNodeType = any>
   extends BizFormItemProps,
     Pick<CascaderProps<DataNodeType>, 'options' | 'placeholder' | 'fieldNames' | 'allowClear'> {
   names?: string[];
-  cascaderProps?: CascaderProps<DataNodeType>;
+  cascaderProps?: Omit<CascaderProps<DataNodeType>, 'multiple'> & { multiple?: boolean };
 }
 
 function BizFormItemCascader<DataNodeType = any>(props: BizFormItemCascaderProps<DataNodeType>) {

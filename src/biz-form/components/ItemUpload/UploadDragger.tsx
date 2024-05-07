@@ -3,12 +3,13 @@ import { InboxOutlined } from '@ant-design/icons';
 import type { UploadWrapperProps } from './UploadWrapper';
 import UploadWrapper from './UploadWrapper';
 import { useConfig } from '../../../biz-config-provider';
+import type { UploadRef } from '../antd.interface';
 
 const defaultShowUploadList = {
   showPreviewIcon: false
 };
 
-const UploadDragger: React.FC<UploadWrapperProps> = (props) => {
+const UploadDragger = React.forwardRef<UploadRef, UploadWrapperProps>((props, ref) => {
   const { locale } = useConfig();
   const {
     showUploadList,
@@ -32,11 +33,11 @@ const UploadDragger: React.FC<UploadWrapperProps> = (props) => {
   }, [showUploadList]);
 
   return (
-    <UploadWrapper {...restProps} dragger showUploadList={innerShowUploadList}>
+    <UploadWrapper dragger {...restProps} ref={ref} showUploadList={innerShowUploadList}>
       <p className="ant-upload-drag-icon">{icon}</p>
       <p className="ant-upload-text">{title}</p>
     </UploadWrapper>
   );
-};
+});
 
 export default UploadDragger;

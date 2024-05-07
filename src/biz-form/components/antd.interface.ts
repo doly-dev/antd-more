@@ -34,3 +34,4 @@ export type { SliderRangeProps } from 'antd/es/slider';
 export type { FormListProps } from 'antd/es/form';
 
 export type { UploadChangeParam, RcFile } from 'antd/es/upload/interface';
+export type { UploadRef } from 'antd/es/upload/Upload';

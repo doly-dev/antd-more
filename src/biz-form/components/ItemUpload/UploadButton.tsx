@@ -4,12 +4,13 @@ import { UploadOutlined } from '@ant-design/icons';
 import type { UploadWrapperProps } from './UploadWrapper';
 import UploadWrapper from './UploadWrapper';
 import { useConfig } from '../../../biz-config-provider';
+import type { UploadRef } from '../antd.interface';
 
 const defaultShowUploadList = {
   showPreviewIcon: false
 };
 
-const UploadButton: React.FC<UploadWrapperProps> = (props) => {
+const UploadButton = React.forwardRef<UploadRef, UploadWrapperProps>((props, ref) => {
   const { locale } = useConfig();
   const {
     showUploadList,
@@ -32,10 +33,10 @@ const UploadButton: React.FC<UploadWrapperProps> = (props) => {
   }, [showUploadList]);
 
   return (
-    <UploadWrapper {...restProps} showUploadList={innerShowUploadList}>
+    <UploadWrapper {...restProps} ref={ref} showUploadList={innerShowUploadList}>
       <Button icon={icon}>{title}</Button>
     </UploadWrapper>
   );
-};
+});
 
 export default UploadButton;

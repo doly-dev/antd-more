@@ -33,31 +33,31 @@ order: 3
 {/* <!-- End 阻止浏览器的自动填充 --> */}
 ```
 
-## 表单设置 `scrollToFirstError` ，文件上传校验失败，不会滚动至表单位置
+## 如何设置全局表单校验失败滚动至第一个错误表单项位置？
 
-```javascript
-scrollToFirstError={{
-  behavior(actions) {
-    actions.forEach(({ el, top }) => {
-      // implement the scroll anyway you want
-      el.scrollTop = top - 72;
-    });
-  },
-}}
-```
+```typescript
+// App.tsx 或 其他入口文件
 
-> 参考 [scrollToFirstError for Upload input](https://github.com/ant-design/ant-design/issues/28869) ，官方还未解决。
+import { BizConfigProvider } from 'antd-more';
 
-建议在 `onFinishFailed` 中判断第一个错误是文件上传，增加 `message.error` 提示。
+// ...
 
-```javascript
-onFinishFailed={(errorInfo) => {
-  // 文件上传校验失败，不会滚动至表单位置，写一个message提示
-  // ref: https://github.com/ant-design/ant-design/issues/28869
-  if (errorInfo.errorFields[0].name[0] === 'uploadField') {
-    message.error(errorInfo.errorFields[0].errors[0]);
-  }
-}}
+<BizConfigProvider
+  bizForm={{
+    scrollToFirstError: {
+      behavior(actions) {
+        actions.forEach(({ el, top }) => {
+          // implement the scroll anyway you want
+          el.scrollTop = top - 72;
+        });
+      }
+    }
+  }}
+>
+  // 你的代码...
+</BizConfigProvider>;
+
+// ...
 ```
 
 ## 为什么时间类组件的国际化 locale 设置不生效？
@@ -66,7 +66,7 @@ onFinishFailed={(errorInfo) => {
 
 请检查是否正确设置了 dayjs 语言包。
 
-```javascript
+```typescript
 import 'dayjs/locale/zh-cn';
 
 dayjs.locale('zh-cn');

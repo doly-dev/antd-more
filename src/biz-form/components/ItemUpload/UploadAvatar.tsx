@@ -4,7 +4,7 @@ import { useUnmount } from 'rc-hooks';
 import { Tooltip } from 'antd';
 import { PictureOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
-import type { UploadFile } from '../antd.interface';
+import type { UploadRef, UploadFile } from '../antd.interface';
 import type { UploadWrapperProps } from './UploadWrapper';
 import UploadWrapper from './UploadWrapper';
 import UploadImageButton from './UploadImageButton';
@@ -86,27 +86,24 @@ const UploadAvatar: React.FC<{
   return dom;
 };
 
-const UploadImage: React.FC<UploadWrapperProps> = ({
-  fileList,
-  className,
-  icon,
-  title,
-  ...restProps
-}) => {
-  return (
-    <UploadWrapper
-      {...restProps}
-      listType="picture-card"
-      accept={restProps?.accept || '.jpg, .jpeg, .png'}
-      fileList={fileList}
-      showUploadList={false}
-      multiple={false}
-      maxCount={1}
-      className={classNames(prefixCls, className)}
-    >
-      <UploadAvatar fileList={fileList} icon={icon} title={title} />
-    </UploadWrapper>
-  );
-};
+const UploadImage = React.forwardRef<UploadRef, UploadWrapperProps>(
+  ({ fileList, className, icon, title, ...restProps }, ref) => {
+    return (
+      <UploadWrapper
+        {...restProps}
+        listType="picture-card"
+        accept={restProps?.accept || '.jpg, .jpeg, .png'}
+        fileList={fileList}
+        showUploadList={false}
+        multiple={false}
+        maxCount={1}
+        className={classNames(prefixCls, className)}
+        ref={ref}
+      >
+        <UploadAvatar fileList={fileList} icon={icon} title={title} />
+      </UploadWrapper>
+    );
+  }
+);
 
 export default UploadImage;
