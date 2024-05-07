@@ -86,27 +86,24 @@ const UploadAvatar: React.FC<{
   return dom;
 };
 
-const UploadImage: React.FC<UploadWrapperProps> = ({
-  fileList,
-  className,
-  icon,
-  title,
-  ...restProps
-}) => {
-  return (
-    <UploadWrapper
-      {...restProps}
-      listType="picture-card"
-      accept={restProps?.accept || '.jpg, .jpeg, .png'}
-      fileList={fileList}
-      showUploadList={false}
-      multiple={false}
-      maxCount={1}
-      className={classNames(prefixCls, className)}
-    >
-      <UploadAvatar fileList={fileList} icon={icon} title={title} />
-    </UploadWrapper>
-  );
-};
+const UploadImage = React.forwardRef<any, UploadWrapperProps>(
+  ({ fileList, className, icon, title, ...restProps }, ref) => {
+    return (
+      <UploadWrapper
+        {...restProps}
+        listType="picture-card"
+        accept={restProps?.accept || '.jpg, .jpeg, .png'}
+        fileList={fileList}
+        showUploadList={false}
+        multiple={false}
+        maxCount={1}
+        className={classNames(prefixCls, className)}
+        ref={ref}
+      >
+        <UploadAvatar fileList={fileList} icon={icon} title={title} />
+      </UploadWrapper>
+    );
+  }
+);
 
 export default UploadImage;

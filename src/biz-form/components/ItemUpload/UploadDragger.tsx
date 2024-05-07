@@ -8,7 +8,7 @@ const defaultShowUploadList = {
   showPreviewIcon: false
 };
 
-const UploadDragger: React.FC<UploadWrapperProps> = (props) => {
+const UploadDragger = React.forwardRef<any, UploadWrapperProps>((props, ref) => {
   const { locale } = useConfig();
   const {
     showUploadList,
@@ -31,11 +31,11 @@ const UploadDragger: React.FC<UploadWrapperProps> = (props) => {
   }, [showUploadList]);
 
   return (
-    <UploadWrapper {...restProps} dragger showUploadList={innerShowUploadList}>
+    <UploadWrapper dragger {...restProps} ref={ref} showUploadList={innerShowUploadList}>
       <p className="ant-upload-drag-icon">{icon}</p>
       <p className="ant-upload-text">{title}</p>
     </UploadWrapper>
   );
-};
+});
 
 export default UploadDragger;

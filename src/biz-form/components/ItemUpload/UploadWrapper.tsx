@@ -39,7 +39,7 @@ export interface UploadWrapperProps extends UploadProps {
   previewModalProps?: Partial<PreviewProps>;
 }
 
-const UploadWrapper: React.FC<UploadWrapperProps> = (props) => {
+const UploadWrapper = React.forwardRef<any, UploadWrapperProps>((props, ref) => {
   const { locale } = useConfig();
   const {
     onUpload,
@@ -222,6 +222,7 @@ const UploadWrapper: React.FC<UploadWrapperProps> = (props) => {
         className={classNames(prefixCls, className)}
         action={action}
         maxCount={maxCount}
+        ref={ref}
         {...restProps}
       />
       {enabledShowPreview && !restProps.onPreview && (
@@ -229,6 +230,6 @@ const UploadWrapper: React.FC<UploadWrapperProps> = (props) => {
       )}
     </>
   );
-};
+});
 
 export default UploadWrapper;

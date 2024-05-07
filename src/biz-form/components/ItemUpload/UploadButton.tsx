@@ -9,7 +9,7 @@ const defaultShowUploadList = {
   showPreviewIcon: false
 };
 
-const UploadButton: React.FC<UploadWrapperProps> = (props) => {
+const UploadButton = React.forwardRef<any, UploadWrapperProps>((props, ref) => {
   const { locale } = useConfig();
   const {
     showUploadList,
@@ -32,10 +32,10 @@ const UploadButton: React.FC<UploadWrapperProps> = (props) => {
   }, [showUploadList]);
 
   return (
-    <UploadWrapper {...restProps} showUploadList={innerShowUploadList}>
+    <UploadWrapper {...restProps} ref={ref} showUploadList={innerShowUploadList}>
       <Button icon={icon}>{title}</Button>
     </UploadWrapper>
   );
-};
+});
 
 export default UploadButton;
