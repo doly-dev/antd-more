@@ -7,23 +7,24 @@ import { BizForm, QueryForm } from '../biz-form';
 import createFormItems from './_util/createFormItems';
 import type { SearchProps } from './interface';
 
-export declare interface SearchFormProps extends QueryFormProps {
+export interface SearchFormProps extends QueryFormProps {
   formItems?: Exclude<React.ReactNode, string | number | boolean | null | undefined>[];
   searchItems?: SearchProps[];
   cardProps?: CardProps;
-  ref?: React.LegacyRef<FormInstance<any>>;
 }
 
-const SearchForm: React.FC<SearchFormProps> = React.forwardRef(
+const SearchForm = React.forwardRef<FormInstance, SearchFormProps>(
   ({ formItems, searchItems, cardProps, name, ...restProps }, ref) => {
-    let items = [];
     const [form] = BizForm.useForm();
 
-    if (isArray(formItems) && formItems.length > 0) {
-      items = formItems;
-    } else if (isArray(searchItems) && searchItems.length > 0) {
-      items = createFormItems(searchItems, form);
-    }
+    const items = React.useMemo(() => {
+      if (isArray(formItems) && formItems.length > 0) {
+        return formItems;
+      } else if (isArray(searchItems) && searchItems.length > 0) {
+        return createFormItems(searchItems, form);
+      }
+      return [];
+    }, [form, formItems, searchItems]);
 
     const formName = React.useMemo(() => name || uniqueId('__am_bizTableSearchForm_'), [name]);
     React.useImperativeHandle(ref, () => form, [form]);
@@ -45,11 +46,7 @@ const SearchForm: React.FC<SearchFormProps> = React.forwardRef(
         }}
       >
         <QueryForm form={form} name={formName} {...restProps}>
-          {items.map((item: any, index) =>
-            React.cloneElement(item, {
-              key: item?.key || item?.props?.key || index.toString()
-            })
-          )}
+          {items}
         </QueryForm>
       </Card>
     );

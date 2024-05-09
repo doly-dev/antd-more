@@ -31,13 +31,16 @@ const BizTableWithCache: React.FC<BizTableWithCacheProps> = ({
 }) => {
   const cache = memoryCache.get(cacheKey);
   const innerFormRef = useRef<FormInstance>();
-  const formRef = outerFormRef ? outerFormRef : innerFormRef;
+  const formRef = outerFormRef || innerFormRef;
   const innerActionRef = useRef<BizTableActionType>();
-  const actionRef = outerActionRef ? outerActionRef : innerActionRef;
-  const internalRequest: BizTableRequest = async (params, ...args) => {
-    memoryCache.set(cacheKey, params);
-    return request?.(params, ...args);
-  };
+  const actionRef = outerActionRef || innerActionRef;
+  const internalRequest: BizTableRequest = React.useCallback(
+    async (params, ...args) => {
+      memoryCache.set(cacheKey, params);
+      return request!(params, ...args);
+    },
+    [cacheKey, request]
+  );
 
   const cacheTransformInfo = useMemo(() => {
     const result: Record<string, { type: string; names: any[] }> = {};
@@ -84,7 +87,7 @@ const BizTableWithCache: React.FC<BizTableWithCacheProps> = ({
 
   return (
     <BizTable
-      request={internalRequest}
+      request={request && internalRequest}
       autoRequest={false}
       pagination={pagination !== false ? { pageSize: cache?.pageSize, ...pagination } : false}
       formRef={formRef}

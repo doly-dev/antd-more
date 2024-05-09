@@ -38,6 +38,7 @@ export function createFormItem({ search, ...restProps }: SearchProps, form: Form
     title,
     dataIndex,
     originItem,
+    key,
     ...restOptions
   } = options;
 
@@ -46,18 +47,27 @@ export function createFormItem({ search, ...restProps }: SearchProps, form: Form
   const FormItemComp = ValueTypeToItemType[type]
     ? ItemTypes[ValueTypeToItemType[type]]
     : ItemTypes[type] || ItemTypes.input;
-  const pickerProps = DatePickerMap[type] ? { picker: DatePickerMap[type] } : {};
-  const formatProps = type === valueType && DateFormat[type] ? { format: DateFormat[type] } : {};
-  const showTimeProps = type === 'dateTime' || type === 'dateTimeRange' ? { showTime: true } : {};
+  const defaultProps: Record<string, any> = {};
+
+  if (valueEnum) {
+    defaultProps.options = valueEnum;
+  }
+  if (DatePickerMap[type]) {
+    defaultProps.picker = DatePickerMap[type];
+  }
+  if (type === valueType && DateFormat[type]) {
+    defaultProps.format = DateFormat[type];
+  }
+  if (type === 'dateTime' || type === 'dateTimeRange') {
+    defaultProps.showTime = true;
+  }
 
   const dom = (
     <FormItemComp
       label={label || title}
       name={name || (dataIndex as NamePath)}
-      options={valueEnum}
-      {...showTimeProps}
-      {...formatProps}
-      {...pickerProps}
+      key={key}
+      {...defaultProps}
       {...restOptions}
     />
   );
