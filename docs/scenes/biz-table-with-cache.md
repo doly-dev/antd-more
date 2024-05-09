@@ -30,8 +30,9 @@ memoryCache.clear();
 
 ### BizTableWithCache
 
-| 参数     | 说明                   | 类型     | 默认值 |
-| -------- | ---------------------- | -------- | ------ |
-| cacheKey | 查询项和页面缓存键值。 | `string` | -      |
+| 参数 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| cacheKey | 查询项和页面缓存键值。 | `string` | - |
+| useQuerySearch | 如果外部使用 query 自定义查询和请求，可以设为 true 。缓存恢复时不触发请求，需要自己手动触发请求。 | `boolean` | `false` |
 
 建议关注 React 18.x 中的官方实现 [`<Offscreen />`](https://github.com/reactwg/react-18/discussions/19) 。

@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef, useCallback } from 'react';
 import type { FormInstance } from 'antd';
 import type { BizTableActionType, BizTableProps, BizTableRequest } from 'antd-more';
 import { BizTable } from 'antd-more';
@@ -8,11 +7,11 @@ import dayjs from 'dayjs';
 import { memoryCache } from './storage';
 
 const dateTypes = ['dateRange', 'timeRange'];
+const pageFields = ['current', 'pageSize']; // 分页参数，用于设置缓存表单值时排除
 
 interface BizTableWithCacheProps extends Omit<BizTableProps, 'formRef'> {
   cacheKey: string;
   formRef?: React.MutableRefObject<FormInstance | undefined>;
-  pageParamsField?: string[]; // 分页参数，用于设置缓存表单参数时排除
   useQuerySearch?: boolean; // 如果外部使用query自定义查询和请求，可以设为true
 }
 
@@ -24,7 +23,6 @@ const BizTableWithCache: React.FC<BizTableWithCacheProps> = ({
   actionRef: outerActionRef,
   formRef: outerFormRef,
   columns = [],
-  pageParamsField = ['current', 'pageSize'],
   useQuerySearch = false,
   asyncOptions,
   ...restProps
@@ -34,7 +32,7 @@ const BizTableWithCache: React.FC<BizTableWithCacheProps> = ({
   const formRef = outerFormRef || innerFormRef;
   const innerActionRef = useRef<BizTableActionType>();
   const actionRef = outerActionRef || innerActionRef;
-  const internalRequest: BizTableRequest = React.useCallback(
+  const internalRequest: BizTableRequest = useCallback(
     async (params, ...args) => {
       memoryCache.set(cacheKey, params);
       return request!(params, ...args);
@@ -78,12 +76,12 @@ const BizTableWithCache: React.FC<BizTableWithCacheProps> = ({
               .filter(negate(isNil));
           }
         });
-        formRef.current?.setFieldsValue({ ...omit(formValues, pageParamsField) });
+        formRef.current?.setFieldsValue({ ...omit(formValues, pageFields) });
       }
       actionRef.current?.submitAndCurrent(formValues?.current || 1);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [autoRequest]);
+  }, [autoRequest, useQuerySearch]);
 
   return (
     <BizTable
