@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { isArray } from 'ut2';
+import { isArray, toString } from 'ut2';
 import type { FormInstance } from 'antd';
 import type { NamePath } from 'antd/es/form/interface';
 import type { SearchProps } from '../interface';
@@ -90,7 +90,7 @@ function createFormItems(options: SearchProps[], form: FormInstance) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       .map(({ order, ...restItem }, index) =>
         createFormItem(
-          { key: restItem.dataIndex || restItem.name || index.toString(), ...restItem },
+          { key: toString(restItem.dataIndex || restItem.name || index), ...restItem },
           form
         )
       )
