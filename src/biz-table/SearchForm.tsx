@@ -1,7 +1,7 @@
 import * as React from 'react';
 import type { CardProps, FormInstance } from 'antd';
 import { Card } from 'antd';
-import { isArray, uniqueId } from 'ut2';
+import { isArray, toString, uniqueId } from 'ut2';
 import type { QueryFormProps } from '../biz-form';
 import { BizForm, QueryForm } from '../biz-form';
 import createFormItems from './_util/createFormItems';
@@ -40,7 +40,28 @@ const SearchForm = React.forwardRef<FormInstance, SearchFormProps>(
         bodyStyle={{ paddingBottom: 0, ...cardProps?.bodyStyle }}
       >
         <QueryForm form={form} name={formName} {...restProps}>
-          {items}
+          {items.map((item, index) => {
+            if (!item) {
+              return null;
+            }
+            if (item.type === Symbol.for('react.fragment')) {
+              return (
+                <div
+                  key={toString(
+                    item.key || item.props?.key || item.name || item.props?.name || index
+                  )}
+                >
+                  {item}
+                </div>
+              );
+            }
+            return React.cloneElement(
+              item,
+              item.key || item.props?.key
+                ? null
+                : { key: toString(item.name || item.props?.name || index) }
+            );
+          })}
         </QueryForm>
       </Card>
     );
