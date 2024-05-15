@@ -78,7 +78,7 @@ function BizFormItemCascader<DataNodeType = any>(props: BizFormItemCascaderProps
         getPopupContainer={getPopupContainer}
         fieldNames={fieldNames}
         allowClear={allowClear}
-        {...cascaderProps}
+        {...(cascaderProps as any)}
         options={options}
       />
     </BizFormItem>

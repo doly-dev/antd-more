@@ -20,12 +20,12 @@ toc: content
 - [QueryForm] - 查询表单
 - [StepsForm] - 分步表单
 
-### 其他
+## 其他
 
 - [BizConfigProvider] - 上下文配置
 - [BizUserLayout] - 用户界面布局
 
-### 通用
+## 通用
 
 - [CaptchaButton] - 验证码按钮
 - [Color] - 颜色
