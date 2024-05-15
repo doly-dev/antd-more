@@ -1,7 +1,7 @@
-import { Cache } from 'cache2';
 import type { UploadFile } from 'antd';
-import { isArray, uniqueId } from 'ut2';
+import { isArray, isObject, uniqueId } from 'ut2';
 import { downloadFile } from '../services';
+import { AsyncMemo } from 'util-helpers';
 
 export function wrapperUploadFile<T = any>(opts: Partial<UploadFile>) {
   return {
@@ -14,47 +14,37 @@ export function wrapperUploadFile<T = any>(opts: Partial<UploadFile>) {
   } as UploadFile<T>;
 }
 
-const asyncCache: Record<string, any> = {};
-const fileCache = new Cache({ max: 20, maxStrategy: 'replaced', stdTTL: 5 * 60 * 1000 });
-
-fileCache.on('del', (key, value) => {
-  if (value && value?.fileUrl) {
+const asyncMemo = new AsyncMemo({
+  max: 20,
+  maxStrategy: 'replaced',
+  stdTTL: 10 * 60 * 1000,
+  prefix: 'fileUtils'
+});
+asyncMemo.cache.on('del', (key, value) => {
+  if (isObject(value) && value.fileUrl) {
     URL.revokeObjectURL(value.fileUrl);
   }
 });
 
 async function getFileByFssid(fssid: string): Promise<UploadFile> {
-  let cache = fileCache.get(fssid);
-
-  if (!cache) {
-    if (!asyncCache[fssid]) {
-      asyncCache[fssid] = async () =>
-        downloadFile(fssid).finally(() => {
-          delete asyncCache[fssid];
-        });
-    }
-    try {
-      const res = await asyncCache[fssid]();
-      fileCache.set(fssid, res);
-      cache = res;
-    } catch (error) {
-      return wrapperUploadFile({
-        status: 'error',
-        error,
-        response: {
-          fssid
-        }
-      });
-    }
+  try {
+    const res = await asyncMemo.run(() => downloadFile(fssid), fssid);
+    return wrapperUploadFile({
+      name: res?.data,
+      response: {
+        fssid
+      },
+      url: res?.data
+    });
+  } catch (error) {
+    return wrapperUploadFile({
+      status: 'error',
+      error,
+      response: {
+        fssid
+      }
+    });
   }
-
-  return wrapperUploadFile({
-    name: cache?.data,
-    response: {
-      fssid
-    },
-    url: cache?.data
-  });
 }
 
 // 通过 fssid 转为 UploadFile

@@ -68,7 +68,7 @@ export function getFileType(file?: UploadFile) {
 }
 
 // 缓存 URL.createObjectURL
-export const fileCache = new Cache({ max: 20, maxStrategy: 'replaced' });
+export const fileCache = new Cache('antd-more-file-viewer', { max: 20, maxStrategy: 'replaced' });
 
 fileCache.on('del', (key, value) => {
   try {
