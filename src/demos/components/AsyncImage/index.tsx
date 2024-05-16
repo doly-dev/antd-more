@@ -46,16 +46,13 @@ const AsyncImage: React.FC<AsyncImageProps> = ({
 
   const { data, loading } = useAsync(
     () =>
-      fssidToUploadFile(tempFiles.ids).then((res) => {
-        if (!isArray(res)) {
-          return [];
-        }
-        return res.map((item, index) => ({
+      fssidToUploadFile(tempFiles.ids).then((res) =>
+        res.map((item, index) => ({
           src: item.url,
           name: tempFiles.names[index] || undefined,
           originUrl: item.response.url
-        }));
-      }),
+        }))
+      ),
     {
       refreshDeps: [tempFiles]
     }
