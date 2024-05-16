@@ -1,5 +1,5 @@
 import type { UploadFile } from 'antd';
-import { isArray, isObject, uniqueId } from 'ut2';
+import { castArray, isArray, isObject, uniqueId } from 'ut2';
 import { downloadFile } from '../services';
 import { AsyncMemo } from 'util-helpers';
 
@@ -26,47 +26,41 @@ asyncMemo.cache.on('del', (key, value) => {
   }
 });
 
-async function getFileByFssid(fssid: string): Promise<UploadFile> {
-  try {
-    const res = await asyncMemo.run(() => downloadFile(fssid), fssid);
-    return wrapperUploadFile({
-      name: res?.data,
-      response: {
-        fssid
-      },
-      url: res?.data
-    });
-  } catch (error) {
-    return wrapperUploadFile({
-      status: 'error',
-      error,
-      response: {
-        fssid
-      }
-    });
-  }
-}
-
 // 通过 fssid 转为 UploadFile
 // 适用于详情页图片展示、表单回显
-export function fssidToUploadFile<T = any>(fssid: string): Promise<UploadFile<T>>;
-export function fssidToUploadFile<T = any>(fssid: string[]): Promise<UploadFile<T>[]>;
-export function fssidToUploadFile(fssid: string | string[]) {
-  if (typeof fssid === 'string') {
-    return getFileByFssid(fssid);
+export function fssidToUploadFile<T = any>(fssid: string | string[]): Promise<UploadFile<T>[]> {
+  if (!fssid) {
+    return Promise.resolve([]);
   }
 
-  if (isArray(fssid)) {
-    const tasks: Promise<any>[] = [];
+  const ids = castArray(fssid);
+  const tasks: Promise<{ data: string }>[] = [];
 
-    fssid.forEach((item) => {
-      tasks.push(getFileByFssid(item));
-    });
+  ids.forEach((id) => {
+    tasks.push(asyncMemo.run(() => downloadFile(id), id)); // 如果有特殊处理可以在此次修改，例如解压zip文件（注意修改类型和后续处理）
+  });
 
-    return Promise.all(tasks);
-  }
+  return Promise.allSettled(tasks).then((result) =>
+    result.map((item) => {
+      if (item.status === 'fulfilled') {
+        return wrapperUploadFile({
+          name: item.value.data,
+          response: {
+            fssid
+          },
+          url: item.value.data
+        });
+      }
 
-  return Promise.reject('fssidToUploadFile 参数必须为 string 或 string[]');
+      return wrapperUploadFile({
+        status: 'error',
+        error: item.reason,
+        response: {
+          fssid
+        }
+      });
+    })
+  );
 }
 
 // 通过 UploadFile 转为 fssid
@@ -74,7 +68,7 @@ export function fssidToUploadFile(fssid: string | string[]) {
 export function uploadFileToFssid(fileList: UploadFile[], nil: false): (string | undefined)[];
 export function uploadFileToFssid(fileList: UploadFile[], nil?: true): string[];
 export function uploadFileToFssid(fileList: any, nil = true) {
-  const result: any[] = [];
+  const result: string[] = [];
   if (isArray(fileList)) {
     fileList.forEach((item) => {
       if (item && typeof item === 'object' && typeof item.response === 'object') {
