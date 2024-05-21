@@ -34,29 +34,40 @@ export function fssidToUploadFile<T = any>(fssid: string | string[]): Promise<Up
   }
 
   const ids = castArray(fssid);
-  const tasks: Promise<{ data: string }>[] = [];
+  const tasks: Promise<{ url: string; fssid: string }>[] = [];
 
   ids.forEach((id) => {
-    tasks.push(asyncMemo.run(() => downloadFile(id), id)); // 如果有特殊处理可以在此次修改，例如解压zip文件（注意修改类型和后续处理）
+    tasks.push(
+      asyncMemo.run(
+        () =>
+          // 如果有特殊处理可以在此次修改，例如解压zip文件（注意修改类型和后续处理）
+          downloadFile(id)
+            .then((res) => ({ url: res.data, fssid: id }))
+            .catch((error) => {
+              return Promise.reject({ error, message: '文件加载失败', fssid: id });
+            }),
+        id
+      )
+    );
   });
 
   return Promise.allSettled(tasks).then((result) =>
     result.map((item) => {
       if (item.status === 'fulfilled') {
         return wrapperUploadFile({
-          name: item.value.data,
+          name: item.value.url,
           response: {
-            fssid
+            fssid: item.value.fssid
           },
-          url: item.value.data
+          url: item.value.url
         });
       }
 
       return wrapperUploadFile({
         status: 'error',
-        error: item.reason,
+        error: item.reason.message,
         response: {
-          fssid
+          fssid: item.reason.fssid
         }
       });
     })
