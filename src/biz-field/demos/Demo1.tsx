@@ -23,9 +23,14 @@ export default () => {
           <BizField value={40} valueType="progress" />
         </Descriptions.Item>
         <Descriptions.Item label="百分比">
-          <BizField value={-10} valueType="percent" />,
-          <BizField value={0} valueType="percent" />,
-          <BizField value={10} valueType="percent" />
+          <div>
+            <BizField value={-10} valueType="percent" />,
+            <BizField value={0} valueType="percent" />,
+            <BizField value={10} valueType="percent" />
+            {/* <br />
+            <BizField value={10.1232} valueType="percent" />,
+            <BizField value={10.1232} valueType="percent" precision="auto" /> */}
+          </div>
         </Descriptions.Item>
         <Descriptions.Item label="百分比样式">
           <BizField value={-10} valueType="percent" showSymbol showColor />,

@@ -18,7 +18,7 @@ function getSymbol(value) {
 
 const Percent: React.FC<
   Pick<BizFieldProps, 'value' | 'defaultValue'> & {
-    precision?: number;
+    precision?: number | 'auto';
     showColor?: boolean;
     showSymbol?: boolean;
     suffix?: React.ReactNode;
@@ -31,7 +31,8 @@ const Percent: React.FC<
     showColor = false,
     showSymbol = false,
     suffix = '%',
-    defaultValue = '-'
+    defaultValue = '-',
+    ...restProps
   }) => {
     const realValue =
       typeof value === 'string' && (value as string).includes('%')
@@ -42,9 +43,17 @@ const Percent: React.FC<
     const symbol = showSymbol ? getSymbol(realValue) : '';
 
     const ret =
-      value === '' || isNil(value) ? defaultValue : symbol + realValue.toFixed(precision) + suffix;
+      value === '' || isNil(value)
+        ? defaultValue
+        : symbol +
+          (typeof precision === 'number' ? realValue.toFixed(precision) : realValue) +
+          suffix;
 
-    return <span style={styles}>{ret}</span>;
+    return (
+      <span style={styles} {...restProps}>
+        {ret}
+      </span>
+    );
   }
 );
 
