@@ -110,13 +110,13 @@ export type EnumData<ValueType = any> = EnumItem<ValueType>[];
 
 #### percent
 
-| 参数         | 说明                                          | 类型        | 默认值  |
-| ------------ | --------------------------------------------- | ----------- | ------- |
-| precision    | 精度                                          | `number`    | `2`     |
-| showColor    | 显示颜色                                      | `boolean`   | `false` |
-| showSymbol   | 显示符号                                      | `boolean`   | `false` |
-| suffix       | 百分号后缀                                    | `string`    | `"%"`   |
-| defaultValue | 默认值，当值为 `null` `undefined` `""` 时显示 | `ReactNode` | `"-"`   |
+| 参数         | 说明                                          | 类型               | 默认值  |
+| ------------ | --------------------------------------------- | ------------------ | ------- |
+| precision    | 精度                                          | `number \| 'auto'` | `2`     |
+| showColor    | 显示颜色                                      | `boolean`          | `false` |
+| showSymbol   | 显示符号                                      | `boolean`          | `false` |
+| suffix       | 百分号后缀                                    | `string`           | `"%"`   |
+| defaultValue | 默认值，当值为 `null` `undefined` `""` 时显示 | `ReactNode`        | `"-"`   |
 
 #### 日期类
 
