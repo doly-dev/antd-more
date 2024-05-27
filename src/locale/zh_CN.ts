@@ -1,4 +1,5 @@
-import 'rc-pagination/lib/locale/zh_CN';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import type { PaginationLocale } from 'antd/es/pagination/Pagination';
 import antdLocale from 'antd/es/locale/zh_CN';
 
 const localeValues = {

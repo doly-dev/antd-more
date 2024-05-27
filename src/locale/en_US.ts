@@ -1,4 +1,5 @@
-import 'rc-pagination/lib/locale/en_US';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import type { PaginationLocale } from 'antd/es/pagination/Pagination';
 import antdLocale from 'antd/es/locale/en_US';
 
 const localeValues = {
