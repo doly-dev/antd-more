@@ -18,7 +18,7 @@ const logo = `${baseUrl}/logo.png`;
 const favicons = [`${baseUrl}/favicon.ico`];
 const outputPath = 'site';
 const base = isDev ? '/' : `/${name}/${versionPath}/`;
-const publicPath = isDev ? '/' : `${baseUrl}${base}/`;
+const publicPath = isDev ? '/' : `${base}`;
 
 export default defineConfig({
   hash: true,
