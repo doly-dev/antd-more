@@ -1,20 +1,22 @@
-const pkg = require('./package.json');
+const { name, version } = require('./package.json');
+
+const baseUrl = 'https://doly-dev.github.io';
 const isDev = process.env.NODE_ENV === 'development';
 
-const MajorVersionNumber = Number(pkg.version.split('.')[0]);
+const MajorVersionNumber = Number(version.split('.')[0]);
 const versionSiteRoot = `refs/heads/v${MajorVersionNumber}`;
 
 const preMajorVersionNumber = MajorVersionNumber - 1;
 const preVersionSiteRoot = `refs/heads/v${preMajorVersionNumber}`;
 
-const version = process.env.BUIDL_DOC_VERSION ? versionSiteRoot : 'latest';
+const versionPath = process.env.BUIDL_DOC_VERSION ? versionSiteRoot : 'latest';
 
-const serverRootDirect = !isDev ? `https://doly-dev.github.io/${pkg.name}/` : '/';
-const logo = 'https://doly-dev.github.io/logo.png';
-const favicon = 'https://doly-dev.github.io/favicon.png';
+const logo = `${baseUrl}/logo.png`;
+const favicon = `${baseUrl}/favicon.png`;
 
 const outputPath = 'site';
-const publicPath = serverRootDirect + version + '/';
+const base = isDev ? '/' : `/${name}/${versionPath}/`;
+const publicPath = isDev ? '/' : base;
 
 const addFileLoader = (config) => {
   config.module
@@ -85,15 +87,15 @@ const umiConfig = {
     },
     {
       title: `v${preMajorVersionNumber}.x`,
-      path: `https://doly-dev.github.io/${pkg.name}/${preVersionSiteRoot}/index.html`
+      path: `https://doly-dev.github.io/${name}/${preVersionSiteRoot}/index.html`
     },
     {
       title: 'GitHub',
-      path: `https://github.com/doly-dev/${pkg.name}`
+      path: `https://github.com/doly-dev/${name}`
     },
     {
       title: '更新日志',
-      path: `https://github.com/doly-dev/${pkg.name}/releases`
+      path: `https://github.com/doly-dev/${name}/releases`
     }
   ],
   menus: {
