@@ -1,7 +1,6 @@
 import * as React from 'react';
 import type { BizFormItemAutoCompleteProps } from 'antd-more';
-import { BizFormItemAutoComplete } from 'antd-more';
-import { useState } from 'react';
+import { BizForm, BizFormItemAutoComplete } from 'antd-more';
 import { isEmail } from 'util-helpers';
 
 // 邮箱后缀
@@ -17,32 +16,32 @@ const EmailSuffix = [
 ];
 
 const ItemAutoCompleteEmail: React.FC<BizFormItemAutoCompleteProps> = ({
+  name,
   extendRules = [],
   ...restProps
 }) => {
-  const [options, setOptions] = useState<BizFormItemAutoCompleteProps['options']>([]);
+  // 通过表单获取值，兼容表单有初始值或手动设置表单值的情况
+  const form = BizForm.useFormInstance();
+  const value = BizForm.useWatch(name, form);
 
-  const updateOptions = (val?: string) => {
-    const [valPrefix, valSuffix] = val.split('@');
-    const opts = val
-      ? EmailSuffix.filter((suffix) => {
-          if (!valSuffix) {
-            return true;
-          }
-          return suffix.indexOf(valSuffix) > 0;
-        }).map((suffix) => {
-          const opt = valPrefix + suffix;
-          return {
-            label: opt,
-            value: opt
-          };
-        })
-      : [];
-    setOptions(opts);
-  };
+  const options = React.useMemo(() => {
+    if (!value) {
+      return [];
+    }
+
+    const [valPrefix, valSuffix] = value.split('@');
+    return EmailSuffix.filter((item) => !valSuffix || item.indexOf(valSuffix) > 0).map((item) => {
+      const opt = valPrefix + item;
+      return {
+        label: opt,
+        value: opt
+      };
+    });
+  }, [value]);
 
   return (
     <BizFormItemAutoComplete
+      name={name}
       validateTrigger="onBlur"
       extendRules={[
         {
@@ -56,10 +55,6 @@ const ItemAutoCompleteEmail: React.FC<BizFormItemAutoCompleteProps> = ({
         ...extendRules
       ]}
       options={options}
-      onSearch={updateOptions}
-      onFocus={(e) => {
-        updateOptions((e.target as HTMLInputElement).value);
-      }}
       {...restProps}
     />
   );
