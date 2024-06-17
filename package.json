@@ -96,11 +96,11 @@
     "classnames": "^2.5.1",
     "countdown-pro": "^2.0.1",
     "dayjs": "^1.11.11",
-    "rc-hooks": "^3.0.9",
+    "rc-hooks": "^3.0.10",
     "rc-util": "^5.42.1",
     "react-color": "^2.19.3",
     "ut2": "^1.9.1",
-    "util-helpers": "^4.23.1"
+    "util-helpers": "^5.0.0"
   },
   "lint-staged": {
     "**/*.less": "stylelint --fix",
