@@ -92,15 +92,15 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.24.7",
-    "cache2": "^2.0.5",
+    "cache2": "^3.0.0",
     "classnames": "^2.5.1",
     "countdown-pro": "^2.0.1",
     "dayjs": "^1.11.11",
     "rc-hooks": "^3.0.10",
-    "rc-util": "^5.42.1",
+    "rc-util": "^5.43.0",
     "react-color": "^2.19.3",
     "ut2": "^1.9.1",
-    "util-helpers": "^5.0.0"
+    "util-helpers": "^5.0.1"
   },
   "lint-staged": {
     "**/*.less": "stylelint --fix",
