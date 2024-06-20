@@ -6,17 +6,17 @@ import { uploadFile } from '../../biz-form/demos/services';
 import { uploadFileToFssid } from '../../biz-form/demos/utils/fileUtils';
 
 function Demo() {
-  const loadingCountRef = React.useRef(0); // 图片上传中标记次数，仅在值为0的时候才允许下一步
+  const uploadingCountRef = React.useRef(0); // 图片上传中标记次数，仅在值为0的时候才允许下一步
 
   const wrapperFileUpload = React.useCallback((...args: Parameters<typeof uploadFile>) => {
-    loadingCountRef.current++;
+    uploadingCountRef.current++;
     return uploadFile(...args).finally(() => {
-      loadingCountRef.current--;
+      uploadingCountRef.current--;
     });
   }, []);
 
   const checkLoadingCountIsZero = React.useCallback(() => {
-    if (loadingCountRef.current !== 0) {
+    if (uploadingCountRef.current !== 0) {
       message.info('有文件正在上传中，需等文件上传完成再操作！');
       return false;
     }

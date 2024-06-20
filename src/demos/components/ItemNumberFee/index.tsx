@@ -7,8 +7,8 @@ import InputNumberFee from './InputNumberFee';
 
 interface ItemNumberFeeProps extends BizFormItemProps, Pick<InputNumberFeeProps, 'beforeValue'> {
   inputProps?: InputNumberFeeProps;
-  gte?: number;
-  lte?: number;
+  gte?: string | number;
+  lte?: string | number;
 }
 
 const ItemNumberFee: React.FC<ItemNumberFeeProps> = ({
