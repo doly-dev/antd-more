@@ -27,7 +27,7 @@ group:
 
 这样可以保障文件都上传完成才能进行提交操作。
 
-<code src='../../src/demos/ItemUploadCertificate/check-loading.tsx' />
+<code src='../../src/demos/ItemUploadCertificate/check-uploading.tsx' />
 
 ## API
 

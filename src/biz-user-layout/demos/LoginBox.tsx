@@ -1,10 +1,12 @@
 import * as React from 'react';
 import { Card, Checkbox } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { sleep } from 'ut2';
+import { sleep, uniqueId } from 'ut2';
 import { BizForm, BizFormItem, BizFormItemInput, BizFormItemPassword } from 'antd-more';
 
 const LoginBox: React.FC<{ showRegisterEnter?: boolean }> = ({ showRegisterEnter = false }) => {
+  const formName = React.useMemo(() => uniqueId('loginForm_'), []);
+
   return (
     <Card
       title="账号密码登录"
@@ -14,6 +16,7 @@ const LoginBox: React.FC<{ showRegisterEnter?: boolean }> = ({ showRegisterEnter
       bodyStyle={{ paddingTop: 0 }}
     >
       <BizForm
+        name={formName}
         onFinish={async (values) => {
           await sleep(2000);
           console.log(values);
