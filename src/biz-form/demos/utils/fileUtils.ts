@@ -7,12 +7,38 @@ export function wrapperUploadFile<T = any>(opts: Partial<UploadFile>) {
   return {
     uid: uniqueId(),
     status: 'done',
-    thumbUrl: opts.url,
-    url: opts.url,
+    thumbUrl: opts?.url,
     name: '',
     ...opts
   } as UploadFile<T>;
 }
+
+// async function transformUploadFile(
+//   data: API.Filedownload['data'],
+//   fssid: string,
+//   enabledParseZip: boolean,
+// ) {
+//   const fileKey = data.fileInfo?.fileKey;
+//   if (enabledParseZip && fileKey && fileKey.slice(-3) === 'zip') {
+//     let files: ZipDataType[] = [];
+//     try {
+//       files = await parseZip(data.buffer);
+//       // console.log(files);
+//     } catch (e) {
+//       console.error(e);
+//     }
+//     return files.map((item) =>
+//       wrapperUploadFile({ url: URL.createObjectURL(item.blob), response: { fssid: item.fssid } }),
+//     );
+//   }
+//   const file = setDataURLPrefix(data.buffer);
+//   return [
+//     wrapperUploadFile({
+//       url: URL.createObjectURL(dataURLToBlob(file)),
+//       response: { fssid },
+//     }),
+//   ];
+// }
 
 const asyncMemo = new AsyncMemo({
   max: 20,
